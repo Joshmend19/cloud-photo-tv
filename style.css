@@ -1,0 +1,80 @@
+* { box-sizing: border-box; }
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #f7f9fc;
+  background: #07111f;
+}
+body { margin: 0; min-height: 100vh; background: #07111f; }
+.hidden { display: none !important; }
+.center { min-height: 100vh; display: grid; place-items: center; text-align: center; padding: 24px; }
+
+.spinner {
+  width: 42px; height: 42px; border: 4px solid #26364d;
+  border-top-color: #4da3ff; border-radius: 50%; animation: spin .8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#tvView { min-height: 100vh; display: flex; flex-direction: column; }
+.tvTop {
+  height: 72px; padding: 14px 22px; display: flex; justify-content: space-between;
+  align-items: center; background: rgba(7,17,31,.96); position: relative; z-index: 2;
+}
+.brand { font-size: 14px; font-weight: 800; letter-spacing: .14em; }
+.status { color: #a9b7ca; font-size: 13px; margin-top: 3px; }
+.smallBtn {
+  border: 1px solid #334862; background: #102039; color: white;
+  border-radius: 10px; padding: 9px 13px; cursor: pointer;
+}
+.photoStage {
+  flex: 1; position: relative; overflow: hidden; display: grid; place-items: center;
+  background: radial-gradient(circle at 50% 35%, #17365e, #07111f 70%);
+}
+.emptyTv { text-align: center; }
+.cloudIcon { font-size: 64px; opacity: .95; }
+.emptyTv h1 { margin: 10px 0 6px; font-size: clamp(28px, 4vw, 52px); }
+.emptyTv p { color: #a9b7ca; font-size: 18px; margin: 0 0 22px; }
+.qr { width: 190px; min-height: 190px; margin: 0 auto; background: white; padding: 10px; border-radius: 14px; }
+.qr img { display: block; width: 100%; height: auto; }
+.codeLabel { margin-top: 14px; color: #a9b7ca; font-size: 12px; letter-spacing: .12em; }
+.codeLabel strong { color: white; letter-spacing: .16em; margin-left: 5px; }
+.currentPhoto {
+  width: 100%; height: 100%; object-fit: contain; background: #000;
+  animation: fadeIn .45s ease;
+}
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+
+#uploadView {
+  min-height: 100vh; display: grid; place-items: center; padding: 24px;
+  background: linear-gradient(160deg, #eaf4ff, #f7fbff);
+  color: #102039;
+}
+.mobileCard {
+  width: min(100%, 430px); background: white; border-radius: 24px; padding: 28px;
+  box-shadow: 0 20px 60px rgba(22, 64, 105, .14);
+}
+.logo { font-weight: 800; color: #1976d2; letter-spacing: .02em; }
+.mobileCard h1 { font-size: 30px; margin: 24px 0 8px; }
+.mobileCard p { color: #62748a; line-height: 1.5; }
+.uploadBox {
+  border: 2px dashed #b8c9dc; border-radius: 18px; min-height: 190px;
+  display: grid; place-items: center; text-align: center; cursor: pointer;
+  padding: 24px; margin: 22px 0 14px; background: #f8fbff;
+}
+.uploadBox:hover { border-color: #1976d2; }
+.uploadIcon { font-size: 42px; color: #1976d2; }
+.uploadBox small { color: #8292a6; }
+#photoInput { display: none; }
+.primaryBtn {
+  width: 100%; border: 0; border-radius: 14px; padding: 15px;
+  font-size: 16px; font-weight: 750; background: #1976d2; color: white; cursor: pointer;
+}
+.primaryBtn:disabled { opacity: .45; cursor: not-allowed; }
+.uploadStatus { min-height: 24px; text-align: center; margin-top: 14px; color: #52657a; font-size: 14px; }
+
+.fieldLabel { display:block; font-size:14px; font-weight:700; margin:18px 0 7px; }
+.emailInput {
+  width:100%; border:1px solid #c5d2df; border-radius:12px; padding:13px 14px;
+  font-size:16px; outline:none;
+}
+.emailInput:focus { border-color:#1976d2; box-shadow:0 0 0 3px rgba(25,118,210,.12); }

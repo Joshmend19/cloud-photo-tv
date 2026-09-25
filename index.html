@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Photo TV</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <main id="app">
+    <section id="loading" class="center">
+      <div class="spinner"></div>
+      <p>Loading Cloud Photo TV…</p>
+    </section>
+
+    <section id="tvView" class="hidden">
+      <div class="tvTop">
+        <div>
+          <div class="brand">CLOUD PHOTO TV</div>
+          <div class="status" id="tvStatus">Ready for photos</div>
+        </div>
+        <button id="newTvBtn" class="smallBtn">New TV</button>
+      </div>
+
+      <div id="photoStage" class="photoStage">
+        <div id="emptyTv" class="emptyTv">
+          <div class="cloudIcon">☁</div>
+          <h1>Send a photo to this TV</h1>
+          <p>Scan the QR code with your phone.</p>
+          <div id="tvQr" class="qr"></div>
+          <div class="codeLabel">TV CODE <strong id="tvCode"></strong></div>
+        </div>
+        <img id="currentPhoto" class="currentPhoto hidden" alt="Photo displayed on TV" />
+      </div>
+    </section>
+
+    <section id="uploadView" class="hidden">
+      <div class="mobileCard">
+        <div class="logo">☁ Cloud Photo TV</div>
+        <h1>Send a photo to the TV</h1>
+        <p id="uploadDescription">Choose a photo and it will appear on the TV.</p>
+
+        <label class="fieldLabel" for="emailInput">Email for the photo gallery</label>
+        <input id="emailInput" class="emailInput" type="email" placeholder="you@example.com" autocomplete="email" />
+
+        <label class="uploadBox" for="photoInput">
+          <span class="uploadIcon">＋</span>
+          <span id="fileLabel">Choose a photo</span>
+          <small>JPG, PNG, or WEBP</small>
+        </label>
+        <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" />
+
+        <button id="uploadBtn" class="primaryBtn" disabled>Send to TV</button>
+        <div id="uploadStatus" class="uploadStatus"></div>
+      </div>
+    </section>
+
+    <section id="errorView" class="hidden center">
+      <h1>Something went wrong</h1>
+      <p id="errorText"></p>
+    </section>
+  </main>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

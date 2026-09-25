@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Photo TV Gallery</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body { background:#f5f8fc; color:#102039; }
+    .galleryWrap { width:min(1200px,94%); margin:40px auto; }
+    .galleryHead { margin-bottom:24px; }
+    .galleryHead h1 { margin:0 0 6px; }
+    .galleryHead p { color:#65778c; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
+    .card { background:white; border-radius:16px; padding:8px; box-shadow:0 8px 25px rgba(20,45,70,.08); }
+    .card img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:11px; display:block; }
+    .empty { text-align:center; padding:60px 20px; color:#65778c; }
+  </style>
+</head>
+<body>
+  <main class="galleryWrap">
+    <header class="galleryHead">
+      <div class="logo">☁ Cloud Photo TV</div>
+      <h1>Photo Gallery</h1>
+      <p id="galleryStatus">Loading photos…</p>
+    </header>
+    <section id="grid" class="grid"></section>
+  </main>
+  <script type="module" src="/gallery.js"></script>
+</body>
+</html>
