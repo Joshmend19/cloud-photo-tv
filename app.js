@@ -1,209 +1,175 @@
-import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
-import {
-  getAuth,
-  signInAnonymously
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  collection,
-  addDoc,
-  query,
-  orderBy,
-  onSnapshot,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
-
-import {
-  getFunctions,
-  httpsCallable
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-functions.js";
-
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 import QRCode from "https://cdn.jsdelivr.net/npm/qrcode@1.5.4/+esm";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config.js";
 
-/*
-  1. Create a Firebase project.
-  2. Register a Web App.
-  3. Copy its config into firebaseConfig below.
-*/
-const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_STORAGE_BUCKET",
-  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
-  appId: "PASTE_YOUR_APP_ID"
-};
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
-const functions = getFunctions(app, "us-central1");
+const $ = id => document.getElementById(id);
 
-const $ = (id) => document.getElementById(id);
-
-function show(view) {
-  ["loading", "tvView", "uploadView", "errorView"].forEach(id => $(id).classList.add("hidden"));
-  $(view).classList.remove("hidden");
+function show(id) {
+  ["loading", "tvView", "uploadView"].forEach(x => {
+    $(x).classList.add("hidden");
+  });
+  $(id).classList.remove("hidden");
 }
+
+const codeChars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
 function makeCode() {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  return Array.from({length: 6}, () => chars[Math.floor(Math.random() * chars.length)]).join("");
-}
-
-async function ensureAuth() {
-  if (!auth.currentUser) await signInAnonymously(auth);
-}
-
-async function createTvSession() {
-  const code = makeCode();
-  await setDoc(doc(db, "sessions", code), {
-    createdAt: serverTimestamp(),
-    active: true
-  });
-  return code;
+  return Array.from(
+    { length: 6 },
+    () => codeChars[Math.floor(Math.random() * codeChars.length)]
+  ).join("");
 }
 
 function tvUrl(code) {
   return `${location.origin}${location.pathname}?send=${encodeURIComponent(code)}`;
 }
 
-async function renderQr(code) {
-  const dataUrl = await QRCode.toDataURL(tvUrl(code), {
-    width: 420,
-    margin: 1,
-    errorCorrectionLevel: "M"
-  });
-  $("tvQr").innerHTML = `<img src="${dataUrl}" alt="QR code for this TV">`;
+async function createSession() {
+  for (let i = 0; i < 8; i++) {
+    const code = makeCode();
+
+    const { data } = await supabase
+      .from("sessions")
+      .select("code")
+      .eq("code", code)
+      .maybeSingle();
+
+    if (!data) {
+      const { error } = await supabase
+        .from("sessions")
+        .insert({ code, active: true });
+
+      if (!error) return code;
+    }
+  }
+
+  throw new Error("Could not create a TV code.");
 }
 
-async function startTv() {
+async function makeQR(code) {
+  const dataUrl = await QRCode.toDataURL(tvUrl(code), {
+    width: 420,
+    margin: 1
+  });
+
+  $("tvQr").innerHTML = `<img src="${dataUrl}" alt="QR code">`;
+}
+
+async function startTV() {
   show("tvView");
-  let code = sessionStorage.getItem("cloudPhotoTvCode");
+
+  let code = sessionStorage.getItem("cptv_code");
+
   if (!code) {
-    code = await createTvSession();
-    sessionStorage.setItem("cloudPhotoTvCode", code);
+    code = await createSession();
+    sessionStorage.setItem("cptv_code", code);
   }
 
   $("tvCode").textContent = code;
-  await renderQr(code);
+  await makeQR(code);
 
-  const emailBtn = document.createElement("button");
-  emailBtn.className = "smallBtn";
-  emailBtn.textContent = "Email Gallery";
-  emailBtn.title = "Send the gallery link to everyone who entered an email";
-  emailBtn.addEventListener("click", async () => {
-    if (!confirm("Send the photo gallery link to everyone who entered an email?")) return;
-    emailBtn.disabled = true;
-    emailBtn.textContent = "Sending…";
-    try {
-      const sendGalleryEmails = httpsCallable(functions, "sendGalleryEmails");
-      const result = await sendGalleryEmails({ code });
-      alert(`Sent the gallery email to ${result.data.sent} people.`);
-    } catch (e) {
-      console.error(e);
-      alert("The gallery email could not be sent. Finish the email-service setup in SETUP.md.");
-    } finally {
-      emailBtn.disabled = false;
-      emailBtn.textContent = "Email Gallery";
-    }
-  });
-  $("newTvBtn").before(emailBtn);
+  const channel = supabase
+    .channel("photos-" + code)
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "photos",
+        filter: `session_code=eq.${code}`
+      },
+      payload => displayPhoto(payload.new)
+    )
+    .subscribe();
 
-  const photos = collection(db, "sessions", code, "photos");
-  const q = query(photos, orderBy("createdAt", "asc"));
+  const { data, error } = await supabase
+    .from("photos")
+    .select("*")
+    .eq("session_code", code)
+    .order("created_at", { ascending: true });
 
-  let first = true;
-  onSnapshot(q, snapshot => {
-    if (snapshot.empty) {
-      $("emptyTv").classList.remove("hidden");
-      $("currentPhoto").classList.add("hidden");
-      $("tvStatus").textContent = "Ready for photos";
-      return;
-    }
+  if (error) throw error;
 
-    const latest = snapshot.docs[snapshot.docs.length - 1].data();
+  if (data && data.length) {
+    displayPhoto(data[data.length - 1]);
+  }
+
+  $("tvStatus").textContent = data?.length
+    ? `${data.length} photo${data.length === 1 ? "" : "s"} received`
+    : "Ready for photos";
+
+  async function displayPhoto(photo) {
     $("emptyTv").classList.add("hidden");
     $("currentPhoto").classList.remove("hidden");
-    $("currentPhoto").src = latest.url;
-    $("tvStatus").textContent = `${snapshot.size} photo${snapshot.size === 1 ? "" : "s"} received`;
+    $("currentPhoto").src = photo.url;
 
-    if (!first) {
-      $("currentPhoto").animate(
-        [{ opacity: 0.15 }, { opacity: 1 }],
-        { duration: 500, easing: "ease-out" }
-      );
-    }
-    first = false;
-  }, err => {
-    console.error(err);
-    $("tvStatus").textContent = "Connection error";
-  });
+    const { count } = await supabase
+      .from("photos")
+      .select("*", { count: "exact", head: true })
+      .eq("session_code", code);
+
+    $("tvStatus").textContent =
+      `${count || 1} photo${(count || 1) === 1 ? "" : "s"} received`;
+  }
+
+  $("newTvBtn").onclick = () => {
+    sessionStorage.removeItem("cptv_code");
+    location.reload();
+  };
+
+  $("emailBtn").onclick = () => {
+    alert("We'll set up the email feature after the photo system is working.");
+  };
 }
 
 async function startUpload(code) {
   show("uploadView");
 
-  const sessionSnap = await getDoc(doc(db, "sessions", code));
-  if (!sessionSnap.exists() || sessionSnap.data().active !== true) {
-    $("uploadDescription").textContent = "This TV session is no longer active.";
+  const { data: session } = await supabase
+    .from("sessions")
+    .select("active")
+    .eq("code", code)
+    .maybeSingle();
+
+  if (!session?.active) {
+    $("uploadDescription").textContent =
+      "This TV session is no longer active.";
     return;
   }
 
-  $("uploadDescription").textContent = `Send a photo to TV ${code}.`;
+  $("uploadDescription").textContent =
+    `Send a photo to TV ${code}.`;
+
   const input = $("photoInput");
-  const emailInput = $("emailInput");
+  const email = $("emailInput");
   const button = $("uploadBtn");
   const label = $("fileLabel");
   const status = $("uploadStatus");
 
-  input.addEventListener("change", () => {
+  input.onchange = () => {
     const file = input.files?.[0];
-    if (!file) {
-      button.disabled = true;
-      label.textContent = "Choose a photo";
-      return;
-    }
-    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-      button.disabled = true;
-      label.textContent = "Unsupported image type";
-      status.textContent = "Please choose a JPG, PNG, or WEBP image.";
-      return;
-    }
-    if (file.size > 10 * 1024 * 1024) {
-      button.disabled = true;
-      label.textContent = "Photo is too large";
-      status.textContent = "Please choose an image smaller than 10 MB.";
-      return;
-    }
-    button.disabled = false;
-    label.textContent = file.name;
-    status.textContent = "";
-  });
 
-  button.addEventListener("click", async () => {
+    button.disabled = !file;
+
+    label.textContent = file?.name || "Choose a photo";
+
+    if (file && file.size > 6 * 1024 * 1024) {
+      status.textContent = "Please choose a photo under 6 MB.";
+      button.disabled = true;
+    } else {
+      status.textContent = "";
+    }
+  };
+
+  button.onclick = async () => {
     const file = input.files?.[0];
-    const email = emailInput.value.trim();
+    const mail = email.value.trim().toLowerCase();
 
-    if (!file) return;
-    if (!email || !email.includes("@")) {
-      status.textContent = "Please enter a valid email address.";
-      emailInput.focus();
+    if (!file || !mail.includes("@")) {
+      status.textContent =
+        "Please choose a photo and enter a valid email.";
       return;
     }
 
@@ -211,59 +177,92 @@ async function startUpload(code) {
     status.textContent = "Uploading…";
 
     try {
-      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      const path = `sessions/${code}/${crypto.randomUUID()}-${safeName}`;
-      const storageRef = ref(storage, path);
+      const extension =
+        file.name.split(".").pop().toLowerCase();
 
-      await uploadBytes(storageRef, file, { contentType: file.type });
-      const url = await getDownloadURL(storageRef);
+      const path =
+        `${code}/${crypto.randomUUID()}.${extension}`;
 
-      await addDoc(collection(db, "sessions", code, "photos"), {
-        url,
-        path,
-        email,
-        createdAt: serverTimestamp()
-      });
+      const upload = await supabase.storage
+        .from("photos")
+        .upload(path, file, {
+          contentType: file.type,
+          upsert: false
+        });
 
-      // Register the email for the end-of-event gallery email.
-      await setDoc(
-        doc(db, "sessions", code, "emails", email.toLowerCase()),
-        { email: email.toLowerCase(), createdAt: serverTimestamp() },
-        { merge: true }
-      );
+      if (upload.error) throw upload.error;
 
-      status.textContent = "✓ Sent! Your photo is on the TV, and this email will receive the gallery link.";
+      const { data: publicUrl } =
+        supabase.storage
+          .from("photos")
+          .getPublicUrl(path);
+
+      const photoInsert = await supabase
+        .from("photos")
+        .insert({
+          session_code: code,
+          url: publicUrl.publicUrl,
+          path,
+          email: mail
+        });
+
+      if (photoInsert.error) throw photoInsert.error;
+
+      const emailInsert = await supabase
+        .from("emails")
+        .upsert(
+          {
+            session_code: code,
+            email: mail
+          },
+          {
+            onConflict: "session_code,email"
+          }
+        );
+
+      if (emailInsert.error) throw emailInsert.error;
+
+      status.textContent =
+        "✓ Sent! The photo is on the TV.";
+
       input.value = "";
       label.textContent = "Choose another photo";
-    } catch (err) {
-      console.error(err);
-      status.textContent = "Upload failed. Check the Firebase setup and try again.";
+
+    } catch (error) {
+      console.error(error);
+      status.textContent =
+        "Upload failed. Check your Supabase setup.";
     } finally {
       button.disabled = false;
     }
-  });
+  };
 }
-
-$("newTvBtn").addEventListener("click", async () => {
-  sessionStorage.removeItem("cloudPhotoTvCode");
-  location.reload();
-});
 
 (async () => {
   try {
-    await ensureAuth();
+    if (SUPABASE_URL.startsWith("PASTE_")) {
+      throw new Error("Supabase not configured.");
+    }
+
     const params = new URLSearchParams(location.search);
     const sendCode = params.get("send");
 
     if (sendCode) {
       await startUpload(sendCode.toUpperCase());
     } else {
-      await startTv();
+      await startTV();
     }
-  } catch (err) {
-    console.error(err);
-    show("errorView");
-    $("errorText").textContent =
-      "Firebase is not configured yet. Follow the SETUP.md instructions in the project.";
+
+  } catch (error) {
+    console.error(error);
+
+    show("loading");
+
+    $("loading").innerHTML = `
+      <div>
+        <h2>Something went wrong</h2>
+        <p>Check the browser console for the error.</p>
+      </div>
+    `;
   }
 })();
