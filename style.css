@@ -4,14 +4,14 @@
 
 :root {
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #f7f9fc;
-  background: #050b14;
+  color: #5b4848;
+  background: #fffaf8;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: #050b14;
+  background: #fffaf8;
 }
 
 button,
@@ -36,8 +36,8 @@ input {
 .spinner {
   width: 44px;
   height: 44px;
-  border: 4px solid #26364d;
-  border-top-color: #4da3ff;
+  border: 4px solid #ead8d4;
+  border-top-color: #c28b8b;
   border-radius: 50%;
   animation: spin .8s linear infinite;
   margin: 0 auto 16px;
@@ -55,7 +55,7 @@ input {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #050b14;
+  background: #fffaf8;
 }
 
 .tvTop {
@@ -65,8 +65,8 @@ input {
   justify-content: space-between;
   align-items: center;
   gap: 14px;
-  background: rgba(5, 11, 20, .96);
-  border-bottom: 1px solid rgba(255, 255, 255, .08);
+  background: rgba(255, 250, 248, .97);
+  border-bottom: 1px solid #ead6d6;
   position: relative;
   z-index: 2;
   backdrop-filter: blur(12px);
@@ -75,19 +75,20 @@ input {
 .brand {
   font-size: 15px;
   font-weight: 850;
-  letter-spacing: .16em;
+  letter-spacing: .12em;
+  color: #9d6868;
 }
 
 .status {
-  color: #9eacc0;
+  color: #9c8888;
   font-size: 13px;
   margin-top: 4px;
 }
 
 .smallBtn {
-  border: 1px solid #344862;
-  background: #101d31;
-  color: white;
+  border: 1px solid #d8b6a4;
+  background: linear-gradient(135deg, #fff, #fff7f3);
+  color: #8f6262;
   border-radius: 11px;
   padding: 10px 14px;
   cursor: pointer;
@@ -96,8 +97,8 @@ input {
 }
 
 .smallBtn:hover {
-  background: #172943;
-  border-color: #4d6685;
+  background: #fff0eb;
+  border-color: #c99b8b;
   transform: translateY(-1px);
 }
 
@@ -118,8 +119,9 @@ input {
   z-index: 5;
   padding: 9px 13px;
   border-radius: 10px;
-  background: rgba(8, 18, 32, .94);
-  color: #b9c7d9;
+  background: rgba(255, 250, 248, .97);
+  border: 1px solid #ead6d6;
+  color: #8f6f6f;
   font-size: 13px;
   pointer-events: none;
 }
@@ -131,7 +133,12 @@ input {
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at 50% 35%, #183c69 0%, #0b1b30 38%, #050b14 76%);
+    radial-gradient(
+      circle at 50% 35%,
+      #fff1ed 0%,
+      #fff9f7 42%,
+      #fffaf8 75%
+    );
 }
 
 .emptyTv {
@@ -143,17 +150,20 @@ input {
 .cloudIcon {
   font-size: 70px;
   opacity: .95;
-  filter: drop-shadow(0 8px 24px rgba(77, 163, 255, .25));
+  filter: drop-shadow(0 8px 18px rgba(190, 130, 130, .18));
 }
 
 .emptyTv h1 {
   margin: 14px 0 7px;
   font-size: clamp(28px, 4vw, 52px);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  color: #765555;
   letter-spacing: -.025em;
 }
 
 .emptyTv p {
-  color: #a9b7ca;
+  color: #9b8585;
   font-size: 18px;
   margin: 0 0 24px;
 }
@@ -165,7 +175,9 @@ input {
   background: white;
   padding: 11px;
   border-radius: 16px;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, .28);
+  box-shadow:
+    0 18px 50px rgba(145, 100, 100, .14),
+    0 2px 8px rgba(190, 150, 80, .08);
 }
 
 .qr img {
@@ -176,13 +188,13 @@ input {
 
 .codeLabel {
   margin-top: 15px;
-  color: #8f9fb4;
+  color: #a28c8c;
   font-size: 12px;
   letter-spacing: .13em;
 }
 
 .codeLabel strong {
-  color: white;
+  color: #876363;
   letter-spacing: .18em;
   margin-left: 5px;
   font-size: 15px;
@@ -228,36 +240,62 @@ input {
   place-items: center;
   padding: 24px;
   background:
-    radial-gradient(circle at 20% 10%, #d9edff, transparent 35%),
-    linear-gradient(160deg, #edf7ff, #f8fbff);
-  color: #102039;
+    radial-gradient(circle at 20% 10%, #f8e6e4, transparent 35%),
+    radial-gradient(circle at 85% 90%, #f8edda, transparent 30%),
+    linear-gradient(160deg, #fffaf8, #fffdfb);
+  color: #5b4848;
 }
 
 .mobileCard {
   width: min(100%, 440px);
-  background: rgba(255, 255, 255, .96);
-  border: 1px solid rgba(145, 175, 205, .28);
+  background: rgba(255, 255, 255, .97);
+  border: 1px solid #ead6d6;
   border-radius: 26px;
   padding: 30px;
-  box-shadow: 0 24px 70px rgba(22, 64, 105, .16);
+  box-shadow:
+    0 24px 70px rgba(155, 105, 105, .14),
+    0 3px 10px rgba(180, 140, 80, .06);
+  position: relative;
+  overflow: hidden;
+}
+
+.mobileCard::before {
+  content: "✦";
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  color: #c8a24a;
+  font-size: 22px;
+}
+
+.mobileCard::after {
+  content: "✦";
+  position: absolute;
+  bottom: 18px;
+  left: 22px;
+  color: #d8aaa6;
+  font-size: 17px;
 }
 
 .logo {
   font-weight: 850;
-  color: #1976d2;
-  letter-spacing: .02em;
+  color: #b47c7c;
+  letter-spacing: .04em;
   font-size: 16px;
 }
 
 .mobileCard h1 {
-  font-size: 30px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 31px;
   line-height: 1.15;
   margin: 24px 0 8px;
+  color: #765555;
+  font-weight: 500;
   letter-spacing: -.025em;
 }
 
 .mobileCard p {
-  color: #62748a;
+  color: #8b7777;
   line-height: 1.5;
 }
 
@@ -266,26 +304,32 @@ input {
   font-size: 14px;
   font-weight: 750;
   margin: 20px 0 7px;
+  color: #765f5f;
 }
 
 .emailInput {
   width: 100%;
-  border: 1px solid #c5d2df;
+  border: 1px solid #d9c2c0;
   border-radius: 13px;
   padding: 14px;
   font-size: 16px;
   outline: none;
-  background: white;
+  background: #fffdfc;
+  color: #594848;
   transition: .2s ease;
 }
 
 .emailInput:focus {
-  border-color: #1976d2;
-  box-shadow: 0 0 0 4px rgba(25, 118, 210, .11);
+  border-color: #c28b8b;
+  box-shadow: 0 0 0 4px rgba(194, 139, 139, .12);
+}
+
+.emailInput::placeholder {
+  color: #b4a2a2;
 }
 
 .uploadBox {
-  border: 2px dashed #b8c9dc;
+  border: 2px dashed #d7b9b5;
   border-radius: 18px;
   min-height: 190px;
   display: grid;
@@ -294,24 +338,24 @@ input {
   cursor: pointer;
   padding: 24px;
   margin: 22px 0 14px;
-  background: #f8fbff;
+  background: #fffaf8;
   transition: .2s ease;
 }
 
 .uploadBox:hover {
-  border-color: #1976d2;
-  background: #f1f8ff;
+  border-color: #c28b8b;
+  background: #fff4f1;
   transform: translateY(-1px);
 }
 
 .uploadIcon {
   font-size: 44px;
-  color: #1976d2;
+  color: #b47c7c;
   line-height: 1;
 }
 
 .uploadBox small {
-  color: #8292a6;
+  color: #a18e8e;
 }
 
 #photoInput {
@@ -325,15 +369,23 @@ input {
   padding: 15px;
   font-size: 16px;
   font-weight: 750;
-  background: #1976d2;
+  background: linear-gradient(
+    135deg,
+    #b97979,
+    #c9918b
+  );
   color: white;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(25, 118, 210, .2);
+  box-shadow: 0 8px 20px rgba(180, 115, 115, .22);
   transition: .2s ease;
 }
 
 .primaryBtn:hover:not(:disabled) {
-  background: #1568bb;
+  background: linear-gradient(
+    135deg,
+    #aa6c6c,
+    #bd827d
+  );
   transform: translateY(-1px);
 }
 
@@ -347,7 +399,7 @@ input {
   min-height: 24px;
   text-align: center;
   margin-top: 14px;
-  color: #52657a;
+  color: #806e6e;
   font-size: 14px;
 }
 
