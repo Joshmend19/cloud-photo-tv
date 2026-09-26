@@ -13,17 +13,63 @@
       background:
         radial-gradient(circle at top, #fff8f8 0%, #ffffff 45%, #fffaf5 100%);
       color: #4a3b3b;
+      overflow-x: hidden;
     }
 
     .galleryWrap {
       width: min(1200px, 94%);
       margin: 0 auto;
       padding: 55px 0 70px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Decorative roses */
+
+    .roseSide {
+      position: fixed;
+      top: 45px;
+      width: 170px;
+      z-index: 1;
+      pointer-events: none;
+      opacity: .95;
+    }
+
+    .roseLeft {
+      left: 10px;
+    }
+
+    .roseRight {
+      right: 10px;
+      transform: scaleX(-1);
+    }
+
+    .rose {
+      font-size: 70px;
+      line-height: .8;
+      filter:
+        drop-shadow(0 8px 12px rgba(150, 90, 90, .16));
+    }
+
+    .rose:nth-child(2) {
+      margin-left: 48px;
+      margin-top: 10px;
+      font-size: 58px;
+    }
+
+    .leaves {
+      color: #a58b55;
+      font-size: 28px;
+      margin-left: 18px;
+      margin-top: 8px;
+      letter-spacing: 8px;
     }
 
     .galleryHead {
       text-align: center;
       margin-bottom: 38px;
+      position: relative;
+      z-index: 3;
     }
 
     .eventLogo {
@@ -73,6 +119,8 @@
       grid-template-columns:
         repeat(auto-fill, minmax(220px, 1fr));
       gap: 20px;
+      position: relative;
+      z-index: 3;
     }
 
     .card {
@@ -108,7 +156,26 @@
       color: #8b7b7b;
     }
 
+    @media (max-width: 900px) {
+      .roseSide {
+        opacity: .5;
+        width: 110px;
+      }
+
+      .rose {
+        font-size: 50px;
+      }
+
+      .rose:nth-child(2) {
+        font-size: 42px;
+      }
+    }
+
     @media (max-width: 600px) {
+      .roseSide {
+        display: none;
+      }
+
       .galleryWrap {
         padding-top: 40px;
       }
@@ -126,6 +193,20 @@
 </head>
 
 <body>
+
+  <!-- Left roses -->
+  <div class="roseSide roseLeft">
+    <div class="rose">🌹</div>
+    <div class="rose">🌹</div>
+    <div class="leaves">✦ ✦</div>
+  </div>
+
+  <!-- Right roses -->
+  <div class="roseSide roseRight">
+    <div class="rose">🌹</div>
+    <div class="rose">🌹</div>
+    <div class="leaves">✦ ✦</div>
+  </div>
 
   <main class="galleryWrap">
 
