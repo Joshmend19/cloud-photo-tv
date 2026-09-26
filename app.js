@@ -150,9 +150,18 @@ async function startTV() {
         table: "photos",
         filter: `session_code=eq.${code}`
       },
-      payload => displayPhoto(payload.new)
+      payload => {
+        console.log("REALTIME PHOTO RECEIVED:", payload.new);
+        displayPhoto(payload.new);
+      }
     )
-    .subscribe();
+    .subscribe(status => {
+      console.log("REALTIME STATUS:", status);
+
+      if (status === "SUBSCRIBED") {
+        $("tvStatus").textContent = "Ready for photos";
+      }
+    });
 
   const { data, error } = await supabase
     .from("photos")
