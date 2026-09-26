@@ -132,6 +132,7 @@ async function startTV() {
         }
       } catch (error) {
         console.error(error);
+
         emailStatus.textContent =
           "Could not send the gallery emails.";
       } finally {
@@ -140,6 +141,64 @@ async function startTV() {
     };
   }
 
+  // All photos currently in the session
+  let photos = [];
+
+  // Which photo is currently being displayed
+  let currentIndex = 0;
+
+  // Timer for cycling through photos
+  let slideshowTimer = null;
+
+  function showPhoto(photo) {
+    $("emptyTv").classList.add("hidden");
+    $("currentPhoto").classList.remove("hidden");
+
+    $("currentPhoto").src = photo.url;
+  }
+
+  function startSlideshow() {
+    if (slideshowTimer) {
+      clearInterval(slideshowTimer);
+      slideshowTimer = null;
+    }
+
+    if (photos.length <= 1) {
+      if (photos.length === 1) {
+        currentIndex = 0;
+        showPhoto(photos[0]);
+      }
+
+      return;
+    }
+
+    showPhoto(photos[currentIndex]);
+
+    slideshowTimer = setInterval(() => {
+      currentIndex =
+        (currentIndex + 1) % photos.length;
+
+      showPhoto(photos[currentIndex]);
+
+    }, 5000);
+  }
+
+  function addPhoto(photo) {
+    // Avoid adding the same photo twice
+    if (photos.some(existing => existing.id === photo.id)) {
+      return;
+    }
+
+    photos.push(photo);
+
+    // Start/restart the slideshow so the new photo is included
+    startSlideshow();
+
+    $("tvStatus").textContent =
+      `${photos.length} photo${photos.length === 1 ? "" : "s"} received`;
+  }
+
+  // Connect to Supabase Realtime
   const channel = supabase
     .channel("photos-" + code)
     .on(
@@ -151,50 +210,49 @@ async function startTV() {
         filter: `session_code=eq.${code}`
       },
       payload => {
-        console.log("REALTIME PHOTO RECEIVED:", payload.new);
-        displayPhoto(payload.new);
+        console.log(
+          "REALTIME PHOTO RECEIVED:",
+          payload.new
+        );
+
+        addPhoto(payload.new);
       }
     )
     .subscribe(status => {
-      console.log("REALTIME STATUS:", status);
-
-      if (status === "SUBSCRIBED") {
-        $("tvStatus").textContent = "Ready for photos";
-      }
+      console.log(
+        "REALTIME STATUS:",
+        status
+      );
     });
 
+  // Load all existing photos
   const { data, error } = await supabase
     .from("photos")
     .select("*")
     .eq("session_code", code)
-    .order("created_at", { ascending: true });
+    .order("created_at", {
+      ascending: true
+    });
 
   if (error) throw error;
 
-  if (data && data.length) {
-    displayPhoto(data[data.length - 1]);
+  photos = data || [];
+
+  if (photos.length) {
+    startSlideshow();
   }
 
-  $("tvStatus").textContent = data?.length
-    ? `${data.length} photo${data.length === 1 ? "" : "s"} received`
-    : "Ready for photos";
-
-  async function displayPhoto(photo) {
-    $("emptyTv").classList.add("hidden");
-    $("currentPhoto").classList.remove("hidden");
-    $("currentPhoto").src = photo.url;
-
-    const { count } = await supabase
-      .from("photos")
-      .select("*", { count: "exact", head: true })
-      .eq("session_code", code);
-
-    $("tvStatus").textContent =
-      `${count || 1} photo${(count || 1) === 1 ? "" : "s"} received`;
-  }
+  $("tvStatus").textContent =
+    photos.length
+      ? `${photos.length} photo${photos.length === 1 ? "" : "s"} received`
+      : "Ready for photos";
 
   if ($("newTvBtn")) {
     $("newTvBtn").onclick = () => {
+      if (slideshowTimer) {
+        clearInterval(slideshowTimer);
+      }
+
       sessionStorage.removeItem("cptv_code");
       location.reload();
     };
@@ -213,6 +271,7 @@ async function startUpload(code) {
   if (!session?.active) {
     $("uploadDescription").textContent =
       "This TV session is no longer active.";
+
     return;
   }
 
@@ -230,11 +289,15 @@ async function startUpload(code) {
 
     button.disabled = !file;
 
-    label.textContent = file?.name || "Choose a photo";
+    label.textContent =
+      file?.name || "Choose a photo";
 
     if (file && file.size > 6 * 1024 * 1024) {
-      status.textContent = "Please choose a photo under 6 MB.";
+      status.textContent =
+        "Please choose a photo under 6 MB.";
+
       button.disabled = true;
+
     } else {
       status.textContent = "";
     }
@@ -242,11 +305,14 @@ async function startUpload(code) {
 
   button.onclick = async () => {
     const file = input.files?.[0];
-    const mail = email.value.trim().toLowerCase();
+
+    const mail =
+      email.value.trim().toLowerCase();
 
     if (!file || !mail.includes("@")) {
       status.textContent =
         "Please choose a photo and enter a valid email.";
+
       return;
     }
 
@@ -267,7 +333,9 @@ async function startUpload(code) {
           upsert: false
         });
 
-      if (upload.error) throw upload.error;
+      if (upload.error) {
+        throw upload.error;
+      }
 
       const { data: publicUrl } =
         supabase.storage
@@ -283,7 +351,9 @@ async function startUpload(code) {
           email: mail
         });
 
-      if (photoInsert.error) throw photoInsert.error;
+      if (photoInsert.error) {
+        throw photoInsert.error;
+      }
 
       const emailInsert = await supabase
         .from("emails")
@@ -297,18 +367,24 @@ async function startUpload(code) {
           }
         );
 
-      if (emailInsert.error) throw emailInsert.error;
+      if (emailInsert.error) {
+        throw emailInsert.error;
+      }
 
       status.textContent =
         "✓ Sent! The photo is on the TV.";
 
       input.value = "";
-      label.textContent = "Choose another photo";
+
+      label.textContent =
+        "Choose another photo";
 
     } catch (error) {
       console.error(error);
+
       status.textContent =
         "Upload failed. Check your Supabase setup.";
+
     } finally {
       button.disabled = false;
     }
@@ -318,14 +394,22 @@ async function startUpload(code) {
 (async () => {
   try {
     if (SUPABASE_URL.startsWith("PASTE_")) {
-      throw new Error("Supabase not configured.");
+      throw new Error(
+        "Supabase not configured."
+      );
     }
 
-    const params = new URLSearchParams(location.search);
-    const sendCode = params.get("send");
+    const params =
+      new URLSearchParams(location.search);
+
+    const sendCode =
+      params.get("send");
 
     if (sendCode) {
-      await startUpload(sendCode.toUpperCase());
+      await startUpload(
+        sendCode.toUpperCase()
+      );
+
     } else {
       await startTV();
     }
