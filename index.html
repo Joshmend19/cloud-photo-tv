@@ -1,68 +1,341 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cloud Photo TV</title>
+
+  <title>Donna's 60th Birthday</title>
+
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Birthday TV theme */
+
+    #tvView {
+      background: #fffaf8;
+      color: #594848;
+    }
+
+    .tvTop {
+      background: rgba(255, 250, 248, .97);
+      border-bottom: 1px solid #ead6d6;
+    }
+
+    .brand {
+      color: #9d6868;
+      letter-spacing: .12em;
+    }
+
+    .status {
+      color: #9c8888;
+    }
+
+    .smallBtn {
+      border-color: #d8b6a4;
+      background: linear-gradient(135deg, #fff, #fff7f3);
+      color: #8f6262;
+    }
+
+    .smallBtn:hover {
+      background: #fff0eb;
+      border-color: #c99b8b;
+    }
+
+    #emailStatus {
+      background: rgba(255, 250, 248, .97);
+      border: 1px solid #ead6d6;
+      color: #8f6f6f;
+    }
+
+    .photoStage {
+      background:
+        radial-gradient(
+          circle at 50% 35%,
+          #fff1ed 0%,
+          #fff9f7 42%,
+          #fffaf8 75%
+        );
+    }
+
+    .emptyTv {
+      position: relative;
+      z-index: 2;
+    }
+
+    .eventTitle {
+      color: #b47c7c;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(18px, 2vw, 25px);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .emptyTv h1 {
+      color: #765555;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -.02em;
+    }
+
+    .emptyTv p {
+      color: #9b8585;
+    }
+
+    .cloudIcon {
+      color: #c38b8b;
+      filter: drop-shadow(0 8px 18px rgba(190, 130, 130, .18));
+    }
+
+    .goldDivider {
+      width: 110px;
+      height: 2px;
+      margin: 15px auto 20px;
+      background: linear-gradient(
+        90deg,
+        #c49b45,
+        #e8ce7b,
+        #c49b45
+      );
+    }
+
+    .qr {
+      box-shadow:
+        0 18px 50px rgba(145, 100, 100, .14),
+        0 2px 8px rgba(190, 150, 80, .08);
+    }
+
+    .codeLabel {
+      color: #a28c8c;
+    }
+
+    .codeLabel strong {
+      color: #876363;
+    }
+
+    /* Decorative roses */
+
+    .tvRose {
+      position: absolute;
+      top: 28px;
+      width: 170px;
+      z-index: 1;
+      pointer-events: none;
+      opacity: .9;
+    }
+
+    .tvRoseLeft {
+      left: 18px;
+    }
+
+    .tvRoseRight {
+      right: 18px;
+      transform: scaleX(-1);
+    }
+
+    .tvRoseFlower {
+      font-size: 65px;
+      line-height: .8;
+      filter: drop-shadow(0 7px 12px rgba(150, 90, 90, .12));
+    }
+
+    .tvRoseFlower.second {
+      margin-left: 48px;
+      margin-top: 8px;
+      font-size: 52px;
+    }
+
+    .tvRoseGold {
+      color: #c5a04b;
+      font-size: 23px;
+      margin-left: 18px;
+      margin-top: 7px;
+      letter-spacing: 8px;
+    }
+
+    @media (max-width: 800px) {
+      .tvRose {
+        opacity: .35;
+        width: 100px;
+      }
+
+      .tvRoseFlower {
+        font-size: 45px;
+      }
+
+      .tvRoseFlower.second {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .tvRose {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
+
   <main id="app">
+
     <section id="loading" class="center">
-      <div class="spinner"></div>
-      <p>Loading Cloud Photo TV…</p>
+      <div>
+        <div class="spinner"></div>
+        <p>Loading Cloud Photo TV…</p>
+      </div>
     </section>
 
     <section id="tvView" class="hidden">
+
       <div class="tvTop">
+
         <div>
-          <div class="brand">CLOUD PHOTO TV</div>
-          <div class="status" id="tvStatus">Ready for photos</div>
+          <div class="brand">DONNA'S 60TH BIRTHDAY</div>
+          <div class="status" id="tvStatus">
+            Ready for photos
+          </div>
         </div>
-        <button id="newTvBtn" class="smallBtn">New TV</button>
-        <button id="sendGalleryBtn" class="smallBtn">Send Gallery</button>
+
+        <button id="newTvBtn" class="smallBtn">
+          New TV
+        </button>
+
+        <button id="sendGalleryBtn" class="smallBtn">
+          Send Gallery
+        </button>
+
         <div id="emailStatus"></div>
+
       </div>
 
       <div id="photoStage" class="photoStage">
-        <div id="emptyTv" class="emptyTv">
-          <div class="cloudIcon">☁</div>
-          <h1>Send a photo to this TV</h1>
-          <p>Scan the QR code with your phone.</p>
-          <div id="tvQr" class="qr"></div>
-          <div class="codeLabel">TV CODE <strong id="tvCode"></strong></div>
+
+        <!-- Left decoration -->
+        <div class="tvRose tvRoseLeft">
+          <div class="tvRoseFlower">🌹</div>
+          <div class="tvRoseFlower second">🌹</div>
+          <div class="tvRoseGold">✦ ✦</div>
         </div>
-        <img id="currentPhoto" class="currentPhoto hidden" alt="Photo displayed on TV" />
+
+        <!-- Right decoration -->
+        <div class="tvRose tvRoseRight">
+          <div class="tvRoseFlower">🌹</div>
+          <div class="tvRoseFlower second">🌹</div>
+          <div class="tvRoseGold">✦ ✦</div>
+        </div>
+
+        <div id="emptyTv" class="emptyTv">
+
+          <div class="eventTitle">
+            Celebrating 60 Years
+          </div>
+
+          <div class="cloudIcon">☁</div>
+
+          <h1>
+            Share a memory with Donna
+          </h1>
+
+          <div class="goldDivider"></div>
+
+          <p>
+            Scan the QR code with your phone
+            to send a photo to the TV.
+          </p>
+
+          <div id="tvQr" class="qr"></div>
+
+          <div class="codeLabel">
+            TV CODE
+            <strong id="tvCode"></strong>
+          </div>
+
+        </div>
+
+        <img
+          id="currentPhoto"
+          class="currentPhoto hidden"
+          alt="Photo displayed on TV"
+        />
+
       </div>
+
     </section>
 
     <section id="uploadView" class="hidden">
-      <div class="mobileCard">
-        <div class="logo">☁ Cloud Photo TV</div>
-        <h1>Send a photo to the TV</h1>
-        <p id="uploadDescription">Choose a photo and it will appear on the TV.</p>
 
-        <label class="fieldLabel" for="emailInput">Email for the photo gallery</label>
-        <input id="emailInput" class="emailInput" type="email" placeholder="you@example.com" autocomplete="email" />
+      <div class="mobileCard">
+
+        <div class="logo">
+          ☁ Cloud Photo TV
+        </div>
+
+        <h1>
+          Send a photo to the TV
+        </h1>
+
+        <p id="uploadDescription">
+          Choose a photo and it will appear on the TV.
+        </p>
+
+        <label class="fieldLabel" for="emailInput">
+          Email for the photo gallery
+        </label>
+
+        <input
+          id="emailInput"
+          class="emailInput"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+        />
 
         <label class="uploadBox" for="photoInput">
-          <span class="uploadIcon">＋</span>
-          <span id="fileLabel">Choose a photo</span>
-          <small>JPG, PNG, or WEBP</small>
-        </label>
-        <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" />
 
-        <button id="uploadBtn" class="primaryBtn" disabled>Send to TV</button>
+          <span class="uploadIcon">＋</span>
+
+          <span id="fileLabel">
+            Choose a photo
+          </span>
+
+          <small>
+            JPG, PNG, or WEBP
+          </small>
+
+        </label>
+
+        <input
+          id="photoInput"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+        />
+
+        <button
+          id="uploadBtn"
+          class="primaryBtn"
+          disabled
+        >
+          Send to TV
+        </button>
+
         <div id="uploadStatus" class="uploadStatus"></div>
+
       </div>
+
     </section>
 
     <section id="errorView" class="hidden center">
       <h1>Something went wrong</h1>
       <p id="errorText"></p>
     </section>
+
   </main>
 
   <script type="module" src="app.js"></script>
+
 </body>
 </html>
+```
