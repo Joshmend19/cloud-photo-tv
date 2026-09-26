@@ -119,6 +119,7 @@ async function startTV() {
     sessionStorage.removeItem("cptv_code");
     location.reload();
   };
+ }
 }
 async function startUpload(code) {
   show("uploadView");
