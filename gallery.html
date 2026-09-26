@@ -3,29 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cloud Photo TV Gallery</title>
+
+  <title>Donna's 60th Birthday</title>
+
   <link rel="stylesheet" href="style.css">
+
   <style>
-    body { background:#f5f8fc; color:#102039; }
-    .galleryWrap { width:min(1200px,94%); margin:40px auto; }
-    .galleryHead { margin-bottom:24px; }
-    .galleryHead h1 { margin:0 0 6px; }
-    .galleryHead p { color:#65778c; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
-    .card { background:white; border-radius:16px; padding:8px; box-shadow:0 8px 25px rgba(20,45,70,.08); }
-    .card img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:11px; display:block; }
-    .empty { text-align:center; padding:60px 20px; color:#65778c; }
+    body {
+      background:
+        radial-gradient(circle at top, #fff8f8 0%, #ffffff 45%, #fffaf5 100%);
+      color: #4a3b3b;
+    }
+
+    .galleryWrap {
+      width: min(1200px, 94%);
+      margin: 0 auto;
+      padding: 55px 0 70px;
+    }
+
+    .galleryHead {
+      text-align: center;
+      margin-bottom: 38px;
+    }
+
+    .eventLogo {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      color: #b77b7b;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .galleryHead h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(38px, 6vw, 64px);
+      font-weight: 500;
+      color: #8f5f62;
+      letter-spacing: -.02em;
+    }
+
+    .goldLine {
+      width: 90px;
+      height: 2px;
+      margin: 18px auto;
+      background: linear-gradient(
+        90deg,
+        #c8a24a,
+        #e7c873,
+        #c8a24a
+      );
+    }
+
+    .gallerySubtitle {
+      margin: 0;
+      color: #8b7b7b;
+      font-size: 16px;
+    }
+
+    #galleryStatus {
+      margin-top: 12px;
+      color: #b08a8a;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #ead6d6;
+      border-radius: 18px;
+      padding: 8px;
+      box-shadow:
+        0 10px 30px rgba(155, 105, 105, .10),
+        0 2px 5px rgba(180, 140, 80, .06);
+      transition: .2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #d8b0b0;
+      box-shadow:
+        0 16px 35px rgba(155, 105, 105, .15),
+        0 3px 8px rgba(180, 140, 80, .08);
+    }
+
+    .card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 70px 20px;
+      color: #8b7b7b;
+    }
+
+    @media (max-width: 600px) {
+      .galleryWrap {
+        padding-top: 40px;
+      }
+
+      .galleryHead h1 {
+        font-size: 40px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+    }
   </style>
 </head>
+
 <body>
+
   <main class="galleryWrap">
+
     <header class="galleryHead">
-      <div class="logo">☁ Cloud Photo TV</div>
-      <h1>Photo Gallery</h1>
-      <p id="galleryStatus">Loading photos…</p>
+
+      <div class="eventLogo">
+        Donna's 60th Birthday
+      </div>
+
+      <h1>Celebrating 60 Years</h1>
+
+      <div class="goldLine"></div>
+
+      <p class="gallerySubtitle">
+        A collection of memories from a special day
+      </p>
+
+      <p id="galleryStatus">
+        Loading photos…
+      </p>
+
     </header>
+
     <section id="grid" class="grid"></section>
+
   </main>
+
   <script type="module" src="gallery.js"></script>
+
 </body>
 </html>
