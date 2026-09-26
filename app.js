@@ -158,30 +158,29 @@ async function startTV() {
   }
 
   function startSlideshow() {
-    if (slideshowTimer) {
-      clearInterval(slideshowTimer);
-      slideshowTimer = null;
-    }
-
-    if (photos.length <= 1) {
-      if (photos.length === 1) {
-        currentIndex = 0;
-        showPhoto(photos[0]);
-      }
-
-      return;
-    }
-
-    showPhoto(photos[currentIndex]);
-
-    slideshowTimer = setInterval(() => {
-      currentIndex =
-        (currentIndex + 1) % photos.length;
-
-      showPhoto(photos[currentIndex]);
-
-    }, 5000);
+  if (slideshowTimer) {
+    clearInterval(slideshowTimer);
+    slideshowTimer = null;
   }
+
+  if (photos.length === 0) {
+    return;
+  }
+
+  // Show the current photo immediately
+  showPhoto(photos[currentIndex]);
+
+  // If there is only one photo, leave it displayed
+  if (photos.length === 1) {
+    return;
+  }
+
+  // Cycle through all photos every 5 seconds
+  slideshowTimer = setInterval(() => {
+    currentIndex = (currentIndex + 1) % photos.length;
+    showPhoto(photos[currentIndex]);
+  }, 5000);
+}
 
   function addPhoto(photo) {
     // Avoid adding the same photo twice
