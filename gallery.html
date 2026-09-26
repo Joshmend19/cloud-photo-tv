@@ -67,7 +67,7 @@
 
     .galleryHead {
       text-align: center;
-      margin-bottom: 38px;
+      margin-bottom: 28px;
       position: relative;
       z-index: 3;
     }
@@ -114,6 +114,36 @@
       font-size: 14px;
     }
 
+    .downloadAll {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+      border: 1px solid #d2b06a;
+      border-radius: 13px;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #fffdf7, #fff8e9);
+      color: #96752e;
+      font-size: 15px;
+      font-weight: 750;
+      cursor: pointer;
+      box-shadow: 0 7px 20px rgba(180, 140, 70, .12);
+      transition: .2s ease;
+    }
+
+    .downloadAll:hover {
+      background: #fff4d7;
+      border-color: #c49b45;
+      transform: translateY(-1px);
+    }
+
+    .downloadAll:disabled {
+      opacity: .55;
+      cursor: wait;
+      transform: none;
+    }
+
     .grid {
       display: grid;
       grid-template-columns:
@@ -150,10 +180,49 @@
       display: block;
     }
 
+    .photoActions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .viewBtn,
+    .downloadBtn {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 9px;
+      padding: 9px 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .viewBtn {
+      color: #8f6262;
+      background: #fff7f5;
+      border: 1px solid #ead6d6;
+    }
+
+    .downloadBtn {
+      color: #96752e;
+      background: #fffaf0;
+      border: 1px solid #e4cc91;
+    }
+
+    .viewBtn:hover {
+      background: #fff0ed;
+    }
+
+    .downloadBtn:hover {
+      background: #fff3d9;
+    }
+
     .empty {
       text-align: center;
       padding: 70px 20px;
       color: #8b7b7b;
+      grid-column: 1 / -1;
     }
 
     @media (max-width: 900px) {
@@ -187,6 +256,12 @@
       .grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
+      }
+
+      .viewBtn,
+      .downloadBtn {
+        font-size: 12px;
+        padding: 8px 4px;
       }
     }
   </style>
@@ -227,6 +302,10 @@
       <p id="galleryStatus">
         Loading photos…
       </p>
+
+      <button id="downloadAll" class="downloadAll">
+        ↓ Download All Photos
+      </button>
 
     </header>
 
