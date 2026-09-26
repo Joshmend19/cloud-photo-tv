@@ -1,5 +1,7 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 import QRCode from "https://cdn.jsdelivr.net/npm/qrcode@1.5.4/+esm";
+import emailjs from "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/+esm";
+
 import {
   SUPABASE_URL,
   SUPABASE_ANON_KEY,
@@ -7,44 +9,20 @@ import {
   EMAILJS_SERVICE_ID,
   EMAILJS_TEMPLATE_ID
 } from "./config.js";
-import emailjs from "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/+esm";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const $ = id => document.getElementById(id);
 emailjs.init({
   publicKey: EMAILJS_PUBLIC_KEY
 });
 
-async function sendGalleryEmails(code) {
-  const { data: emails, error } = await supabase
-    .from("emails")
-    .select("email")
-    .eq("session_code", code);
-
-  if (error) throw error;
-
-  const galleryLink =
-    `${location.origin}${location.pathname.replace("index.html", "")}gallery.html?code=${encodeURIComponent(code)}`;
-
-  for (const row of emails || []) {
-    await emailjs.send(
-      EMAILJS_SERVICE_ID,
-      EMAILJS_TEMPLATE_ID,
-      {
-        to_email: row.email,
-        gallery_link: galleryLink
-      }
-    );
-  }
-
-  return emails?.length || 0;
-}
+const $ = id => document.getElementById(id);
 
 function show(id) {
   ["loading", "tvView", "uploadView"].forEach(x => {
     $(x).classList.add("hidden");
   });
+
   $(id).classList.remove("hidden");
 }
 
@@ -92,6 +70,35 @@ async function makeQR(code) {
   $("tvQr").innerHTML = `<img src="${dataUrl}" alt="QR code">`;
 }
 
+async function sendGalleryEmails(code) {
+  const { data: emails, error } = await supabase
+    .from("emails")
+    .select("email")
+    .eq("session_code", code);
+
+  if (error) throw error;
+
+  if (!emails || emails.length === 0) {
+    return 0;
+  }
+
+  const galleryLink =
+    `${location.origin}${location.pathname.replace("index.html", "")}gallery.html?code=${encodeURIComponent(code)}`;
+
+  for (const row of emails) {
+    await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        to_email: row.email,
+        gallery_link: galleryLink
+      }
+    );
+  }
+
+  return emails.length;
+}
+
 async function startTV() {
   show("tvView");
 
@@ -104,6 +111,34 @@ async function startTV() {
 
   $("tvCode").textContent = code;
   await makeQR(code);
+
+  const sendGalleryBtn = $("sendGalleryBtn");
+  const emailStatus = $("emailStatus");
+
+  if (sendGalleryBtn) {
+    sendGalleryBtn.onclick = async () => {
+      sendGalleryBtn.disabled = true;
+      emailStatus.textContent = "Sending gallery emails…";
+
+      try {
+        const count = await sendGalleryEmails(code);
+
+        if (count === 0) {
+          emailStatus.textContent =
+            "No guest emails have been collected yet.";
+        } else {
+          emailStatus.textContent =
+            `✓ Gallery sent to ${count} guest${count === 1 ? "" : "s"}.`;
+        }
+      } catch (error) {
+        console.error(error);
+        emailStatus.textContent =
+          "Could not send the gallery emails.";
+      } finally {
+        sendGalleryBtn.disabled = false;
+      }
+    };
+  }
 
   const channel = supabase
     .channel("photos-" + code)
@@ -149,13 +184,14 @@ async function startTV() {
       `${count || 1} photo${(count || 1) === 1 ? "" : "s"} received`;
   }
 
- if ($("newTvBtn")) {
-  $("newTvBtn").onclick = () => {
-    sessionStorage.removeItem("cptv_code");
-    location.reload();
-  };
- }
+  if ($("newTvBtn")) {
+    $("newTvBtn").onclick = () => {
+      sessionStorage.removeItem("cptv_code");
+      location.reload();
+    };
+  }
 }
+
 async function startUpload(code) {
   show("uploadView");
 
