@@ -1,48 +1,41 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config.js";
 
-const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_STORAGE_BUCKET",
-  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
-  appId: "PASTE_YOUR_APP_ID"
-};
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const params = new URLSearchParams(location.search);
-const code = (params.get("code") || "").toUpperCase();
+const code = (new URLSearchParams(location.search).get("code") || "").toUpperCase();
+
+const status = document.getElementById("galleryStatus");
+const grid = document.getElementById("grid");
 
 if (!code) {
-  document.getElementById("galleryStatus").textContent = "No gallery code was provided.";
+  status.textContent = "No gallery code was provided.";
 } else {
-  await signInAnonymously(auth);
-  const q = query(
-    collection(db, "sessions", code, "photos"),
-    orderBy("createdAt", "asc")
-  );
+  const { data, error } = await supabase
+    .from("photos")
+    .select("url,created_at")
+    .eq("session_code", code)
+    .order("created_at", { ascending: true });
 
-  onSnapshot(q, snap => {
-    const grid = document.getElementById("grid");
-    grid.innerHTML = "";
-    document.getElementById("galleryStatus").textContent =
-      `${snap.size} photo${snap.size === 1 ? "" : "s"}`;
+  if (error) {
+    status.textContent = "Could not load the gallery.";
+    console.error(error);
+  } else {
+    status.textContent = `${data.length} photo${data.length === 1 ? "" : "s"}`;
 
-    if (snap.empty) {
+    if (!data.length) {
       grid.innerHTML = '<div class="empty">No photos have been uploaded yet.</div>';
-      return;
+    } else {
+      data.forEach(p => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `
+          <a href="${p.url}" target="_blank" rel="noopener">
+            <img src="${p.url}" alt="Event photo">
+          </a>
+        `;
+        grid.appendChild(card);
+      });
     }
-
-    snap.forEach(doc => {
-      const photo = doc.data();
-      const card = document.createElement("article");
-      card.className = "card";
-      card.innerHTML = `<a href="${photo.url}" target="_blank" rel="noopener"><img src="${photo.url}" alt="Event photo"></a>`;
-      grid.appendChild(card);
-    });
-  });
+  }
 }
