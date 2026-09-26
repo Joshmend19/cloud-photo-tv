@@ -114,16 +114,12 @@ async function startTV() {
       `${count || 1} photo${(count || 1) === 1 ? "" : "s"} received`;
   }
 
+ if ($("newTvBtn")) {
   $("newTvBtn").onclick = () => {
     sessionStorage.removeItem("cptv_code");
     location.reload();
   };
-
-  $("emailBtn").onclick = () => {
-    alert("We'll set up the email feature after the photo system is working.");
-  };
 }
-
 async function startUpload(code) {
   show("uploadView");
 
