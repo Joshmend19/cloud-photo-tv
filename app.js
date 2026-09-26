@@ -1,10 +1,45 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 import QRCode from "https://cdn.jsdelivr.net/npm/qrcode@1.5.4/+esm";
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config.js";
+import {
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY,
+  EMAILJS_PUBLIC_KEY,
+  EMAILJS_SERVICE_ID,
+  EMAILJS_TEMPLATE_ID
+} from "./config.js";
+import emailjs from "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/+esm";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const $ = id => document.getElementById(id);
+emailjs.init({
+  publicKey: EMAILJS_PUBLIC_KEY
+});
+
+async function sendGalleryEmails(code) {
+  const { data: emails, error } = await supabase
+    .from("emails")
+    .select("email")
+    .eq("session_code", code);
+
+  if (error) throw error;
+
+  const galleryLink =
+    `${location.origin}${location.pathname.replace("index.html", "")}gallery.html?code=${encodeURIComponent(code)}`;
+
+  for (const row of emails || []) {
+    await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        to_email: row.email,
+        gallery_link: galleryLink
+      }
+    );
+  }
+
+  return emails?.length || 0;
+}
 
 function show(id) {
   ["loading", "tvView", "uploadView"].forEach(x => {
