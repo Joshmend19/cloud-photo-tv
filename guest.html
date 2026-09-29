@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Send a Photo | Instant Moments</title>
+
+  <style>
+    :root {
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --orange: #f97316;
+      --yellow: #facc15;
+      --navy: #172033;
+      --warm-white: #fffdf8;
+      --light-blue: #f5f8ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--light-blue);
+      color: var(--navy);
+    }
+
+    .top-bar {
+      height: 6px;
+      background: linear-gradient(
+        90deg,
+        var(--blue),
+        var(--purple),
+        var(--orange),
+        var(--yellow)
+      );
+    }
+
+    nav {
+      background: white;
+      padding: 18px 24px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 21px;
+      font-weight: 800;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    main {
+      min-height: calc(100vh - 100px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: white;
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: 0 20px 50px rgba(23, 32, 51, 0.10);
+      text-align: center;
+    }
+
+    .icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 20px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      background: #eef4ff;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+    }
+
+    .description {
+      margin: 0 auto 28px;
+      color: #64748b;
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    .event-name {
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 24px;
+    }
+
+    .file-label {
+      display: block;
+      padding: 22px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #475569;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .file-label:hover {
+      border-color: var(--blue);
+      background: #f8fbff;
+    }
+
+    #photoInput {
+      display: none;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      padding: 15px 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 16px;
+      margin-bottom: 16px;
+      outline: none;
+    }
+
+    input[type="email"]:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.92;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .status {
+      min-height: 24px;
+      margin-top: 18px;
+      font-weight: 600;
+    }
+
+    .gallery-note {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 28px 20px;
+        border-radius: 20px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar"></div>
+
+  <nav>
+    <div class="logo">
+      <div class="logo-mark">✦</div>
+      Instant <span>Moments</span>
+    </div>
+  </nav>
+
+  <main>
+
+    <div class="card">
+
+      <div class="icon">
+        📸
+      </div>
+
+      <h1>Share Your Moment</h1>
+
+      <p class="description">
+        Upload a photo from the event and it will appear on the
+        Instant Moments TV display.
+      </p>
+
+      <div
+        class="event-name"
+        id="eventName"
+      >
+        Loading event...
+      </div>
+
+      <label
+        class="file-label"
+        for="photoInput"
+        id="fileLabel"
+      >
+        📷 Choose a photo
+      </label>
+
+      <input
+        type="file"
+        id="photoInput"
+        accept="image/*"
+      >
+
+      <input
+        type="email"
+        id="emailInput"
+        placeholder="Your email address"
+        autocomplete="email"
+      >
+
+      <button
+        id="uploadBtn"
+        disabled
+      >
+        Send Photo to TV
+      </button>
+
+      <div
+        class="status"
+        id="uploadStatus"
+      ></div>
+
+      <div class="gallery-note">
+        Enter your email so you can receive the event gallery
+        when the event is over.
+      </div>
+
+    </div>
+
+  </main>
+
+  <script
+    type="module"
+    src="./guest.js"
+  ></script>
+
+</body>
+</html>
