@@ -1,4 +1,5 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
 import QRCode from "https://cdn.jsdelivr.net/npm/qrcode@1.5.4/+esm";
 
 import {
@@ -11,13 +12,14 @@ const supabase = createClient(
   SUPABASE_ANON_KEY
 );
 
-const params = new URLSearchParams(
-  window.location.search
-);
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
 
-const code = (
-  params.get("code") || ""
-).toUpperCase();
+const code =
+  (params.get("code") || "")
+    .toUpperCase();
 
 const eventName =
   document.getElementById("eventName");
@@ -42,10 +44,12 @@ const status =
 
 
 function formatTime(time) {
+
   const [hours, minutes] =
     time.split(":");
 
-  const date = new Date();
+  const date =
+    new Date();
 
   date.setHours(
     Number(hours),
@@ -54,23 +58,31 @@ function formatTime(time) {
     0
   );
 
-  return date.toLocaleTimeString([], {
-    hour: "numeric",
-    minute: "2-digit"
-  });
+  return date.toLocaleTimeString(
+    [],
+    {
+      hour: "numeric",
+      minute: "2-digit"
+    }
+  );
 }
 
 
 function formatDate(dateString) {
-  const date = new Date(
-    `${dateString}T00:00:00`
-  );
 
-  return date.toLocaleDateString([], {
-    month: "long",
-    day: "numeric",
-    year: "numeric"
-  });
+  const date =
+    new Date(
+      `${dateString}T00:00:00`
+    );
+
+  return date.toLocaleDateString(
+    [],
+    {
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    }
+  );
 }
 
 
@@ -89,11 +101,13 @@ if (!code) {
     const {
       data: event,
       error
-    } = await supabase
-      .from("events")
-      .select("*")
-      .eq("code", code)
-      .single();
+    } =
+      await supabase
+        .from("events")
+        .select("*")
+        .eq("code", code)
+        .single();
+
 
     if (error) {
       throw error;
@@ -103,8 +117,10 @@ if (!code) {
     eventName.textContent =
       event.event_name;
 
+
     eventCode.textContent =
       event.code;
+
 
     eventDetails.textContent =
       `${formatDate(event.event_date)} • ${formatTime(event.start_time)} – ${formatTime(event.end_time)}`;
@@ -112,7 +128,7 @@ if (!code) {
 
     // Guest photo upload page
     const guestUrl =
-      `${window.location.origin}/cloud-photo-tv/?send=${event.code}`;
+      `${window.location.origin}/cloud-photo-tv/guest.html?code=${event.code}`;
 
 
     // TV display page
@@ -120,7 +136,7 @@ if (!code) {
       `${window.location.origin}/cloud-photo-tv/?code=${event.code}`;
 
 
-    // Event gallery page
+    // Gallery page
     const galleryUrl =
       `${window.location.origin}/cloud-photo-tv/gallery.html?code=${event.code}`;
 
@@ -128,11 +144,12 @@ if (!code) {
     tvLink.href =
       tvUrl;
 
+
     galleryLink.href =
       galleryUrl;
 
 
-    // Generate QR code
+    // Generate guest QR code
     const dataUrl =
       await QRCode.toDataURL(
         guestUrl,
@@ -146,8 +163,10 @@ if (!code) {
     const image =
       document.createElement("img");
 
+
     image.src =
       dataUrl;
+
 
     image.alt =
       "Guest QR Code";
@@ -155,6 +174,7 @@ if (!code) {
 
     qrCode.innerHTML =
       "";
+
 
     qrCode.appendChild(
       image
@@ -166,14 +186,16 @@ if (!code) {
 
 
     console.log(
-      "Guest URL:",
+      "Guest upload URL:",
       guestUrl
     );
+
 
     console.log(
       "TV URL:",
       tvUrl
     );
+
 
     console.log(
       "Gallery URL:",
@@ -185,8 +207,10 @@ if (!code) {
 
     console.error(error);
 
+
     eventName.textContent =
       "Could not load event.";
+
 
     status.textContent =
       "There was a problem loading this event.";
