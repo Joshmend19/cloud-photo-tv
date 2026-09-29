@@ -1,437 +1,1605 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Create Your Event | Cloud Photo TV</title>
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Create Your Event | Instant Moments</title>
 
   <style>
+
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #5b4848;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      color: #172033;
+
       background:
-        radial-gradient(circle at 15% 10%, #f8e6e4, transparent 32%),
-        radial-gradient(circle at 85% 90%, #f8edda, transparent 30%),
-        linear-gradient(160deg, #fffaf8, #fffdfb);
-    }
+        radial-gradient(
+          circle at 5% 10%,
+          rgba(250, 204, 21, 0.14),
+          transparent 24%
+        ),
 
-    .page {
-      width: min(760px, 92%);
-      margin: 0 auto;
-      padding: 50px 0 70px;
-    }
+        radial-gradient(
+          circle at 95% 15%,
+          rgba(124, 58, 237, 0.12),
+          transparent 25%
+        ),
 
-    .brand {
-      text-align: center;
-      color: #b47c7c;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
+        #fffdf8;
 
-    h1 {
-      text-align: center;
-      margin: 0;
-      color: #765555;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(38px, 7vw, 58px);
-      font-weight: 500;
-    }
-
-    .intro {
-      text-align: center;
-      color: #8b7777;
-      margin: 12px auto 35px;
-      max-width: 560px;
+      min-height: 100vh;
       line-height: 1.6;
     }
 
-    .card {
-      background: rgba(255,255,255,.97);
-      border: 1px solid #ead6d6;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow:
-        0 24px 70px rgba(155,105,105,.13),
-        0 3px 10px rgba(180,140,80,.06);
+    a {
+      text-decoration: none;
+      color: inherit;
     }
 
-    .section {
-      margin-bottom: 28px;
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    .navbar {
+      background: rgba(255, 253, 248, 0.96);
+
+      border-bottom: 1px solid #e9e7e2;
+
+      position: sticky;
+      top: 0;
+
+      z-index: 100;
+
+      backdrop-filter: blur(12px);
     }
 
-    .sectionTitle {
-      color: #8f6262;
-      font-size: 17px;
+    .nav-inner {
+      max-width: 1180px;
+
+      margin: auto;
+
+      padding: 17px 24px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      font-size: 21px;
+
       font-weight: 800;
+
+      letter-spacing: -0.6px;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+
+      border-radius: 11px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #2563eb,
+          #7c3aed
+        );
+
+      color: white;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      box-shadow:
+        0 5px 14px rgba(37, 99, 235, 0.25);
+    }
+
+    .logo-text span {
+      color: #2563eb;
+    }
+
+    .back-link {
+      color: #667085;
+
+      font-size: 14px;
+
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: #2563eb;
+    }
+
+
+    /* =========================
+       PAGE HEADER
+    ========================= */
+
+    .page-header {
+      text-align: center;
+
+      padding: 65px 20px 35px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+
+      background: #eef4ff;
+
+      color: #2563eb;
+
+      border: 1px solid #d8e5ff;
+
+      padding: 7px 13px;
+
+      border-radius: 999px;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      margin-bottom: 17px;
+    }
+
+    .page-header h1 {
+      font-size:
+        clamp(38px, 5vw, 55px);
+
+      line-height: 1.05;
+
+      letter-spacing: -2px;
+
       margin-bottom: 14px;
     }
 
-    label {
-      display: block;
-      color: #765f5f;
+    .page-header h1 span {
+      color: #2563eb;
+    }
+
+    .page-header p {
+      color: #697386;
+
+      font-size: 17px;
+
+      max-width: 600px;
+
+      margin: auto;
+    }
+
+
+    /* =========================
+       FORM CONTAINER
+    ========================= */
+
+    .form-wrapper {
+      width: min(900px, calc(100% - 32px));
+
+      margin: 0 auto 80px;
+    }
+
+    .form-card {
+      background: white;
+
+      border: 1px solid #e1e5eb;
+
+      border-radius: 20px;
+
+      padding: 42px;
+
+      box-shadow:
+        0 20px 55px rgba(23, 32, 51, 0.08);
+    }
+
+
+    /* =========================
+       FORM SECTIONS
+    ========================= */
+
+    .form-section {
+      padding-bottom: 34px;
+
+      margin-bottom: 34px;
+
+      border-bottom: 1px solid #edf0f4;
+    }
+
+    .form-section:last-of-type {
+      border-bottom: none;
+
+      margin-bottom: 0;
+
+      padding-bottom: 0;
+    }
+
+    .section-title {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      margin-bottom: 20px;
+    }
+
+    .section-number {
+      width: 34px;
+      height: 34px;
+
+      border-radius: 50%;
+
+      background: #eef4ff;
+
+      color: #2563eb;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-weight: 800;
+
       font-size: 14px;
-      font-weight: 750;
-      margin-bottom: 7px;
+
+      flex-shrink: 0;
+    }
+
+    .section-title h2 {
+      font-size: 21px;
+    }
+
+    .section-description {
+      color: #737b89;
+
+      font-size: 14px;
+
+      margin-top: -12px;
+
+      margin-left: 46px;
+
+      margin-bottom: 22px;
+    }
+
+
+    /* =========================
+       FORM GRID
+    ========================= */
+
+    .form-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 20px;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .field {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 7px;
+    }
+
+    label {
+      font-size: 14px;
+
+      font-weight: 700;
+
+      color: #303949;
     }
 
     input,
     select {
       width: 100%;
-      border: 1px solid #d9c2c0;
-      border-radius: 12px;
-      padding: 13px;
-      font-size: 16px;
+
+      border: 1px solid #d8dde6;
+
+      background: white;
+
+      color: #172033;
+
+      border-radius: 9px;
+
+      padding: 13px 14px;
+
+      font-size: 15px;
+
       outline: none;
-      background: #fffdfc;
-      color: #594848;
+
+      transition: 0.15s;
     }
 
     input:focus,
     select:focus {
-      border-color: #c28b8b;
-      box-shadow: 0 0 0 4px rgba(194,139,139,.12);
+      border-color: #2563eb;
+
+      box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
     }
 
-    .field {
-      margin-bottom: 16px;
-    }
+    input[type="file"] {
+      padding: 10px;
 
-    .two {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .themeGrid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .themeOption {
-      border: 1px solid #ead6d6;
-      border-radius: 14px;
-      padding: 15px;
-      background: #fffaf8;
       cursor: pointer;
-      transition: .2s ease;
     }
 
-    .themeOption:hover {
-      border-color: #c28b8b;
-      transform: translateY(-1px);
+    .field-help {
+      color: #89909d;
+
+      font-size: 12px;
     }
 
-    .themeOption input {
-      width: auto;
-      margin-right: 8px;
-    }
 
-    .themeName {
-      font-weight: 750;
-      color: #765555;
-    }
+    /* =========================
+       EVENT TYPE
+    ========================= */
 
-    .themeDescription {
-      display: block;
-      margin-top: 4px;
-      color: #9b8585;
-      font-size: 13px;
-    }
-
-    .colors {
+    .event-type-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 10px;
+    }
+
+    .event-option {
+      position: relative;
+    }
+
+    .event-option input {
+      position: absolute;
+
+      opacity: 0;
+
+      pointer-events: none;
+    }
+
+    .event-option label {
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      text-align: center;
+
+      min-height: 95px;
+
+      padding: 12px;
+
+      border: 1px solid #dfe3ea;
+
+      border-radius: 12px;
+
+      cursor: pointer;
+
+      transition: 0.15s;
+
+      background: white;
+    }
+
+    .event-option label:hover {
+      border-color: #b9cdfb;
+
+      background: #f8faff;
+    }
+
+    .event-option input:checked + label {
+      border-color: #2563eb;
+
+      background: #eef4ff;
+
+      color: #1d4ed8;
+
+      box-shadow:
+        0 5px 15px rgba(37, 99, 235, 0.10);
+    }
+
+    .event-emoji {
+      font-size: 25px;
+
+      margin-bottom: 4px;
+    }
+
+
+    /* =========================
+       THEMES
+    ========================= */
+
+    .theme-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
       gap: 14px;
     }
 
-    .colorBox {
-      text-align: center;
+    .theme-option {
+      position: relative;
     }
 
-    .colorBox label {
-      margin-bottom: 8px;
+    .theme-option input {
+      position: absolute;
+
+      opacity: 0;
+
+      pointer-events: none;
+    }
+
+    .theme-option label {
+      display: block;
+
+      border: 2px solid #e0e4ea;
+
+      border-radius: 13px;
+
+      overflow: hidden;
+
+      cursor: pointer;
+
+      background: white;
+
+      transition: 0.15s;
+    }
+
+    .theme-option label:hover {
+      transform: translateY(-2px);
+
+      border-color: #b9cdfb;
+    }
+
+    .theme-option input:checked + label {
+      border-color: #2563eb;
+
+      box-shadow:
+        0 6px 18px rgba(37, 99, 235, 0.12);
+    }
+
+    .theme-preview {
+      height: 70px;
+    }
+
+    .theme-classic {
+      background:
+        linear-gradient(
+          135deg,
+          #2563eb,
+          #7c3aed
+        );
+    }
+
+    .theme-elegant {
+      background:
+        linear-gradient(
+          135deg,
+          #172033,
+          #667085
+        );
+    }
+
+    .theme-celebration {
+      background:
+        linear-gradient(
+          135deg,
+          #f97316,
+          #facc15
+        );
+    }
+
+    .theme-modern {
+      background:
+        linear-gradient(
+          135deg,
+          #06b6d4,
+          #2563eb
+        );
+    }
+
+    .theme-name {
+      padding: 10px;
+
+      text-align: center;
+
+      font-size: 13px;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       COLOR PICKERS
+    ========================= */
+
+    .color-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 15px;
+    }
+
+    .color-field {
+      border: 1px solid #e1e5eb;
+
+      border-radius: 12px;
+
+      padding: 14px;
+
+      background: #fafbfc;
+    }
+
+    .color-field label {
+      display: block;
+
+      margin-bottom: 9px;
+    }
+
+    .color-input-row {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
     }
 
     input[type="color"] {
-      height: 52px;
-      padding: 4px;
+      width: 48px;
+      height: 42px;
+
+      padding: 3px;
+
+      border: 1px solid #d8dde6;
+
+      border-radius: 8px;
+
       cursor: pointer;
+
+      background: white;
     }
 
-    .createBtn {
-      width: 100%;
-      border: 0;
-      border-radius: 14px;
-      padding: 16px;
-      font-size: 17px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #b97979, #c9918b);
-      color: white;
+    .color-description {
+      color: #8a919e;
+
+      font-size: 11px;
+
+      margin-top: 7px;
+    }
+
+
+    /* =========================
+       BACKGROUND
+    ========================= */
+
+    .background-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 12px;
+    }
+
+    .background-option {
+      position: relative;
+    }
+
+    .background-option input {
+      position: absolute;
+
+      opacity: 0;
+
+      pointer-events: none;
+    }
+
+    .background-option label {
+      display: block;
+
+      border: 2px solid #e0e4ea;
+
+      border-radius: 12px;
+
+      overflow: hidden;
+
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(180,115,115,.22);
+
+      background: white;
+
+      transition: 0.15s;
     }
 
-    .createBtn:hover {
-      background: linear-gradient(135deg, #aa6c6c, #bd827d);
+    .background-option input:checked + label {
+      border-color: #2563eb;
     }
 
-    .status {
-      min-height: 24px;
+    .background-preview {
+      height: 65px;
+    }
+
+    .background-classic {
+      background:
+        linear-gradient(
+          135deg,
+          #fffdf8,
+          #eef4ff
+        );
+    }
+
+    .background-soft {
+      background:
+        linear-gradient(
+          135deg,
+          #fff7ed,
+          #fef3c7
+        );
+    }
+
+    .background-celebration {
+      background:
+        linear-gradient(
+          135deg,
+          #fef3c7,
+          #fee2e2,
+          #ede9fe
+        );
+    }
+
+    .background-minimal {
+      background: #ffffff;
+    }
+
+    .background-name {
+      padding: 9px;
+
       text-align: center;
-      margin-top: 14px;
-      color: #806e6e;
-      font-size: 14px;
+
+      font-size: 12px;
+
+      font-weight: 700;
     }
+
+
+    /* =========================
+       LOGO UPLOAD
+    ========================= */
+
+    .upload-box {
+      border: 2px dashed #d8dde6;
+
+      border-radius: 13px;
+
+      padding: 25px;
+
+      text-align: center;
+
+      background: #fafbfc;
+    }
+
+    .upload-box:hover {
+      border-color: #9db8f5;
+
+      background: #f8faff;
+    }
+
+    .upload-icon {
+      font-size: 28px;
+
+      margin-bottom: 7px;
+    }
+
+    .upload-box p {
+      color: #697386;
+
+      font-size: 13px;
+
+      margin-bottom: 12px;
+    }
+
+
+    /* =========================
+       BUTTON
+    ========================= */
+
+    .submit-area {
+      padding-top: 30px;
+
+      text-align: center;
+    }
+
+    #createBtn {
+      width: 100%;
+
+      border: none;
+
+      border-radius: 10px;
+
+      padding: 16px 25px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #2563eb,
+          #4f46e5
+        );
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 9px 22px rgba(37, 99, 235, 0.22);
+
+      transition: 0.2s;
+    }
+
+    #createBtn:hover:not(:disabled) {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 12px 28px rgba(37, 99, 235, 0.28);
+    }
+
+    #createBtn:disabled {
+      opacity: 0.65;
+
+      cursor: not-allowed;
+    }
+
+    #status {
+      margin-top: 13px;
+
+      color: #667085;
+
+      font-size: 13px;
+
+      min-height: 20px;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      background: #111827;
+
+      color: white;
+
+      padding: 35px 24px;
+
+      text-align: center;
+    }
+
+    footer p {
+      color: #9da6b5;
+
+      font-size: 13px;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 800px) {
+
+      .event-type-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .theme-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .background-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .color-grid {
+        grid-template-columns:
+          1fr;
+      }
+
+      .form-grid {
+        grid-template-columns:
+          1fr;
+      }
+
+    }
+
 
     @media (max-width: 600px) {
-      .page {
-        padding-top: 30px;
+
+      .nav-inner {
+        padding: 14px 18px;
       }
 
-      .card {
-        padding: 22px;
-        border-radius: 20px;
+      .logo {
+        font-size: 18px;
       }
 
-      .two,
-      .colors,
-      .themeGrid {
-        grid-template-columns: 1fr;
+      .logo-mark {
+        width: 32px;
+        height: 32px;
       }
+
+      .back-link {
+        font-size: 12px;
+      }
+
+      .page-header {
+        padding: 48px 18px 28px;
+      }
+
+      .page-header h1 {
+        letter-spacing: -1.5px;
+      }
+
+      .form-wrapper {
+        width: calc(100% - 22px);
+
+        margin-bottom: 45px;
+      }
+
+      .form-card {
+        padding: 24px 18px;
+
+        border-radius: 16px;
+      }
+
+      .event-type-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .theme-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .background-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <main class="page">
 
-    <div class="brand">☁ Cloud Photo TV</div>
+  <!-- =========================
+       NAVIGATION
+  ========================= -->
 
-    <h1>Create Your Event</h1>
+  <nav class="navbar">
 
-    <p class="intro">
-      Create a personalized photo experience for your next event.
-      Your event will have its own QR code, TV display, and photo gallery.
+    <div class="nav-inner">
+
+
+      <a
+        href="index.html"
+        class="logo"
+      >
+
+        <div class="logo-mark">
+          ✦
+        </div>
+
+        <div class="logo-text">
+          Instant <span>Moments</span>
+        </div>
+
+      </a>
+
+
+      <a
+        href="index.html"
+        class="back-link"
+      >
+        ← Back to Home
+      </a>
+
+
+    </div>
+
+  </nav>
+
+
+  <!-- =========================
+       HEADER
+  ========================= -->
+
+  <header class="page-header">
+
+    <div class="eyebrow">
+      ✨ Let's create something memorable
+    </div>
+
+
+    <h1>
+      Create Your <span>Event</span>
+    </h1>
+
+
+    <p>
+      Tell us about your event and customize
+      the experience your guests will see.
     </p>
 
-    <div class="card">
+  </header>
 
-      <div class="section">
 
-        <div class="sectionTitle">1. Event Information</div>
+  <!-- =========================
+       FORM
+  ========================= -->
 
-        <div class="field">
-          <label for="eventType">Event Type</label>
+  <main class="form-wrapper">
 
-          <select id="eventType">
-            <option value="birthday">Birthday</option>
-            <option value="graduation">Graduation</option>
-            <option value="wedding">Wedding</option>
-            <option value="retirement">Retirement</option>
-            <option value="baby-shower">Baby Shower</option>
-            <option value="anniversary">Anniversary</option>
-            <option value="sports">Sports Event</option>
-            <option value="other">Other</option>
-          </select>
+    <div class="form-card">
+
+
+      <!-- EVENT DETAILS -->
+
+      <section class="form-section">
+
+        <div class="section-title">
+
+          <div class="section-number">
+            1
+          </div>
+
+          <h2>
+            Event Details
+          </h2>
+
         </div>
 
-        <div class="field">
-          <label for="eventName">Event Name</label>
 
-          <input
-            id="eventName"
-            type="text"
-            placeholder="Donna's 60th Birthday"
-          >
-        </div>
+        <p class="section-description">
+          Start with the basics about your event.
+        </p>
 
-      </div>
 
-      <div class="section">
+        <div class="form-grid">
 
-        <div class="sectionTitle">2. Date & Time</div>
 
-        <div class="two">
+          <div class="field full-width">
+
+            <label for="eventName">
+              Event Name
+            </label>
+
+            <input
+              id="eventName"
+              type="text"
+              placeholder="Josh's Birthday Party"
+              autocomplete="off"
+            >
+
+          </div>
+
 
           <div class="field">
-            <label for="eventDate">Event Date</label>
+
+            <label for="eventDate">
+              Event Date
+            </label>
 
             <input
               id="eventDate"
               type="date"
             >
+
           </div>
 
-          <div></div>
 
           <div class="field">
-            <label for="startTime">Start Time</label>
+
+            <label for="eventType">
+              Event Type
+            </label>
+
+            <select id="eventType">
+
+              <option value="Birthday">
+                Birthday
+              </option>
+
+              <option value="Graduation">
+                Graduation
+              </option>
+
+              <option value="Wedding">
+                Wedding
+              </option>
+
+              <option value="Retirement">
+                Retirement
+              </option>
+
+              <option value="Baby Shower">
+                Baby Shower
+              </option>
+
+              <option value="Anniversary">
+                Anniversary
+              </option>
+
+              <option value="Sports Event">
+                Sports Event
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="startTime">
+              Start Time
+            </label>
 
             <input
               id="startTime"
               type="time"
             >
+
           </div>
 
+
           <div class="field">
-            <label for="endTime">End Time</label>
+
+            <label for="endTime">
+              End Time
+            </label>
 
             <input
               id="endTime"
               type="time"
             >
+
           </div>
+
 
         </div>
 
-      </div>
+      </section>
 
-      <div class="section">
 
-        <div class="sectionTitle">3. Choose a Theme</div>
+      <!-- THEME -->
 
-        <div class="themeGrid">
+      <section class="form-section">
 
-          <label class="themeOption">
+        <div class="section-title">
+
+          <div class="section-number">
+            2
+          </div>
+
+          <h2>
+            Choose Your Theme
+          </h2>
+
+        </div>
+
+
+        <p class="section-description">
+          Pick a starting style for your event.
+        </p>
+
+
+        <div class="theme-grid">
+
+
+          <div class="theme-option">
+
             <input
               type="radio"
               name="theme"
+              id="themeClassic"
               value="classic"
               checked
             >
-            <span class="themeName">Classic</span>
-            <span class="themeDescription">
-              Clean and elegant
-            </span>
-          </label>
 
-          <label class="themeOption">
+            <label for="themeClassic">
+
+              <div
+                class="theme-preview theme-classic"
+              ></div>
+
+              <div class="theme-name">
+                Classic
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="theme-option">
+
             <input
               type="radio"
               name="theme"
+              id="themeElegant"
               value="elegant"
             >
-            <span class="themeName">Elegant</span>
-            <span class="themeDescription">
-              Rose, gold & luxury
-            </span>
-          </label>
 
-          <label class="themeOption">
+            <label for="themeElegant">
+
+              <div
+                class="theme-preview theme-elegant"
+              ></div>
+
+              <div class="theme-name">
+                Elegant
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="theme-option">
+
             <input
               type="radio"
               name="theme"
+              id="themeCelebration"
               value="celebration"
             >
-            <span class="themeName">Celebration</span>
-            <span class="themeDescription">
-              Fun and colorful
-            </span>
-          </label>
 
-          <label class="themeOption">
+            <label for="themeCelebration">
+
+              <div
+                class="theme-preview theme-celebration"
+              ></div>
+
+              <div class="theme-name">
+                Celebration
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="theme-option">
+
             <input
               type="radio"
               name="theme"
+              id="themeModern"
               value="modern"
             >
-            <span class="themeName">Modern</span>
-            <span class="themeDescription">
-              Simple and contemporary
-            </span>
-          </label>
+
+            <label for="themeModern">
+
+              <div
+                class="theme-preview theme-modern"
+              ></div>
+
+              <div class="theme-name">
+                Modern
+              </div>
+
+            </label>
+
+          </div>
+
 
         </div>
 
-      </div>
+      </section>
 
-      <div class="section">
 
-        <div class="sectionTitle">4. Choose Your Colors</div>
+      <!-- COLORS -->
 
-        <div class="colors">
+      <section class="form-section">
 
-          <div class="colorBox">
-            <label for="primaryColor">Primary</label>
-            <input
-              id="primaryColor"
-              type="color"
-              value="#b97979"
-            >
+        <div class="section-title">
+
+          <div class="section-number">
+            3
           </div>
 
-          <div class="colorBox">
-            <label for="secondaryColor">Background</label>
-            <input
-              id="secondaryColor"
-              type="color"
-              value="#fffaf8"
-            >
-          </div>
-
-          <div class="colorBox">
-            <label for="accentColor">Accent</label>
-            <input
-              id="accentColor"
-              type="color"
-              value="#c8a24a"
-            >
-          </div>
+          <h2>
+            Choose Your Colors
+          </h2>
 
         </div>
 
-      </div>
 
-      <div class="section">
+        <p class="section-description">
+          Choose the colors you'd like your
+          event experience to use.
+        </p>
 
-        <div class="sectionTitle">5. Background & Logo</div>
 
-        <div class="field">
-          <label for="background">Background Design</label>
+        <div class="color-grid">
 
-          <select id="background">
-            <option value="default">Classic</option>
-            <option value="soft">Soft & Elegant</option>
-            <option value="celebration">Celebration</option>
-            <option value="minimal">Minimal</option>
-          </select>
+
+          <div class="color-field">
+
+            <label for="primaryColor">
+              Primary Color
+            </label>
+
+            <div class="color-input-row">
+
+              <input
+                id="primaryColor"
+                type="color"
+                value="#2563eb"
+              >
+
+              <span>
+                Main brand color
+              </span>
+
+            </div>
+
+            <div class="color-description">
+              Used for buttons and main accents.
+            </div>
+
+          </div>
+
+
+          <div class="color-field">
+
+            <label for="secondaryColor">
+              Background Color
+            </label>
+
+            <div class="color-input-row">
+
+              <input
+                id="secondaryColor"
+                type="color"
+                value="#fffdf8"
+              >
+
+              <span>
+                Main background
+              </span>
+
+            </div>
+
+            <div class="color-description">
+              Used behind your event content.
+            </div>
+
+          </div>
+
+
+          <div class="color-field">
+
+            <label for="accentColor">
+              Accent Color
+            </label>
+
+            <div class="color-input-row">
+
+              <input
+                id="accentColor"
+                type="color"
+                value="#f97316"
+              >
+
+              <span>
+                Highlight color
+              </span>
+
+            </div>
+
+            <div class="color-description">
+              Used for special details and accents.
+            </div>
+
+          </div>
+
+
         </div>
 
-        <div class="field">
-          <label for="logo">Optional Event Logo or Photo</label>
+      </section>
+
+
+      <!-- BACKGROUND -->
+
+      <section class="form-section">
+
+        <div class="section-title">
+
+          <div class="section-number">
+            4
+          </div>
+
+          <h2>
+            Choose Your Background
+          </h2>
+
+        </div>
+
+
+        <p class="section-description">
+          Choose the style that will appear
+          behind your event experience.
+        </p>
+
+
+        <div class="background-grid">
+
+
+          <div class="background-option">
+
+            <input
+              type="radio"
+              name="background"
+              id="backgroundClassic"
+              value="default"
+              checked
+            >
+
+            <label for="backgroundClassic">
+
+              <div
+                class="
+                  background-preview
+                  background-classic
+                "
+              ></div>
+
+              <div class="background-name">
+                Classic
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="background-option">
+
+            <input
+              type="radio"
+              name="background"
+              id="backgroundSoft"
+              value="soft"
+            >
+
+            <label for="backgroundSoft">
+
+              <div
+                class="
+                  background-preview
+                  background-soft
+                "
+              ></div>
+
+              <div class="background-name">
+                Soft & Elegant
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="background-option">
+
+            <input
+              type="radio"
+              name="background"
+              id="backgroundCelebration"
+              value="celebration"
+            >
+
+            <label for="backgroundCelebration">
+
+              <div
+                class="
+                  background-preview
+                  background-celebration
+                "
+              ></div>
+
+              <div class="background-name">
+                Celebration
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="background-option">
+
+            <input
+              type="radio"
+              name="background"
+              id="backgroundMinimal"
+              value="minimal"
+            >
+
+            <label for="backgroundMinimal">
+
+              <div
+                class="
+                  background-preview
+                  background-minimal
+                "
+              ></div>
+
+              <div class="background-name">
+                Minimal
+              </div>
+
+            </label>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- LOGO -->
+
+      <section class="form-section">
+
+        <div class="section-title">
+
+          <div class="section-number">
+            5
+          </div>
+
+          <h2>
+            Add a Logo or Photo
+          </h2>
+
+        </div>
+
+
+        <p class="section-description">
+          Optional. Add a logo, photo, or other
+          image to personalize your event.
+        </p>
+
+
+        <div class="upload-box">
+
+          <div class="upload-icon">
+            🖼️
+          </div>
+
+
+          <p>
+            Upload an image for your event
+          </p>
+
 
           <input
-            id="logo"
+            id="logoInput"
             type="file"
-            accept="image/jpeg,image/png,image/webp"
+            accept="image/*"
           >
+
+
+          <div class="field-help">
+            JPG, PNG, or WEBP recommended.
+          </div>
+
         </div>
+
+      </section>
+
+
+      <!-- SUBMIT -->
+
+      <div class="submit-area">
+
+
+        <button
+          id="createBtn"
+          type="button"
+        >
+          Continue to Checkout →
+        </button>
+
+
+        <div id="status"></div>
+
 
       </div>
 
-      <button id="createBtn" class="createBtn">
-        Continue to Checkout
-      </button>
-
-      <div id="status" class="status"></div>
 
     </div>
 
   </main>
 
-  <script type="module" src="create-event.js"></script>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>
+      ✦ Instant Moments · Your moments,
+      instantly shared.
+    </p>
+
+  </footer>
+
+
+  <script
+    type="module"
+    src="create-event.js"
+  ></script>
+
 
 </body>
+
 </html>
+```
