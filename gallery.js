@@ -10,17 +10,14 @@ const supabase = createClient(
   SUPABASE_ANON_KEY
 );
 
-
 const params =
   new URLSearchParams(
     window.location.search
   );
 
-
 const code =
   (params.get("code") || "")
     .toUpperCase();
-
 
 const eventName =
   document.getElementById("eventName");
@@ -36,7 +33,6 @@ const status =
 
 const downloadAllBtn =
   document.getElementById("downloadAllBtn");
-
 
 let photos = [];
 
@@ -60,7 +56,7 @@ async function loadGallery() {
 
   try {
 
-    // Load event
+    // Get the event
     const {
       data: event,
       error: eventError
@@ -80,12 +76,11 @@ async function loadGallery() {
     eventName.textContent =
       event.event_name;
 
-
     eventCode.textContent =
       `EVENT ${event.code}`;
 
 
-    // Load photos
+    // Get all photos for this event
     const {
       data,
       error
@@ -116,7 +111,10 @@ async function loadGallery() {
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "GALLERY ERROR:",
+      error
+    );
 
     status.textContent =
       "There was a problem loading the gallery.";
@@ -147,8 +145,9 @@ function renderGallery() {
       </div>
     `;
 
-    downloadAllBtn.disabled =
-      true;
+    if (downloadAllBtn) {
+      downloadAllBtn.disabled = true;
+    }
 
     return;
   }
@@ -158,45 +157,96 @@ function renderGallery() {
     `${photos.length} photo${photos.length === 1 ? "" : "s"} in this gallery`;
 
 
-  downloadAllBtn.disabled =
-    false;
+  if (downloadAllBtn) {
+    downloadAllBtn.disabled = false;
+  }
 
 
   photos.forEach(
     (photo, index) => {
 
       const card =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       card.className =
         "photo-card";
 
 
-      card.innerHTML = `
-        <img
-          src="${photo.url}"
-          alt="Event photo ${index + 1}"
-          loading="lazy"
-        >
+      const image =
+        document.createElement(
+          "img"
+        );
 
-        <div class="photo-footer">
+      image.src =
+        photo.url;
 
-          <span class="photo-number">
-            Photo ${index + 1}
-          </span>
+      image.alt =
+        `Event photo ${index + 1}`;
 
-          <a
-            class="download-link"
-            href="${photo.url}"
-            target="_blank"
-            rel="noopener"
-            download
-          >
-            Download
-          </a>
+      image.loading =
+        "lazy";
 
-        </div>
-      `;
+
+      const footer =
+        document.createElement(
+          "div"
+        );
+
+      footer.className =
+        "photo-footer";
+
+
+      const number =
+        document.createElement(
+          "span"
+        );
+
+      number.className =
+        "photo-number";
+
+      number.textContent =
+        `Photo ${index + 1}`;
+
+
+      const download =
+        document.createElement(
+          "a"
+        );
+
+      download.className =
+        "download-link";
+
+      download.href =
+        photo.url;
+
+      download.target =
+        "_blank";
+
+      download.rel =
+        "noopener";
+
+      download.textContent =
+        "Download";
+
+
+      footer.appendChild(
+        number
+      );
+
+      footer.appendChild(
+        download
+      );
+
+
+      card.appendChild(
+        image
+      );
+
+      card.appendChild(
+        footer
+      );
 
 
       gallery.appendChild(
@@ -209,72 +259,73 @@ function renderGallery() {
 }
 
 
-downloadAllBtn.addEventListener(
-  "click",
-  async () => {
+if (downloadAllBtn) {
 
-    if (!photos.length) {
-      return;
+  downloadAllBtn.addEventListener(
+    "click",
+    async () => {
+
+      if (!photos.length) {
+        return;
+      }
+
+
+      status.textContent =
+        "Preparing downloads...";
+
+
+      for (
+        let i = 0;
+        i < photos.length;
+        i++
+      ) {
+
+        const photo =
+          photos[i];
+
+
+        const link =
+          document.createElement(
+            "a"
+          );
+
+        link.href =
+          photo.url;
+
+        link.download =
+          `instant-moments-${i + 1}.jpg`;
+
+        link.target =
+          "_blank";
+
+
+        document.body.appendChild(
+          link
+        );
+
+        link.click();
+
+        link.remove();
+
+
+        await new Promise(
+          resolve =>
+            setTimeout(
+              resolve,
+              300
+            )
+        );
+
+      }
+
+
+      status.textContent =
+        "Downloads started.";
+
     }
+  );
 
-
-    status.textContent =
-      "Preparing your downloads...";
-
-
-    for (
-      let i = 0;
-      i < photos.length;
-      i++
-    ) {
-
-      const photo =
-        photos[i];
-
-
-      const link =
-        document.createElement("a");
-
-
-      link.href =
-        photo.url;
-
-
-      link.download =
-        `instant-moments-${i + 1}.jpg`;
-
-
-      link.target =
-        "_blank";
-
-
-      document.body.appendChild(
-        link
-      );
-
-
-      link.click();
-
-
-      link.remove();
-
-
-      await new Promise(
-        resolve =>
-          setTimeout(
-            resolve,
-            300
-          )
-      );
-
-    }
-
-
-    status.textContent =
-      "Downloads started.";
-
-  }
-);
+}
 
 
 loadGallery();
