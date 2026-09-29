@@ -20,7 +20,9 @@ const primaryColor = document.getElementById("primaryColor");
 const secondaryColor = document.getElementById("secondaryColor");
 const accentColor = document.getElementById("accentColor");
 
-const background = document.getElementById("background");
+const background = document.querySelector(
+  'input[name="background"]:checked'
+);
 
 const createBtn = document.getElementById("createBtn");
 const status = document.getElementById("status");
