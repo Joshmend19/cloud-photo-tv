@@ -1,267 +1,256 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Donna's 60th Birthday</title>
-
-  <link rel="stylesheet" href="style.css">
+  <title>Event Gallery | Instant Moments</title>
 
   <style>
+    :root {
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --orange: #f97316;
+      --yellow: #facc15;
+      --navy: #172033;
+      --warm-white: #fffdf8;
+      --light-blue: #f5f8ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background:
-        radial-gradient(circle at top, #fff8f8 0%, #ffffff 45%, #fffaf5 100%);
-      color: #4a3b3b;
-      overflow-x: hidden;
-    }
-
-    .galleryWrap {
-      width: min(1200px, 94%);
-      margin: 0 auto;
-      padding: 55px 0 70px;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Decorative roses */
-
-    .roseSide {
-      position: fixed;
-      top: 45px;
-      width: 170px;
-      z-index: 1;
-      pointer-events: none;
-      opacity: .95;
-    }
-
-    .roseLeft {
-      left: 10px;
-    }
-
-    .roseRight {
-      right: 10px;
-      transform: scaleX(-1);
-    }
-
-    .rose {
-      font-size: 70px;
-      line-height: .8;
-      filter:
-        drop-shadow(0 8px 12px rgba(150, 90, 90, .16));
-    }
-
-    .rose:nth-child(2) {
-      margin-left: 48px;
-      margin-top: 10px;
-      font-size: 58px;
-    }
-
-    .leaves {
-      color: #a58b55;
-      font-size: 28px;
-      margin-left: 18px;
-      margin-top: 8px;
-      letter-spacing: 8px;
-    }
-
-    .galleryHead {
-      text-align: center;
-      margin-bottom: 28px;
-      position: relative;
-      z-index: 3;
-    }
-
-    .eventLogo {
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: .16em;
-      color: #b77b7b;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .galleryHead h1 {
       margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(38px, 6vw, 64px);
-      font-weight: 500;
-      color: #8f5f62;
-      letter-spacing: -.02em;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--light-blue);
+      color: var(--navy);
     }
 
-    .goldLine {
-      width: 90px;
-      height: 2px;
-      margin: 18px auto;
+    .top-bar {
+      height: 6px;
       background: linear-gradient(
         90deg,
-        #c8a24a,
-        #e7c873,
-        #c8a24a
+        var(--blue),
+        var(--purple),
+        var(--orange),
+        var(--yellow)
       );
     }
 
-    .gallerySubtitle {
-      margin: 0;
-      color: #8b7b7b;
-      font-size: 16px;
+    nav {
+      background: white;
+      padding: 18px 24px;
+      border-bottom: 1px solid #e5e7eb;
     }
 
-    #galleryStatus {
-      margin-top: 12px;
-      color: #b08a8a;
-      font-size: 14px;
+    .nav-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .downloadAll {
-      display: inline-flex;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      margin-top: 20px;
-      border: 1px solid #d2b06a;
-      border-radius: 13px;
-      padding: 12px 20px;
-      background: linear-gradient(135deg, #fffdf7, #fff8e9);
-      color: #96752e;
-      font-size: 15px;
-      font-weight: 750;
-      cursor: pointer;
-      box-shadow: 0 7px 20px rgba(180, 140, 70, .12);
-      transition: .2s ease;
+      color: white;
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
     }
 
-    .downloadAll:hover {
-      background: #fff4d7;
-      border-color: #c49b45;
-      transform: translateY(-1px);
+    .logo span {
+      color: var(--blue);
     }
 
-    .downloadAll:disabled {
-      opacity: .55;
-      cursor: wait;
-      transform: none;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px;
-      position: relative;
-      z-index: 3;
-    }
-
-    .card {
-      background: white;
-      border: 1px solid #ead6d6;
-      border-radius: 18px;
-      padding: 8px;
-      box-shadow:
-        0 10px 30px rgba(155, 105, 105, .10),
-        0 2px 5px rgba(180, 140, 80, .06);
-      transition: .2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: #d8b0b0;
-      box-shadow:
-        0 16px 35px rgba(155, 105, 105, .15),
-        0 3px 8px rgba(180, 140, 80, .08);
-    }
-
-    .card img {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      border-radius: 12px;
-      display: block;
-    }
-
-    .photoActions {
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .viewBtn,
-    .downloadBtn {
-      flex: 1;
-      text-align: center;
+    .back-link {
+      color: var(--blue);
       text-decoration: none;
-      border-radius: 9px;
-      padding: 9px 6px;
+      font-weight: 700;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 50px 20px 70px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 42px;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #64748b;
+      font-size: 17px;
+    }
+
+    .event-code {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #eaf1ff;
+      color: var(--blue);
       font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 35px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 13px 20px;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
     }
 
-    .viewBtn {
-      color: #8f6262;
-      background: #fff7f5;
-      border: 1px solid #ead6d6;
+    .primary {
+      color: white;
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
     }
 
-    .downloadBtn {
-      color: #96752e;
-      background: #fffaf0;
-      border: 1px solid #e4cc91;
+    .secondary {
+      background: white;
+      color: var(--navy);
+      border: 1px solid #dbe2ea;
     }
 
-    .viewBtn:hover {
-      background: #fff0ed;
+    button:hover {
+      opacity: 0.9;
     }
 
-    .downloadBtn:hover {
-      background: #fff3d9;
+    .status {
+      text-align: center;
+      min-height: 25px;
+      margin-bottom: 20px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax(220px, 1fr)
+      );
+      gap: 18px;
+    }
+
+    .photo-card {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow:
+        0 8px 25px rgba(
+          23,
+          32,
+          51,
+          0.08
+        );
+    }
+
+    .photo-card img {
+      display: block;
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      background: #e5e7eb;
+    }
+
+    .photo-footer {
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .photo-number {
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .download-link {
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .empty {
       text-align: center;
       padding: 70px 20px;
-      color: #8b7b7b;
-      grid-column: 1 / -1;
+      background: white;
+      border-radius: 20px;
+      color: #64748b;
     }
 
-    @media (max-width: 900px) {
-      .roseSide {
-        opacity: .5;
-        width: 110px;
-      }
-
-      .rose {
-        font-size: 50px;
-      }
-
-      .rose:nth-child(2) {
-        font-size: 42px;
-      }
+    .empty h2 {
+      color: var(--navy);
+      margin-top: 0;
     }
 
     @media (max-width: 600px) {
-      .roseSide {
-        display: none;
+
+      .hero h1 {
+        font-size: 32px;
       }
 
-      .galleryWrap {
-        padding-top: 40px;
-      }
-
-      .galleryHead h1 {
-        font-size: 40px;
-      }
-
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
+      .gallery {
+        grid-template-columns: repeat(
+          2,
+          minmax(0, 1fr)
+        );
         gap: 12px;
       }
 
-      .viewBtn,
-      .downloadBtn {
-        font-size: 12px;
-        padding: 8px 4px;
+      .photo-card img {
+        height: 180px;
+      }
+
+      .nav-inner {
+        gap: 15px;
+      }
+
+      .back-link {
+        font-size: 14px;
       }
     }
   </style>
@@ -269,51 +258,82 @@
 
 <body>
 
-  <!-- Left roses -->
-  <div class="roseSide roseLeft">
-    <div class="rose">🌹</div>
-    <div class="rose">🌹</div>
-    <div class="leaves">✦ ✦</div>
-  </div>
+  <div class="top-bar"></div>
 
-  <!-- Right roses -->
-  <div class="roseSide roseRight">
-    <div class="rose">🌹</div>
-    <div class="rose">🌹</div>
-    <div class="leaves">✦ ✦</div>
-  </div>
+  <nav>
+    <div class="nav-inner">
 
-  <main class="galleryWrap">
-
-    <header class="galleryHead">
-
-      <div class="eventLogo">
-        Donna's 60th Birthday
+      <div class="logo">
+        <div class="logo-mark">✦</div>
+        Instant <span>Moments</span>
       </div>
 
-      <h1>Celebrating 60 Years</h1>
+      <a
+        href="index.html"
+        class="back-link"
+      >
+        Instant Moments
+      </a>
 
-      <div class="goldLine"></div>
+    </div>
+  </nav>
 
-      <p class="gallerySubtitle">
-        A collection of memories from a special day
+
+  <main>
+
+    <section class="hero">
+
+      <h1 id="eventName">
+        Event Gallery
+      </h1>
+
+      <p>
+        All the moments shared from this event.
       </p>
 
-      <p id="galleryStatus">
-        Loading photos…
-      </p>
+      <div
+        id="eventCode"
+        class="event-code"
+      >
+        EVENT ------ 
+      </div>
 
-      <button id="downloadAll" class="downloadAll">
-        ↓ Download All Photos
+    </section>
+
+
+    <section class="actions">
+
+      <button
+        id="downloadAllBtn"
+        class="primary"
+      >
+        Download All Photos
       </button>
 
-    </header>
+    </section>
 
-    <section id="grid" class="grid"></section>
+
+    <div
+      id="status"
+      class="status"
+    >
+      Loading photos...
+    </div>
+
+
+    <section
+      id="gallery"
+      class="gallery"
+    ></section>
+
 
   </main>
 
-  <script type="module" src="gallery.js"></script>
+
+  <script
+    type="module"
+    src="./gallery.js"
+  ></script>
 
 </body>
 </html>
