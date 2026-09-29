@@ -92,12 +92,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 90px 40px 40px;
+      padding: 90px 30px 35px;
     }
 
     #currentPhoto {
-      max-width: 90%;
-      max-height: 85%;
+      max-width: 94%;
+      max-height: 90%;
+      width: auto;
+      height: auto;
       object-fit: contain;
       border-radius: 18px;
       box-shadow: 0 20px 70px rgba(0, 0, 0, 0.45);
@@ -152,6 +154,7 @@
     }
 
     @media (max-width: 700px) {
+
       .tv-header {
         padding: 18px;
       }
@@ -175,6 +178,11 @@
 
       .photo-area {
         padding: 80px 20px 40px;
+      }
+
+      #currentPhoto {
+        max-width: 96%;
+        max-height: 88%;
       }
     }
   </style>
@@ -245,7 +253,6 @@
   </section>
 
 
-  <!-- Required by app.js -->
   <section
     id="uploadView"
     class="hidden"
