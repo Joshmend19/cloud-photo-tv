@@ -136,7 +136,7 @@ if (!code) {
 
 
     eventDetails.textContent =
-      `${formatDate(event.event_date)} • ${formatTime(event.start_time)} – ${formatTime(event.end_time)}`;
+      `${formatDate(event.event_ date)} • ${formatTime(event.start_time)} – ${formatTime(event.end_time)}`;
 
 
     /*
