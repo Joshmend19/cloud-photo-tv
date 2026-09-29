@@ -133,10 +133,10 @@ if (!code) {
 
     // TV display page
     const tvUrl =
-      `${window.location.origin}/cloud-photo-tv/?code=${event.code}`;
+      `${window.location.origin}/cloud-photo-tv/tv.html?code=${event.code}`;
 
 
-    // Gallery page
+    // Event gallery page
     const galleryUrl =
       `${window.location.origin}/cloud-photo-tv/gallery.html?code=${event.code}`;
 
