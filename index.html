@@ -1,29 +1,34 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Instant Moments | Share Every Moment</title>
+  <title>Instant Moments | Your Moments. Live and Together.</title>
 
   <meta
     name="description"
-    content="Instant Moments makes it easy for guests to share photos at your event and watch memories appear live on your TV."
+    content="Instant Moments brings your event photos together on one screen. Guests scan, upload, and watch their memories appear live."
   >
 
   <style>
+    :root {
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --orange: #f97316;
+      --yellow: #facc15;
+      --green: #22c55e;
+      --navy: #172033;
+      --slate: #64748b;
+      --light-blue: #f5f8ff;
+      --light-purple: #faf5ff;
+      --warm-white: #fffdf8;
+      --white: #ffffff;
+      --border: #e5e7eb;
+    }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     html {
@@ -31,56 +36,47 @@
     }
 
     body {
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
-      color: #172033;
-      background: #fffdf8;
-      line-height: 1.6;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--navy);
+      background: var(--warm-white);
     }
 
     a {
       text-decoration: none;
-      color: inherit;
     }
 
-    button {
-      font: inherit;
+    .top-bar {
+      height: 6px;
+      background: linear-gradient(
+        90deg,
+        var(--blue),
+        var(--purple),
+        var(--orange),
+        var(--yellow)
+      );
     }
 
+    /* NAVIGATION */
 
-    /* =========================
-       NAVIGATION
-    ========================= */
-
-    .navbar {
-      width: 100%;
-      border-bottom: 1px solid #e9e7e2;
-      background: rgba(255, 253, 248, 0.96);
+    nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-inner {
-      max-width: 1180px;
+      max-width: 1150px;
       margin: auto;
-      padding: 17px 24px;
-
+      padding: 16px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 30px;
+      gap: 20px;
     }
-
-    /* LOGO */
 
     .logo {
       display: flex;
@@ -88,970 +84,737 @@
       gap: 10px;
       font-size: 21px;
       font-weight: 800;
-      letter-spacing: -0.6px;
+      color: var(--navy);
     }
 
     .logo-mark {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 11px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #2563eb,
-          #7c3aed
-        );
-
-      color: white;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
-      font-size: 18px;
-
-      box-shadow:
-        0 5px 14px rgba(37, 99, 235, 0.25);
+      color: white;
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
+      box-shadow: 0 7px 18px rgba(37, 99, 235, 0.22);
     }
 
-    .logo-text span {
-      color: #2563eb;
+    .logo span {
+      color: var(--blue);
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 30px;
-      font-size: 15px;
-      color: #5f6675;
+      gap: 26px;
+    }
+
+    .nav-links a {
+      color: #475569;
+      font-size: 14px;
+      font-weight: 700;
     }
 
     .nav-links a:hover {
-      color: #2563eb;
+      color: var(--blue);
     }
 
     .nav-button {
-      background: #2563eb;
-      color: white;
-
-      padding: 11px 19px;
-      border-radius: 9px;
-
-      font-weight: 700;
-
-      box-shadow:
-        0 5px 14px rgba(37, 99, 235, 0.20);
+      color: white !important;
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
+      padding: 11px 17px;
+      border-radius: 10px;
     }
 
-    .nav-button:hover {
-      background: #1d4ed8;
-    }
-
-
-    /* =========================
-       HERO
-    ========================= */
+    /* HERO */
 
     .hero {
       position: relative;
       overflow: hidden;
-
+      padding: 90px 20px 100px;
       background:
         radial-gradient(
-          circle at 10% 20%,
-          rgba(250, 204, 21, 0.22),
-          transparent 25%
-        ),
-
-        radial-gradient(
-          circle at 90% 20%,
-          rgba(124, 58, 237, 0.16),
+          circle at 10% 15%,
+          rgba(37, 99, 235, 0.12),
           transparent 28%
         ),
-
-        linear-gradient(
-          135deg,
-          #fffdf8,
-          #f5f8ff
-        );
-
-      padding: 90px 24px 100px;
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(124, 58, 237, 0.12),
+          transparent 30%
+        ),
+        var(--warm-white);
     }
 
     .hero-inner {
-      max-width: 1180px;
+      max-width: 1150px;
       margin: auto;
-
       display: grid;
       grid-template-columns: 1.05fr 0.95fr;
-
       align-items: center;
-
-      gap: 70px;
+      gap: 60px;
     }
 
-    .eyebrow {
-      display: inline-block;
-
-      background: #eef4ff;
-      color: #2563eb;
-
-      border: 1px solid #d8e5ff;
-
-      padding: 7px 13px;
-
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
       border-radius: 999px;
-
+      background: #eef4ff;
+      color: var(--blue);
       font-size: 13px;
-      font-weight: 700;
-
+      font-weight: 800;
       margin-bottom: 20px;
     }
 
     .hero h1 {
-      font-size: clamp(46px, 6vw, 72px);
-
+      margin: 0;
+      font-size: clamp(44px, 6vw, 70px);
       line-height: 1.02;
-
-      letter-spacing: -3px;
-
-      max-width: 690px;
-
-      margin-bottom: 25px;
+      letter-spacing: -2px;
     }
 
-    .hero h1 span {
-      color: #2563eb;
+    .hero h1 .blue {
+      color: var(--blue);
+    }
+
+    .hero h1 .purple {
+      color: var(--purple);
     }
 
     .hero-text {
+      max-width: 600px;
+      margin: 24px 0 30px;
+      color: var(--slate);
       font-size: 19px;
-
-      color: #626a78;
-
-      max-width: 590px;
-
-      margin-bottom: 34px;
+      line-height: 1.65;
     }
 
     .hero-buttons {
       display: flex;
-
+      gap: 13px;
       flex-wrap: wrap;
-
-      gap: 14px;
     }
 
-    .primary-button {
+    .button {
       display: inline-block;
-
-      background: #2563eb;
-
-      color: white;
-
-      padding: 15px 25px;
-
-      border-radius: 9px;
-
-      font-weight: 700;
-
-      box-shadow:
-        0 8px 20px rgba(37, 99, 235, 0.22);
-
+      padding: 15px 22px;
+      border-radius: 12px;
+      font-weight: 800;
       transition: 0.2s;
     }
 
-    .primary-button:hover {
+    .button:hover {
       transform: translateY(-2px);
-
-      background: #1d4ed8;
     }
 
-    .secondary-button {
-      display: inline-block;
+    .button-primary {
+      color: white;
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
+      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.2);
+    }
 
+    .button-secondary {
+      color: var(--navy);
       background: white;
-
-      color: #172033;
-
-      border: 1px solid #dfe3ea;
-
-      padding: 14px 25px;
-
-      border-radius: 9px;
-
-      font-weight: 600;
+      border: 1px solid var(--border);
     }
 
-    .secondary-button:hover {
-      background: #f5f8ff;
-    }
-
-    .hero-note {
-      margin-top: 18px;
-
-      font-size: 13px;
-
-      color: #777f8c;
-    }
-
-
-    /* =========================
-       HERO VISUAL
-    ========================= */
+    /* HERO VISUAL */
 
     .hero-visual {
       position: relative;
-
-      min-height: 480px;
-
+      min-height: 470px;
       display: flex;
-
-      justify-content: center;
-
       align-items: center;
+      justify-content: center;
     }
 
-    .tv-card {
-      width: min(100%, 510px);
-
+    .tv-frame {
+      width: min(540px, 100%);
       aspect-ratio: 16 / 10;
-
-      background: #111827;
-
-      border-radius: 18px;
-
-      padding: 10px;
-
+      border: 10px solid #202938;
+      border-radius: 22px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(37, 99, 235, 0.95),
+          rgba(124, 58, 237, 0.9)
+        );
       box-shadow:
-        0 30px 70px rgba(23, 32, 51, 0.25);
-
-      position: relative;
-
-      z-index: 2;
+        0 35px 70px rgba(23, 32, 51, 0.25),
+        0 8px 20px rgba(23, 32, 51, 0.12);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .tv-screen {
       width: 100%;
       height: 100%;
+      border-radius: 10px;
+      background: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-      border-radius: 11px;
+    .tv-brand {
+      font-size: 16px;
+      font-weight: 800;
+    }
 
-      overflow: hidden;
+    .tv-brand span {
+      color: var(--blue);
+    }
 
+    .tv-photo {
+      flex: 1;
+      margin: 14px 0;
+      border-radius: 10px;
       background:
         linear-gradient(
           135deg,
-          #2563eb,
-          #7c3aed 55%,
-          #f97316
+          #dbeafe,
+          #ede9fe,
+          #ffedd5
         );
-
       display: flex;
-
       align-items: center;
-
       justify-content: center;
-
-      position: relative;
+      font-size: 55px;
     }
 
-    .tv-content {
-      text-align: center;
-
-      color: white;
-
-      position: relative;
-
-      z-index: 3;
+    .tv-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #64748b;
+      font-size: 11px;
     }
 
-    .tv-content small {
-      text-transform: uppercase;
-
-      letter-spacing: 2px;
-
-      font-size: 10px;
-
-      font-weight: 700;
-    }
-
-    .tv-content h3 {
-      font-family: Georgia, serif;
-
-      font-size: 32px;
-
-      margin: 8px 0;
-    }
-
-    .tv-content p {
-      font-size: 12px;
-    }
-
-    .photo-one,
-    .photo-two,
-    .photo-three {
+    .phone {
       position: absolute;
-
-      border-radius: 10px;
-
-      box-shadow:
-        0 12px 25px rgba(0, 0, 0, 0.20);
-    }
-
-    .photo-one {
-      width: 105px;
-      height: 125px;
-
-      left: 9%;
-      top: 14%;
-
-      transform: rotate(-8deg);
-
-      background: #facc15;
-    }
-
-    .photo-two {
-      width: 110px;
-      height: 130px;
-
-      right: 8%;
-      top: 17%;
-
-      transform: rotate(7deg);
-
-      background: #f97316;
-    }
-
-    .photo-three {
-      width: 100px;
-      height: 120px;
-
-      left: 43%;
-      bottom: 9%;
-
-      transform: rotate(-3deg);
-
-      background: #22c55e;
-    }
-
-    .phone-card {
-      position: absolute;
-
-      width: 145px;
-      height: 270px;
-
+      right: -10px;
+      bottom: 5px;
+      width: 125px;
+      height: 235px;
       background: #111827;
-
-      border-radius: 25px;
-
+      border: 6px solid #111827;
+      border-radius: 22px;
       padding: 7px;
-
-      right: -5px;
-      bottom: 15px;
-
-      z-index: 5;
-
-      box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.25);
-
+      box-shadow: 0 25px 45px rgba(23, 32, 51, 0.25);
       transform: rotate(5deg);
     }
 
     .phone-screen {
-      width: 100%;
       height: 100%;
-
-      border-radius: 19px;
-
+      border-radius: 15px;
       background: white;
-
-      padding: 18px 12px;
-
+      padding: 13px 8px;
       text-align: center;
     }
 
-    .phone-screen h4 {
-      font-size: 15px;
-
-      margin-bottom: 12px;
+    .phone-camera {
+      width: 35px;
+      height: 4px;
+      border-radius: 5px;
+      background: #111827;
+      margin: 0 auto 15px;
     }
 
-    .qr-placeholder {
-      width: 88px;
-      height: 88px;
-
-      margin: 12px auto;
-
-      border: 5px solid #172033;
-
-      background:
-        repeating-linear-gradient(
-          45deg,
-          #172033 0 4px,
-          #ffffff 4px 8px
-        );
+    .phone-icon {
+      width: 52px;
+      height: 52px;
+      margin: 15px auto;
+      border-radius: 14px;
+      background: #eef4ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
     }
 
-    .phone-screen p {
+    .phone-text {
       font-size: 10px;
-
-      color: #777f8c;
+      color: #64748b;
+      line-height: 1.4;
     }
 
-
-    /* =========================
-       COLOR DOTS
-    ========================= */
-
-    .color-dots {
-      position: absolute;
-
-      width: 100%;
-
-      height: 100%;
-
-      pointer-events: none;
-    }
-
-    .dot {
-      position: absolute;
-
-      border-radius: 50%;
-    }
-
-    .dot-blue {
-      width: 14px;
-      height: 14px;
-
-      background: #2563eb;
-
-      top: 5%;
-      left: 7%;
-    }
-
-    .dot-purple {
-      width: 20px;
-      height: 20px;
-
-      background: #7c3aed;
-
-      bottom: 10%;
-      right: 5%;
-    }
-
-    .dot-yellow {
-      width: 17px;
-      height: 17px;
-
-      background: #facc15;
-
-      top: 12%;
-      right: 12%;
-    }
-
-    .dot-orange {
-      width: 12px;
-      height: 12px;
-
-      background: #f97316;
-
-      bottom: 24%;
-      left: 5%;
-    }
-
-
-    /* =========================
-       TRUST BAR
-    ========================= */
+    /* TRUST BAR */
 
     .trust-bar {
-      border-bottom: 1px solid #e9e7e2;
-
-      padding: 24px;
-
       background: white;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
     .trust-inner {
-      max-width: 950px;
-
-      margin: auto;
-
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-      gap: 25px;
-
-      flex-wrap: wrap;
-
-      text-align: center;
-    }
-
-    .trust-item {
-      flex: 1;
-
-      min-width: 150px;
-
-      color: #626a78;
-
-      font-size: 14px;
-    }
-
-    .trust-item strong {
-      display: block;
-
-      color: #172033;
-
-      font-size: 17px;
-
-      margin-bottom: 2px;
-    }
-
-
-    /* =========================
-       GENERAL SECTIONS
-    ========================= */
-
-    section {
-      padding: 90px 24px;
-    }
-
-    .section-inner {
       max-width: 1100px;
-
       margin: auto;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 45px;
+      flex-wrap: wrap;
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* GENERAL SECTIONS */
+
+    .section {
+      padding: 100px 20px;
+    }
+
+    .section-light {
+      background: var(--light-blue);
+    }
+
+    .section-purple {
+      background: var(--light-purple);
     }
 
     .section-heading {
-      max-width: 650px;
-
+      max-width: 720px;
       margin: 0 auto 55px;
-
       text-align: center;
     }
 
-    .section-heading .eyebrow {
-      margin-bottom: 14px;
+    .eyebrow {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
     }
 
     .section-heading h2 {
-      font-size: clamp(34px, 5vw, 48px);
-
+      margin: 0 0 15px;
+      font-size: 42px;
       line-height: 1.1;
-
-      letter-spacing: -1.5px;
-
-      margin-bottom: 15px;
     }
 
     .section-heading p {
-      color: #707887;
-
+      margin: 0;
+      color: var(--slate);
       font-size: 17px;
+      line-height: 1.6;
     }
 
-
-    /* =========================
-       HOW IT WORKS
-    ========================= */
+    /* HOW IT WORKS */
 
     .steps {
+      max-width: 1050px;
+      margin: auto;
       display: grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
     }
 
     .step {
-      padding: 30px 24px;
-
-      border: 1px solid #e4e7ec;
-
-      border-radius: 14px;
-
       background: white;
-
-      transition: 0.2s;
-    }
-
-    .step:hover {
-      transform: translateY(-4px);
-
-      box-shadow:
-        0 12px 30px rgba(23, 32, 51, 0.08);
+      padding: 32px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(23, 32, 51, 0.05);
     }
 
     .step-number {
-      width: 40px;
-      height: 40px;
-
-      border-radius: 50%;
-
-      background: #eef4ff;
-
-      color: #2563eb;
-
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      color: white;
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
       display: flex;
-
       align-items: center;
-
       justify-content: center;
-
       font-weight: 800;
-
       margin-bottom: 20px;
     }
 
     .step h3 {
-      font-size: 19px;
-
-      margin-bottom: 9px;
+      margin: 0 0 10px;
+      font-size: 21px;
     }
 
     .step p {
-      color: #707887;
-
-      font-size: 14px;
+      margin: 0;
+      color: var(--slate);
+      line-height: 1.6;
+      font-size: 15px;
     }
 
-
-    /* =========================
-       EVENTS
-    ========================= */
-
-    .event-section {
-      background:
-        linear-gradient(
-          180deg,
-          #f5f8ff,
-          #fffdf8
-        );
-    }
+    /* EVENT TYPES */
 
     .event-grid {
+      max-width: 1050px;
+      margin: auto;
       display: grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap: 14px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
     }
 
     .event-card {
+      padding: 25px 18px;
+      border-radius: 18px;
       background: white;
-
-      border: 1px solid #e4e7ec;
-
-      border-radius: 12px;
-
-      padding: 25px 20px;
-
+      border: 1px solid var(--border);
       text-align: center;
-
-      font-weight: 600;
-
       transition: 0.2s;
     }
 
     .event-card:hover {
-      transform: translateY(-3px);
-
-      border-color: #c9d9ff;
-
-      box-shadow:
-        0 10px 25px rgba(37, 99, 235, 0.08);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px rgba(23, 32, 51, 0.08);
     }
 
     .event-icon {
       font-size: 30px;
-
-      display: block;
-
-      margin-bottom: 9px;
+      margin-bottom: 12px;
     }
 
+    .event-card h3 {
+      margin: 0;
+      font-size: 15px;
+    }
 
-    /* =========================
-       FEATURES
-    ========================= */
+    /* FEATURES */
 
     .feature-grid {
+      max-width: 1050px;
+      margin: auto;
       display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
 
     .feature {
-      padding: 28px;
-
-      border: 1px solid #e4e7ec;
-
-      border-radius: 14px;
-
+      padding: 30px;
+      border-radius: 20px;
       background: white;
+      border: 1px solid var(--border);
     }
 
     .feature-icon {
-      font-size: 25px;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
 
-      margin-bottom: 14px;
+    .feature:nth-child(1) .feature-icon {
+      background: #eaf1ff;
+    }
+
+    .feature:nth-child(2) .feature-icon {
+      background: #f3eaff;
+    }
+
+    .feature:nth-child(3) .feature-icon {
+      background: #fff0e8;
+    }
+
+    .feature:nth-child(4) .feature-icon {
+      background: #fff9db;
+    }
+
+    .feature:nth-child(5) .feature-icon {
+      background: #e9fbea;
+    }
+
+    .feature:nth-child(6) .feature-icon {
+      background: #f3e8ff;
     }
 
     .feature h3 {
-      margin-bottom: 8px;
-
+      margin: 0 0 10px;
       font-size: 19px;
     }
 
     .feature p {
-      color: #707887;
-
+      margin: 0;
+      color: var(--slate);
+      line-height: 1.6;
       font-size: 14px;
     }
 
-
-    /* =========================
-       PRICING
-    ========================= */
+    /* PRICING */
 
     .pricing-section {
-      background:
-        linear-gradient(
-          135deg,
-          #f5f8ff,
-          #faf5ff
-        );
+      padding: 100px 20px;
+      background: var(--light-blue);
     }
 
     .pricing-grid {
-      max-width: 800px;
-
+      max-width: 950px;
       margin: auto;
-
       display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      align-items: stretch;
     }
 
-    .price-card {
+    .pricing-card {
+      position: relative;
       background: white;
-
-      border: 1px solid #dfe3ea;
-
-      border-radius: 16px;
-
-      padding: 34px;
+      border-radius: 24px;
+      padding: 38px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 15px 40px rgba(23, 32, 51, 0.08);
     }
 
-    .price-card.premium {
-      border: 2px solid #7c3aed;
-
+    .featured-pricing {
+      border: 2px solid var(--purple);
       box-shadow:
-        0 15px 40px rgba(124, 58, 237, 0.10);
+        0 20px 50px rgba(124, 58, 237, 0.15);
     }
 
-    .price-card h3 {
-      font-size: 23px;
-
-      margin-bottom: 5px;
+    .popular-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--blue)
+      );
+      color: white;
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      white-space: nowrap;
     }
 
-    .price-description {
-      color: #777f8c;
-
-      font-size: 14px;
-
+    .pricing-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 22px;
       margin-bottom: 20px;
+    }
+
+    .blue-icon {
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        #3b82f6
+      );
+    }
+
+    .purple-icon {
+      background: linear-gradient(
+        135deg,
+        var(--purple),
+        #a855f7
+      );
+    }
+
+    .pricing-card h3 {
+      margin: 0 0 10px;
+      font-size: 27px;
+    }
+
+    .pricing-description {
+      margin: 0 0 25px;
+      color: var(--slate);
+      line-height: 1.5;
+      min-height: 48px;
     }
 
     .price {
-      font-size: 38px;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
 
+    .price-amount {
+      font-size: 48px;
       font-weight: 800;
-
-      margin-bottom: 20px;
     }
 
-    .price span {
-      font-size: 14px;
-
-      font-weight: 400;
-
-      color: #777f8c;
+    .price-period {
+      color: var(--slate);
+      font-size: 16px;
     }
 
-    .price-list {
-      list-style: none;
-
-      margin-bottom: 25px;
+    .price-note {
+      margin: 0 0 25px;
+      color: var(--slate);
+      font-size: 13px;
+      line-height: 1.5;
     }
 
-    .price-list li {
-      margin: 10px 0;
-
-      font-size: 14px;
-    }
-
-
-    /* =========================
-       CTA
-    ========================= */
-
-    .cta {
-      background:
-        linear-gradient(
-          135deg,
-          #2563eb,
-          #4f46e5 55%,
-          #7c3aed
-        );
-
-      color: white;
-
+    .pricing-button {
+      display: block;
+      width: 100%;
       text-align: center;
-
-      position: relative;
-
-      overflow: hidden;
-    }
-
-    .cta::before {
-      content: "";
-
-      position: absolute;
-
-      width: 250px;
-      height: 250px;
-
-      background: #facc15;
-
-      border-radius: 50%;
-
-      opacity: 0.18;
-
-      top: -120px;
-      left: -80px;
-    }
-
-    .cta::after {
-      content: "";
-
-      position: absolute;
-
-      width: 220px;
-      height: 220px;
-
-      background: #f97316;
-
-      border-radius: 50%;
-
-      opacity: 0.18;
-
-      bottom: -120px;
-      right: -70px;
-    }
-
-    .cta-inner {
-      max-width: 700px;
-
-      margin: auto;
-
-      position: relative;
-
-      z-index: 2;
-    }
-
-    .cta h2 {
-      font-size: clamp(35px, 5vw, 50px);
-
-      line-height: 1.1;
-
-      margin-bottom: 18px;
-
-      letter-spacing: -1.5px;
-    }
-
-    .cta p {
-      color: #e7ecff;
-
+      padding: 15px;
+      border-radius: 12px;
+      font-weight: 700;
       margin-bottom: 30px;
+      transition: 0.2s;
+    }
 
+    .pricing-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .secondary-pricing-button {
+      background: #eef4ff;
+      color: var(--blue);
+    }
+
+    .primary-pricing-button {
+      color: white;
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
+    }
+
+    .included-title {
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .feature-list li {
+      padding: 8px 0;
+      color: #475569;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    /* FAQ */
+
+    .faq {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .faq-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 24px;
+      margin-bottom: 12px;
+    }
+
+    .faq-item h3 {
+      margin: 0 0 8px;
       font-size: 17px;
     }
 
-    .cta .primary-button {
+    .faq-item p {
+      margin: 0;
+      color: var(--slate);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* CTA */
+
+    .cta {
+      padding: 100px 20px;
+      background:
+        radial-gradient(
+          circle at 10% 20%,
+          rgba(250, 204, 21, 0.25),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(249, 115, 22, 0.25),
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--purple)
+        );
+      color: white;
+      text-align: center;
+    }
+
+    .cta-inner {
+      max-width: 750px;
+      margin: auto;
+    }
+
+    .cta h2 {
+      margin: 0 0 15px;
+      font-size: 44px;
+    }
+
+    .cta p {
+      margin: 0 auto 28px;
+      max-width: 600px;
+      color: #e0e7ff;
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .cta .button {
       background: white;
-
-      color: #2563eb;
-
-      box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.12);
+      color: var(--blue);
     }
 
-
-    /* =========================
-       FAQ
-    ========================= */
-
-    details summary {
-      list-style: none;
-    }
-
-    details summary::-webkit-details-marker {
-      display: none;
-    }
-
-    details summary::after {
-      content: "+";
-
-      float: right;
-
-      color: #2563eb;
-
-      font-size: 22px;
-    }
-
-    details[open] summary::after {
-      content: "−";
-    }
-
-
-    /* =========================
-       FOOTER
-    ========================= */
+    /* FOOTER */
 
     footer {
       background: #111827;
-
-      color: white;
-
-      padding: 50px 24px;
+      color: #cbd5e1;
+      padding: 50px 20px 30px;
     }
 
     .footer-inner {
       max-width: 1100px;
-
       margin: auto;
-
       display: flex;
-
       justify-content: space-between;
-
-      gap: 40px;
-
+      gap: 30px;
       flex-wrap: wrap;
     }
 
@@ -1059,99 +822,130 @@
       max-width: 330px;
     }
 
-    .footer-brand h3 {
-      margin-bottom: 10px;
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .footer-logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
     }
 
     .footer-brand p {
-      color: #aeb5c3;
-
+      margin: 0;
+      color: #94a3b8;
+      line-height: 1.6;
       font-size: 14px;
     }
 
     .footer-links {
       display: flex;
+      gap: 60px;
+    }
 
-      gap: 40px;
-
-      color: #aeb5c3;
-
+    .footer-column h4 {
+      margin: 0 0 15px;
+      color: white;
       font-size: 14px;
     }
 
-    .footer-links a:hover {
+    .footer-column a {
+      display: block;
+      margin-bottom: 10px;
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .footer-column a:hover {
       color: white;
     }
 
     .copyright {
       max-width: 1100px;
-
-      margin: 35px auto 0;
-
+      margin: 40px auto 0;
       padding-top: 25px;
-
-      border-top: 1px solid #293244;
-
-      color: #7e8798;
-
-      font-size: 13px;
+      border-top: 1px solid #263244;
+      color: #64748b;
+      font-size: 12px;
     }
 
-
-    /* =========================
-       MOBILE
-    ========================= */
+    /* MOBILE */
 
     @media (max-width: 850px) {
 
       .nav-links {
+        gap: 12px;
+      }
+
+      .nav-links a:not(.nav-button) {
         display: none;
       }
 
       .hero {
-        padding-top: 60px;
+        padding-top: 65px;
       }
 
       .hero-inner {
         grid-template-columns: 1fr;
-
-        gap: 45px;
+        text-align: center;
       }
 
-      .hero h1 {
-        letter-spacing: -2px;
+      .hero-text {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
       }
 
       .hero-visual {
         min-height: 390px;
       }
 
-      .phone-card {
-        right: 0;
-      }
-
       .steps {
-        grid-template-columns:
-          repeat(2, 1fr);
-      }
-
-      .event-grid {
-        grid-template-columns:
-          repeat(2, 1fr);
+        grid-template-columns: 1fr;
+        max-width: 520px;
       }
 
       .feature-grid {
-        grid-template-columns:
-          1fr;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .event-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+      }
+
+      .cta h2 {
+        font-size: 36px;
       }
 
     }
 
-
     @media (max-width: 600px) {
 
       .nav-inner {
-        padding: 15px 18px;
+        padding: 13px 16px;
       }
 
       .logo {
@@ -1159,466 +953,294 @@
       }
 
       .logo-mark {
-        width: 32px;
-        height: 32px;
-      }
-
-      .nav-button {
-        padding: 9px 13px;
-
-        font-size: 13px;
+        width: 34px;
+        height: 34px;
       }
 
       .hero {
-        padding: 55px 18px 70px;
+        padding: 60px 18px 70px;
       }
 
-      section {
-        padding: 65px 18px;
+      .hero h1 {
+        font-size: 43px;
+        letter-spacing: -1.5px;
       }
 
       .hero-text {
-        font-size: 17px;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-      }
-
-      .hero-buttons a {
-        text-align: center;
-
-        width: 100%;
+        font-size: 16px;
       }
 
       .hero-visual {
-        min-height: 310px;
+        min-height: 320px;
       }
 
-      .tv-card {
-        width: 92%;
+      .tv-frame {
+        border-width: 7px;
+        padding: 12px;
       }
 
-      .phone-card {
-        width: 110px;
-
-        height: 210px;
+      .phone {
+        width: 95px;
+        height: 180px;
+        right: -5px;
       }
 
-      .qr-placeholder {
-        width: 65px;
-
-        height: 65px;
+      .phone-text {
+        font-size: 8px;
       }
 
-      .phone-screen {
-        padding: 12px 8px;
+      .section,
+      .pricing-section,
+      .cta {
+        padding: 70px 18px;
       }
 
-      .phone-screen h4 {
-        font-size: 11px;
+      .section-heading h2 {
+        font-size: 32px;
       }
 
-      .steps {
-        grid-template-columns:
-          1fr;
+      .feature-grid {
+        grid-template-columns: 1fr;
       }
 
       .event-grid {
-        grid-template-columns:
-          repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
       }
 
-      .pricing-grid {
-        grid-template-columns:
-          1fr;
+      .event-card {
+        padding: 20px 10px;
+      }
+
+      .pricing-card {
+        padding: 30px 25px;
       }
 
       .footer-links {
-        flex-direction: column;
-
-        gap: 12px;
+        gap: 35px;
       }
 
     }
-
   </style>
-
 </head>
-
 
 <body>
 
+  <div class="top-bar"></div>
 
-  <!-- =========================
-       NAVIGATION
-  ========================= -->
+  <!-- NAVIGATION -->
 
-  <nav class="navbar">
-
+  <nav>
     <div class="nav-inner">
 
-
-      <a
-        href="index.html"
-        class="logo"
-      >
-
-        <div class="logo-mark">
-          ✦
-        </div>
-
-        <div class="logo-text">
-          Instant <span>Moments</span>
-        </div>
-
+      <a href="index.html" class="logo">
+        <div class="logo-mark">✦</div>
+        Instant <span>Moments</span>
       </a>
-
 
       <div class="nav-links">
-
-        <a href="#how-it-works">
-          How It Works
+        <a href="#how-it-works">How It Works</a>
+        <a href="#events">Events</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="create-event.html" class="nav-button">
+          Create Your Event
         </a>
-
-        <a href="#events">
-          Events
-        </a>
-
-        <a href="#pricing">
-          Pricing
-        </a>
-
-        <a href="#faq">
-          FAQ
-        </a>
-
       </div>
 
-
-      <a
-        href="create-event.html"
-        class="nav-button"
-      >
-        Create Your Event
-      </a>
-
-
     </div>
-
   </nav>
 
 
-  <!-- =========================
-       HERO
-  ========================= -->
+  <!-- HERO -->
 
-  <header class="hero">
-
-    <div class="color-dots">
-
-      <div class="dot dot-blue"></div>
-
-      <div class="dot dot-purple"></div>
-
-      <div class="dot dot-yellow"></div>
-
-      <div class="dot dot-orange"></div>
-
-    </div>
-
+  <section class="hero">
 
     <div class="hero-inner">
 
-
       <div>
 
-        <div class="eyebrow">
-          ✨ Your memories, instantly shared
+        <div class="hero-badge">
+          ✦ Your moments. Live and together.
         </div>
 
-
         <h1>
-
           Every moment from your event,
-
-          <span>
-            on one screen.
-          </span>
-
+          <span class="blue">on one screen.</span>
         </h1>
 
-
         <p class="hero-text">
-
-          Give your guests an easy way to
-          share their photos. They scan a
-          QR code, upload their memories,
-          and watch them appear live on
-          your TV.
-
+          Instant Moments lets your guests share photos from their
+          phones and watch those memories appear live on your event's TV.
+          No app required.
         </p>
-
 
         <div class="hero-buttons">
 
-
           <a
             href="create-event.html"
-            class="primary-button"
+            class="button button-primary"
           >
             Create Your Event
           </a>
 
-
           <a
             href="#how-it-works"
-            class="secondary-button"
+            class="button button-secondary"
           >
             See How It Works
           </a>
 
-
         </div>
-
-
-        <p class="hero-note">
-
-          ✓ No app required for your guests
-
-        </p>
-
 
       </div>
 
-
-      <!-- HERO VISUAL -->
 
       <div class="hero-visual">
 
-
-        <div class="tv-card">
+        <div class="tv-frame">
 
           <div class="tv-screen">
 
-
-            <div class="photo-one"></div>
-
-            <div class="photo-two"></div>
-
-            <div class="photo-three"></div>
-
-
-            <div class="tv-content">
-
-              <small>
-                Instant Moments
-              </small>
-
-              <h3>
-                Celebrate Together
-              </h3>
-
-              <p>
-                Your guests' memories,
-                displayed live.
-              </p>
-
+            <div class="tv-brand">
+              Instant <span>Moments</span>
             </div>
 
+            <div class="tv-photo">
+              📸
+            </div>
+
+            <div class="tv-bottom">
+              <span>Share your photos</span>
+              <span>LIVE</span>
+            </div>
 
           </div>
 
         </div>
 
 
-        <div class="phone-card">
+        <div class="phone">
 
           <div class="phone-screen">
 
-            <h4>
-              Share Your Photo
-            </h4>
+            <div class="phone-camera"></div>
 
+            <strong>
+              Share Your Moment
+            </strong>
 
-            <div class="qr-placeholder"></div>
+            <div class="phone-icon">
+              📷
+            </div>
 
-
-            <p>
-              Scan the event QR code
-              to upload a memory.
-            </p>
-
+            <div class="phone-text">
+              Scan the QR code and
+              send your photo directly
+              to the event TV.
+            </div>
 
           </div>
 
         </div>
 
-
       </div>
-
 
     </div>
 
-  </header>
+  </section>
 
 
-  <!-- =========================
-       TRUST BAR
-  ========================= -->
+  <!-- TRUST BAR -->
 
   <div class="trust-bar">
 
     <div class="trust-inner">
-
-
-      <div class="trust-item">
-
-        <strong>
-          Simple
-        </strong>
-
-        Guests scan and upload.
-
-      </div>
-
-
-      <div class="trust-item">
-
-        <strong>
-          Instant
-        </strong>
-
-        Photos appear on your TV.
-
-      </div>
-
-
-      <div class="trust-item">
-
-        <strong>
-          Shareable
-        </strong>
-
-        Everyone can enjoy the gallery.
-
-      </div>
-
-
+      <span>✓ No app required</span>
+      <span>✓ Scan & upload</span>
+      <span>✓ Photos appear live</span>
+      <span>✓ Event gallery included</span>
     </div>
 
   </div>
 
 
-  <!-- =========================
-       HOW IT WORKS
-  ========================= -->
+  <!-- HOW IT WORKS -->
 
-  <section id="how-it-works">
+  <section
+    id="how-it-works"
+    class="section section-light"
+  >
 
-    <div class="section-inner">
+    <div class="section-heading">
+
+      <div class="eyebrow">
+        How It Works
+      </div>
+
+      <h2>
+        From phone to TV in seconds.
+      </h2>
+
+      <p>
+        Instant Moments makes sharing event photos simple for everyone.
+      </p>
+
+    </div>
 
 
-      <div class="section-heading">
+    <div class="steps">
 
-        <div class="eyebrow">
-          How it works
+      <div class="step">
+
+        <div class="step-number">
+          1
         </div>
 
-
-        <h2>
-          From QR code to memories
-          in minutes.
-        </h2>
-
+        <h3>
+          Guests scan
+        </h3>
 
         <p>
-          Instant Moments keeps photo
-          sharing simple for you and
-          your guests.
+          Guests scan the event QR code using the camera
+          on their phone. No app or account is required.
         </p>
 
       </div>
 
 
-      <div class="steps">
+      <div class="step">
 
-
-        <div class="step">
-
-          <div class="step-number">
-            1
-          </div>
-
-          <h3>
-            Create your event
-          </h3>
-
-          <p>
-            Choose your event type,
-            date, colors, theme,
-            and design.
-          </p>
-
+        <div class="step-number">
+          2
         </div>
 
+        <h3>
+          They share
+        </h3>
 
-        <div class="step">
+        <p>
+          Guests choose their favorite photos and send
+          them directly to the event.
+        </p>
 
-          <div class="step-number">
-            2
-          </div>
+      </div>
 
-          <h3>
-            Share your QR code
-          </h3>
 
-          <p>
-            Put the QR code on your
-            TV, invitations, tables,
-            or signs.
-          </p>
+      <div class="step">
 
+        <div class="step-number">
+          3
         </div>
 
+        <h3>
+          Everyone watches
+        </h3>
 
-        <div class="step">
-
-          <div class="step-number">
-            3
-          </div>
-
-          <h3>
-            Guests upload photos
-          </h3>
-
-          <p>
-            Guests scan the code and
-            upload photos directly
-            from their phones.
-          </p>
-
-        </div>
-
-
-        <div class="step">
-
-          <div class="step-number">
-            4
-          </div>
-
-          <h3>
-            Watch memories appear
-          </h3>
-
-          <p>
-            Photos automatically
-            appear on your TV and
-            become part of your gallery.
-          </p>
-
-        </div>
-
+        <p>
+          Photos automatically appear on the event TV
+          and rotate throughout the celebration.
+        </p>
 
       </div>
 
@@ -1627,128 +1249,208 @@
   </section>
 
 
-  <!-- =========================
-       EVENT TYPES
-  ========================= -->
+  <!-- EVENTS -->
 
   <section
     id="events"
-    class="event-section"
+    class="section"
   >
 
-    <div class="section-inner">
+    <div class="section-heading">
+
+      <div class="eyebrow">
+        Made For Your Event
+      </div>
+
+      <h2>
+        Whatever you're celebrating.
+      </h2>
+
+      <p>
+        Instant Moments works for all kinds of celebrations.
+      </p>
+
+    </div>
 
 
-      <div class="section-heading">
+    <div class="event-grid">
 
-        <div class="eyebrow">
-          Made for your event
+      <div class="event-card">
+        <div class="event-icon">🎂</div>
+        <h3>Birthday</h3>
+      </div>
+
+      <div class="event-card">
+        <div class="event-icon">🎓</div>
+        <h3>Graduation</h3>
+      </div>
+
+      <div class="event-card">
+        <div class="event-icon">💍</div>
+        <h3>Wedding</h3>
+      </div>
+
+      <div class="event-card">
+        <div class="event-icon">🎉</div>
+        <h3>Retirement</h3>
+      </div>
+
+      <div class="event-card">
+        <div class="event-icon">🍼</div>
+        <h3>Baby Shower</h3>
+      </div>
+
+      <div class="event-card">
+        <div class="event-icon">❤️</div>
+        <h3>Anniversary</h3>
+      </div>
+
+      <div class="event-card">
+        <div class="event-icon">🏆</div>
+        <h3>Sports Event</h3>
+      </div>
+
+      <div class="event-card">
+        <div class="event-icon">✨</div>
+        <h3>Other</h3>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FEATURES -->
+
+  <section
+    id="features"
+    class="section section-purple"
+  >
+
+    <div class="section-heading">
+
+      <div class="eyebrow">
+        Features
+      </div>
+
+      <h2>
+        Everything you need to share the moment.
+      </h2>
+
+      <p>
+        Built to make your event more interactive without
+        making things complicated.
+      </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          📱
         </div>
 
-
-        <h2>
-          Whatever you're celebrating.
-        </h2>
-
+        <h3>
+          No App Required
+        </h3>
 
         <p>
-          Create an experience that fits
-          your special day.
+          Guests simply scan the QR code and use their
+          phone's browser.
         </p>
 
       </div>
 
 
-      <div class="event-grid">
+      <div class="feature">
 
-
-        <div class="event-card">
-
-          <span class="event-icon">
-            🎂
-          </span>
-
-          Birthdays
-
+        <div class="feature-icon">
+          📺
         </div>
 
+        <h3>
+          Live TV Slideshow
+        </h3>
 
-        <div class="event-card">
+        <p>
+          Shared photos automatically appear on your event
+          display and rotate throughout the event.
+        </p>
 
-          <span class="event-icon">
-            🎓
-          </span>
+      </div>
 
-          Graduations
 
+      <div class="feature">
+
+        <div class="feature-icon">
+          📸
         </div>
 
+        <h3>
+          Event Gallery
+        </h3>
 
-        <div class="event-card">
+        <p>
+          Every shared photo is collected into an event
+          gallery guests can revisit.
+        </p>
 
-          <span class="event-icon">
-            💍
-          </span>
+      </div>
 
-          Weddings
 
+      <div class="feature">
+
+        <div class="feature-icon">
+          ✉️
         </div>
 
+        <h3>
+          Automatic Gallery Emails
+        </h3>
 
-        <div class="event-card">
+        <p>
+          Guests who request the gallery can receive the
+          event photos after the celebration.
+        </p>
 
-          <span class="event-icon">
-            👶
-          </span>
+      </div>
 
-          Baby Showers
 
+      <div class="feature">
+
+        <div class="feature-icon">
+          🎨
         </div>
 
+        <h3>
+          Event Themes
+        </h3>
 
-        <div class="event-card">
+        <p>
+          Choose a design that fits your celebration and
+          create a more personalized experience.
+        </p>
 
-          <span class="event-icon">
-            🎉
-          </span>
+      </div>
 
-          Anniversaries
 
+      <div class="feature">
+
+        <div class="feature-icon">
+          ✨
         </div>
 
+        <h3>
+          Simple for Everyone
+        </h3>
 
-        <div class="event-card">
-
-          <span class="event-icon">
-            🏆
-          </span>
-
-          Sports Events
-
-        </div>
-
-
-        <div class="event-card">
-
-          <span class="event-icon">
-            🥳
-          </span>
-
-          Parties
-
-        </div>
-
-
-        <div class="event-card">
-
-          <span class="event-icon">
-            ✨
-          </span>
-
-          Other Events
-
-        </div>
-
+        <p>
+          Hosts get an easy setup while guests can start
+          sharing photos in seconds.
+        </p>
 
       </div>
 
@@ -1757,310 +1459,156 @@
   </section>
 
 
-  <!-- =========================
-       FEATURES
-  ========================= -->
-
-  <section>
-
-    <div class="section-inner">
-
-
-      <div class="section-heading">
-
-        <div class="eyebrow">
-          Everything included
-        </div>
-
-
-        <h2>
-          More than just a photo
-          upload.
-        </h2>
-
-      </div>
-
-
-      <div class="feature-grid">
-
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            📺
-          </div>
-
-          <h3>
-            Live TV slideshow
-          </h3>
-
-          <p>
-            Photos uploaded by guests
-            automatically appear on the
-            event TV.
-          </p>
-
-        </div>
-
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            📱
-          </div>
-
-          <h3>
-            No app required
-          </h3>
-
-          <p>
-            Guests simply scan a QR code
-            and upload from their phone.
-          </p>
-
-        </div>
-
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            🖼️
-          </div>
-
-          <h3>
-            Event gallery
-          </h3>
-
-          <p>
-            Every submitted photo becomes
-            part of your event gallery.
-          </p>
-
-        </div>
-
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            ✉️
-          </div>
-
-          <h3>
-            Gallery sharing
-          </h3>
-
-          <p>
-            Guests who request the gallery
-            can receive it after the event.
-          </p>
-
-        </div>
-
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            🎨
-          </div>
-
-          <h3>
-            Event themes
-          </h3>
-
-          <p>
-            Choose a design that matches
-            the look and feeling of your event.
-          </p>
-
-        </div>
-
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            🔗
-          </div>
-
-          <h3>
-            One simple QR code
-          </h3>
-
-          <p>
-            Give guests one easy way to
-            participate throughout the event.
-          </p>
-
-        </div>
-
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       PRICING
-  ========================= -->
+  <!-- PRICING -->
 
   <section
     id="pricing"
     class="pricing-section"
   >
 
-    <div class="section-inner">
+    <div class="section-heading">
+
+      <div class="eyebrow">
+        Simple Pricing
+      </div>
+
+      <h2>
+        Choose the experience that fits your event.
+      </h2>
+
+      <p>
+        Every package includes the complete Instant Moments
+        experience. Upgrade for more customization and capacity.
+      </p>
+
+    </div>
 
 
-      <div class="section-heading">
+    <div class="pricing-grid">
 
-        <div class="eyebrow">
-          Simple pricing
+
+      <!-- INSTANT -->
+
+      <div class="pricing-card">
+
+        <div class="pricing-icon blue-icon">
+          ✦
         </div>
 
+        <h3>
+          Instant
+        </h3>
 
-        <h2>
-          Choose the experience
-          you want.
-        </h2>
-
-
-        <p>
-          Start simple or customize your
-          event experience.
+        <p class="pricing-description">
+          Everything you need to bring your event's photos to life.
         </p>
+
+        <div class="price">
+
+          <span class="price-amount">
+            $19
+          </span>
+
+          <span class="price-period">
+            / event
+          </span>
+
+        </div>
+
+        <p class="price-note">
+          Perfect for birthdays, graduations, showers,
+          and smaller events.
+        </p>
+
+        <a
+          href="create-event.html"
+          class="pricing-button secondary-pricing-button"
+        >
+          Get Started
+        </a>
+
+        <div class="included-title">
+          What's included
+        </div>
+
+        <ul class="feature-list">
+
+          <li>✓ Event-specific QR code</li>
+          <li>✓ Guest photo uploads</li>
+          <li>✓ Live TV slideshow</li>
+          <li>✓ Event photo gallery</li>
+          <li>✓ Photo downloads</li>
+          <li>✓ Automatic gallery emails</li>
+          <li>✓ Standard Instant Moments themes</li>
+          <li>✓ Preset colors and backgrounds</li>
+          <li>✓ Up to 500 photos</li>
+          <li>✓ Gallery available for 30 days</li>
+
+        </ul>
 
       </div>
 
 
-      <div class="pricing-grid">
+      <!-- INSTANT MOMENTS PLUS -->
 
+      <div class="pricing-card featured-pricing">
 
-        <div class="price-card">
+        <div class="popular-badge">
+          MOST POPULAR
+        </div>
 
-          <h3>
-            Basic
-          </h3>
+        <div class="pricing-icon purple-icon">
+          ✦
+        </div>
 
-          <p class="price-description">
-            Everything you need for
-            a great event.
-          </p>
+        <h3>
+          Instant Moments Plus
+        </h3>
 
+        <p class="pricing-description">
+          More customization and capacity for unforgettable events.
+        </p>
 
-          <div class="price">
+        <div class="price">
 
-            $—
+          <span class="price-amount">
+            $39
+          </span>
 
-            <span>
-              coming soon
-            </span>
-
-          </div>
-
-
-          <ul class="price-list">
-
-            <li>
-              ✓ Event QR code
-            </li>
-
-            <li>
-              ✓ Live TV slideshow
-            </li>
-
-            <li>
-              ✓ Event gallery
-            </li>
-
-            <li>
-              ✓ Automatic gallery emails
-            </li>
-
-            <li>
-              ✓ Preset themes
-            </li>
-
-            <li>
-              ✓ Preset color combinations
-            </li>
-
-          </ul>
-
-
-          <a
-            href="create-event.html"
-            class="primary-button"
-          >
-            Get Started
-          </a>
-
+          <span class="price-period">
+            / event
+          </span>
 
         </div>
 
+        <p class="price-note">
+          Perfect for weddings, large celebrations,
+          and special events.
+        </p>
 
-        <div class="price-card premium">
+        <a
+          href="create-event.html"
+          class="pricing-button primary-pricing-button"
+        >
+          Get Started
+        </a>
 
-          <h3>
-            Premium
-          </h3>
-
-          <p class="price-description">
-            Make the event completely
-            your own.
-          </p>
-
-
-          <div class="price">
-
-            $—
-
-            <span>
-              coming soon
-            </span>
-
-          </div>
-
-
-          <ul class="price-list">
-
-            <li>
-              ✓ Everything in Basic
-            </li>
-
-            <li>
-              ✓ Custom colors
-            </li>
-
-            <li>
-              ✓ Custom background
-            </li>
-
-            <li>
-              ✓ Custom logo/photo
-            </li>
-
-            <li>
-              ✓ Premium themes
-            </li>
-
-            <li>
-              ✓ More customization
-            </li>
-
-          </ul>
-
-
-          <a
-            href="create-event.html"
-            class="primary-button"
-          >
-            Get Started
-          </a>
-
-
+        <div class="included-title">
+          Everything in Instant, plus
         </div>
 
+        <ul class="feature-list">
+
+          <li>✓ Higher photo capacity</li>
+          <li>✓ Custom colors</li>
+          <li>✓ Custom background</li>
+          <li>✓ Custom logo or photo</li>
+          <li>✓ Premium themes</li>
+          <li>✓ Custom event branding</li>
+          <li>✓ Larger photo file limits</li>
+          <li>✓ Gallery available for 1 year</li>
+
+        </ul>
 
       </div>
 
@@ -2069,169 +1617,94 @@
   </section>
 
 
-  <!-- =========================
-       FAQ
-  ========================= -->
+  <!-- FAQ -->
 
-  <section id="faq">
+  <section class="section">
 
-    <div class="section-inner">
+    <div class="section-heading">
+
+      <div class="eyebrow">
+        FAQ
+      </div>
+
+      <h2>
+        Questions? We've got you.
+      </h2>
+
+    </div>
 
 
-      <div class="section-heading">
+    <div class="faq">
 
-        <div class="eyebrow">
-          FAQ
-        </div>
+      <div class="faq-item">
 
-
-        <h2>
-          Questions?
-        </h2>
-
+        <h3>
+          Do guests need to download an app?
+        </h3>
 
         <p>
-          We're keeping Instant Moments
-          simple from start to finish.
+          No. Guests simply scan the event QR code and
+          upload photos directly through their phone's browser.
         </p>
 
       </div>
 
 
-      <div
-        style="
-          max-width: 750px;
-          margin: auto;
-        "
-      >
+      <div class="faq-item">
+
+        <h3>
+          How do photos appear on the TV?
+        </h3>
+
+        <p>
+          Once a guest uploads a photo, it is automatically
+          added to the event's live slideshow.
+        </p>
+
+      </div>
 
 
-        <details
-          style="
-            padding: 20px 0;
-            border-bottom: 1px solid #e4e7ec;
-          "
-        >
+      <div class="faq-item">
 
-          <summary
-            style="
-              font-weight: 700;
-              cursor: pointer;
-            "
-          >
-            Do my guests need an app?
-          </summary>
+        <h3>
+          Can guests see the photos after the event?
+        </h3>
+
+        <p>
+          Yes. Photos are collected into an event gallery,
+          and guests can request the gallery by email.
+        </p>
+
+      </div>
 
 
-          <p
-            style="
-              color: #707887;
-              margin-top: 10px;
-              font-size: 14px;
-            "
-          >
-            No. Guests can scan your QR code
-            and upload photos directly from
-            their phone's browser.
-          </p>
+      <div class="faq-item">
 
-        </details>
+        <h3>
+          What's the difference between Instant and Plus?
+        </h3>
 
+        <p>
+          Instant provides the complete core experience with
+          standard themes and preset designs. Instant Moments Plus
+          adds more customization, higher capacity, and longer
+          gallery availability.
+        </p>
 
-        <details
-          style="
-            padding: 20px 0;
-            border-bottom: 1px solid #e4e7ec;
-          "
-        >
-
-          <summary
-            style="
-              font-weight: 700;
-              cursor: pointer;
-            "
-          >
-            Can photos appear on my TV live?
-          </summary>
+      </div>
 
 
-          <p
-            style="
-              color: #707887;
-              margin-top: 10px;
-              font-size: 14px;
-            "
-          >
-            Yes. Photos can appear automatically
-            on the event TV as guests upload them.
-          </p>
+      <div class="faq-item">
 
-        </details>
+        <h3>
+          Can I customize my event?
+        </h3>
 
-
-        <details
-          style="
-            padding: 20px 0;
-            border-bottom: 1px solid #e4e7ec;
-          "
-        >
-
-          <summary
-            style="
-              font-weight: 700;
-              cursor: pointer;
-            "
-          >
-            Can guests see the photos afterward?
-          </summary>
-
-
-          <p
-            style="
-              color: #707887;
-              margin-top: 10px;
-              font-size: 14px;
-            "
-          >
-            Yes. Guests who request the gallery
-            can receive a link to view and save
-            the event photos.
-          </p>
-
-        </details>
-
-
-        <details
-          style="
-            padding: 20px 0;
-            border-bottom: 1px solid #e4e7ec;
-          "
-        >
-
-          <summary
-            style="
-              font-weight: 700;
-              cursor: pointer;
-            "
-          >
-            What kind of events can I use it for?
-          </summary>
-
-
-          <p
-            style="
-              color: #707887;
-              margin-top: 10px;
-              font-size: 14px;
-            "
-          >
-            Birthdays, weddings, graduations,
-            baby showers, anniversaries, sports
-            events, parties, and more.
-          </p>
-
-        </details>
-
+        <p>
+          Yes. Plus includes custom colors, backgrounds,
+          logos or photos, premium themes, and additional
+          event branding options.
+        </p>
 
       </div>
 
@@ -2240,61 +1713,55 @@
   </section>
 
 
-  <!-- =========================
-       CTA
-  ========================= -->
+  <!-- CTA -->
 
   <section class="cta">
 
     <div class="cta-inner">
 
-
       <h2>
-        Make your event
-        part of the memory.
+        Make your event part of the memory.
       </h2>
 
-
       <p>
-        Create your Instant Moments event
-        and give your guests a place to
-        share the moments that matter.
+        Give your guests a fun way to share their favorite
+        moments and watch them come alive on the big screen.
       </p>
-
 
       <a
         href="create-event.html"
-        class="primary-button"
+        class="button"
       >
         Create Your Event
       </a>
-
 
     </div>
 
   </section>
 
 
-  <!-- =========================
-       FOOTER
-  ========================= -->
+  <!-- FOOTER -->
 
   <footer>
 
     <div class="footer-inner">
 
-
       <div class="footer-brand">
 
-        <h3>
-          ✦ Instant Moments
-        </h3>
+        <div class="footer-logo">
 
+          <div class="footer-logo-mark">
+            ✦
+          </div>
+
+          Instant Moments
+
+        </div>
 
         <p>
-          A simple way to collect,
-          display, and share the memories
-          from your event.
+          Your moments. Live and together.
+          A simple way to bring everyone's event
+          photos together on one screen.
         </p>
 
       </div>
@@ -2302,38 +1769,53 @@
 
       <div class="footer-links">
 
-        <a href="#how-it-works">
-          How It Works
-        </a>
+        <div class="footer-column">
 
-        <a href="#pricing">
-          Pricing
-        </a>
+          <h4>
+            Explore
+          </h4>
 
-        <a href="#faq">
-          FAQ
-        </a>
+          <a href="#how-it-works">
+            How It Works
+          </a>
 
-        <a href="create-event.html">
-          Create Event
-        </a>
+          <a href="#events">
+            Events
+          </a>
+
+          <a href="#features">
+            Features
+          </a>
+
+          <a href="#pricing">
+            Pricing
+          </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>
+            Get Started
+          </h4>
+
+          <a href="create-event.html">
+            Create an Event
+          </a>
+
+        </div>
 
       </div>
-
 
     </div>
 
 
     <div class="copyright">
-
       © 2026 Instant Moments. All rights reserved.
-
     </div>
 
   </footer>
 
-
 </body>
-
 </html>
-```
