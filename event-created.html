@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Your Event Is Ready | Cloud Photo TV</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      color: #5b4848;
+
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          #f8e6e4,
+          transparent 32%
+        ),
+
+        radial-gradient(
+          circle at 85% 90%,
+          #f8edda,
+          transparent 30%
+        ),
+
+        linear-gradient(
+          160deg,
+          #fffaf8,
+          #fffdfb
+        );
+    }
+
+
+    .page {
+      width: min(850px, 92%);
+      margin: 0 auto;
+      padding: 50px 0 70px;
+    }
+
+
+    .brand {
+      text-align: center;
+
+      color: #b47c7c;
+
+      font-size: 15px;
+
+      font-weight: 800;
+
+      letter-spacing: .16em;
+
+      text-transform: uppercase;
+
+      margin-bottom: 12px;
+    }
+
+
+    h1 {
+      text-align: center;
+
+      margin: 0;
+
+      color: #765555;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(38px, 7vw, 58px);
+
+      font-weight: 500;
+    }
+
+
+    .subtitle {
+      text-align: center;
+
+      color: #8b7777;
+
+      margin:
+        12px auto 35px;
+
+      line-height: 1.6;
+    }
+
+
+    .card {
+      background:
+        rgba(255,255,255,.97);
+
+      border:
+        1px solid #ead6d6;
+
+      border-radius: 24px;
+
+      padding: 30px;
+
+      box-shadow:
+        0 24px 70px
+        rgba(155,105,105,.13),
+
+        0 3px 10px
+        rgba(180,140,80,.06);
+    }
+
+
+    .eventName {
+      text-align: center;
+
+      color: #8f6262;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 30px;
+
+      margin-bottom: 6px;
+    }
+
+
+    .eventDetails {
+      text-align: center;
+
+      color: #9b8585;
+
+      margin-bottom: 30px;
+    }
+
+
+    .qrSection {
+      text-align: center;
+
+      padding: 25px;
+
+      background: #fffaf8;
+
+      border:
+        1px solid #ead6d6;
+
+      border-radius: 20px;
+    }
+
+
+    .qrSection h2 {
+      margin-top: 0;
+
+      color: #765555;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-weight: 500;
+    }
+
+
+    #qrCode {
+      width: 230px;
+
+      min-height: 230px;
+
+      background: white;
+
+      padding: 12px;
+
+      border-radius: 16px;
+
+      margin: 20px auto;
+
+      box-shadow:
+        0 15px 40px
+        rgba(145,100,100,.12);
+    }
+
+
+    #qrCode img {
+      display: block;
+
+      width: 100%;
+
+      height: auto;
+    }
+
+
+    .code {
+      color: #a28c8c;
+
+      font-size: 13px;
+
+      letter-spacing: .12em;
+    }
+
+
+    .code strong {
+      color: #876363;
+
+      font-size: 18px;
+
+      letter-spacing: .18em;
+    }
+
+
+    .links {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 14px;
+
+      margin-top: 25px;
+    }
+
+
+    .linkBtn {
+      display: block;
+
+      text-align: center;
+
+      text-decoration: none;
+
+      border-radius: 13px;
+
+      padding: 14px;
+
+      font-weight: 750;
+
+      border: 1px solid #ead6d6;
+
+      color: #8f6262;
+
+      background: #fff7f5;
+    }
+
+
+    .linkBtn:hover {
+      background: #fff0ed;
+    }
+
+
+    .primary {
+      color: white;
+
+      border-color: transparent;
+
+      background:
+        linear-gradient(
+          135deg,
+          #b97979,
+          #c9918b
+        );
+    }
+
+
+    .info {
+      margin-top: 25px;
+
+      padding: 18px;
+
+      border-radius: 14px;
+
+      background: #fffaf0;
+
+      border: 1px solid #e4cc91;
+
+      color: #806e6e;
+
+      line-height: 1.5;
+
+      font-size: 14px;
+
+      text-align: center;
+    }
+
+
+    #status {
+      text-align: center;
+
+      color: #806e6e;
+
+      margin-top: 20px;
+    }
+
+
+    @media (max-width: 600px) {
+
+      .page {
+        padding-top: 30px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .links {
+        grid-template-columns: 1fr;
+      }
+
+      #qrCode {
+        width: 200px;
+        min-height: 200px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <main class="page">
+
+    <div class="brand">
+      ☁ Cloud Photo TV
+    </div>
+
+
+    <h1>
+      Your Event Is Ready!
+    </h1>
+
+
+    <p class="subtitle">
+      Everything you need for your Cloud Photo TV event is below.
+    </p>
+
+
+    <div class="card">
+
+      <div
+        id="eventName"
+        class="eventName"
+      >
+        Loading event…
+      </div>
+
+
+      <div
+        id="eventDetails"
+        class="eventDetails"
+      >
+      </div>
+
+
+      <div class="qrSection">
+
+        <h2>
+          📱 Guest QR Code
+        </h2>
+
+
+        <p>
+          Guests can scan this QR code
+          to send photos to your TV.
+        </p>
+
+
+        <div id="qrCode"></div>
+
+
+        <div class="code">
+          EVENT CODE
+
+          <strong id="eventCode">
+            ------
+          </strong>
+        </div>
+
+      </div>
+
+
+      <div class="links">
+
+        <a
+          id="tvLink"
+          class="linkBtn primary"
+          href="#"
+        >
+          📺 Open TV Display
+        </a>
+
+
+        <a
+          id="galleryLink"
+          class="linkBtn"
+          href="#"
+        >
+          🖼️ Open Gallery
+        </a>
+
+      </div>
+
+
+      <div class="info">
+
+        <strong>What's next?</strong>
+
+        <br>
+
+        Put the QR code somewhere your guests
+        can easily see it. Guests can scan it
+        with their phones and send photos
+        directly to your TV.
+
+      </div>
+
+
+      <div id="status"></div>
+
+    </div>
+
+  </main>
+
+
+  <script
+    type="module"
+    src="event-created.js"
+  ></script>
+
+</body>
+
+</html>
