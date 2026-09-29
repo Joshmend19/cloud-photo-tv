@@ -19,16 +19,31 @@ const code = (
   params.get("code") || ""
 ).toUpperCase();
 
-const eventName = document.getElementById("eventName");
-const eventDetails = document.getElementById("eventDetails");
-const eventCode = document.getElementById("eventCode");
-const qrCode = document.getElementById("qrCode");
-const tvLink = document.getElementById("tvLink");
-const galleryLink = document.getElementById("galleryLink");
-const status = document.getElementById("status");
+const eventName =
+  document.getElementById("eventName");
+
+const eventDetails =
+  document.getElementById("eventDetails");
+
+const eventCode =
+  document.getElementById("eventCode");
+
+const qrCode =
+  document.getElementById("qrCode");
+
+const tvLink =
+  document.getElementById("tvLink");
+
+const galleryLink =
+  document.getElementById("galleryLink");
+
+const status =
+  document.getElementById("status");
+
 
 function formatTime(time) {
-  const [hours, minutes] = time.split(":");
+  const [hours, minutes] =
+    time.split(":");
 
   const date = new Date();
 
@@ -45,6 +60,7 @@ function formatTime(time) {
   });
 }
 
+
 function formatDate(dateString) {
   const date = new Date(
     `${dateString}T00:00:00`
@@ -57,11 +73,19 @@ function formatDate(dateString) {
   });
 }
 
+
 if (!code) {
-  eventName.textContent = "Event not found.";
-  status.textContent = "No event code was provided.";
+
+  eventName.textContent =
+    "Event not found.";
+
+  status.textContent =
+    "No event code was provided.";
+
 } else {
+
   try {
+
     const {
       data: event,
       error
@@ -75,55 +99,98 @@ if (!code) {
       throw error;
     }
 
-    eventName.textContent = event.event_name;
 
-    eventCode.textContent = event.code;
+    eventName.textContent =
+      event.event_name;
+
+    eventCode.textContent =
+      event.code;
 
     eventDetails.textContent =
       `${formatDate(event.event_date)} • ${formatTime(event.start_time)} – ${formatTime(event.end_time)}`;
 
-    // Guest upload page
+
+    // Guest photo upload page
     const guestUrl =
-      `${window.location.origin}${window.location.pathname.replace("event-created.html", "")}?send=${event.code}`;
+      `${window.location.origin}/cloud-photo-tv/?send=${event.code}`;
+
 
     // TV display page
     const tvUrl =
-      `${window.location.origin}${window.location.pathname.replace("event-created.html", "")}?code=${event.code}`;
+      `${window.location.origin}/cloud-photo-tv/?code=${event.code}`;
 
-    // Gallery page
+
+    // Event gallery page
     const galleryUrl =
-      `${window.location.origin}${window.location.pathname.replace("event-created.html", "")}gallery.html?code=${event.code}`;
+      `${window.location.origin}/cloud-photo-tv/gallery.html?code=${event.code}`;
 
-    tvLink.href = tvUrl;
 
-    galleryLink.href = galleryUrl;
+    tvLink.href =
+      tvUrl;
 
-    // Generate guest QR code
-    const dataUrl = await QRCode.toDataURL(
-      guestUrl,
-      {
-        width: 500,
-        margin: 2
-      }
+    galleryLink.href =
+      galleryUrl;
+
+
+    // Generate QR code
+    const dataUrl =
+      await QRCode.toDataURL(
+        guestUrl,
+        {
+          width: 500,
+          margin: 2
+        }
+      );
+
+
+    const image =
+      document.createElement("img");
+
+    image.src =
+      dataUrl;
+
+    image.alt =
+      "Guest QR Code";
+
+
+    qrCode.innerHTML =
+      "";
+
+    qrCode.appendChild(
+      image
     );
 
-    const image = document.createElement("img");
 
-    image.src = dataUrl;
-    image.alt = "Guest QR Code";
+    status.textContent =
+      "Your event is ready.";
 
-    qrCode.innerHTML = "";
 
-    qrCode.appendChild(image);
+    console.log(
+      "Guest URL:",
+      guestUrl
+    );
 
-    status.textContent = "Your event is ready.";
+    console.log(
+      "TV URL:",
+      tvUrl
+    );
+
+    console.log(
+      "Gallery URL:",
+      galleryUrl
+    );
+
 
   } catch (error) {
+
     console.error(error);
 
-    eventName.textContent = "Could not load event.";
+    eventName.textContent =
+      "Could not load event.";
 
     status.textContent =
       "There was a problem loading this event.";
+
   }
+
 }
