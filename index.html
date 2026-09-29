@@ -1,333 +1,1806 @@
-```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Donna's 60th Birthday</title>
+  <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="style.css" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Cloud Photo TV | Share Every Memory</title>
+
+  <meta
+    name="description"
+    content="Turn your event into a live photo experience. Guests scan a QR code, upload photos, and watch memories appear on your TV."
+  >
 
   <style>
-    /* Birthday TV theme */
 
-    #tvView {
-      background: #fffaf8;
-      color: #594848;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .tvTop {
-      background: rgba(255, 250, 248, .97);
-      border-bottom: 1px solid #ead6d6;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .brand {
-      color: #9d6868;
-      letter-spacing: .12em;
+    body {
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      color: #242424;
+      background: #ffffff;
+      line-height: 1.6;
     }
 
-    .status {
-      color: #9c8888;
+    a {
+      text-decoration: none;
+      color: inherit;
     }
 
-    .smallBtn {
-      border-color: #d8b6a4;
-      background: linear-gradient(135deg, #fff, #fff7f3);
-      color: #8f6262;
+    button {
+      font: inherit;
     }
 
-    .smallBtn:hover {
-      background: #fff0eb;
-      border-color: #c99b8b;
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    .navbar {
+      width: 100%;
+      border-bottom: 1px solid #eeeeee;
+      background: rgba(255, 255, 255, 0.96);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
     }
 
-    #emailStatus {
-      background: rgba(255, 250, 248, .97);
-      border: 1px solid #ead6d6;
-      color: #8f6f6f;
+    .nav-inner {
+      max-width: 1180px;
+      margin: auto;
+      padding: 18px 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
     }
 
-    .photoStage {
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      font-weight: 400;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-size: 15px;
+      color: #555555;
+    }
+
+    .nav-links a:hover {
+      color: #111111;
+    }
+
+    .nav-button {
+      background: #111111;
+      color: white;
+      padding: 11px 19px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .nav-button:hover {
+      background: #333333;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
       background:
-        radial-gradient(
-          circle at 50% 35%,
-          #fff1ed 0%,
-          #fff9f7 42%,
-          #fffaf8 75%
+        linear-gradient(
+          135deg,
+          #fffaf8 0%,
+          #f8f1f0 50%,
+          #f4eeee 100%
         );
+
+      padding: 90px 24px 100px;
     }
 
-    .emptyTv {
+    .hero-inner {
+      max-width: 1180px;
+      margin: auto;
+
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 70px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: white;
+      border: 1px solid #eadfdd;
+      color: #876b68;
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(46px, 6vw, 72px);
+      line-height: 1.03;
+      letter-spacing: -3px;
+      max-width: 680px;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      color: #a46f6b;
+    }
+
+    .hero-text {
+      font-size: 19px;
+      color: #666666;
+      max-width: 590px;
+      margin-bottom: 34px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .primary-button {
+      display: inline-block;
+      background: #111111;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 9px;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-2px);
+      background: #333333;
+    }
+
+    .secondary-button {
+      display: inline-block;
+      background: white;
+      color: #222222;
+      border: 1px solid #dddddd;
+      padding: 14px 25px;
+      border-radius: 9px;
+      font-weight: 600;
+    }
+
+    .secondary-button:hover {
+      background: #f7f7f7;
+    }
+
+    .hero-note {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #777777;
+    }
+
+    /* =========================
+       HERO VISUAL
+    ========================= */
+
+    .hero-visual {
+      position: relative;
+      min-height: 480px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tv-card {
+      width: min(100%, 510px);
+      aspect-ratio: 16 / 10;
+      background: #171717;
+      border-radius: 18px;
+      padding: 10px;
+      box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.22);
       position: relative;
       z-index: 2;
     }
 
-    .eventTitle {
-      color: #b47c7c;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(18px, 2vw, 25px);
-      letter-spacing: .08em;
+    .tv-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 11px;
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          #e8c9c5,
+          #f7e9e6,
+          #d9b8b3
+        );
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .tv-content {
+      text-align: center;
+      color: #382b29;
+    }
+
+    .tv-content small {
       text-transform: uppercase;
-      margin-bottom: 8px;
+      letter-spacing: 2px;
+      font-size: 10px;
     }
 
-    .emptyTv h1 {
-      color: #765555;
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 500;
-      letter-spacing: -.02em;
+    .tv-content h3 {
+      font-family: Georgia, serif;
+      font-size: 32px;
+      margin: 8px 0;
     }
 
-    .emptyTv p {
-      color: #9b8585;
+    .tv-content p {
+      font-size: 12px;
     }
 
-    .cloudIcon {
-      color: #c38b8b;
-      filter: drop-shadow(0 8px 18px rgba(190, 130, 130, .18));
-    }
-
-    .goldDivider {
-      width: 110px;
-      height: 2px;
-      margin: 15px auto 20px;
-      background: linear-gradient(
-        90deg,
-        #c49b45,
-        #e8ce7b,
-        #c49b45
-      );
-    }
-
-    .qr {
-      box-shadow:
-        0 18px 50px rgba(145, 100, 100, .14),
-        0 2px 8px rgba(190, 150, 80, .08);
-    }
-
-    .codeLabel {
-      color: #a28c8c;
-    }
-
-    .codeLabel strong {
-      color: #876363;
-    }
-
-    /* Decorative roses */
-
-    .tvRose {
+    .photo-one,
+    .photo-two,
+    .photo-three {
       position: absolute;
-      top: 28px;
-      width: 170px;
-      z-index: 1;
-      pointer-events: none;
-      opacity: .9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
     }
 
-    .tvRoseLeft {
-      left: 18px;
+    .photo-one {
+      width: 105px;
+      height: 125px;
+      left: 9%;
+      top: 14%;
+      transform: rotate(-8deg);
+      background: #c69f96;
     }
 
-    .tvRoseRight {
-      right: 18px;
-      transform: scaleX(-1);
+    .photo-two {
+      width: 110px;
+      height: 130px;
+      right: 8%;
+      top: 17%;
+      transform: rotate(7deg);
+      background: #b98c84;
     }
 
-    .tvRoseFlower {
-      font-size: 65px;
-      line-height: .8;
-      filter: drop-shadow(0 7px 12px rgba(150, 90, 90, .12));
+    .photo-three {
+      width: 100px;
+      height: 120px;
+      left: 43%;
+      bottom: 9%;
+      transform: rotate(-3deg);
+      background: #d5aaa2;
     }
 
-    .tvRoseFlower.second {
-      margin-left: 48px;
-      margin-top: 8px;
-      font-size: 52px;
+    .phone-card {
+      position: absolute;
+      width: 145px;
+      height: 270px;
+      background: #161616;
+      border-radius: 25px;
+      padding: 7px;
+      right: -5px;
+      bottom: 15px;
+      z-index: 5;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.25);
+      transform: rotate(5deg);
     }
 
-    .tvRoseGold {
-      color: #c5a04b;
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 19px;
+      background: white;
+      padding: 18px 12px;
+      text-align: center;
+    }
+
+    .phone-screen h4 {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    .qr-placeholder {
+      width: 88px;
+      height: 88px;
+      margin: 12px auto;
+      border: 5px solid #111111;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          #111111 0 4px,
+          #ffffff 4px 8px
+        );
+    }
+
+    .phone-screen p {
+      font-size: 10px;
+      color: #777777;
+    }
+
+    /* =========================
+       TRUST BAR
+    ========================= */
+
+    .trust-bar {
+      border-bottom: 1px solid #eeeeee;
+      padding: 24px;
+    }
+
+    .trust-inner {
+      max-width: 950px;
+      margin: auto;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .trust-item {
+      flex: 1;
+      min-width: 150px;
+      color: #666666;
+      font-size: 14px;
+    }
+
+    .trust-item strong {
+      display: block;
+      color: #222222;
+      font-size: 17px;
+      margin-bottom: 2px;
+    }
+
+    /* =========================
+       GENERAL SECTIONS
+    ========================= */
+
+    section {
+      padding: 90px 24px;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-heading {
+      max-width: 650px;
+      margin: 0 auto 55px;
+      text-align: center;
+    }
+
+    .section-heading .eyebrow {
+      margin-bottom: 14px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(34px, 5vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 15px;
+    }
+
+    .section-heading p {
+      color: #707070;
+      font-size: 17px;
+    }
+
+    /* =========================
+       HOW IT WORKS
+    ========================= */
+
+    .steps {
+      display: grid;
+      grid-template-columns:
+        repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .step {
+      padding: 30px 24px;
+      border: 1px solid #eeeeee;
+      border-radius: 14px;
+      background: white;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f1e3e1;
+      color: #8b625d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .step h3 {
+      font-size: 19px;
+      margin-bottom: 9px;
+    }
+
+    .step p {
+      color: #707070;
+      font-size: 14px;
+    }
+
+    /* =========================
+       EVENT TYPES
+    ========================= */
+
+    .event-section {
+      background: #fafafa;
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .event-card {
+      background: white;
+      border: 1px solid #eeeeee;
+      border-radius: 12px;
+      padding: 25px 20px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .event-icon {
+      font-size: 30px;
+      display: block;
+      margin-bottom: 9px;
+    }
+
+    /* =========================
+       FEATURES
+    ========================= */
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature {
+      padding: 28px;
+      border: 1px solid #eeeeee;
+      border-radius: 14px;
+    }
+
+    .feature-icon {
+      font-size: 25px;
+      margin-bottom: 14px;
+    }
+
+    .feature h3 {
+      margin-bottom: 8px;
+      font-size: 19px;
+    }
+
+    .feature p {
+      color: #707070;
+      font-size: 14px;
+    }
+
+    /* =========================
+       PRICING
+    ========================= */
+
+    .pricing-section {
+      background: #fafafa;
+    }
+
+    .pricing-grid {
+      max-width: 800px;
+      margin: auto;
+
+      display: grid;
+      grid-template-columns:
+        repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .price-card {
+      background: white;
+      border: 1px solid #dddddd;
+      border-radius: 16px;
+      padding: 34px;
+    }
+
+    .price-card.premium {
+      border: 2px solid #111111;
+    }
+
+    .price-card h3 {
       font-size: 23px;
-      margin-left: 18px;
-      margin-top: 7px;
-      letter-spacing: 8px;
+      margin-bottom: 5px;
     }
 
-    @media (max-width: 800px) {
-      .tvRose {
-        opacity: .35;
-        width: 100px;
+    .price-description {
+      color: #777777;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .price {
+      font-size: 38px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .price span {
+      font-size: 14px;
+      font-weight: 400;
+      color: #777777;
+    }
+
+    .price-list {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+
+    .price-list li {
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta {
+      background:
+        linear-gradient(
+          135deg,
+          #2d2726,
+          #4b3b38
+        );
+
+      color: white;
+      text-align: center;
+    }
+
+    .cta-inner {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .cta h2 {
+      font-size: clamp(35px, 5vw, 50px);
+      line-height: 1.1;
+      margin-bottom: 18px;
+      letter-spacing: -1.5px;
+    }
+
+    .cta p {
+      color: #d8d0ce;
+      margin-bottom: 30px;
+      font-size: 17px;
+    }
+
+    .cta .primary-button {
+      background: white;
+      color: #222222;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      background: #171717;
+      color: white;
+      padding: 50px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: auto;
+
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      max-width: 330px;
+    }
+
+    .footer-brand h3 {
+      margin-bottom: 10px;
+    }
+
+    .footer-brand p {
+      color: #aaaaaa;
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 40px;
+      color: #aaaaaa;
+      font-size: 14px;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .copyright {
+      max-width: 1100px;
+      margin: 35px auto 0;
+      padding-top: 25px;
+      border-top: 1px solid #333333;
+      color: #777777;
+      font-size: 13px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 850px) {
+
+      .nav-links {
+        display: none;
       }
 
-      .tvRoseFlower {
-        font-size: 45px;
+      .hero {
+        padding-top: 60px;
       }
 
-      .tvRoseFlower.second {
-        font-size: 36px;
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 45px;
       }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .hero-visual {
+        min-height: 390px;
+      }
+
+      .phone-card {
+        right: 0;
+      }
+
+      .steps {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .event-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .feature-grid {
+        grid-template-columns:
+          1fr;
+      }
+
     }
 
     @media (max-width: 600px) {
-      .tvRose {
-        display: none;
+
+      .nav-inner {
+        padding: 15px 18px;
       }
+
+      .nav-button {
+        padding: 9px 13px;
+        font-size: 13px;
+      }
+
+      .hero {
+        padding: 55px 18px 70px;
+      }
+
+      section {
+        padding: 65px 18px;
+      }
+
+      .hero-text {
+        font-size: 17px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .hero-buttons a {
+        text-align: center;
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: 310px;
+      }
+
+      .tv-card {
+        width: 92%;
+      }
+
+      .phone-card {
+        width: 110px;
+        height: 210px;
+      }
+
+      .qr-placeholder {
+        width: 65px;
+        height: 65px;
+      }
+
+      .phone-screen {
+        padding: 12px 8px;
+      }
+
+      .phone-screen h4 {
+        font-size: 11px;
+      }
+
+      .steps {
+        grid-template-columns:
+          1fr;
+      }
+
+      .event-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .pricing-grid {
+        grid-template-columns:
+          1fr;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 12px;
+      }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <main id="app">
 
-    <section id="loading" class="center">
+  <!-- NAVIGATION -->
+
+  <nav class="navbar">
+
+    <div class="nav-inner">
+
+      <a
+        href="index.html"
+        class="logo"
+      >
+        Cloud Photo <span>TV</span>
+      </a>
+
+
+      <div class="nav-links">
+
+        <a href="#how-it-works">
+          How It Works
+        </a>
+
+        <a href="#events">
+          Events
+        </a>
+
+        <a href="#pricing">
+          Pricing
+        </a>
+
+        <a href="#faq">
+          FAQ
+        </a>
+
+      </div>
+
+
+      <a
+        href="create-event.html"
+        class="nav-button"
+      >
+        Create Your Event
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- HERO -->
+
+  <header class="hero">
+
+    <div class="hero-inner">
+
+
       <div>
-        <div class="spinner"></div>
-        <p>Loading Cloud Photo TV…</p>
-      </div>
-    </section>
 
-    <section id="tvView" class="hidden">
-
-      <div class="tvTop">
-
-        <div>
-          <div class="brand">DONNA'S 60TH BIRTHDAY</div>
-          <div class="status" id="tvStatus">
-            Ready for photos
-          </div>
+        <div class="eyebrow">
+          Your event. Your memories. Live.
         </div>
 
-        <div id="emailStatus"></div>
-
-      </div>
-
-      <div id="photoStage" class="photoStage">
-
-        <!-- Left decoration -->
-        <div class="tvRose tvRoseLeft">
-          <div class="tvRoseFlower">🌹</div>
-          <div class="tvRoseFlower second">🌹</div>
-          <div class="tvRoseGold">✦ ✦</div>
-        </div>
-
-        <!-- Right decoration -->
-        <div class="tvRose tvRoseRight">
-          <div class="tvRoseFlower">🌹</div>
-          <div class="tvRoseFlower second">🌹</div>
-          <div class="tvRoseGold">✦ ✦</div>
-        </div>
-
-        <div id="emptyTv" class="emptyTv">
-
-          <div class="eventTitle">
-            Celebrating 60 Years
-          </div>
-
-          <div class="cloudIcon">☁</div>
-
-          <h1>
-            Share a memory with Donna
-          </h1>
-
-          <div class="goldDivider"></div>
-
-          <p>
-            Scan the QR code with your phone
-            to send a photo to the TV.
-          </p>
-
-          <div id="tvQr" class="qr"></div>
-
-          <div class="codeLabel">
-            TV CODE
-            <strong id="tvCode"></strong>
-          </div>
-
-        </div>
-
-        <img
-          id="currentPhoto"
-          class="currentPhoto hidden"
-          alt="Photo displayed on TV"
-        />
-
-      </div>
-
-    </section>
-
-    <section id="uploadView" class="hidden">
-
-      <div class="mobileCard">
-
-        <div class="logo">
-          ☁ Cloud Photo TV
-        </div>
 
         <h1>
-          Send a photo to the TV
+          Every memory from your event,
+          <span>on one screen.</span>
         </h1>
 
-        <p id="uploadDescription">
-          Choose a photo and it will appear on the TV.
+
+        <p class="hero-text">
+          Give your guests an easy way to share
+          their photos. They scan a QR code,
+          upload their memories, and watch them
+          appear live on your TV.
         </p>
 
-        <label class="fieldLabel" for="emailInput">
-          Email for the photo gallery
-        </label>
 
-        <input
-          id="emailInput"
-          class="emailInput"
-          type="email"
-          placeholder="you@example.com"
-          autocomplete="email"
-        />
+        <div class="hero-buttons">
 
-        <label class="uploadBox" for="photoInput">
+          <a
+            href="create-event.html"
+            class="primary-button"
+          >
+            Create Your Event
+          </a>
 
-          <span class="uploadIcon">＋</span>
 
-          <span id="fileLabel">
-            Choose a photo
-          </span>
+          <a
+            href="#how-it-works"
+            class="secondary-button"
+          >
+            See How It Works
+          </a>
 
-          <small>
-            JPG, PNG, or WEBP
-          </small>
+        </div>
 
-        </label>
 
-        <input
-          id="photoInput"
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-        />
-
-        <button
-          id="uploadBtn"
-          class="primaryBtn"
-          disabled
-        >
-          Send to TV
-        </button>
-
-        <div id="uploadStatus" class="uploadStatus"></div>
+        <p class="hero-note">
+          No app required for your guests.
+        </p>
 
       </div>
 
-    </section>
 
-    <section id="errorView" class="hidden center">
-      <h1>Something went wrong</h1>
-      <p id="errorText"></p>
-    </section>
+      <!-- VISUAL -->
 
-  </main>
+      <div class="hero-visual">
 
-  <script type="module" src="app.js"></script>
+        <div class="tv-card">
+
+          <div class="tv-screen">
+
+            <div class="photo-one"></div>
+
+            <div class="photo-two"></div>
+
+            <div class="photo-three"></div>
+
+
+            <div class="tv-content">
+
+              <small>
+                Cloud Photo TV
+              </small>
+
+              <h3>
+                Celebrate Together
+              </h3>
+
+              <p>
+                Your guests' memories,
+                displayed live.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="phone-card">
+
+          <div class="phone-screen">
+
+            <h4>
+              Share Your Photo
+            </h4>
+
+            <div class="qr-placeholder"></div>
+
+            <p>
+              Scan the event QR code
+              to upload a memory.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </header>
+
+
+  <!-- TRUST -->
+
+  <div class="trust-bar">
+
+    <div class="trust-inner">
+
+      <div class="trust-item">
+
+        <strong>
+          Simple
+        </strong>
+
+        Guests scan and upload.
+
+      </div>
+
+
+      <div class="trust-item">
+
+        <strong>
+          Live
+        </strong>
+
+        Photos appear on your TV.
+
+      </div>
+
+
+      <div class="trust-item">
+
+        <strong>
+          Shareable
+        </strong>
+
+        Everyone can receive the gallery.
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- HOW IT WORKS -->
+
+  <section id="how-it-works">
+
+    <div class="section-inner">
+
+      <div class="section-heading">
+
+        <div class="eyebrow">
+          How it works
+        </div>
+
+        <h2>
+          From QR code to memories
+          in minutes.
+        </h2>
+
+        <p>
+          Cloud Photo TV keeps photo sharing
+          simple for you and your guests.
+        </p>
+
+      </div>
+
+
+      <div class="steps">
+
+
+        <div class="step">
+
+          <div class="step-number">
+            1
+          </div>
+
+          <h3>
+            Create your event
+          </h3>
+
+          <p>
+            Choose your event type, date,
+            colors, theme, and design.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            2
+          </div>
+
+          <h3>
+            Share your QR code
+          </h3>
+
+          <p>
+            Put the QR code on your TV,
+            invitations, tables, or signs.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            3
+          </div>
+
+          <h3>
+            Guests upload photos
+          </h3>
+
+          <p>
+            Guests scan the code and
+            upload photos directly from
+            their phones.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            4
+          </div>
+
+          <h3>
+            Watch memories appear
+          </h3>
+
+          <p>
+            Photos automatically appear
+            on your TV and become part
+            of your event gallery.
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- EVENTS -->
+
+  <section
+    id="events"
+    class="event-section"
+  >
+
+    <div class="section-inner">
+
+      <div class="section-heading">
+
+        <div class="eyebrow">
+          Made for your event
+        </div>
+
+        <h2>
+          Whatever you're celebrating.
+        </h2>
+
+        <p>
+          Create an experience that fits
+          your special day.
+        </p>
+
+      </div>
+
+
+      <div class="event-grid">
+
+
+        <div class="event-card">
+
+          <span class="event-icon">
+            🎂
+          </span>
+
+          Birthdays
+
+        </div>
+
+
+        <div class="event-card">
+
+          <span class="event-icon">
+            🎓
+          </span>
+
+          Graduations
+
+        </div>
+
+
+        <div class="event-card">
+
+          <span class="event-icon">
+            💍
+          </span>
+
+          Weddings
+
+        </div>
+
+
+        <div class="event-card">
+
+          <span class="event-icon">
+            👶
+          </span>
+
+          Baby Showers
+
+        </div>
+
+
+        <div class="event-card">
+
+          <span class="event-icon">
+            🎉
+          </span>
+
+          Anniversaries
+
+        </div>
+
+
+        <div class="event-card">
+
+          <span class="event-icon">
+            🏆
+          </span>
+
+          Sports Events
+
+        </div>
+
+
+        <div class="event-card">
+
+          <span class="event-icon">
+            🥳
+          </span>
+
+          Parties
+
+        </div>
+
+
+        <div class="event-card">
+
+          <span class="event-icon">
+            ✨
+          </span>
+
+          Other Events
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FEATURES -->
+
+  <section>
+
+    <div class="section-inner">
+
+      <div class="section-heading">
+
+        <div class="eyebrow">
+          Everything included
+        </div>
+
+        <h2>
+          More than just a photo
+          upload.
+        </h2>
+
+      </div>
+
+
+      <div class="feature-grid">
+
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            📺
+          </div>
+
+          <h3>
+            Live TV slideshow
+          </h3>
+
+          <p>
+            Photos uploaded by guests
+            automatically appear on the
+            event TV.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            📱
+          </div>
+
+          <h3>
+            No app required
+          </h3>
+
+          <p>
+            Guests simply scan a QR code
+            and upload from their phone.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            🖼️
+          </div>
+
+          <h3>
+            Event gallery
+          </h3>
+
+          <p>
+            Every submitted photo becomes
+            part of your event gallery.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            ✉️
+          </div>
+
+          <h3>
+            Automatic gallery sharing
+          </h3>
+
+          <p>
+            Guests who request the gallery
+            can receive it automatically.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            🎨
+          </div>
+
+          <h3>
+            Event themes
+          </h3>
+
+          <p>
+            Choose a design that matches
+            the look and feeling of your event.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            🔗
+          </div>
+
+          <h3>
+            One simple QR code
+          </h3>
+
+          <p>
+            Give guests one easy way to
+            participate throughout the event.
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PRICING -->
+
+  <section
+    id="pricing"
+    class="pricing-section"
+  >
+
+    <div class="section-inner">
+
+      <div class="section-heading">
+
+        <div class="eyebrow">
+          Simple pricing
+        </div>
+
+        <h2>
+          Choose the experience
+          you want.
+        </h2>
+
+        <p>
+          Start simple or customize your
+          event experience.
+        </p>
+
+      </div>
+
+
+      <div class="pricing-grid">
+
+
+        <div class="price-card">
+
+          <h3>
+            Basic
+          </h3>
+
+          <p class="price-description">
+            Everything you need for
+            a great event.
+          </p>
+
+          <div class="price">
+            $—
+            <span>
+              coming soon
+            </span>
+          </div>
+
+
+          <ul class="price-list">
+
+            <li>
+              ✓ Event QR code
+            </li>
+
+            <li>
+              ✓ Live TV slideshow
+            </li>
+
+            <li>
+              ✓ Event gallery
+            </li>
+
+            <li>
+              ✓ Automatic gallery emails
+            </li>
+
+            <li>
+              ✓ Preset themes
+            </li>
+
+            <li>
+              ✓ Preset color combinations
+            </li>
+
+          </ul>
+
+
+          <a
+            href="create-event.html"
+            class="primary-button"
+          >
+            Get Started
+          </a>
+
+        </div>
+
+
+        <div class="price-card premium">
+
+          <h3>
+            Premium
+          </h3>
+
+          <p class="price-description">
+            Make the event completely
+            your own.
+          </p>
+
+          <div class="price">
+            $—
+            <span>
+              coming soon
+            </span>
+          </div>
+
+
+          <ul class="price-list">
+
+            <li>
+              ✓ Everything in Basic
+            </li>
+
+            <li>
+              ✓ Custom colors
+            </li>
+
+            <li>
+              ✓ Custom background
+            </li>
+
+            <li>
+              ✓ Custom logo/photo
+            </li>
+
+            <li>
+              ✓ Premium themes
+            </li>
+
+            <li>
+              ✓ More customization
+            </li>
+
+          </ul>
+
+
+          <a
+            href="create-event.html"
+            class="primary-button"
+          >
+            Get Started
+          </a>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FAQ -->
+
+  <section id="faq">
+
+    <div class="section-inner">
+
+      <div class="section-heading">
+
+        <div class="eyebrow">
+          FAQ
+        </div>
+
+        <h2>
+          Questions?
+        </h2>
+
+        <p>
+          We're keeping Cloud Photo TV
+          simple from start to finish.
+        </p>
+
+      </div>
+
+
+      <div
+        style="
+          max-width: 750px;
+          margin: auto;
+        "
+      >
+
+        <details
+          style="
+            padding: 20px 0;
+            border-bottom: 1px solid #eeeeee;
+          "
+        >
+
+          <summary
+            style="
+              font-weight: 700;
+              cursor: pointer;
+            "
+          >
+            Do my guests need an app?
+          </summary>
+
+          <p
+            style="
+              color: #707070;
+              margin-top: 10px;
+              font-size: 14px;
+            "
+          >
+            No. Guests can scan your QR code
+            and upload photos directly from
+            their phone's browser.
+          </p>
+
+        </details>
+
+
+        <details
+          style="
+            padding: 20px 0;
+            border-bottom: 1px solid #eeeeee;
+          "
+        >
+
+          <summary
+            style="
+              font-weight: 700;
+              cursor: pointer;
+            "
+          >
+            Can photos appear on my TV live?
+          </summary>
+
+          <p
+            style="
+              color: #707070;
+              margin-top: 10px;
+              font-size: 14px;
+            "
+          >
+            Yes. Photos can appear automatically
+            on the event TV as guests upload them.
+          </p>
+
+        </details>
+
+
+        <details
+          style="
+            padding: 20px 0;
+            border-bottom: 1px solid #eeeeee;
+          "
+        >
+
+          <summary
+            style="
+              font-weight: 700;
+              cursor: pointer;
+            "
+          >
+            Can guests see the photos afterward?
+          </summary>
+
+          <p
+            style="
+              color: #707070;
+              margin-top: 10px;
+              font-size: 14px;
+            "
+          >
+            Yes. Guests who request the gallery
+            can receive a link to view and save
+            the event photos.
+          </p>
+
+        </details>
+
+
+        <details
+          style="
+            padding: 20px 0;
+            border-bottom: 1px solid #eeeeee;
+          "
+        >
+
+          <summary
+            style="
+              font-weight: 700;
+              cursor: pointer;
+            "
+          >
+            What kind of events can I use it for?
+          </summary>
+
+          <p
+            style="
+              color: #707070;
+              margin-top: 10px;
+              font-size: 14px;
+            "
+          >
+            Birthdays, weddings, graduations,
+            baby showers, anniversaries, sports
+            events, parties, and more.
+          </p>
+
+        </details>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+
+  <section class="cta">
+
+    <div class="cta-inner">
+
+      <h2>
+        Make your event
+        part of the memory.
+      </h2>
+
+      <p>
+        Create your Cloud Photo TV event
+        and give your guests a place to
+        share the moments that matter.
+      </p>
+
+      <a
+        href="create-event.html"
+        class="primary-button"
+      >
+        Create Your Event
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+
+      <div class="footer-brand">
+
+        <h3>
+          Cloud Photo TV
+        </h3>
+
+        <p>
+          A simple way to collect,
+          display, and share the memories
+          from your event.
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <a href="#how-it-works">
+          How It Works
+        </a>
+
+        <a href="#pricing">
+          Pricing
+        </a>
+
+        <a href="#faq">
+          FAQ
+        </a>
+
+        <a href="create-event.html">
+          Create Event
+        </a>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="copyright">
+
+      © 2026 Cloud Photo TV. All rights reserved.
+
+    </div>
+
+  </footer>
+
 
 </body>
+
 </html>
-```
