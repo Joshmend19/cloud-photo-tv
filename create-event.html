@@ -717,8 +717,6 @@
 
 <body>
 
-  <!-- NAVIGATION -->
-
   <nav class="navbar">
 
     <a href="index.html" class="logo">
@@ -740,13 +738,13 @@
 
   <main class="page">
 
-    <!-- HEADER -->
-
     <div class="page-header">
 
-      <h1>Create Your Event</h1>
+      <h1 id="pageTitle">
+        Create Your Event
+      </h1>
 
-      <p>
+      <p id="pageSubtitle">
         Set up your event and let Captured Moments handle the memories.
       </p>
 
@@ -773,8 +771,6 @@
 
       <div class="package-grid">
 
-        <!-- INSTANT -->
-
         <div class="package-card">
 
           <h3>Captured Moments</h3>
@@ -787,23 +783,14 @@
           <ul>
 
             <li>Event-specific QR code</li>
-
             <li>Guest photo uploads</li>
-
             <li>Live TV slideshow</li>
-
             <li>Event photo gallery</li>
-
             <li>Photo downloads</li>
-
             <li>Automatic gallery emails</li>
-
             <li>Standard Captured Moments themes</li>
-
             <li>Preset colors and backgrounds</li>
-
             <li>Up to 500 photos</li>
-
             <li>Gallery available for 30 days</li>
 
           </ul>
@@ -817,8 +804,6 @@
 
         </div>
 
-
-        <!-- PLUS -->
 
         <div class="package-card plus">
 
@@ -836,21 +821,13 @@
           <ul>
 
             <li>Everything in Captured Moments</li>
-
             <li>Higher photo capacity</li>
-
             <li>Custom colors</li>
-
             <li>Custom background</li>
-
             <li>Custom logo or photo</li>
-
             <li>Premium themes</li>
-
             <li>Custom event branding</li>
-
             <li>Larger photo file limits</li>
-
             <li>Gallery available for 1 year</li>
 
           </ul>
@@ -907,8 +884,6 @@
 
       <div class="form-card">
 
-
-        <!-- EVENT INFORMATION -->
 
         <div class="form-section">
 
@@ -1040,7 +1015,6 @@
 
           <div class="tv-options">
 
-
             <div class="tv-option">
 
               <input
@@ -1114,7 +1088,6 @@
 
 
           <div class="option-grid">
-
 
             <div class="option-card">
 
@@ -1217,7 +1190,6 @@
 
           <div class="color-grid">
 
-
             <div class="form-group">
 
               <label for="primaryColor">
@@ -1307,7 +1279,6 @@
 
           <div class="background-grid">
 
-
             <div class="background-option">
 
               <input
@@ -1376,6 +1347,7 @@
                 id="backgroundMinimal"
                 name="background"
                 value="minimal"
+                checked
               >
 
               <label for="backgroundMinimal">
@@ -1452,7 +1424,7 @@
   <script>
 
     /* ---------------------------------
-       Package selection
+       Package elements
     --------------------------------- */
 
     const packageSection =
@@ -1495,6 +1467,36 @@
         "logoSection"
       );
 
+    const pageTitle =
+      document.getElementById(
+        "pageTitle"
+      );
+
+    const pageSubtitle =
+      document.getElementById(
+        "pageSubtitle"
+      );
+
+
+    /* ---------------------------------
+       URL parameters
+    --------------------------------- */
+
+    const urlParams =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const packageFromUrl =
+      urlParams.get("package");
+
+    const editCode =
+      urlParams.get("edit");
+
+
+    /* ---------------------------------
+       Package selection
+    --------------------------------- */
 
     function selectPackage(packageName) {
 
@@ -1646,19 +1648,36 @@
 
 
     /* ---------------------------------
-       Load package from URL
+       Edit mode
     --------------------------------- */
 
-    const urlParams =
-      new URLSearchParams(
-        window.location.search
+    if (editCode) {
+
+      packageSection.style.display =
+        "none";
+
+      selectedPackageBox.classList.remove(
+        "visible"
       );
 
-    const packageFromUrl =
-      urlParams.get("package");
+      setupSection.classList.add(
+        "visible"
+      );
+
+      pageTitle.textContent =
+        "Edit Your Event";
+
+      pageSubtitle.textContent =
+        "Update your event details and save your changes.";
+
+    }
 
 
-    if (
+    /* ---------------------------------
+       Normal package mode
+    --------------------------------- */
+
+    else if (
       packageFromUrl === "instant" ||
       packageFromUrl === "plus"
     ) {
