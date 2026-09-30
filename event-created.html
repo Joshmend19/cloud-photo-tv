@@ -1,1010 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Your Event Is Ready | Captured Moments</title>
+  <title>Event Ready | Captured Moments</title>
 
   <style>
-
-    :root {
-      --primary-color: #2563eb;
-      --secondary-color: #fffdf8;
-      --accent-color: #c8a24a;
-    }
-
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
-      color: #172033;
-
-      background:
-        radial-gradient(
-          circle at 8% 12%,
-          color-mix(
-            in srgb,
-            var(--accent-color) 16%,
-            transparent
-          ),
-          transparent 25%
-        ),
-        radial-gradient(
-          circle at 92% 10%,
-          color-mix(
-            in srgb,
-            var(--primary-color) 14%,
-            transparent
-          ),
-          transparent 27%
-        ),
-        var(--secondary-color);
-
-      min-height: 100vh;
-      line-height: 1.6;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f8f6f3;
+      color: #333;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
+    .top-bar {
+      height: 8px;
+      background: linear-gradient(
+        90deg,
+        #d4af37,
+        #f5e6c8,
+        #c9a0a0,
+        #d4af37
+      );
     }
 
-    /* NAV */
-
-    .navbar {
-      background:
-        color-mix(
-          in srgb,
-          var(--secondary-color) 96%,
-          white
-        );
-
-      border-bottom:
-        1px solid
-        color-mix(
-          in srgb,
-          var(--primary-color) 12%,
-          #e9e7e2
-        );
-
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(12px);
+    header {
+      background: white;
+      padding: 22px 20px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
     }
 
-    .nav-inner {
-      max-width: 1180px;
-      margin: auto;
-      padding: 17px 24px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .brand {
+      font-size: 26px;
+      font-weight: 700;
+      color: #b08d57;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      font-size: 21px;
-      font-weight: 800;
-      letter-spacing: -0.6px;
-    }
-
-    .logo-mark {
-      width: 36px;
-      height: 36px;
-
-      border-radius: 11px;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--accent-color)
-        );
-
-      color: white;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      box-shadow:
-        0 5px 14px
-        color-mix(
-          in srgb,
-          var(--primary-color) 25%,
-          transparent
-        );
-    }
-
-    .logo-text span {
-      color: var(--primary-color);
-    }
-
-    .home-link {
-      color: #667085;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .home-link:hover {
-      color: var(--primary-color);
-    }
-
-    /* MAIN */
-
-    main {
-      width:
-        min(
-          900px,
-          calc(100% - 28px)
-        );
-
-      margin: 0 auto;
-      padding: 65px 0 80px;
-    }
-
-    /* HERO */
-
-    .success-icon {
-      width: 76px;
-      height: 76px;
-
-      margin: 0 auto 20px;
-
-      border-radius: 50%;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--accent-color)
-        );
-
-      color: white;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 38px;
-      font-weight: 800;
-
-      box-shadow:
-        0 12px 28px
-        color-mix(
-          in srgb,
-          var(--primary-color) 22%,
-          transparent
-        );
+    .container {
+      max-width: 950px;
+      margin: 45px auto;
+      padding: 0 20px;
     }
 
     .hero {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 35px;
     }
 
-    .hero h1 {
-      font-size:
-        clamp(38px, 6vw, 58px);
-
-      line-height: 1.05;
-      letter-spacing: -2px;
-      margin-bottom: 13px;
+    .success-icon {
+      width: 75px;
+      height: 75px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0e4d4;
+      font-size: 38px;
     }
 
-    .hero h1 span {
-      color: var(--primary-color);
+    h1 {
+      margin: 0 0 10px;
+      font-size: 36px;
     }
 
     .hero p {
-      color: #697386;
+      color: #777;
       font-size: 17px;
-      max-width: 590px;
-      margin: auto;
+      margin: 0;
     }
-
-    /* EVENT CARD */
 
     .event-card {
       background: white;
-
-      border:
-        1px solid
-        color-mix(
-          in srgb,
-          var(--primary-color) 12%,
-          #e1e5eb
-        );
-
-      border-radius: 20px;
-      padding: 34px;
-
-      box-shadow:
-        0 20px 55px
-        color-mix(
-          in srgb,
-          var(--primary-color) 8%,
-          transparent
-        );
-
-      margin-bottom: 22px;
+      border-radius: 18px;
+      padding: 30px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
     }
 
-    .event-label {
-      color: var(--primary-color);
-
-      font-size: 12px;
-      font-weight: 800;
-
-      text-transform: uppercase;
-      letter-spacing: 1px;
-
-      margin-bottom: 6px;
-    }
-
-    #eventName {
+    .event-name {
+      text-align: center;
       font-size: 30px;
-      line-height: 1.2;
+      font-weight: 700;
       margin-bottom: 8px;
     }
 
-    #eventDetails {
-      color: #697386;
-      font-size: 15px;
+    .event-date {
+      text-align: center;
+      color: #777;
+      font-size: 16px;
     }
-
-    /* QR SECTION */
-
-    .qr-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-
-      gap: 35px;
-      align-items: center;
-
-      margin-top: 30px;
-      padding-top: 30px;
-
-      border-top:
-        1px solid
-        color-mix(
-          in srgb,
-          var(--primary-color) 10%,
-          #edf0f4
-        );
-    }
-
-    .qr-info h2 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    .qr-info p {
-      color: #697386;
-      font-size: 14px;
-      margin-bottom: 17px;
-    }
-
-    .qr-tip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-
-      padding: 9px 12px;
-      border-radius: 9px;
-
-      background:
-        color-mix(
-          in srgb,
-          var(--accent-color) 12%,
-          white
-        );
-
-      color:
-        color-mix(
-          in srgb,
-          var(--accent-color) 75%,
-          #333
-        );
-
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .qr-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      min-height: 270px;
-
-      background:
-        color-mix(
-          in srgb,
-          var(--secondary-color) 55%,
-          #fafbfc
-        );
-
-      border:
-        1px solid
-        color-mix(
-          in srgb,
-          var(--primary-color) 10%,
-          #edf0f4
-        );
-
-      border-radius: 16px;
-      padding: 20px;
-    }
-
-    #qrCode img {
-      display: block;
-
-      width:
-        min(
-          240px,
-          100%
-        );
-
-      height: auto;
-
-      background: white;
-      padding: 8px;
-      border-radius: 8px;
-    }
-
-    /* CODE */
 
     .code-box {
-      margin-top: 25px;
-
-      padding: 17px;
-      border-radius: 12px;
-
-      background:
-        linear-gradient(
-          135deg,
-          color-mix(
-            in srgb,
-            var(--primary-color) 10%,
-            white
-          ),
-          color-mix(
-            in srgb,
-            var(--accent-color) 8%,
-            white
-          )
-        );
-
+      margin: 25px auto 0;
+      max-width: 300px;
       text-align: center;
-
-      border:
-        1px solid
-        color-mix(
-          in srgb,
-          var(--primary-color) 15%,
-          #dce6ff
-        );
+      background: #faf8f5;
+      border-radius: 12px;
+      padding: 18px;
     }
 
     .code-label {
-      color: #697386;
-
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 800;
-
-      margin-bottom: 4px;
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 6px;
     }
 
-    #eventCode {
-      color: var(--primary-color);
-
-      font-size: 27px;
-      font-weight: 900;
-      letter-spacing: 5px;
+    .event-code {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: #b08d57;
     }
 
-    /* EDIT EVENT */
-
-    .edit-event {
-      margin-top: 18px;
-
-      display: flex;
-      justify-content: center;
+    .qr-section {
+      text-align: center;
+      margin-top: 30px;
     }
 
-    .edit-event-button {
-      display: inline-flex;
-
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-
-      padding: 12px 20px;
-      border-radius: 12px;
-
-      background: white;
-
-      border:
-        1px solid
-        color-mix(
-          in srgb,
-          var(--primary-color) 20%,
-          #dbe2ea
-        );
-
-      color: var(--primary-color);
-
-      font-size: 14px;
-      font-weight: 800;
-
-      cursor: pointer;
-      transition: 0.18s;
-    }
-
-    .edit-event-button:hover {
-      transform: translateY(-1px);
-
-      background:
-        color-mix(
-          in srgb,
-          var(--primary-color) 6%,
-          white
-        );
-
-      border-color:
-        color-mix(
-          in srgb,
-          var(--primary-color) 35%,
-          #dbe2ea
-        );
-    }
-
-    /* LINKS */
-
-    .links-section {
-      margin-top: 22px;
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 15px;
-    }
-
-    .link-card {
-      background: white;
-
-      border:
-        1px solid
-        color-mix(
-          in srgb,
-          var(--primary-color) 12%,
-          #e1e5eb
-        );
-
-      border-radius: 15px;
-      padding: 20px;
-
-      transition: 0.18s;
-    }
-
-    .link-card:hover {
-      transform: translateY(-2px);
-
-      border-color:
-        color-mix(
-          in srgb,
-          var(--primary-color) 35%,
-          #bfd0f7
-        );
-
-      box-shadow:
-        0 8px 24px
-        color-mix(
-          in srgb,
-          var(--primary-color) 8%,
-          transparent
-        );
-    }
-
-    .link-icon {
-      font-size: 25px;
+    .qr-section h2 {
       margin-bottom: 8px;
     }
 
+    .qr-section p {
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    #qrCode {
+      display: inline-block;
+      padding: 15px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .links-section {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 25px;
+    }
+
+    .link-card {
+      display: block;
+      background: white;
+      border-radius: 16px;
+      padding: 25px 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .link-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .link-icon {
+      font-size: 35px;
+      margin-bottom: 12px;
+    }
+
     .link-card h3 {
-      font-size: 16px;
-      margin-bottom: 5px;
+      margin: 0 0 8px;
+      font-size: 20px;
     }
 
     .link-card p {
-      color: #697386;
-      font-size: 12px;
-      margin-bottom: 12px;
+      margin: 0 0 18px;
+      color: #777;
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     .link-button {
       display: inline-block;
-
-      color: var(--primary-color);
-
-      font-size: 13px;
-      font-weight: 800;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: #f0e4d4;
+      color: #8c7045;
+      font-weight: 600;
+      font-size: 14px;
     }
-
-    .link-button:hover {
-      color:
-        color-mix(
-          in srgb,
-          var(--primary-color) 80%,
-          black
-        );
-    }
-
-    /* RSVP */
 
     #rsvpLink {
       display: none;
     }
 
-    /* TV NOTICE */
-
-    .tv-notice {
+    #guestbookLink {
       display: none;
-
-      margin-top: 22px;
-
-      padding: 18px 20px;
-      border-radius: 15px;
-
-      background:
-        color-mix(
-          in srgb,
-          var(--primary-color) 7%,
-          white
-        );
-
-      border:
-        1px solid
-        color-mix(
-          in srgb,
-          var(--primary-color) 16%,
-          #dbe7ff
-        );
-
-      color: #334155;
     }
 
-    .tv-notice.visible {
-      display: block;
-    }
-
-    .tv-notice strong {
-      display: block;
-      margin-bottom: 4px;
-      color: #172033;
-    }
-
-    .tv-notice p {
-      color: #697386;
-      font-size: 13px;
-    }
-
-    /* NEXT STEPS */
-
-    .next-steps {
-      margin-top: 30px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #172033,
-          color-mix(
-            in srgb,
-            var(--primary-color) 25%,
-            #252f49
-          )
-        );
-
-      color: white;
-
-      border-radius: 18px;
-      padding: 28px 30px;
-    }
-
-    .next-steps h2 {
-      font-size: 20px;
-      margin-bottom: 16px;
-    }
-
-    .steps {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 18px;
-    }
-
-    .step {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-
-    .step-number {
-      width: 27px;
-      height: 27px;
-
-      flex-shrink: 0;
-
-      border-radius: 50%;
-
-      background:
-        color-mix(
-          in srgb,
-          var(--accent-color) 45%,
-          transparent
-        );
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .step p {
-      color: #d8deea;
-
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    /* STATUS */
-
-    #status {
-      text-align: center;
-
-      color: #697386;
-
-      font-size: 13px;
-
+    .no-tv {
+      display: none;
+      background: #fff8ed;
+      border: 1px solid #f0dfc0;
+      border-radius: 12px;
+      padding: 18px;
       margin-top: 20px;
-
-      min-height: 20px;
-    }
-
-    /* FOOTER */
-
-    footer {
-      background: #111827;
-
-      color: white;
-
-      padding: 35px 24px;
-
       text-align: center;
+      color: #765f38;
     }
 
-    footer p {
-      color: #9da6b5;
+    .edit-section {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .edit-button {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 9px;
+      background: white;
+      border: 1px solid #d8c7ad;
+      color: #8c7045;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer {
+      text-align: center;
+      color: #999;
       font-size: 13px;
+      margin: 35px 0;
     }
 
-    /* MOBILE */
+    @media (max-width: 850px) {
+      .links-section {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
 
-    @media (max-width: 700px) {
-
-      .nav-inner {
-        padding: 14px 18px;
+    @media (max-width: 600px) {
+      .container {
+        margin: 30px auto;
       }
 
-      .logo {
-        font-size: 18px;
+      h1 {
+        font-size: 30px;
       }
 
-      .logo-mark {
-        width: 32px;
-        height: 32px;
-      }
-
-      .home-link {
-        font-size: 12px;
-      }
-
-      main {
-        padding: 45px 0 55px;
-      }
-
-      .event-card {
-        padding: 23px 18px;
-      }
-
-      .qr-layout {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-
-      .qr-info {
-        text-align: center;
-      }
-
-      .qr-tip {
-        justify-content: center;
+      .event-name {
+        font-size: 25px;
       }
 
       .links-section {
         grid-template-columns: 1fr;
       }
 
-      .steps {
-        grid-template-columns: 1fr;
+      .event-card {
+        padding: 25px 18px;
       }
-
-      .next-steps {
-        padding: 25px 20px;
-      }
-
     }
-
   </style>
-
 </head>
-
 
 <body>
 
+  <div class="top-bar"></div>
 
-  <!-- NAVIGATION -->
+  <header>
+    <div class="brand">Captured Moments</div>
+  </header>
 
-  <nav class="navbar">
-
-    <div class="nav-inner">
-
-      <a
-        href="index.html"
-        class="logo"
-      >
-
-        <div class="logo-mark">
-          ✦
-        </div>
-
-        <div class="logo-text">
-          Captured <span>Moments</span>
-        </div>
-
-      </a>
-
-
-      <a
-        href="index.html"
-        class="home-link"
-      >
-        Back to Home
-      </a>
-
-    </div>
-
-  </nav>
-
-
-  <!-- MAIN -->
-
-  <main>
-
-
-    <!-- HERO -->
+  <main class="container">
 
     <section class="hero">
+      <div class="success-icon">✓</div>
 
-      <div class="success-icon">
-        ✓
-      </div>
+      <h1>Your Event Is Ready!</h1>
 
-      <h1>
-        Your Event Is <span>Ready!</span>
-      </h1>
-
-      <p id="heroMessage">
-        Everything is set up. Share the QR code
-        with your guests and start collecting
-        memories.
+      <p>
+        Everything is set up. Share your event links with your guests.
       </p>
-
     </section>
-
-
-    <!-- EVENT -->
 
     <section class="event-card">
 
-
-      <div class="event-label">
+      <div class="event-name" id="eventName">
         Your Event
       </div>
 
-
-      <h2 id="eventName">
-        Loading event…
-      </h2>
-
-
-      <p id="eventDetails">
-        Loading event details…
-      </p>
-
-
-      <!-- QR -->
-
-      <div class="qr-layout">
-
-
-        <div class="qr-info">
-
-          <h2>
-            📱 Share With Your Guests
-          </h2>
-
-          <p>
-            Guests can scan this QR code with
-            their phone to send photos directly
-            to your event.
-          </p>
-
-          <div class="qr-tip">
-            💡 Put this QR code where guests
-            can easily see it.
-          </div>
-
-        </div>
-
-
-        <div class="qr-container">
-
-          <div id="qrCode">
-            Loading QR code…
-          </div>
-
-        </div>
-
-
+      <div class="event-date" id="eventDate">
+        Loading event information...
       </div>
 
-
-      <!-- EVENT CODE -->
-
       <div class="code-box">
-
         <div class="code-label">
           Event Code
         </div>
 
-        <div id="eventCode">
+        <div class="event-code" id="eventCode">
           ------
         </div>
-
       </div>
 
+      <div class="qr-section">
 
-      <!-- EDIT EVENT -->
+        <h2>Guest Upload QR Code</h2>
 
-      <div class="edit-event">
+        <p>
+          Guests can scan this QR code to upload photos to your event.
+        </p>
 
-        <a
-          id="editEventBtn"
-          class="edit-event-button"
-          href="#"
-        >
-          ✏️ Edit Event
-        </a>
+        <div id="qrCode"></div>
 
       </div>
-
 
     </section>
 
+    <div class="links-section">
 
-    <!-- LINKS -->
+      <a id="tvLink" class="link-card" href="#">
+        <div class="link-icon">📺</div>
 
-    <section class="links-section">
-
-
-      <a
-        id="tvLink"
-        class="link-card"
-        href="#"
-      >
-
-        <div class="link-icon">
-          📺
-        </div>
-
-        <h3>
-          TV Display
-        </h3>
+        <h3>TV Display</h3>
 
         <p>
-          Open this page on the TV to display
-          your guests' photos live.
+          Open this page on the TV to display your event photos live.
         </p>
 
         <span class="link-button">
           Open TV Display →
         </span>
-
       </a>
 
+      <a id="galleryLink" class="link-card" href="#">
+        <div class="link-icon">🖼️</div>
 
-      <a
-        id="galleryLink"
-        class="link-card"
-        href="#"
-      >
-
-        <div class="link-icon">
-          🖼️
-        </div>
-
-        <h3>
-          Event Gallery
-        </h3>
+        <h3>Event Gallery</h3>
 
         <p>
-          View the photos collected from your
-          event in one gallery.
+          View and download the photos from your event.
         </p>
 
         <span class="link-button">
           Open Gallery →
         </span>
-
       </a>
 
+      <a id="rsvpLink" class="link-card" href="#">
+        <div class="link-icon">📋</div>
 
-      <a
-        id="rsvpLink"
-        class="link-card"
-        href="#"
-      >
-
-        <div class="link-icon">
-          📋
-        </div>
-
-        <h3>
-          RSVP
-        </h3>
+        <h3>RSVP</h3>
 
         <p>
           Share this link with guests before
@@ -1014,116 +361,43 @@
         <span class="link-button">
           Open RSVP Page →
         </span>
-
       </a>
 
+      <a id="guestbookLink" class="link-card" href="#">
+        <div class="link-icon">💌</div>
 
-    </section>
+        <h3>Guestbook</h3>
 
+        <p>
+          Share this link with guests so they can leave
+          a message for the host.
+        </p>
 
-    <!-- TV NOTICE -->
-
-    <div
-      id="tvNotice"
-      class="tv-notice"
-    >
-
-      <strong>
-        📱 No TV? No problem.
-      </strong>
-
-      <p>
-        Your event still works normally. Guests
-        can scan the QR code, upload photos, and
-        access the event gallery without a TV.
-      </p>
+        <span class="link-button">
+          Open Guestbook →
+        </span>
+      </a>
 
     </div>
 
+    <div class="no-tv" id="noTvNotice">
+      This event does not have TV display enabled.
+      Guests can still upload photos and use the event gallery.
+    </div>
 
-    <!-- NEXT STEPS -->
+    <div class="edit-section">
+      <a id="editEventLink" class="edit-button" href="#">
+        Edit Event
+      </a>
+    </div>
 
-    <section class="next-steps">
-
-      <h2 id="nextStepsTitle">
-        What happens next?
-      </h2>
-
-
-      <div class="steps">
-
-
-        <div class="step">
-
-          <div class="step-number">
-            1
-          </div>
-
-          <p id="stepOne">
-            Display the QR code at your event
-            so guests can easily find it.
-          </p>
-
-        </div>
-
-
-        <div class="step">
-
-          <div class="step-number">
-            2
-          </div>
-
-          <p id="stepTwo">
-            Open the TV Display on the screen
-            you want to use.
-          </p>
-
-        </div>
-
-
-        <div class="step">
-
-          <div class="step-number">
-            3
-          </div>
-
-          <p id="stepThree">
-            Guests send photos and they appear
-            live on the TV.
-          </p>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-    <div id="status"></div>
-
+    <div class="footer">
+      Captured Moments · Your moments, captured and shared.
+    </div>
 
   </main>
 
-
-  <!-- FOOTER -->
-
-  <footer>
-
-    <p>
-      ✦ Captured Moments · Your moments,
-      captured and shared.
-    </p>
-
-  </footer>
-
-
-  <script
-    type="module"
-    src="event-created.js"
-  ></script>
-
+  <script type="module" src="event-created.js"></script>
 
 </body>
-
 </html>
