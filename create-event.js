@@ -1,66 +1,84 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
 import {
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 } from "./config.js";
 
 
-const supabase = createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+const supabase =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 
-
-// ---------------------------------
-// Form elements
-// ---------------------------------
 
 const eventType =
-  document.getElementById("eventType");
+  document.getElementById(
+    "eventType"
+  );
 
 const eventName =
-  document.getElementById("eventName");
+  document.getElementById(
+    "eventName"
+  );
 
 const eventDate =
-  document.getElementById("eventDate");
+  document.getElementById(
+    "eventDate"
+  );
 
 const startTime =
-  document.getElementById("startTime");
+  document.getElementById(
+    "startTime"
+  );
 
 const endTime =
-  document.getElementById("endTime");
+  document.getElementById(
+    "endTime"
+  );
 
 const primaryColor =
-  document.getElementById("primaryColor");
+  document.getElementById(
+    "primaryColor"
+  );
 
 const secondaryColor =
-  document.getElementById("secondaryColor");
+  document.getElementById(
+    "secondaryColor"
+  );
 
 const accentColor =
-  document.getElementById("accentColor");
+  document.getElementById(
+    "accentColor"
+  );
 
 const guestbookEnabled =
-  document.getElementById("guestbookEnabled");
+  document.getElementById(
+    "guestbookEnabled"
+  );
 
 const createBtn =
-  document.getElementById("createBtn");
+  document.getElementById(
+    "createBtn"
+  );
 
 const status =
-  document.getElementById("status");
+  document.getElementById(
+    "status"
+  );
 
-
-// ---------------------------------
-// URL / Edit mode
-// ---------------------------------
 
 const params =
   new URLSearchParams(
     window.location.search
   );
 
+
 const editCode =
   (params.get("edit") || "")
     .toUpperCase();
+
 
 const isEditMode =
   Boolean(editCode);
@@ -72,9 +90,9 @@ let editLoaded =
   !isEditMode;
 
 
-// ---------------------------------
-// Create event code
-// ---------------------------------
+/* ---------------------------------
+   Create event code
+--------------------------------- */
 
 function createEventCode() {
 
@@ -104,9 +122,9 @@ function createEventCode() {
 }
 
 
-// ---------------------------------
-// Load event for editing
-// ---------------------------------
+/* ---------------------------------
+   Load existing event
+--------------------------------- */
 
 async function loadEditEvent() {
 
@@ -117,7 +135,8 @@ async function loadEditEvent() {
 
   try {
 
-    createBtn.disabled = true;
+    createBtn.disabled =
+      true;
 
     status.textContent =
       "Loading your event…";
@@ -126,15 +145,15 @@ async function loadEditEvent() {
     const {
       data: event,
       error
-    } = await supabase
-
-      .from("events")
-
-      .select("*")
-
-      .eq("code", editCode)
-
-      .single();
+    } =
+      await supabase
+        .from("events")
+        .select("*")
+        .eq(
+          "code",
+          editCode
+        )
+        .single();
 
 
     if (error) {
@@ -157,10 +176,6 @@ async function loadEditEvent() {
     );
 
 
-    // ---------------------------------
-    // Package
-    // ---------------------------------
-
     editPackage =
       event.package ||
       "instant";
@@ -168,7 +183,8 @@ async function loadEditEvent() {
 
     if (
       editPackage !== "instant" &&
-      editPackage !== "plus"
+      editPackage !== "plus" &&
+      editPackage !== "business"
     ) {
 
       editPackage =
@@ -183,14 +199,11 @@ async function loadEditEvent() {
     );
 
 
-    // ---------------------------------
-    // Event information
-    // ---------------------------------
-
     if (eventType) {
 
       eventType.value =
-        event.event_type || "";
+        event.event_type ||
+        "";
 
     }
 
@@ -198,7 +211,8 @@ async function loadEditEvent() {
     if (eventName) {
 
       eventName.value =
-        event.event_name || "";
+        event.event_name ||
+        "";
 
     }
 
@@ -206,7 +220,8 @@ async function loadEditEvent() {
     if (eventDate) {
 
       eventDate.value =
-        event.event_date || "";
+        event.event_date ||
+        "";
 
     }
 
@@ -231,10 +246,6 @@ async function loadEditEvent() {
     }
 
 
-    // ---------------------------------
-    // TV
-    // ---------------------------------
-
     const tvValue =
       event.has_tv === false
         ? "false"
@@ -255,10 +266,6 @@ async function loadEditEvent() {
     }
 
 
-    // ---------------------------------
-    // Theme
-    // ---------------------------------
-
     const themeChoice =
       document.querySelector(
         `input[name="theme"][value="${event.theme}"]`
@@ -272,10 +279,6 @@ async function loadEditEvent() {
 
     }
 
-
-    // ---------------------------------
-    // Background
-    // ---------------------------------
 
     const backgroundValue =
       event.background ||
@@ -297,7 +300,7 @@ async function loadEditEvent() {
 
       const classicBackground =
         document.querySelector(
-          'input[name="background"][value="default"]'
+          'input[name="background"][value="classic"]'
         );
 
 
@@ -310,10 +313,6 @@ async function loadEditEvent() {
 
     }
 
-
-    // ---------------------------------
-    // Colors
-    // ---------------------------------
 
     if (primaryColor) {
 
@@ -342,10 +341,6 @@ async function loadEditEvent() {
     }
 
 
-    // ---------------------------------
-    // Guestbook
-    // ---------------------------------
-
     if (guestbookEnabled) {
 
       guestbookEnabled.checked =
@@ -353,10 +348,6 @@ async function loadEditEvent() {
 
     }
 
-
-    // ---------------------------------
-    // Finish loading
-    // ---------------------------------
 
     editLoaded =
       true;
@@ -401,9 +392,9 @@ async function loadEditEvent() {
 loadEditEvent();
 
 
-// ---------------------------------
-// Create / Save Event
-// ---------------------------------
+/* ---------------------------------
+   Save event
+--------------------------------- */
 
 createBtn.addEventListener(
   "click",
@@ -411,10 +402,6 @@ createBtn.addEventListener(
 
     status.textContent = "";
 
-
-    // ---------------------------------
-    // Wait for edit event
-    // ---------------------------------
 
     if (
       isEditMode &&
@@ -429,18 +416,6 @@ createBtn.addEventListener(
     }
 
 
-    // ---------------------------------
-    // Get selected package
-    // ---------------------------------
-    //
-    // IMPORTANT:
-    // The package is selected by the
-    // inline script in create-event.html.
-    //
-    // We read window.selectedCapturedPackage
-    // here instead of reading the URL only once.
-    //
-
     let currentPackage =
       isEditMode
         ? editPackage
@@ -453,9 +428,14 @@ createBtn.addEventListener(
     );
 
 
+    /* ---------------------------------
+       PACKAGE VALIDATION
+    --------------------------------- */
+
     if (
       currentPackage !== "instant" &&
-      currentPackage !== "plus"
+      currentPackage !== "plus" &&
+      currentPackage !== "business"
     ) {
 
       status.textContent =
@@ -466,9 +446,9 @@ createBtn.addEventListener(
     }
 
 
-    // ---------------------------------
-    // Event name
-    // ---------------------------------
+    /* ---------------------------------
+       BASIC VALIDATION
+    --------------------------------- */
 
     const name =
       eventName.value.trim();
@@ -486,10 +466,6 @@ createBtn.addEventListener(
     }
 
 
-    // ---------------------------------
-    // Date
-    // ---------------------------------
-
     if (!eventDate.value) {
 
       status.textContent =
@@ -499,10 +475,6 @@ createBtn.addEventListener(
 
     }
 
-
-    // ---------------------------------
-    // Time
-    // ---------------------------------
 
     if (
       !startTime.value ||
@@ -530,9 +502,9 @@ createBtn.addEventListener(
     }
 
 
-    // ---------------------------------
-    // TV
-    // ---------------------------------
+    /* ---------------------------------
+       TV
+    --------------------------------- */
 
     const selectedTV =
       document.querySelector(
@@ -546,9 +518,9 @@ createBtn.addEventListener(
         : true;
 
 
-    // ---------------------------------
-    // Theme
-    // ---------------------------------
+    /* ---------------------------------
+       THEME
+    --------------------------------- */
 
     const selectedTheme =
       document.querySelector(
@@ -557,20 +529,20 @@ createBtn.addEventListener(
       "classic";
 
 
-    // ---------------------------------
-    // Background
-    // ---------------------------------
+    /* ---------------------------------
+       BACKGROUND
+    --------------------------------- */
 
     const selectedBackground =
       document.querySelector(
         'input[name="background"]:checked'
       )?.value ||
-      "default";
+      "classic";
 
 
-    // ---------------------------------
-    // Guestbook
-    // ---------------------------------
+    /* ---------------------------------
+       GUESTBOOK
+    --------------------------------- */
 
     const isGuestbookEnabled =
       guestbookEnabled
@@ -578,9 +550,9 @@ createBtn.addEventListener(
         : false;
 
 
-    // ---------------------------------
-    // Default colors
-    // ---------------------------------
+    /* ---------------------------------
+       DEFAULT COLORS
+    --------------------------------- */
 
     let finalPrimaryColor =
       "#b97979";
@@ -592,15 +564,16 @@ createBtn.addEventListener(
       "#c8a24a";
 
     let finalBackground =
-      "default";
+      "classic";
 
 
-    // ---------------------------------
-    // Plus customization
-    // ---------------------------------
+    /* ---------------------------------
+       PLUS + BUSINESS CUSTOMIZATION
+    --------------------------------- */
 
     if (
-      currentPackage === "plus"
+      currentPackage === "plus" ||
+      currentPackage === "business"
     ) {
 
       finalPrimaryColor =
@@ -618,10 +591,6 @@ createBtn.addEventListener(
     }
 
 
-    // ---------------------------------
-    // Button state
-    // ---------------------------------
-
     createBtn.disabled =
       true;
 
@@ -635,67 +604,63 @@ createBtn.addEventListener(
     try {
 
 
-      // =================================
-      // EDIT EXISTING EVENT
-      // =================================
+      /* ---------------------------------
+         EDIT EXISTING EVENT
+      --------------------------------- */
 
       if (isEditMode) {
 
         const {
           data: updatedEvent,
           error: updateError
-        } = await supabase
+        } =
+          await supabase
+            .from("events")
+            .update({
 
-          .from("events")
+              event_type:
+                eventType.value,
 
-          .update({
+              event_name:
+                name,
 
-            event_type:
-              eventType.value,
+              event_date:
+                eventDate.value,
 
-            event_name:
-              name,
+              start_time:
+                startTime.value,
 
-            event_date:
-              eventDate.value,
+              end_time:
+                endTime.value,
 
-            start_time:
-              startTime.value,
+              theme:
+                selectedTheme,
 
-            end_time:
-              endTime.value,
+              primary_color:
+                finalPrimaryColor,
 
-            theme:
-              selectedTheme,
+              secondary_color:
+                finalSecondaryColor,
 
-            primary_color:
-              finalPrimaryColor,
+              accent_color:
+                finalAccentColor,
 
-            secondary_color:
-              finalSecondaryColor,
+              background:
+                finalBackground,
 
-            accent_color:
-              finalAccentColor,
+              has_tv:
+                hasTV,
 
-            background:
-              finalBackground,
+              guestbook_enabled:
+                isGuestbookEnabled
 
-            has_tv:
-              hasTV,
-
-            guestbook_enabled:
-              isGuestbookEnabled
-
-          })
-
-          .eq(
-            "code",
-            editCode
-          )
-
-          .select()
-
-          .single();
+            })
+            .eq(
+              "code",
+              editCode
+            )
+            .select()
+            .single();
 
 
         if (updateError) {
@@ -726,9 +691,9 @@ createBtn.addEventListener(
       }
 
 
-      // =================================
-      // CREATE NEW EVENT
-      // =================================
+      /* ---------------------------------
+         CREATE UNIQUE EVENT CODE
+      --------------------------------- */
 
       let code = null;
 
@@ -747,18 +712,15 @@ createBtn.addEventListener(
         const {
           data: existing,
           error: checkError
-        } = await supabase
-
-          .from("events")
-
-          .select("id")
-
-          .eq(
-            "code",
-            possibleCode
-          )
-
-          .maybeSingle();
+        } =
+          await supabase
+            .from("events")
+            .select("id")
+            .eq(
+              "code",
+              possibleCode
+            )
+            .maybeSingle();
 
 
         if (checkError) {
@@ -790,65 +752,62 @@ createBtn.addEventListener(
       }
 
 
-      // ---------------------------------
-      // Insert event
-      // ---------------------------------
+      /* ---------------------------------
+         CREATE EVENT
+      --------------------------------- */
 
       const {
         data: event,
         error: eventError
-      } = await supabase
+      } =
+        await supabase
+          .from("events")
+          .insert({
 
-        .from("events")
+            code,
 
-        .insert({
+            event_type:
+              eventType.value,
 
-          code,
+            event_name:
+              name,
 
-          event_type:
-            eventType.value,
+            event_date:
+              eventDate.value,
 
-          event_name:
-            name,
+            start_time:
+              startTime.value,
 
-          event_date:
-            eventDate.value,
+            end_time:
+              endTime.value,
 
-          start_time:
-            startTime.value,
+            theme:
+              selectedTheme,
 
-          end_time:
-            endTime.value,
+            primary_color:
+              finalPrimaryColor,
 
-          theme:
-            selectedTheme,
+            secondary_color:
+              finalSecondaryColor,
 
-          primary_color:
-            finalPrimaryColor,
+            accent_color:
+              finalAccentColor,
 
-          secondary_color:
-            finalSecondaryColor,
+            background:
+              finalBackground,
 
-          accent_color:
-            finalAccentColor,
+            package:
+              currentPackage,
 
-          background:
-            finalBackground,
+            has_tv:
+              hasTV,
 
-          package:
-            currentPackage,
+            guestbook_enabled:
+              isGuestbookEnabled
 
-          has_tv:
-            hasTV,
-
-          guestbook_enabled:
-            isGuestbookEnabled
-
-        })
-
-        .select()
-
-        .single();
+          })
+          .select()
+          .single();
 
 
       if (eventError) {
@@ -858,27 +817,26 @@ createBtn.addEventListener(
       }
 
 
-      // ---------------------------------
-      // Create session
-      // ---------------------------------
+      /* ---------------------------------
+         CREATE SESSION
+      --------------------------------- */
 
       const {
         error: sessionError
-      } = await supabase
+      } =
+        await supabase
+          .from("sessions")
+          .insert({
 
-        .from("sessions")
+            code,
 
-        .insert({
+            event_id:
+              event.id,
 
-          code,
+            active:
+              true
 
-          event_id:
-            event.id,
-
-          active:
-            true
-
-        });
+          });
 
 
       if (sessionError) {
@@ -897,9 +855,9 @@ createBtn.addEventListener(
       }
 
 
-      // ---------------------------------
-      // Save event code
-      // ---------------------------------
+      /* ---------------------------------
+         SAVE EVENT CODE
+      --------------------------------- */
 
       sessionStorage.setItem(
         "cptv_event_code",
@@ -907,24 +865,23 @@ createBtn.addEventListener(
       );
 
 
-      // ---------------------------------
-      // Debug information
-      // ---------------------------------
-
       console.log(
         "EVENT CREATED:",
         event
       );
+
 
       console.log(
         "TV ACCESS:",
         hasTV
       );
 
+
       console.log(
         "PACKAGE:",
         currentPackage
       );
+
 
       console.log(
         "GUESTBOOK:",
@@ -932,9 +889,9 @@ createBtn.addEventListener(
       );
 
 
-      // ---------------------------------
-      // Continue
-      // ---------------------------------
+      /* ---------------------------------
+         CONTINUE
+      --------------------------------- */
 
       location.href =
         `event-created.html?code=${code}`;
