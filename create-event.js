@@ -455,6 +455,32 @@ createBtn.addEventListener(
     }
 
 
+    /* ---------------------------------
+       GET LOGGED-IN CUSTOMER
+    --------------------------------- */
+
+    const {
+      data: {
+        session
+      }
+    } =
+      await supabase.auth.getSession();
+
+
+    if (!session) {
+
+      status.textContent =
+        "Please log in before creating an event.";
+
+      return;
+
+    }
+
+
+    const ownerId =
+      session.user.id;
+
+
     let currentPackage =
       isEditMode
         ? editPackage
@@ -464,6 +490,12 @@ createBtn.addEventListener(
     console.log(
       "SELECTED PACKAGE:",
       currentPackage
+    );
+
+
+    console.log(
+      "EVENT OWNER:",
+      ownerId
     );
 
 
@@ -835,6 +867,9 @@ createBtn.addEventListener(
           .insert({
 
             code,
+
+            owner_id:
+              ownerId,
 
             event_type:
               eventType.value,
