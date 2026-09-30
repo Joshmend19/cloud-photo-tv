@@ -58,6 +58,11 @@ const guestbookEnabled =
     "guestbookEnabled"
   );
 
+const rsvpEnabled =
+  document.getElementById(
+    "rsvpEnabled"
+  );
+
 const createBtn =
   document.getElementById(
     "createBtn"
@@ -349,6 +354,29 @@ async function loadEditEvent() {
     }
 
 
+    if (rsvpEnabled) {
+
+      rsvpEnabled.checked =
+        event.rsvp_enabled === true;
+
+    }
+
+
+    /* ---------------------------------
+       Business always includes RSVP
+    --------------------------------- */
+
+    if (
+      editPackage === "business" &&
+      rsvpEnabled
+    ) {
+
+      rsvpEnabled.checked =
+        true;
+
+    }
+
+
     editLoaded =
       true;
 
@@ -551,6 +579,30 @@ createBtn.addEventListener(
 
 
     /* ---------------------------------
+       RSVP
+    --------------------------------- */
+
+    let isRSVPEnabled =
+      rsvpEnabled
+        ? rsvpEnabled.checked
+        : false;
+
+
+    /* ---------------------------------
+       BUSINESS ALWAYS INCLUDES RSVP
+    --------------------------------- */
+
+    if (
+      currentPackage === "business"
+    ) {
+
+      isRSVPEnabled =
+        true;
+
+    }
+
+
+    /* ---------------------------------
        DEFAULT COLORS
     --------------------------------- */
 
@@ -652,7 +704,10 @@ createBtn.addEventListener(
                 hasTV,
 
               guestbook_enabled:
-                isGuestbookEnabled
+                isGuestbookEnabled,
+
+              rsvp_enabled:
+                isRSVPEnabled
 
             })
             .eq(
@@ -803,7 +858,10 @@ createBtn.addEventListener(
               hasTV,
 
             guestbook_enabled:
-              isGuestbookEnabled
+              isGuestbookEnabled,
+
+            rsvp_enabled:
+              isRSVPEnabled
 
           })
           .select()
@@ -886,6 +944,12 @@ createBtn.addEventListener(
       console.log(
         "GUESTBOOK:",
         isGuestbookEnabled
+      );
+
+
+      console.log(
+        "RSVP:",
+        isRSVPEnabled
       );
 
 
