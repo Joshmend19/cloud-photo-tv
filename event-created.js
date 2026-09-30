@@ -12,6 +12,11 @@ const supabase = createClient(
   SUPABASE_ANON_KEY
 );
 
+
+/* ---------------------------------
+   Get event code
+--------------------------------- */
+
 const params =
   new URLSearchParams(
     window.location.search
@@ -20,6 +25,11 @@ const params =
 const code =
   (params.get("code") || "")
     .toUpperCase();
+
+
+/* ---------------------------------
+   Page elements
+--------------------------------- */
 
 const eventName =
   document.getElementById("eventName");
@@ -39,9 +49,25 @@ const tvLink =
 const galleryLink =
   document.getElementById("galleryLink");
 
+const tvNotice =
+  document.getElementById("tvNotice");
+
+const heroMessage =
+  document.getElementById("heroMessage");
+
+const stepTwo =
+  document.getElementById("stepTwo");
+
+const stepThree =
+  document.getElementById("stepThree");
+
 const status =
   document.getElementById("status");
 
+
+/* ---------------------------------
+   Format time
+--------------------------------- */
 
 function formatTime(time) {
 
@@ -68,6 +94,10 @@ function formatTime(time) {
 }
 
 
+/* ---------------------------------
+   Format date
+--------------------------------- */
+
 function formatDate(dateString) {
 
   const date =
@@ -85,6 +115,10 @@ function formatDate(dateString) {
   );
 }
 
+
+/* ---------------------------------
+   Load event
+--------------------------------- */
 
 if (!code) {
 
@@ -110,46 +144,110 @@ if (!code) {
 
 
     if (error) {
+
       throw error;
+
     }
 
+
+    /* -------------------------------
+       Event information
+    ------------------------------- */
 
     eventName.textContent =
       event.event_name;
 
-
     eventCode.textContent =
       event.code;
-
 
     eventDetails.textContent =
       `${formatDate(event.event_date)} • ${formatTime(event.start_time)} – ${formatTime(event.end_time)}`;
 
 
-    // Guest photo upload page
+    /* -------------------------------
+       Event URLs
+    ------------------------------- */
+
     const guestUrl =
       `${window.location.origin}/cloud-photo-tv/guest.html?code=${event.code}`;
 
-
-    // TV display page
     const tvUrl =
       `${window.location.origin}/cloud-photo-tv/tv.html?code=${event.code}`;
 
-
-    // Event gallery page
     const galleryUrl =
       `${window.location.origin}/cloud-photo-tv/gallery.html?code=${event.code}`;
 
 
-    tvLink.href =
-      tvUrl;
-
+    /* -------------------------------
+       Always provide gallery
+    ------------------------------- */
 
     galleryLink.href =
       galleryUrl;
 
 
-    // Generate guest QR code
+    /* -------------------------------
+       TV handling
+    ------------------------------- */
+
+    const hasTV =
+      event.has_tv === true;
+
+
+    if (hasTV) {
+
+      /* -----------------------------
+         Customer has a TV
+      ----------------------------- */
+
+      tvLink.href =
+        tvUrl;
+
+      tvLink.style.display =
+        "block";
+
+      tvNotice.classList.remove(
+        "visible"
+      );
+
+      heroMessage.textContent =
+        "Everything is set up. Share the QR code with your guests and display their memories live on your TV.";
+
+      stepTwo.textContent =
+        "Open the TV Display on the screen you want to use.";
+
+      stepThree.textContent =
+        "Guests send photos and they appear live on the TV.";
+
+    } else {
+
+      /* -----------------------------
+         Customer does not have a TV
+      ----------------------------- */
+
+      tvLink.style.display =
+        "none";
+
+      tvNotice.classList.add(
+        "visible"
+      );
+
+      heroMessage.textContent =
+        "Everything is set up. Share the QR code with your guests and start collecting memories.";
+
+      stepTwo.textContent =
+        "Guests scan the QR code and upload their photos from their phones.";
+
+      stepThree.textContent =
+        "Your event gallery collects the photos so everyone can view and download them.";
+
+    }
+
+
+    /* -------------------------------
+       Generate guest QR code
+    ------------------------------- */
+
     const dataUrl =
       await QRCode.toDataURL(
         guestUrl,
@@ -167,7 +265,6 @@ if (!code) {
     image.src =
       dataUrl;
 
-
     image.alt =
       "Guest QR Code";
 
@@ -175,27 +272,37 @@ if (!code) {
     qrCode.innerHTML =
       "";
 
-
     qrCode.appendChild(
       image
     );
 
 
+    /* -------------------------------
+       Status
+    ------------------------------- */
+
     status.textContent =
       "Your event is ready.";
 
+
+    /* -------------------------------
+       Console information
+    ------------------------------- */
 
     console.log(
       "Guest upload URL:",
       guestUrl
     );
 
+    console.log(
+      "TV access:",
+      hasTV
+    );
 
     console.log(
       "TV URL:",
       tvUrl
     );
-
 
     console.log(
       "Gallery URL:",
@@ -205,12 +312,14 @@ if (!code) {
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "EVENT CREATED PAGE ERROR:",
+      error
+    );
 
 
     eventName.textContent =
       "Could not load event.";
-
 
     status.textContent =
       "There was a problem loading this event.";
