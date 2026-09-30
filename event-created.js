@@ -23,87 +23,80 @@ const eventCode =
   params.get("code");
 
 const eventName =
-  document.getElementById(
-    "eventName"
-  );
+  document.getElementById("eventName");
 
 const eventDate =
-  document.getElementById(
-    "eventDate"
-  );
+  document.getElementById("eventDate");
 
 const eventCodeDisplay =
-  document.getElementById(
-    "eventCode"
-  );
+  document.getElementById("eventCode");
 
 const qrCode =
-  document.getElementById(
-    "qrCode"
-  );
+  document.getElementById("qrCode");
 
 const tvLink =
-  document.getElementById(
-    "tvLink"
-  );
+  document.getElementById("tvLink");
 
 const galleryLink =
-  document.getElementById(
-    "galleryLink"
-  );
+  document.getElementById("galleryLink");
 
 const rsvpLink =
-  document.getElementById(
-    "rsvpLink"
-  );
+  document.getElementById("rsvpLink");
 
 const guestbookLink =
-  document.getElementById(
-    "guestbookLink"
-  );
+  document.getElementById("guestbookLink");
 
 const noTvNotice =
-  document.getElementById(
-    "noTvNotice"
-  );
+  document.getElementById("noTvNotice");
 
 const editEventLink =
-  document.getElementById(
-    "editEventLink"
-  );
+  document.getElementById("editEventLink");
 
 // Stats
 
 const photoCount =
-  document.getElementById(
-    "photoCount"
-  );
+  document.getElementById("photoCount");
 
 const rsvpCount =
-  document.getElementById(
-    "rsvpCount"
-  );
+  document.getElementById("rsvpCount");
 
 const guestbookCount =
-  document.getElementById(
-    "guestbookCount"
-  );
+  document.getElementById("guestbookCount");
 
 const tvStatus =
-  document.getElementById(
-    "tvStatus"
-  );
+  document.getElementById("tvStatus");
 
 const rsvpStatCard =
-  document.getElementById(
-    "rsvpStatCard"
-  );
+  document.getElementById("rsvpStatCard");
 
 const guestbookStatCard =
+  document.getElementById("guestbookStatCard");
+
+// QR buttons
+
+const downloadQrButton =
   document.getElementById(
-    "guestbookStatCard"
+    "downloadQrButton"
   );
 
+const copyGuestLinkButton =
+  document.getElementById(
+    "copyGuestLinkButton"
+  );
+
+const qrStatus =
+  document.getElementById(
+    "qrStatus"
+  );
+
+let guestUrl = "";
+
+
+/*
+--------------------------------
+Format Event Date
+--------------------------------
+*/
 
 function formatEventDate(
   dateString
@@ -212,7 +205,7 @@ async function loadEvent() {
   --------------------------------
   */
 
-  const guestUrl =
+  guestUrl =
     `${window.location.origin}/cloud-photo-tv/guest.html?code=${event.code}`;
 
   const tvUrl =
@@ -382,6 +375,7 @@ async function loadEvent() {
       "QR code error:",
       error
     );
+
   }
 
 
@@ -406,25 +400,6 @@ async function loadEvent() {
     guestUrl
   );
 
-  console.log(
-    "TV URL:",
-    tvUrl
-  );
-
-  console.log(
-    "Gallery URL:",
-    galleryUrl
-  );
-
-  console.log(
-    "RSVP URL:",
-    rsvpUrl
-  );
-
-  console.log(
-    "Guestbook URL:",
-    guestbookUrl
-  );
 }
 
 
@@ -572,6 +547,115 @@ async function loadEventStats(
     }
   }
 }
+
+
+/*
+--------------------------------
+Download QR Code
+--------------------------------
+*/
+
+downloadQrButton.addEventListener(
+  "click",
+  async () => {
+
+    if (!guestUrl) {
+
+      qrStatus.textContent =
+        "The QR code is not ready yet.";
+
+      return;
+    }
+
+    try {
+
+      const canvas =
+        document.createElement(
+          "canvas"
+        );
+
+      await QRCode.toCanvas(
+        canvas,
+        guestUrl,
+        {
+          width: 800,
+          margin: 3
+        }
+      );
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+      link.download =
+        `captured-moments-${eventCode}-qr.png`;
+
+      link.href =
+        canvas.toDataURL(
+          "image/png"
+        );
+
+      link.click();
+
+      qrStatus.textContent =
+        "QR code downloaded.";
+
+    } catch (error) {
+
+      console.error(
+        "QR download error:",
+        error
+      );
+
+      qrStatus.textContent =
+        "Couldn't download the QR code.";
+
+    }
+  }
+);
+
+
+/*
+--------------------------------
+Copy Guest Link
+--------------------------------
+*/
+
+copyGuestLinkButton.addEventListener(
+  "click",
+  async () => {
+
+    if (!guestUrl) {
+
+      qrStatus.textContent =
+        "The guest link is not ready yet.";
+
+      return;
+    }
+
+    try {
+
+      await navigator.clipboard.writeText(
+        guestUrl
+      );
+
+      qrStatus.textContent =
+        "Guest link copied!";
+
+    } catch (error) {
+
+      console.error(
+        "Copy link error:",
+        error
+      );
+
+      qrStatus.textContent =
+        "Couldn't copy the guest link.";
+
+    }
+  }
+);
 
 
 loadEvent();
