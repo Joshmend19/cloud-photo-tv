@@ -39,6 +39,9 @@ const secondaryColor =
 const accentColor =
   document.getElementById("accentColor");
 
+const guestbookEnabled =
+  document.getElementById("guestbookEnabled");
+
 const createBtn =
   document.getElementById("createBtn");
 
@@ -300,6 +303,18 @@ async function loadEditEvent() {
 
 
     /* -------------------------------
+       Fill Guestbook choice
+    ------------------------------- */
+
+    if (guestbookEnabled) {
+
+      guestbookEnabled.checked =
+        event.guestbook_enabled === true;
+
+    }
+
+
+    /* -------------------------------
        Finish loading
     ------------------------------- */
 
@@ -486,6 +501,16 @@ createBtn.addEventListener(
 
 
     /* -------------------------------
+       Get Guestbook choice
+    ------------------------------- */
+
+    const isGuestbookEnabled =
+      guestbookEnabled
+        ? guestbookEnabled.checked
+        : false;
+
+
+    /* -------------------------------
        Package customization
     ------------------------------- */
 
@@ -580,7 +605,10 @@ createBtn.addEventListener(
                 finalBackground,
 
               has_tv:
-                hasTV
+                hasTV,
+
+              guestbook_enabled:
+                isGuestbookEnabled
 
             })
             .eq(
@@ -721,7 +749,10 @@ createBtn.addEventListener(
               currentPackage,
 
             has_tv:
-              hasTV
+              hasTV,
+
+            guestbook_enabled:
+              isGuestbookEnabled
 
           })
           .select()
@@ -795,6 +826,12 @@ createBtn.addEventListener(
       console.log(
         "PACKAGE:",
         currentPackage
+      );
+
+
+      console.log(
+        "GUESTBOOK:",
+        isGuestbookEnabled
       );
 
 
