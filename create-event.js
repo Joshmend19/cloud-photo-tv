@@ -47,6 +47,27 @@ const status =
 
 
 /* ---------------------------------
+   URL parameters
+--------------------------------- */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const editCode =
+  (params.get("edit") || "")
+    .toUpperCase();
+
+const selectedPackage =
+  params.get("package");
+
+
+const isEditMode =
+  Boolean(editCode);
+
+
+/* ---------------------------------
    Create unique event code
 --------------------------------- */
 
@@ -74,7 +95,173 @@ function createEventCode() {
 
 
 /* ---------------------------------
-   Create event
+   Load existing event for editing
+--------------------------------- */
+
+async function loadEditEvent() {
+
+  if (!isEditMode) {
+    return;
+  }
+
+  try {
+
+    status.textContent =
+      "Loading your event…";
+
+    const {
+      data: event,
+      error
+    } =
+      await supabase
+        .from("events")
+        .select("*")
+        .eq("code", editCode)
+        .single();
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    /* -------------------------------
+       Fill basic information
+    ------------------------------- */
+
+    eventType.value =
+      event.event_type;
+
+    eventName.value =
+      event.event_name;
+
+    eventDate.value =
+      event.event_date;
+
+    startTime.value =
+      event.start_time.slice(0, 5);
+
+    endTime.value =
+      event.end_time.slice(0, 5);
+
+
+    /* -------------------------------
+       Fill TV choice
+    ------------------------------- */
+
+    const tvChoice =
+      document.querySelector(
+        `input[name="hasTV"][value="${event.has_tv ? "true" : "false"}"]`
+      );
+
+    if (tvChoice) {
+      tvChoice.checked = true;
+    }
+
+
+    /* -------------------------------
+       Fill theme
+    ------------------------------- */
+
+    const themeChoice =
+      document.querySelector(
+        `input[name="theme"][value="${event.theme}"]`
+      );
+
+    if (themeChoice) {
+      themeChoice.checked = true;
+    }
+
+
+    /* -------------------------------
+       Fill background
+    ------------------------------- */
+
+    const backgroundChoice =
+      document.querySelector(
+        `input[name="background"][value="${event.background}"]`
+      );
+
+    if (backgroundChoice) {
+      backgroundChoice.checked = true;
+    }
+
+
+    /* -------------------------------
+       Fill colors
+    ------------------------------- */
+
+    if (primaryColor) {
+      primaryColor.value =
+        event.primary_color || "#b97979";
+    }
+
+    if (secondaryColor) {
+      secondaryColor.value =
+        event.secondary_color || "#fffaf8";
+    }
+
+    if (accentColor) {
+      accentColor.value =
+        event.accent_color || "#c8a24a";
+    }
+
+
+    /* -------------------------------
+       Set package
+    ------------------------------- */
+
+    const packageToUse =
+      event.package || "instant";
+
+    console.log(
+      "EDITING EVENT:",
+      event
+    );
+
+    console.log(
+      "EVENT PACKAGE:",
+      packageToUse
+    );
+
+
+    /* -------------------------------
+       Update button
+    ------------------------------- */
+
+    createBtn.textContent =
+      "Save Event Changes";
+
+    status.textContent =
+      "Your event details have been loaded.";
+
+  } catch (error) {
+
+    console.error(
+      "EDIT EVENT LOAD ERROR:",
+      error
+    );
+
+    status.textContent =
+      "Could not load this event.";
+
+    createBtn.disabled =
+      true;
+
+  }
+
+}
+
+
+/* ---------------------------------
+   Load edit mode
+--------------------------------- */
+
+loadEditEvent();
+
+
+/* ---------------------------------
+   Create or update event
 --------------------------------- */
 
 createBtn.addEventListener(
@@ -88,18 +275,56 @@ createBtn.addEventListener(
        Get package
     ------------------------------- */
 
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
+    let currentPackage =
+      selectedPackage;
 
-    const selectedPackage =
-      params.get("package");
 
+    /* -------------------------------
+       If editing, get package
+       directly from the event
+    ------------------------------- */
+
+    if (isEditMode) {
+
+      const {
+        data: existingEvent,
+        error: existingEventError
+      } =
+        await supabase
+          .from("events")
+          .select("package")
+          .eq("code", editCode)
+          .single();
+
+
+      if (existingEventError) {
+
+        console.error(
+          "PACKAGE LOAD ERROR:",
+          existingEventError
+        );
+
+        status.textContent =
+          "Could not load the event package.";
+
+        return;
+
+      }
+
+
+      currentPackage =
+        existingEvent.package;
+
+    }
+
+
+    /* -------------------------------
+       Validate package
+    ------------------------------- */
 
     if (
-      selectedPackage !== "instant" &&
-      selectedPackage !== "plus"
+      currentPackage !== "instant" &&
+      currentPackage !== "plus"
     ) {
 
       status.textContent =
@@ -220,7 +445,7 @@ createBtn.addEventListener(
 
 
     if (
-      selectedPackage === "plus"
+      currentPackage === "plus"
     ) {
 
       finalPrimaryColor =
@@ -238,21 +463,107 @@ createBtn.addEventListener(
     }
 
 
-    /* -------------------------------
+    /* --------------------------------
        Disable button
-    ------------------------------- */
+    -------------------------------- */
 
     createBtn.disabled = true;
 
     createBtn.textContent =
-      "Creating event…";
+      isEditMode
+        ? "Saving changes…"
+        : "Creating event…";
 
 
     try {
 
-      /* -----------------------------
-         Create unique code
-      ----------------------------- */
+      /* =================================
+         EDIT EXISTING EVENT
+      ================================= */
+
+      if (isEditMode) {
+
+        const {
+          data: updatedEvent,
+          error: updateError
+        } =
+          await supabase
+            .from("events")
+            .update({
+
+              event_type:
+                eventType.value,
+
+              event_name:
+                name,
+
+              event_date:
+                eventDate.value,
+
+              start_time:
+                startTime.value,
+
+              end_time:
+                endTime.value,
+
+              theme:
+                selectedTheme,
+
+              primary_color:
+                finalPrimaryColor,
+
+              secondary_color:
+                finalSecondaryColor,
+
+              accent_color:
+                finalAccentColor,
+
+              background:
+                finalBackground,
+
+              has_tv:
+                hasTV
+
+            })
+            .eq(
+              "code",
+              editCode
+            )
+            .select()
+            .single();
+
+
+        if (updateError) {
+
+          throw updateError;
+
+        }
+
+
+        console.log(
+          "EVENT UPDATED:",
+          updatedEvent
+        );
+
+
+        sessionStorage.setItem(
+          "cptv_event_code",
+          editCode
+        );
+
+
+        location.href =
+          `event-created.html?code=${editCode}`;
+
+
+        return;
+
+      }
+
+
+      /* =================================
+         CREATE NEW EVENT
+      ================================= */
 
       let code = null;
 
@@ -356,7 +667,7 @@ createBtn.addEventListener(
               finalBackground,
 
             package:
-              selectedPackage,
+              currentPackage,
 
             has_tv:
               hasTV
@@ -397,10 +708,6 @@ createBtn.addEventListener(
 
       if (sessionError) {
 
-        /* ---------------------------
-           Remove incomplete event
-        --------------------------- */
-
         await supabase
           .from("events")
           .delete()
@@ -408,7 +715,6 @@ createBtn.addEventListener(
             "id",
             event.id
           );
-
 
         throw sessionError;
 
@@ -439,7 +745,7 @@ createBtn.addEventListener(
 
       console.log(
         "PACKAGE:",
-        selectedPackage
+        currentPackage
       );
 
 
@@ -454,20 +760,22 @@ createBtn.addEventListener(
     } catch (error) {
 
       console.error(
-        "EVENT CREATION ERROR:",
+        "EVENT SAVE ERROR:",
         error
       );
 
 
       status.textContent =
-        "Could not create the event. Please try again.";
+        "Could not save the event. Please try again.";
 
 
       createBtn.disabled =
         false;
 
       createBtn.textContent =
-        "Continue to Checkout";
+        isEditMode
+          ? "Save Event Changes"
+          : "Continue to Checkout";
 
     }
 
