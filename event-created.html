@@ -33,7 +33,6 @@
       background: white;
       padding: 18px 25px;
       border-bottom: 1px solid #eee;
-
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -67,11 +66,9 @@
       height: 70px;
       margin: 0 auto 18px;
       border-radius: 50%;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       background: #f0e4d4;
       font-size: 35px;
     }
@@ -150,6 +147,41 @@
       background: white;
       border-radius: 12px;
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .qr-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .qr-button {
+      border: none;
+      border-radius: 9px;
+      padding: 12px 18px;
+      background: #b08d57;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .qr-button:hover {
+      opacity: 0.9;
+    }
+
+    .qr-button.secondary {
+      background: #f0e4d4;
+      color: #8c7045;
+    }
+
+    .qr-status {
+      min-height: 20px;
+      margin-top: 12px;
+      color: #6f8a62;
+      font-size: 14px;
     }
 
     /* Event Stats */
@@ -339,6 +371,16 @@
       .stat-card {
         padding: 18px 10px;
       }
+
+      .qr-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .qr-button {
+        width: 100%;
+        max-width: 260px;
+      }
     }
   </style>
 </head>
@@ -426,6 +468,31 @@
         </p>
 
         <div id="qrCode"></div>
+
+        <div class="qr-actions">
+
+          <button
+            id="downloadQrButton"
+            class="qr-button"
+            type="button"
+          >
+            Download QR Code
+          </button>
+
+          <button
+            id="copyGuestLinkButton"
+            class="qr-button secondary"
+            type="button"
+          >
+            Copy Guest Link
+          </button>
+
+        </div>
+
+        <div
+          id="qrStatus"
+          class="qr-status"
+        ></div>
 
       </div>
 
