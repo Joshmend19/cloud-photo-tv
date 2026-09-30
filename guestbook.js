@@ -92,9 +92,7 @@ let currentEvent = null;
    Format event date
 --------------------------------- */
 
-function formatEventDate(
-  dateString
-) {
+function formatEventDate(dateString) {
 
   if (!dateString) {
     return "";
