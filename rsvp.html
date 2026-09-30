@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>RSVP | Captured Moments</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8f6f4;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .top-bar {
+      height: 6px;
+      background: linear-gradient(90deg, #c9a227, #d8b4b4, #c9a227);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .brand h1 {
+      font-family: Georgia, serif;
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .brand p {
+      color: #777;
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 35px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .event-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .event-header h2 {
+      font-family: Georgia, serif;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .event-header p {
+      color: #777;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #444;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: white;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #c9a227;
+      box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.12);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .radio-option:hover {
+      border-color: #c9a227;
+      background: #fffdf7;
+    }
+
+    .radio-option input {
+      width: auto;
+      margin: 0;
+    }
+
+    .radio-option span {
+      font-weight: 500;
+    }
+
+    .submit-btn {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #c9a227;
+      color: white;
+      transition: 0.2s;
+      margin-top: 5px;
+    }
+
+    .submit-btn:hover {
+      background: #b18f20;
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 0.95rem;
+      min-height: 20px;
+    }
+
+    .error {
+      color: #b42318;
+    }
+
+    .success {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .success-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .success h2 {
+      font-family: Georgia, serif;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .success p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px 15px 40px;
+      }
+
+      .card {
+        padding: 25px 20px;
+      }
+
+      .event-header h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar"></div>
+
+  <main class="container">
+
+    <div class="brand">
+      <h1>Captured Moments</h1>
+      <p>Your moments, captured and shared.</p>
+    </div>
+
+    <div class="card">
+
+      <div class="event-header">
+        <h2 id="eventName">Loading event...</h2>
+        <p id="eventDate"></p>
+      </div>
+
+      <form id="rsvpForm">
+
+        <div class="form-group">
+          <label for="rsvpName">Your Name *</label>
+          <input
+            type="text"
+            id="rsvpName"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="rsvpEmail">Email</label>
+          <input
+            type="email"
+            id="rsvpEmail"
+            placeholder="you@example.com"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Will you be attending? *</label>
+
+          <div class="radio-group">
+
+            <label class="radio-option">
+              <input
+                type="radio"
+                name="attending"
+                value="true"
+                checked
+              />
+              <span>Yes, I'll be there</span>
+            </label>
+
+            <label class="radio-option">
+              <input
+                type="radio"
+                name="attending"
+                value="false"
+              />
+              <span>No, I can't make it</span>
+            </label>
+
+          </div>
+        </div>
+
+        <div class="form-group" id="guestCountGroup">
+          <label for="guestCount">Number of Guests</label>
+
+          <select id="guestCount">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="rsvpMessage">Message <span style="font-weight: normal; color: #888;">(optional)</span></label>
+
+          <textarea
+            id="rsvpMessage"
+            placeholder="Leave a message for the host..."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitRsvpBtn">
+          Submit RSVP
+        </button>
+
+        <div id="rsvpStatus" class="status"></div>
+
+      </form>
+
+      <div id="successMessage" class="success" style="display: none;">
+        <div class="success-icon">✓</div>
+        <h2>RSVP Received!</h2>
+        <p id="successText">
+          Thank you for responding.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      Captured Moments · Your moments, captured and shared.
+    </div>
+
+  </main>
+
+  <script type="module" src="rsvp.js"></script>
+
+</body>
+</html>
