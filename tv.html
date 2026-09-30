@@ -1,30 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Instant Moments TV</title>
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Captured Moments TV</title>
 
   <style>
+
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #111827;
+      --accent-color: #c8a24a;
+    }
+
+
     * {
       box-sizing: border-box;
     }
 
+
     html,
     body {
       margin: 0;
+
       width: 100%;
       height: 100%;
-      background: #111827;
+
+      background:
+        var(--secondary-color);
+
       color: white;
-      font-family: Arial, Helvetica, sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       overflow: hidden;
     }
+
 
     .hidden {
       display: none !important;
     }
+
 
     #loading,
     #tvView,
@@ -33,125 +59,249 @@
       height: 100%;
     }
 
+
     #loading {
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       text-align: center;
+
       padding: 30px;
     }
 
+
+    #loading h2 {
+      color: var(--primary-color);
+    }
+
+
     #tvView {
       position: relative;
+
       background:
         radial-gradient(
           circle at top left,
-          rgba(37, 99, 235, 0.35),
+          color-mix(
+            in srgb,
+            var(--primary-color) 35%,
+            transparent
+          ),
           transparent 35%
         ),
         radial-gradient(
           circle at bottom right,
-          rgba(124, 58, 237, 0.35),
+          color-mix(
+            in srgb,
+            var(--accent-color) 35%,
+            transparent
+          ),
           transparent 35%
         ),
-        #111827;
+        var(--secondary-color);
     }
+
 
     .tv-header {
       position: absolute;
+
       top: 0;
       left: 0;
       right: 0;
+
       z-index: 5;
+
       padding: 24px 32px;
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
     }
 
+
     .brand {
       font-size: 24px;
+
       font-weight: 800;
     }
 
+
     .brand span {
-      color: #60a5fa;
+      color: var(--primary-color);
     }
+
 
     .event-code {
       padding: 10px 16px;
+
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1);
+
+      background:
+        color-mix(
+          in srgb,
+          var(--primary-color) 20%,
+          transparent
+        );
+
+      border:
+        1px solid
+        color-mix(
+          in srgb,
+          var(--primary-color) 35%,
+          transparent
+        );
+
       font-weight: 700;
+
       letter-spacing: 2px;
     }
+
+
+    .event-code span {
+      color: var(--accent-color);
+    }
+
 
     .photo-area {
       width: 100%;
       height: 100%;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       padding: 90px 30px 35px;
     }
 
+
     #currentPhoto {
       max-width: 97%;
+
       max-height: 93%;
+
       width: auto;
+
       height: auto;
+
       object-fit: contain;
+
       border-radius: 18px;
-      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.45);
+
+      box-shadow:
+        0 20px 70px
+        color-mix(
+          in srgb,
+          var(--primary-color) 30%,
+          rgba(0, 0, 0, 0.45)
+        );
     }
+
 
     #emptyTv {
       text-align: center;
+
       display: flex;
+
       flex-direction: column;
+
       align-items: center;
+
       justify-content: center;
+
       gap: 20px;
     }
 
+
     .qr-box {
       background: white;
+
       padding: 18px;
+
       border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+      box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.3);
+
+      border:
+        5px solid
+        color-mix(
+          in srgb,
+          var(--accent-color) 65%,
+          white
+        );
     }
+
 
     #tvQr img {
       display: block;
-      width: min(360px, 60vw);
-      height: min(360px, 60vw);
+
+      width:
+        min(
+          360px,
+          60vw
+        );
+
+      height:
+        min(
+          360px,
+          60vw
+        );
     }
+
 
     .scan-title {
       font-size: 32px;
+
       font-weight: 800;
+
+      color: var(--primary-color);
     }
+
 
     .scan-text {
       max-width: 500px;
+
       font-size: 18px;
+
       line-height: 1.5;
+
       color: #cbd5e1;
     }
 
+
     .tv-status {
       position: absolute;
+
       bottom: 24px;
+
       left: 32px;
+
       right: 32px;
+
       text-align: center;
-      color: #94a3b8;
+
+      color:
+        color-mix(
+          in srgb,
+          var(--accent-color) 70%,
+          #94a3b8
+        );
+
       font-size: 14px;
     }
+
 
     #uploadView {
       display: none;
     }
+
 
     @media (max-width: 700px) {
 
@@ -159,76 +309,122 @@
         padding: 18px;
       }
 
+
       .brand {
         font-size: 19px;
       }
 
+
       .event-code {
         font-size: 12px;
+
         padding: 8px 10px;
       }
+
 
       .scan-title {
         font-size: 25px;
       }
 
+
       .scan-text {
         font-size: 16px;
       }
 
+
       .photo-area {
-        padding: 80px 20px 40px;
+        padding:
+          80px 20px 40px;
       }
+
 
       #currentPhoto {
         max-width: 96%;
+
         max-height: 88%;
       }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
+
   <section id="loading">
+
     <div>
-      <h2>Loading Instant Moments…</h2>
-      <p>Please wait.</p>
+
+      <h2>
+        Loading Captured Moments…
+      </h2>
+
+      <p>
+        Please wait.
+      </p>
+
     </div>
+
   </section>
 
 
   <section id="tvView">
 
+
     <header class="tv-header">
 
+
       <div class="brand">
-        Instant <span>Moments</span>
+
+        Captured
+        <span>Moments</span>
+
       </div>
 
+
       <div class="event-code">
-        EVENT <span id="tvCode">------</span>
+
+        EVENT
+        <span id="tvCode">
+          ------
+        </span>
+
       </div>
+
 
     </header>
 
 
     <main class="photo-area">
 
+
       <div id="emptyTv">
 
+
         <div class="qr-box">
+
           <div id="tvQr"></div>
+
         </div>
+
 
         <div class="scan-title">
+
           Share Your Photos
+
         </div>
 
+
         <div class="scan-text">
-          Scan the QR code with your phone to send photos
-          directly to this screen.
+
+          Scan the QR code with your phone
+          to send photos directly to this screen.
+
         </div>
+
 
       </div>
 
@@ -240,6 +436,7 @@
         alt="Event photo"
       >
 
+
     </main>
 
 
@@ -247,8 +444,11 @@
       id="tvStatus"
       class="tv-status"
     >
+
       Ready for photos
+
     </div>
+
 
   </section>
 
@@ -264,5 +464,109 @@
     src="./app.js"
   ></script>
 
+
+  <script type="module">
+
+    import { createClient } from
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+    import {
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    } from "./config.js";
+
+
+    const supabase =
+      createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const code =
+      (params.get("code") || "")
+        .toUpperCase();
+
+
+    async function loadEventColors() {
+
+      if (!code) {
+        return;
+      }
+
+
+      try {
+
+        const {
+          data: event,
+          error
+        } =
+          await supabase
+            .from("events")
+            .select(
+              "primary_color, secondary_color, accent_color"
+            )
+            .eq(
+              "code",
+              code
+            )
+            .single();
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        document.documentElement.style.setProperty(
+          "--primary-color",
+          event.primary_color || "#2563eb"
+        );
+
+
+        document.documentElement.style.setProperty(
+          "--secondary-color",
+          event.secondary_color || "#111827"
+        );
+
+
+        document.documentElement.style.setProperty(
+          "--accent-color",
+          event.accent_color || "#c8a24a"
+        );
+
+
+        console.log(
+          "TV colors loaded:",
+          event.primary_color,
+          event.secondary_color,
+          event.accent_color
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Could not load event colors:",
+          error
+        );
+
+      }
+
+    }
+
+
+    loadEventColors();
+
+  </script>
+
+
 </body>
+
 </html>
