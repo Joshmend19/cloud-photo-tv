@@ -1,882 +1,1060 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-import {
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-} from "./config.js";
+  <title>Create Your Event | Captured Moments</title>
 
-const supabase = createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f3f0;
+      color: #172033;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 22px 30px;
+      border-bottom: 1px solid #e5e0dc;
+    }
+
+    .brand {
+      font-size: 26px;
+      font-weight: bold;
+      color: #172033;
+    }
+
+    .tagline {
+      margin-top: 5px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 0 20px 50px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .page-header h1 {
+      margin-bottom: 10px;
+      font-size: 34px;
+    }
+
+    .page-header p {
+      color: #666;
+      font-size: 16px;
+    }
+
+    .form-section {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .form-section h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+
+    .section-description {
+      color: #777;
+      margin-top: 0;
+      margin-bottom: 22px;
+    }
+
+    label.field-label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d8d2ce;
+      border-radius: 9px;
+      font-size: 15px;
+      background: #fff;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .package-section {
+      display: block;
+    }
+
+    .package-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .package-card {
+      border: 2px solid #ddd;
+      border-radius: 15px;
+      padding: 24px;
+      background: #fff;
+    }
+
+    .package-card h3 {
+      margin-top: 0;
+      font-size: 21px;
+    }
+
+    .package-price {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 12px 0;
+    }
+
+    .package-card ul {
+      padding-left: 20px;
+      line-height: 1.7;
+      color: #555;
+    }
+
+    .package-button {
+      width: 100%;
+      border: none;
+      border-radius: 9px;
+      padding: 13px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #b97979;
+      color: white;
+    }
+
+    .package-button:hover {
+      opacity: 0.9;
+    }
+
+    #setupSection {
+      display: none;
+    }
+
+    #setupSection.visible {
+      display: block;
+    }
+
+    .selected-package {
+      display: none;
+      background: #fff7f5;
+      border: 1px solid #e6c9c5;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 24px;
+    }
+
+    .selected-package.visible {
+      display: block;
+    }
+
+    .selected-package-name {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .selected-package-description {
+      color: #777;
+      margin-top: 5px;
+    }
+
+    .change-package {
+      display: inline-block;
+      margin-top: 12px;
+      color: #a45f5f;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .radio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .radio-option {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 15px;
+      cursor: pointer;
+    }
+
+    .radio-option input {
+      margin-right: 8px;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .color-option label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    input[type="color"] {
+      width: 100%;
+      height: 50px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .locked-section {
+      opacity: 0.6;
+    }
+
+    .locked-message {
+      font-size: 13px;
+      color: #a45f5f;
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    .guestbook-option {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .guestbook-option label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .guestbook-option input {
+      margin-top: 4px;
+    }
+
+    .guestbook-option strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .guestbook-option span {
+      display: block;
+      color: #777;
+      font-size: 14px;
+    }
+
+    .guestbook-icon {
+      font-size: 24px;
+    }
+
+    .submit-section {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    #createBtn {
+      width: 100%;
+      max-width: 500px;
+      border: none;
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #b97979;
+      color: white;
+    }
+
+    #createBtn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #status {
+      margin-top: 15px;
+      color: #a45f5f;
+      font-weight: bold;
+    }
+
+    @media (max-width: 700px) {
+      .package-grid,
+      .two-column,
+      .radio-grid,
+      .color-grid {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        margin-top: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="brand">Captured Moments</div>
+    <div class="tagline">Your moments, captured and shared.</div>
+  </header>
+
+  <main>
+
+    <div class="page-header">
+      <h1 id="pageTitle">Create Your Event</h1>
+      <p id="pageSubtitle">
+        Set up your event and let your guests share their memories.
+      </p>
+    </div>
+
+    <!-- PACKAGE SELECTION -->
+    <section class="form-section package-section" id="packageSection">
+
+      <h2>Choose Your Package</h2>
+
+      <p class="section-description">
+        Choose the package that fits your event.
+      </p>
+
+      <div class="package-grid">
+
+        <div class="package-card">
+          <h3>Captured Moments</h3>
+
+          <div class="package-price">$19</div>
+
+          <p>per event</p>
+
+          <ul>
+            <li>Event-specific QR code</li>
+            <li>Guest photo uploads</li>
+            <li>Live TV slideshow</li>
+            <li>Event photo gallery</li>
+            <li>Photo downloads</li>
+            <li>Automatic gallery emails</li>
+            <li>Standard themes</li>
+            <li>Up to 500 photos</li>
+            <li>30-day gallery</li>
+          </ul>
+
+          <button
+            type="button"
+            class="package-button"
+            onclick="selectPackage('instant')"
+          >
+            Choose Captured Moments
+          </button>
+        </div>
+
+        <div class="package-card">
+          <h3>Captured Moments Plus</h3>
+
+          <div class="package-price">$39</div>
+
+          <p>per event</p>
+
+          <ul>
+            <li>Everything in Captured Moments</li>
+            <li>Higher photo capacity</li>
+            <li>Custom colors</li>
+            <li>Custom background</li>
+            <li>Custom logo/photo</li>
+            <li>Premium themes</li>
+            <li>Custom event branding</li>
+            <li>Larger photo files</li>
+            <li>1-year gallery</li>
+          </ul>
+
+          <button
+            type="button"
+            class="package-button"
+            onclick="selectPackage('plus')"
+          >
+            Choose Captured Moments Plus
+          </button>
+        </div>
+
+      </div>
+    </section>
 
 
-/* ---------------------------------
-   Form elements
---------------------------------- */
+    <!-- SETUP -->
+    <section id="setupSection">
 
-const eventType =
-  document.getElementById("eventType");
+      <!-- SELECTED PACKAGE -->
+      <div class="selected-package" id="selectedPackageBox">
 
-const eventName =
-  document.getElementById("eventName");
+        <div class="selected-package-name" id="selectedPackageName"></div>
 
-const eventDate =
-  document.getElementById("eventDate");
+        <div
+          class="selected-package-description"
+          id="selectedPackageDescription"
+        ></div>
 
-const startTime =
-  document.getElementById("startTime");
+        <div
+          class="change-package"
+          onclick="changePackage()"
+        >
+          Change Package
+        </div>
 
-const endTime =
-  document.getElementById("endTime");
-
-const primaryColor =
-  document.getElementById("primaryColor");
-
-const secondaryColor =
-  document.getElementById("secondaryColor");
-
-const accentColor =
-  document.getElementById("accentColor");
-
-const guestbookEnabled =
-  document.getElementById("guestbookEnabled");
-
-const createBtn =
-  document.getElementById("createBtn");
-
-const status =
-  document.getElementById("status");
+      </div>
 
 
-/* ---------------------------------
-   URL parameters
---------------------------------- */
+      <!-- EVENT INFORMATION -->
+      <div class="form-section">
 
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
+        <h2>Event Information</h2>
 
-const editCode =
-  (params.get("edit") || "")
-    .toUpperCase();
+        <p class="section-description">
+          Tell us about your event.
+        </p>
 
-const isEditMode =
-  Boolean(editCode);
+        <div class="field">
+
+          <label
+            class="field-label"
+            for="eventType"
+          >
+            Event Type
+          </label>
+
+          <select id="eventType">
+
+            <option value="">
+              Select an event type
+            </option>
+
+            <option value="birthday">
+              Birthday
+            </option>
+
+            <option value="graduation">
+              Graduation
+            </option>
+
+            <option value="wedding">
+              Wedding
+            </option>
+
+            <option value="retirement">
+              Retirement
+            </option>
+
+            <option value="baby-shower">
+              Baby Shower
+            </option>
+
+            <option value="anniversary">
+              Anniversary
+            </option>
+
+            <option value="sports-event">
+              Sports Event
+            </option>
+
+            <option value="other">
+              Other
+            </option>
+
+          </select>
+
+        </div>
 
 
-/* ---------------------------------
-   Get currently selected package
---------------------------------- */
+        <div class="field">
 
-function getSelectedPackage() {
+          <label
+            class="field-label"
+            for="eventName"
+          >
+            Event Name
+          </label>
 
-  const currentParams =
-    new URLSearchParams(
-      window.location.search
-    );
+          <input
+            type="text"
+            id="eventName"
+            placeholder="Example: Sarah's 21st Birthday"
+          >
 
-  return currentParams.get("package");
-
-}
-
-
-/* ---------------------------------
-   Existing package for edit mode
---------------------------------- */
-
-let editPackage = null;
-
-let editLoaded = !isEditMode;
+        </div>
 
 
-/* ---------------------------------
-   Create unique event code
---------------------------------- */
+        <div class="field">
 
-function createEventCode() {
+          <label
+            class="field-label"
+            for="eventDate"
+          >
+            Event Date
+          </label>
 
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+          <input
+            type="date"
+            id="eventDate"
+          >
 
-  let code = "";
+        </div>
 
-  for (let i = 0; i < 6; i++) {
 
-    code +=
-      characters[
-        Math.floor(
-          Math.random() *
-          characters.length
+        <div class="two-column">
+
+          <div class="field">
+
+            <label
+              class="field-label"
+              for="startTime"
+            >
+              Start Time
+            </label>
+
+            <input
+              type="time"
+              id="startTime"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label
+              class="field-label"
+              for="endTime"
+            >
+              End Time
+            </label>
+
+            <input
+              type="time"
+              id="endTime"
+            >
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- TV -->
+      <div class="form-section">
+
+        <h2>Do You Have Access to a TV?</h2>
+
+        <p class="section-description">
+          If you have a TV, your guests' photos can appear live during your event.
+        </p>
+
+        <div class="radio-grid">
+
+          <label class="radio-option">
+
+            <input
+              type="radio"
+              name="hasTV"
+              value="true"
+              checked
+            >
+
+            Yes, I have a TV
+
+          </label>
+
+
+          <label class="radio-option">
+
+            <input
+              type="radio"
+              name="hasTV"
+              value="false"
+            >
+
+            No, I don't have a TV
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- THEME -->
+      <div class="form-section">
+
+        <h2>Choose a Theme</h2>
+
+        <p class="section-description">
+          Choose the overall look for your event.
+        </p>
+
+        <div class="radio-grid">
+
+          <label class="radio-option">
+
+            <input
+              type="radio"
+              name="theme"
+              value="classic"
+              checked
+            >
+
+            Classic
+
+          </label>
+
+
+          <label class="radio-option">
+
+            <input
+              type="radio"
+              name="theme"
+              value="elegant"
+            >
+
+            Elegant
+
+          </label>
+
+
+          <label class="radio-option">
+
+            <input
+              type="radio"
+              name="theme"
+              value="modern"
+            >
+
+            Modern
+
+          </label>
+
+
+          <label class="radio-option">
+
+            <input
+              type="radio"
+              name="theme"
+              value="celebration"
+            >
+
+            Celebration
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- COLORS -->
+      <div
+        class="form-section"
+        id="colorsSection"
+      >
+
+        <h2>Choose Your Colors</h2>
+
+        <p class="section-description">
+          Customize the colors used throughout your event.
+        </p>
+
+        <div class="color-grid">
+
+          <div class="color-option">
+
+            <label for="primaryColor">
+              Primary Color
+            </label>
+
+            <input
+              type="color"
+              id="primaryColor"
+              value="#b97979"
+            >
+
+          </div>
+
+
+          <div class="color-option">
+
+            <label for="secondaryColor">
+              Secondary Color
+            </label>
+
+            <input
+              type="color"
+              id="secondaryColor"
+              value="#fffaf8"
+            >
+
+          </div>
+
+
+          <div class="color-option">
+
+            <label for="accentColor">
+              Accent Color
+            </label>
+
+            <input
+              type="color"
+              id="accentColor"
+              value="#c8a24a"
+            >
+
+          </div>
+
+        </div>
+
+        <div class="locked-message">
+          Available with Captured Moments Plus
+        </div>
+
+      </div>
+
+
+      <!-- BACKGROUND -->
+      <div
+        class="form-section"
+        id="backgroundSection"
+      >
+
+        <h2>Choose a Background</h2>
+
+        <p class="section-description">
+          Choose the background style for your event.
+        </p>
+
+        <div class="radio-grid">
+
+          <label class="radio-option">
+
+            <input
+              type="radio"
+              name="background"
+              value="default"
+              checked
+            >
+
+            Classic
+
+          </label>
+
+
+          <label class="radio-option">
+
+            <input
+              type="radio"
+              name="background"
+              value="minimal"
+            >
+
+            Minimal
+
+          </label>
+
+        </div>
+
+        <div class="locked-message">
+          Available with Captured Moments Plus
+        </div>
+
+      </div>
+
+
+      <!-- LOGO -->
+      <div
+        class="form-section"
+        id="logoSection"
+      >
+
+        <h2>Event Logo or Photo</h2>
+
+        <p class="section-description">
+          Add a photo or logo to personalize your event.
+        </p>
+
+        <input
+          type="file"
+          id="eventLogo"
+          accept="image/*"
+        >
+
+        <div class="locked-message">
+          Available with Captured Moments Plus
+        </div>
+
+      </div>
+
+
+      <!-- GUESTBOOK -->
+      <div
+        class="form-section"
+        id="guestbookSection"
+      >
+
+        <h2>Digital Guestbook</h2>
+
+        <p class="section-description">
+          Give your guests a place to leave a special message for your event.
+        </p>
+
+        <div class="guestbook-option">
+
+          <label for="guestbookEnabled">
+
+            <input
+              type="checkbox"
+              id="guestbookEnabled"
+            >
+
+            <div class="guestbook-icon">
+              💌
+            </div>
+
+            <div>
+
+              <strong>
+                Add a Digital Guestbook
+              </strong>
+
+              <span>
+                Guests can leave their name and a message that will be saved with your event.
+              </span>
+
+            </div>
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- SUBMIT -->
+      <div class="submit-section">
+
+        <button
+          type="button"
+          id="createBtn"
+        >
+          Continue to Checkout
+        </button>
+
+        <div id="status"></div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- PACKAGE SELECTION LOGIC -->
+  <script>
+
+    const urlParams =
+      new URLSearchParams(window.location.search);
+
+    const packageFromUrl =
+      urlParams.get("package");
+
+    const editCode =
+      urlParams.get("edit");
+
+
+    function selectPackage(packageName) {
+
+      const url =
+        new URL(window.location.href);
+
+      url.searchParams.set(
+        "package",
+        packageName
+      );
+
+      window.history.replaceState(
+        {},
+        "",
+        url
+      );
+
+      showPackage(packageName);
+    }
+
+
+    function changePackage() {
+
+      const url =
+        new URL(window.location.href);
+
+      url.searchParams.delete("package");
+
+      window.history.replaceState(
+        {},
+        "",
+        url
+      );
+
+      packageSection.style.display = "block";
+
+      setupSection.classList.remove("visible");
+
+      selectedPackageBox.classList.remove("visible");
+    }
+
+
+    function showPackage(packageName) {
+
+      packageSection.style.display = "none";
+
+      setupSection.classList.add("visible");
+
+      selectedPackageBox.classList.add("visible");
+
+
+      if (packageName === "plus") {
+
+        selectedPackageName.textContent =
+          "Captured Moments Plus";
+
+        selectedPackageDescription.textContent =
+          "$39 per event • Full customization";
+
+        colorsSection.classList.remove(
+          "locked-section"
+        );
+
+        backgroundSection.classList.remove(
+          "locked-section"
+        );
+
+        logoSection.classList.remove(
+          "locked-section"
+        );
+
+        enableCustomization();
+
+      } else {
+
+        selectedPackageName.textContent =
+          "Captured Moments";
+
+        selectedPackageDescription.textContent =
+          "$19 per event • Standard event setup";
+
+        colorsSection.classList.add(
+          "locked-section"
+        );
+
+        backgroundSection.classList.add(
+          "locked-section"
+        );
+
+        logoSection.classList.add(
+          "locked-section"
+        );
+
+        disableCustomization();
+      }
+    }
+
+
+    function disableCustomization() {
+
+      document
+        .querySelectorAll(
+          "#colorsSection input, #backgroundSection input, #logoSection input"
         )
-      ];
+        .forEach(input => {
 
-  }
+          input.disabled = true;
 
-  return code;
-}
-
-
-/* ---------------------------------
-   Load existing event for editing
---------------------------------- */
-
-async function loadEditEvent() {
-
-  if (!isEditMode) {
-    return;
-  }
-
-  try {
-
-    createBtn.disabled = true;
-
-    status.textContent =
-      "Loading your event…";
-
-
-    const {
-      data: event,
-      error
-    } =
-      await supabase
-        .from("events")
-        .select("*")
-        .eq("code", editCode)
-        .single();
-
-
-    if (error) {
-      throw error;
+        });
     }
 
-    if (!event) {
-      throw new Error(
-        "Event not found."
+
+    function enableCustomization() {
+
+      document
+        .querySelectorAll(
+          "#colorsSection input, #backgroundSection input, #logoSection input"
+        )
+        .forEach(input => {
+
+          input.disabled = false;
+
+        });
+    }
+
+
+    if (editCode) {
+
+      packageSection.style.display =
+        "none";
+
+      selectedPackageBox.classList.remove(
+        "visible"
       );
+
+      setupSection.classList.add(
+        "visible"
+      );
+
+      pageTitle.textContent =
+        "Edit Your Event";
+
+      pageSubtitle.textContent =
+        "Update your event details and save your changes.";
+
     }
 
-
-    console.log(
-      "EDIT EVENT LOADED:",
-      event
-    );
-
-
-    /* -------------------------------
-       Save existing package
-    ------------------------------- */
-
-    editPackage =
-      event.package || "instant";
-
-
-    if (
-      editPackage !== "instant" &&
-      editPackage !== "plus"
+    else if (
+      packageFromUrl === "instant" ||
+      packageFromUrl === "plus"
     ) {
 
-      editPackage =
-        "instant";
+      showPackage(packageFromUrl);
 
     }
 
+  </script>
 
-    console.log(
-      "EDIT PACKAGE:",
-      editPackage
-    );
 
+  <!-- THIS MUST BE THE LAST SCRIPT -->
+  <script
+    type="module"
+    src="./create-event.js"
+  ></script>
 
-    /* -------------------------------
-       Fill basic information
-    ------------------------------- */
-
-    if (eventType) {
-      eventType.value =
-        event.event_type || "";
-    }
-
-    if (eventName) {
-      eventName.value =
-        event.event_name || "";
-    }
-
-    if (eventDate) {
-      eventDate.value =
-        event.event_date || "";
-    }
-
-    if (startTime) {
-      startTime.value =
-        event.start_time
-          ? event.start_time.slice(0, 5)
-          : "";
-    }
-
-    if (endTime) {
-      endTime.value =
-        event.end_time
-          ? event.end_time.slice(0, 5)
-          : "";
-    }
-
-
-    /* -------------------------------
-       Fill TV choice
-    ------------------------------- */
-
-    const tvValue =
-      event.has_tv === false
-        ? "false"
-        : "true";
-
-    const tvChoice =
-      document.querySelector(
-        `input[name="hasTV"][value="${tvValue}"]`
-      );
-
-    if (tvChoice) {
-      tvChoice.checked = true;
-    }
-
-
-    /* -------------------------------
-       Fill theme
-    ------------------------------- */
-
-    const themeChoice =
-      document.querySelector(
-        `input[name="theme"][value="${event.theme}"]`
-      );
-
-    if (themeChoice) {
-      themeChoice.checked = true;
-    }
-
-
-    /* -------------------------------
-       Fill background
-    ------------------------------- */
-
-    const backgroundValue =
-      event.background || "default";
-
-    const backgroundChoice =
-      document.querySelector(
-        `input[name="background"][value="${backgroundValue}"]`
-      );
-
-    if (backgroundChoice) {
-
-      backgroundChoice.checked = true;
-
-    } else {
-
-      const classicBackground =
-        document.querySelector(
-          'input[name="background"][value="default"]'
-        );
-
-      if (classicBackground) {
-        classicBackground.checked = true;
-      }
-
-    }
-
-
-    /* -------------------------------
-       Fill colors
-    ------------------------------- */
-
-    if (primaryColor) {
-
-      primaryColor.value =
-        event.primary_color ||
-        "#b97979";
-
-    }
-
-    if (secondaryColor) {
-
-      secondaryColor.value =
-        event.secondary_color ||
-        "#fffaf8";
-
-    }
-
-    if (accentColor) {
-
-      accentColor.value =
-        event.accent_color ||
-        "#c8a24a";
-
-    }
-
-
-    /* -------------------------------
-       Fill Guestbook choice
-    ------------------------------- */
-
-    if (guestbookEnabled) {
-
-      guestbookEnabled.checked =
-        event.guestbook_enabled === true;
-
-    }
-
-
-    /* -------------------------------
-       Finish loading
-    ------------------------------- */
-
-    editLoaded = true;
-
-    createBtn.textContent =
-      "Save Event Changes";
-
-    createBtn.disabled =
-      false;
-
-    status.textContent =
-      "Your event details have been loaded.";
-
-  } catch (error) {
-
-    console.error(
-      "EDIT EVENT LOAD ERROR:",
-      error
-    );
-
-    status.textContent =
-      "Could not load this event.";
-
-    createBtn.disabled =
-      true;
-
-    editLoaded = false;
-
-  }
-
-}
-
-
-/* ---------------------------------
-   Load edit mode
---------------------------------- */
-
-loadEditEvent();
-
-
-/* ---------------------------------
-   Create or update event
---------------------------------- */
-
-createBtn.addEventListener(
-  "click",
-  async () => {
-
-    status.textContent = "";
-
-
-    /* -------------------------------
-       Make sure edit event finished
-    ------------------------------- */
-
-    if (isEditMode && !editLoaded) {
-
-      status.textContent =
-        "Please wait for your event to finish loading.";
-
-      return;
-
-    }
-
-
-    /* -------------------------------
-       Get package
-    ------------------------------- */
-
-    let currentPackage =
-      isEditMode
-        ? editPackage
-        : getSelectedPackage();
-
-
-    /* -------------------------------
-       Validate package
-    ------------------------------- */
-
-    if (
-      currentPackage !== "instant" &&
-      currentPackage !== "plus"
-    ) {
-
-      status.textContent =
-        "Please choose a package first.";
-
-      return;
-
-    }
-
-
-    /* -------------------------------
-       Get event information
-    ------------------------------- */
-
-    const name =
-      eventName.value.trim();
-
-
-    if (!name) {
-
-      status.textContent =
-        "Please enter an event name.";
-
-      eventName.focus();
-
-      return;
-
-    }
-
-
-    if (!eventDate.value) {
-
-      status.textContent =
-        "Please choose an event date.";
-
-      return;
-
-    }
-
-
-    if (
-      !startTime.value ||
-      !endTime.value
-    ) {
-
-      status.textContent =
-        "Please choose a start and end time.";
-
-      return;
-
-    }
-
-
-    if (
-      endTime.value <=
-      startTime.value
-    ) {
-
-      status.textContent =
-        "The end time must be after the start time.";
-
-      return;
-
-    }
-
-
-    /* -------------------------------
-       Get TV choice
-    ------------------------------- */
-
-    const selectedTV =
-      document.querySelector(
-        'input[name="hasTV"]:checked'
-      );
-
-
-    const hasTV =
-      selectedTV
-        ? selectedTV.value === "true"
-        : true;
-
-
-    /* -------------------------------
-       Get theme
-    ------------------------------- */
-
-    const selectedTheme =
-      document.querySelector(
-        'input[name="theme"]:checked'
-      )?.value || "classic";
-
-
-    /* -------------------------------
-       Get background
-    ------------------------------- */
-
-    const selectedBackground =
-      document.querySelector(
-        'input[name="background"]:checked'
-      )?.value || "default";
-
-
-    /* -------------------------------
-       Get Guestbook choice
-    ------------------------------- */
-
-    const isGuestbookEnabled =
-      guestbookEnabled
-        ? guestbookEnabled.checked
-        : false;
-
-
-    /* -------------------------------
-       Package customization
-    ------------------------------- */
-
-    let finalPrimaryColor =
-      "#b97979";
-
-    let finalSecondaryColor =
-      "#fffaf8";
-
-    let finalAccentColor =
-      "#c8a24a";
-
-    let finalBackground =
-      "default";
-
-
-    if (
-      currentPackage === "plus"
-    ) {
-
-      finalPrimaryColor =
-        primaryColor.value;
-
-      finalSecondaryColor =
-        secondaryColor.value;
-
-      finalAccentColor =
-        accentColor.value;
-
-      finalBackground =
-        selectedBackground;
-
-    }
-
-
-    /* --------------------------------
-       Disable button
-    -------------------------------- */
-
-    createBtn.disabled = true;
-
-    createBtn.textContent =
-      isEditMode
-        ? "Saving changes…"
-        : "Creating event…";
-
-
-    try {
-
-      /* =================================
-         EDIT EXISTING EVENT
-      ================================= */
-
-      if (isEditMode) {
-
-        const {
-          data: updatedEvent,
-          error: updateError
-        } =
-          await supabase
-            .from("events")
-            .update({
-
-              event_type:
-                eventType.value,
-
-              event_name:
-                name,
-
-              event_date:
-                eventDate.value,
-
-              start_time:
-                startTime.value,
-
-              end_time:
-                endTime.value,
-
-              theme:
-                selectedTheme,
-
-              primary_color:
-                finalPrimaryColor,
-
-              secondary_color:
-                finalSecondaryColor,
-
-              accent_color:
-                finalAccentColor,
-
-              background:
-                finalBackground,
-
-              has_tv:
-                hasTV,
-
-              guestbook_enabled:
-                isGuestbookEnabled
-
-            })
-            .eq(
-              "code",
-              editCode
-            )
-            .select()
-            .single();
-
-
-        if (updateError) {
-          throw updateError;
-        }
-
-
-        console.log(
-          "EVENT UPDATED:",
-          updatedEvent
-        );
-
-
-        sessionStorage.setItem(
-          "cptv_event_code",
-          editCode
-        );
-
-
-        location.href =
-          `event-created.html?code=${editCode}`;
-
-
-        return;
-
-      }
-
-
-      /* =================================
-         CREATE NEW EVENT
-      ================================= */
-
-      let code = null;
-
-      let attempts = 0;
-
-
-      while (
-        !code &&
-        attempts < 10
-      ) {
-
-        const possibleCode =
-          createEventCode();
-
-
-        const {
-          data: existing,
-          error: checkError
-        } =
-          await supabase
-            .from("events")
-            .select("id")
-            .eq(
-              "code",
-              possibleCode
-            )
-            .maybeSingle();
-
-
-        if (checkError) {
-          throw checkError;
-        }
-
-
-        if (!existing) {
-          code = possibleCode;
-        }
-
-
-        attempts++;
-
-      }
-
-
-      if (!code) {
-
-        throw new Error(
-          "Could not create a unique event code."
-        );
-
-      }
-
-
-      /* -----------------------------
-         Create event
-      ----------------------------- */
-
-      const {
-        data: event,
-        error: eventError
-      } =
-        await supabase
-          .from("events")
-          .insert({
-
-            code,
-
-            event_type:
-              eventType.value,
-
-            event_name:
-              name,
-
-            event_date:
-              eventDate.value,
-
-            start_time:
-              startTime.value,
-
-            end_time:
-              endTime.value,
-
-            theme:
-              selectedTheme,
-
-            primary_color:
-              finalPrimaryColor,
-
-            secondary_color:
-              finalSecondaryColor,
-
-            accent_color:
-              finalAccentColor,
-
-            background:
-              finalBackground,
-
-            package:
-              currentPackage,
-
-            has_tv:
-              hasTV,
-
-            guestbook_enabled:
-              isGuestbookEnabled
-
-          })
-          .select()
-          .single();
-
-
-      if (eventError) {
-        throw eventError;
-      }
-
-
-      /* -----------------------------
-         Create TV/photo session
-      ----------------------------- */
-
-      const {
-        error: sessionError
-      } =
-        await supabase
-          .from("sessions")
-          .insert({
-
-            code,
-
-            event_id:
-              event.id,
-
-            active:
-              true
-
-          });
-
-
-      if (sessionError) {
-
-        await supabase
-          .from("events")
-          .delete()
-          .eq(
-            "id",
-            event.id
-          );
-
-        throw sessionError;
-
-      }
-
-
-      /* -----------------------------
-         Save temporary event code
-      ----------------------------- */
-
-      sessionStorage.setItem(
-        "cptv_event_code",
-        code
-      );
-
-
-      console.log(
-        "EVENT CREATED:",
-        event
-      );
-
-
-      console.log(
-        "TV ACCESS:",
-        hasTV
-      );
-
-
-      console.log(
-        "PACKAGE:",
-        currentPackage
-      );
-
-
-      console.log(
-        "GUESTBOOK:",
-        isGuestbookEnabled
-      );
-
-
-      /* -----------------------------
-         Continue
-      ----------------------------- */
-
-      location.href =
-        `event-created.html?code=${code}`;
-
-
-    } catch (error) {
-
-      console.error(
-        "EVENT SAVE ERROR:",
-        error
-      );
-
-
-      status.textContent =
-        "Could not save the event. Please try again.";
-
-
-      createBtn.disabled =
-        false;
-
-      createBtn.textContent =
-        isEditMode
-          ? "Save Event Changes"
-          : "Continue to Checkout";
-
-    }
-
-  }
-);
+</body>
+</html>
