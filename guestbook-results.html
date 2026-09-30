@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Guestbook Results | Captured Moments</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f5f2;
+      color: #222;
+    }
+
+    header {
+      background: linear-gradient(
+        135deg,
+        #f4e5d7,
+        #ead6c8
+      );
+
+      padding: 20px 30px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      border-bottom: 1px solid #ddd;
+    }
+
+    .brand {
+      font-size: 24px;
+      font-weight: 700;
+      color: #222;
+      text-decoration: none;
+    }
+
+    .dashboard-link {
+      color: #222;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .page-header {
+      margin-bottom: 30px;
+    }
+
+    .page-header h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .event-date {
+      margin: 0;
+      color: #666;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    }
+
+    .stat-label {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    .messages-section {
+      background: white;
+      border-radius: 14px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    }
+
+    .messages-section h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    .message-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 15px;
+      background: #fff;
+    }
+
+    .message-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .message-name {
+      font-weight: 700;
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .message-text {
+      color: #444;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .message-date {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #777;
+    }
+
+    .status {
+      margin-bottom: 20px;
+      color: #666;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        padding: 18px 20px;
+      }
+
+      .brand {
+        font-size: 20px;
+      }
+
+      main {
+        padding: 30px 15px 50px;
+      }
+
+      .page-header h1 {
+        font-size: 27px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .messages-section {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="dashboard.html" class="brand">
+      Captured Moments
+    </a>
+
+    <a href="dashboard.html" class="dashboard-link">
+      Dashboard
+    </a>
+  </header>
+
+  <main>
+
+    <div class="page-header">
+      <h1 id="eventName">
+        Loading Event...
+      </h1>
+
+      <p
+        id="eventDate"
+        class="event-date"
+      >
+        Loading event information...
+      </p>
+    </div>
+
+    <div class="stats">
+
+      <div class="stat-card">
+        <div class="stat-label">
+          Guestbook Messages
+        </div>
+
+        <div
+          id="messageCount"
+          class="stat-value"
+        >
+          0
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">
+          Status
+        </div>
+
+        <div
+          id="guestbookStatus"
+          class="stat-value"
+        >
+          Active
+        </div>
+      </div>
+
+    </div>
+
+    <div class="messages-section">
+
+      <h2>Guest Messages</h2>
+
+      <div
+        id="status"
+        class="status"
+      >
+        Loading messages...
+      </div>
+
+      <div
+        id="messages"
+      ></div>
+
+    </div>
+
+  </main>
+
+  <script
+    type="module"
+    src="guestbook-results.js"
+  ></script>
+
+</body>
+</html>
