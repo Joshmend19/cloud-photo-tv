@@ -7,19 +7,33 @@ const supabase = createClient(
 );
 
 
-/* ---------------------------------
-   Form elements
---------------------------------- */
+// ===============================
+// FORM ELEMENTS
+// ===============================
 
-const eventType = document.getElementById("eventType");
-const eventName = document.getElementById("eventName");
-const eventDate = document.getElementById("eventDate");
-const startTime = document.getElementById("startTime");
-const endTime = document.getElementById("endTime");
+const eventType =
+  document.getElementById("eventType");
 
-const primaryColor = document.getElementById("primaryColor");
-const secondaryColor = document.getElementById("secondaryColor");
-const accentColor = document.getElementById("accentColor");
+const eventName =
+  document.getElementById("eventName");
+
+const eventDate =
+  document.getElementById("eventDate");
+
+const startTime =
+  document.getElementById("startTime");
+
+const endTime =
+  document.getElementById("endTime");
+
+const primaryColor =
+  document.getElementById("primaryColor");
+
+const secondaryColor =
+  document.getElementById("secondaryColor");
+
+const accentColor =
+  document.getElementById("accentColor");
 
 const guestbookEnabled =
   document.getElementById("guestbookEnabled");
@@ -31,12 +45,14 @@ const status =
   document.getElementById("status");
 
 
-/* ---------------------------------
-   URL parameters
---------------------------------- */
+// ===============================
+// URL PARAMETERS
+// ===============================
 
 const params =
-  new URLSearchParams(window.location.search);
+  new URLSearchParams(
+    window.location.search
+  );
 
 const editCode =
   (params.get("edit") || "").toUpperCase();
@@ -45,28 +61,9 @@ const isEditMode =
   Boolean(editCode);
 
 
-/* ---------------------------------
-   Selected package
---------------------------------- */
-
-// Get package from URL if it exists
-const urlPackage =
-  params.get("package");
-
-// Store it globally so the package buttons
-// can update it immediately.
-if (
-  urlPackage === "instant" ||
-  urlPackage === "plus"
-) {
-  window.selectedCapturedPackage =
-    urlPackage;
-}
-
-
-/* ---------------------------------
-   Existing package for edit mode
---------------------------------- */
+// ===============================
+// EDIT STATE
+// ===============================
 
 let editPackage = null;
 
@@ -74,9 +71,9 @@ let editLoaded =
   !isEditMode;
 
 
-/* ---------------------------------
-   Create unique event code
---------------------------------- */
+// ===============================
+// CREATE EVENT CODE
+// ===============================
 
 function createEventCode() {
 
@@ -101,9 +98,9 @@ function createEventCode() {
 }
 
 
-/* ---------------------------------
-   Load existing event for editing
---------------------------------- */
+// ===============================
+// LOAD EVENT FOR EDITING
+// ===============================
 
 async function loadEditEvent() {
 
@@ -133,7 +130,6 @@ async function loadEditEvent() {
       throw error;
     }
 
-
     if (!event) {
       throw new Error(
         "Event not found."
@@ -147,9 +143,9 @@ async function loadEditEvent() {
     );
 
 
-    /* -------------------------------
-       Save existing package
-    ------------------------------- */
+    // ===============================
+    // PACKAGE
+    // ===============================
 
     editPackage =
       event.package || "instant";
@@ -172,25 +168,31 @@ async function loadEditEvent() {
     );
 
 
-    /* -------------------------------
-       Fill basic information
-    ------------------------------- */
+    // ===============================
+    // EVENT INFORMATION
+    // ===============================
 
     if (eventType) {
+
       eventType.value =
         event.event_type || "";
+
     }
 
 
     if (eventName) {
+
       eventName.value =
         event.event_name || "";
+
     }
 
 
     if (eventDate) {
+
       eventDate.value =
         event.event_date || "";
+
     }
 
 
@@ -214,9 +216,9 @@ async function loadEditEvent() {
     }
 
 
-    /* -------------------------------
-       Fill TV choice
-    ------------------------------- */
+    // ===============================
+    // TV
+    // ===============================
 
     const tvValue =
       event.has_tv === false
@@ -231,13 +233,16 @@ async function loadEditEvent() {
 
 
     if (tvChoice) {
-      tvChoice.checked = true;
+
+      tvChoice.checked =
+        true;
+
     }
 
 
-    /* -------------------------------
-       Fill theme
-    ------------------------------- */
+    // ===============================
+    // THEME
+    // ===============================
 
     const themeChoice =
       document.querySelector(
@@ -246,16 +251,20 @@ async function loadEditEvent() {
 
 
     if (themeChoice) {
-      themeChoice.checked = true;
+
+      themeChoice.checked =
+        true;
+
     }
 
 
-    /* -------------------------------
-       Fill background
-    ------------------------------- */
+    // ===============================
+    // BACKGROUND
+    // ===============================
 
     const backgroundValue =
-      event.background || "default";
+      event.background ||
+      "default";
 
 
     const backgroundChoice =
@@ -266,7 +275,8 @@ async function loadEditEvent() {
 
     if (backgroundChoice) {
 
-      backgroundChoice.checked = true;
+      backgroundChoice.checked =
+        true;
 
     } else {
 
@@ -275,16 +285,20 @@ async function loadEditEvent() {
           'input[name="background"][value="default"]'
         );
 
+
       if (classicBackground) {
-        classicBackground.checked = true;
+
+        classicBackground.checked =
+          true;
+
       }
 
     }
 
 
-    /* -------------------------------
-       Fill colors
-    ------------------------------- */
+    // ===============================
+    // COLORS
+    // ===============================
 
     if (primaryColor) {
 
@@ -313,9 +327,9 @@ async function loadEditEvent() {
     }
 
 
-    /* -------------------------------
-       Fill Guestbook choice
-    ------------------------------- */
+    // ===============================
+    // GUESTBOOK
+    // ===============================
 
     if (guestbookEnabled) {
 
@@ -325,62 +339,63 @@ async function loadEditEvent() {
     }
 
 
-    /* -------------------------------
-       Finish loading
-    ------------------------------- */
+    // ===============================
+    // FINISHED LOADING
+    // ===============================
 
     editLoaded = true;
 
     createBtn.textContent =
       "Save Event Changes";
 
-    createBtn.disabled = false;
+    createBtn.disabled =
+      false;
 
     status.textContent =
       "Your event details have been loaded.";
 
-  }
 
-  catch (error) {
+  } catch (error) {
 
     console.error(
       "EDIT EVENT LOAD ERROR:",
       error
     );
 
+
     status.textContent =
       "Could not load this event.";
 
-    createBtn.disabled = true;
+    createBtn.disabled =
+      true;
 
-    editLoaded = false;
+    editLoaded =
+      false;
 
   }
 
 }
 
 
-/* ---------------------------------
-   Load edit mode
---------------------------------- */
-
+// Load edit event if applicable
 loadEditEvent();
 
 
-/* ---------------------------------
-   Create or update event
---------------------------------- */
+// ===============================
+// CREATE / UPDATE EVENT
+// ===============================
 
 createBtn.addEventListener(
   "click",
   async () => {
 
-    status.textContent = "";
+    status.textContent =
+      "";
 
 
-    /* -------------------------------
-       Make sure edit event finished
-    ------------------------------- */
+    // ===============================
+    // EDIT LOADING CHECK
+    // ===============================
 
     if (
       isEditMode &&
@@ -395,24 +410,14 @@ createBtn.addEventListener(
     }
 
 
-    /* -------------------------------
-       Get package
-    ------------------------------- */
+    // ===============================
+    // PACKAGE
+    // ===============================
 
-    let currentPackage;
-
-
-    if (isEditMode) {
-
-      currentPackage =
-        editPackage;
-
-    } else {
-
-      currentPackage =
-        window.selectedCapturedPackage;
-
-    }
+    let currentPackage =
+      isEditMode
+        ? editPackage
+        : window.selectedCapturedPackage;
 
 
     console.log(
@@ -420,10 +425,6 @@ createBtn.addEventListener(
       currentPackage
     );
 
-
-    /* -------------------------------
-       Validate package
-    ------------------------------- */
 
     if (
       currentPackage !== "instant" &&
@@ -438,9 +439,9 @@ createBtn.addEventListener(
     }
 
 
-    /* -------------------------------
-       Get event information
-    ------------------------------- */
+    // ===============================
+    // EVENT NAME
+    // ===============================
 
     const name =
       eventName.value.trim();
@@ -458,6 +459,10 @@ createBtn.addEventListener(
     }
 
 
+    // ===============================
+    // EVENT DATE
+    // ===============================
+
     if (!eventDate.value) {
 
       status.textContent =
@@ -467,6 +472,10 @@ createBtn.addEventListener(
 
     }
 
+
+    // ===============================
+    // TIMES
+    // ===============================
 
     if (
       !startTime.value ||
@@ -494,9 +503,9 @@ createBtn.addEventListener(
     }
 
 
-    /* -------------------------------
-       Get TV choice
-    ------------------------------- */
+    // ===============================
+    // TV
+    // ===============================
 
     const selectedTV =
       document.querySelector(
@@ -510,9 +519,9 @@ createBtn.addEventListener(
         : true;
 
 
-    /* -------------------------------
-       Get theme
-    ------------------------------- */
+    // ===============================
+    // THEME
+    // ===============================
 
     const selectedTheme =
       document.querySelector(
@@ -521,9 +530,9 @@ createBtn.addEventListener(
       "classic";
 
 
-    /* -------------------------------
-       Get background
-    ------------------------------- */
+    // ===============================
+    // BACKGROUND
+    // ===============================
 
     const selectedBackground =
       document.querySelector(
@@ -532,9 +541,9 @@ createBtn.addEventListener(
       "default";
 
 
-    /* -------------------------------
-       Get Guestbook choice
-    ------------------------------- */
+    // ===============================
+    // GUESTBOOK
+    // ===============================
 
     const isGuestbookEnabled =
       guestbookEnabled
@@ -542,9 +551,9 @@ createBtn.addEventListener(
         : false;
 
 
-    /* -------------------------------
-       Package customization
-    ------------------------------- */
+    // ===============================
+    // DEFAULT VALUES
+    // ===============================
 
     let finalPrimaryColor =
       "#b97979";
@@ -558,6 +567,10 @@ createBtn.addEventListener(
     let finalBackground =
       "default";
 
+
+    // ===============================
+    // PLUS CUSTOMIZATION
+    // ===============================
 
     if (
       currentPackage === "plus"
@@ -578,11 +591,13 @@ createBtn.addEventListener(
     }
 
 
-    /* --------------------------------
-       Disable button
-    -------------------------------- */
+    // ===============================
+    // BUTTON STATE
+    // ===============================
 
-    createBtn.disabled = true;
+    createBtn.disabled =
+      true;
+
 
     createBtn.textContent =
       isEditMode
@@ -593,9 +608,9 @@ createBtn.addEventListener(
     try {
 
 
-      /* =================================
-         EDIT EXISTING EVENT
-      ================================= */
+      // =====================================================
+      // EDIT EXISTING EVENT
+      // =====================================================
 
       if (isEditMode) {
 
@@ -652,7 +667,9 @@ createBtn.addEventListener(
 
 
         if (updateError) {
+
           throw updateError;
+
         }
 
 
@@ -677,13 +694,15 @@ createBtn.addEventListener(
       }
 
 
-      /* =================================
-         CREATE NEW EVENT
-      ================================= */
+      // =====================================================
+      // CREATE NEW EVENT
+      // =====================================================
 
-      let code = null;
+      let code =
+        null;
 
-      let attempts = 0;
+      let attempts =
+        0;
 
 
       while (
@@ -709,12 +728,17 @@ createBtn.addEventListener(
 
 
         if (checkError) {
+
           throw checkError;
+
         }
 
 
         if (!existing) {
-          code = possibleCode;
+
+          code =
+            possibleCode;
+
         }
 
 
@@ -732,9 +756,9 @@ createBtn.addEventListener(
       }
 
 
-      /* -----------------------------
-         Create event
-      ----------------------------- */
+      // =====================================================
+      // INSERT EVENT
+      // =====================================================
 
       const {
         data: event,
@@ -790,13 +814,15 @@ createBtn.addEventListener(
 
 
       if (eventError) {
+
         throw eventError;
+
       }
 
 
-      /* -----------------------------
-         Create TV/photo session
-      ----------------------------- */
+      // =====================================================
+      // CREATE SESSION
+      // =====================================================
 
       const {
         error: sessionError
@@ -815,6 +841,10 @@ createBtn.addEventListener(
         });
 
 
+      // =====================================================
+      // ROLLBACK EVENT IF SESSION FAILS
+      // =====================================================
+
       if (sessionError) {
 
         await supabase
@@ -830,15 +860,19 @@ createBtn.addEventListener(
       }
 
 
-      /* -----------------------------
-         Save temporary event code
-      ----------------------------- */
+      // =====================================================
+      // SAVE EVENT CODE
+      // =====================================================
 
       sessionStorage.setItem(
         "cptv_event_code",
         code
       );
 
+
+      // =====================================================
+      // CONSOLE LOGS
+      // =====================================================
 
       console.log(
         "EVENT CREATED:",
@@ -861,17 +895,15 @@ createBtn.addEventListener(
       );
 
 
-      /* -----------------------------
-         Continue
-      ----------------------------- */
+      // =====================================================
+      // GO TO EVENT CREATED PAGE
+      // =====================================================
 
       location.href =
         `event-created.html?code=${code}`;
 
-    }
 
-
-    catch (error) {
+    } catch (error) {
 
       console.error(
         "EVENT SAVE ERROR:",
@@ -883,7 +915,8 @@ createBtn.addEventListener(
         "Could not save the event. Please try again.";
 
 
-      createBtn.disabled = false;
+      createBtn.disabled =
+        false;
 
 
       createBtn.textContent =
