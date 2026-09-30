@@ -25,6 +25,7 @@
       --warm-white: #fffdf8;
       --white: #ffffff;
       --border: #e5e7eb;
+      --gold: #c8a24a;
     }
 
     * {
@@ -573,11 +574,11 @@
     }
 
     .pricing-grid {
-      max-width: 950px;
+      max-width: 1150px;
       margin: auto;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
       align-items: stretch;
     }
 
@@ -596,6 +597,12 @@
         0 20px 50px rgba(124, 58, 237, 0.15);
     }
 
+    .business-pricing {
+      border: 2px solid var(--gold);
+      box-shadow:
+        0 20px 50px rgba(200, 162, 74, 0.14);
+    }
+
     .popular-badge {
       position: absolute;
       top: -13px;
@@ -606,6 +613,21 @@
         var(--purple),
         var(--blue)
       );
+      color: white;
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .business-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
       color: white;
       padding: 7px 16px;
       border-radius: 999px;
@@ -640,6 +662,14 @@
         135deg,
         var(--purple),
         #a855f7
+      );
+    }
+
+    .gold-icon {
+      background: linear-gradient(
+        135deg,
+        var(--gold),
+        #e0bd68
       );
     }
 
@@ -706,6 +736,11 @@
         var(--blue),
         var(--purple)
       );
+    }
+
+    .business-pricing-button {
+      color: white;
+      background: var(--gold);
     }
 
     .included-title {
@@ -886,6 +921,15 @@
 
     /* MOBILE */
 
+    @media (max-width: 1000px) {
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 560px;
+      }
+
+    }
+
     @media (max-width: 850px) {
 
       .nav-links {
@@ -929,11 +973,6 @@
 
       .event-grid {
         grid-template-columns: repeat(2, 1fr);
-      }
-
-      .pricing-grid {
-        grid-template-columns: 1fr;
-        max-width: 520px;
       }
 
       .cta h2 {
@@ -1039,10 +1078,22 @@
       </a>
 
       <div class="nav-links">
-        <a href="#how-it-works">How It Works</a>
-        <a href="#events">Events</a>
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
+
+        <a href="#how-it-works">
+          How It Works
+        </a>
+
+        <a href="#events">
+          Events
+        </a>
+
+        <a href="#features">
+          Features
+        </a>
+
+        <a href="#pricing">
+          Pricing
+        </a>
 
         <a
           href="create-event.html"
@@ -1615,6 +1666,70 @@
           <li>✓ Custom event branding</li>
           <li>✓ Larger photo file limits</li>
           <li>✓ Gallery available for 1 year</li>
+
+        </ul>
+
+      </div>
+
+
+      <!-- CAPTURED MOMENTS BUSINESS -->
+
+      <div class="pricing-card business-pricing">
+
+        <div class="business-badge">
+          EVERYTHING INCLUDED
+        </div>
+
+        <div class="pricing-icon gold-icon">
+          ✦
+        </div>
+
+        <h3>
+          Captured Moments Business
+        </h3>
+
+        <p class="pricing-description">
+          The complete event experience with guestbook and RSVP features included.
+        </p>
+
+        <div class="price">
+
+          <span class="price-amount">
+            $59
+          </span>
+
+          <span class="price-period">
+            / event
+          </span>
+
+        </div>
+
+        <p class="price-note">
+          Perfect for large celebrations, weddings,
+          organizations, and fully customized events.
+        </p>
+
+        <a
+          href="create-event.html?package=business"
+          class="pricing-button business-pricing-button"
+        >
+          Get Started
+        </a>
+
+        <div class="included-title">
+          Everything in Captured Moments Plus, plus
+        </div>
+
+        <ul class="feature-list">
+
+          <li>✓ Digital Guestbook</li>
+          <li>✓ RSVP Service</li>
+          <li>✓ Unlimited photos</li>
+          <li>✓ Full event customization</li>
+          <li>✓ Premium themes</li>
+          <li>✓ Custom event branding</li>
+          <li>✓ 1-year gallery</li>
+          <li>✓ All available features included</li>
 
         </ul>
 
