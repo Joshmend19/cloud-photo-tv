@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Event Ready | Captured Moments</title>
+  <title>Manage Event | Captured Moments</title>
 
   <style>
     * {
@@ -31,9 +31,12 @@
 
     header {
       background: white;
-      padding: 22px 20px;
-      text-align: center;
+      padding: 18px 25px;
       border-bottom: 1px solid #eee;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .brand {
@@ -42,9 +45,15 @@
       color: #b08d57;
     }
 
+    .dashboard-link {
+      color: #8c7045;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
     .container {
-      max-width: 950px;
-      margin: 45px auto;
+      max-width: 1050px;
+      margin: 40px auto;
       padding: 0 20px;
     }
 
@@ -54,25 +63,27 @@
     }
 
     .success-icon {
-      width: 75px;
-      height: 75px;
-      margin: 0 auto 20px;
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 18px;
       border-radius: 50%;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       background: #f0e4d4;
-      font-size: 38px;
+      font-size: 35px;
     }
 
     h1 {
       margin: 0 0 10px;
-      font-size: 36px;
+      font-size: 34px;
     }
 
     .hero p {
       color: #777;
-      font-size: 17px;
+      font-size: 16px;
       margin: 0;
     }
 
@@ -141,11 +152,15 @@
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     }
 
+    .section-title {
+      margin: 35px 0 15px;
+      font-size: 22px;
+    }
+
     .links-section {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 18px;
-      margin-top: 25px;
     }
 
     .link-card {
@@ -192,11 +207,9 @@
       font-size: 14px;
     }
 
-    #rsvpLink {
-      display: none;
-    }
-
-    #guestbookLink {
+    #rsvpLink,
+    #guestbookLink,
+    #tvLink {
       display: none;
     }
 
@@ -211,9 +224,22 @@
       color: #765f38;
     }
 
-    .edit-section {
+    .manage-section {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      margin-top: 25px;
       text-align: center;
-      margin-top: 30px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    .manage-section h2 {
+      margin-top: 0;
+    }
+
+    .manage-section p {
+      color: #777;
+      margin-bottom: 20px;
     }
 
     .edit-button {
@@ -234,19 +260,21 @@
       margin: 35px 0;
     }
 
-    @media (max-width: 850px) {
-      .links-section {
-        grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 650px) {
+      header {
+        padding: 18px;
       }
-    }
 
-    @media (max-width: 600px) {
+      .brand {
+        font-size: 21px;
+      }
+
       .container {
         margin: 30px auto;
       }
 
       h1 {
-        font-size: 30px;
+        font-size: 29px;
       }
 
       .event-name {
@@ -269,44 +297,72 @@
   <div class="top-bar"></div>
 
   <header>
-    <div class="brand">Captured Moments</div>
+    <div class="brand">
+      Captured Moments
+    </div>
+
+    <a
+      href="dashboard.html"
+      class="dashboard-link"
+    >
+      ← Dashboard
+    </a>
   </header>
 
   <main class="container">
 
     <section class="hero">
-      <div class="success-icon">✓</div>
 
-      <h1>Your Event Is Ready!</h1>
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <h1>
+        Manage Your Event
+      </h1>
 
       <p>
-        Everything is set up. Share your event links with your guests.
+        Everything you need to manage and share your event.
       </p>
+
     </section>
 
     <section class="event-card">
 
-      <div class="event-name" id="eventName">
+      <div
+        class="event-name"
+        id="eventName"
+      >
         Your Event
       </div>
 
-      <div class="event-date" id="eventDate">
+      <div
+        class="event-date"
+        id="eventDate"
+      >
         Loading event information...
       </div>
 
       <div class="code-box">
+
         <div class="code-label">
           Event Code
         </div>
 
-        <div class="event-code" id="eventCode">
+        <div
+          class="event-code"
+          id="eventCode"
+        >
           ------
         </div>
+
       </div>
 
       <div class="qr-section">
 
-        <h2>Guest Upload QR Code</h2>
+        <h2>
+          Guest Upload QR Code
+        </h2>
 
         <p>
           Guests can scan this QR code to upload photos to your event.
@@ -318,26 +374,49 @@
 
     </section>
 
+    <h2 class="section-title">
+      Event Tools
+    </h2>
+
     <div class="links-section">
 
-      <a id="tvLink" class="link-card" href="#">
-        <div class="link-icon">📺</div>
+      <a
+        id="tvLink"
+        class="link-card"
+        href="#"
+      >
 
-        <h3>TV Display</h3>
+        <div class="link-icon">
+          📺
+        </div>
+
+        <h3>
+          TV Display
+        </h3>
 
         <p>
-          Open this page on the TV to display your event photos live.
+          Display event photos live on a TV during your event.
         </p>
 
         <span class="link-button">
           Open TV Display →
         </span>
+
       </a>
 
-      <a id="galleryLink" class="link-card" href="#">
-        <div class="link-icon">🖼️</div>
+      <a
+        id="galleryLink"
+        class="link-card"
+        href="#"
+      >
 
-        <h3>Event Gallery</h3>
+        <div class="link-icon">
+          🖼️
+        </div>
+
+        <h3>
+          Event Gallery
+        </h3>
 
         <p>
           View and download the photos from your event.
@@ -346,50 +425,86 @@
         <span class="link-button">
           Open Gallery →
         </span>
+
       </a>
 
-      <a id="rsvpLink" class="link-card" href="#">
-        <div class="link-icon">📋</div>
+      <a
+        id="rsvpLink"
+        class="link-card"
+        href="#"
+      >
 
-        <h3>RSVP</h3>
+        <div class="link-icon">
+          📋
+        </div>
+
+        <h3>
+          RSVP
+        </h3>
 
         <p>
-          Share this link with guests before
-          your event so they can RSVP.
+          Share your RSVP page with guests before the event.
         </p>
 
         <span class="link-button">
           Open RSVP Page →
         </span>
+
       </a>
 
-      <a id="guestbookLink" class="link-card" href="#">
-        <div class="link-icon">💌</div>
+      <a
+        id="guestbookLink"
+        class="link-card"
+        href="#"
+      >
 
-        <h3>Guestbook</h3>
+        <div class="link-icon">
+          💌
+        </div>
+
+        <h3>
+          Guestbook
+        </h3>
 
         <p>
-          Share this link with guests so they can leave
-          a message for the host.
+          Share your Guestbook with guests so they can leave messages.
         </p>
 
         <span class="link-button">
           Open Guestbook →
         </span>
+
       </a>
 
     </div>
 
-    <div class="no-tv" id="noTvNotice">
+    <div
+      class="no-tv"
+      id="noTvNotice"
+    >
       This event does not have TV display enabled.
       Guests can still upload photos and use the event gallery.
     </div>
 
-    <div class="edit-section">
-      <a id="editEventLink" class="edit-button" href="#">
+    <section class="manage-section">
+
+      <h2>
+        Event Settings
+      </h2>
+
+      <p>
+        Need to change your event details, theme, colors, or options?
+      </p>
+
+      <a
+        id="editEventLink"
+        class="edit-button"
+        href="#"
+      >
         Edit Event
       </a>
-    </div>
+
+    </section>
 
     <div class="footer">
       Captured Moments · Your moments, captured and shared.
@@ -397,7 +512,10 @@
 
   </main>
 
-  <script type="module" src="event-created.js"></script>
+  <script
+    type="module"
+    src="event-created.js"
+  ></script>
 
 </body>
 </html>
