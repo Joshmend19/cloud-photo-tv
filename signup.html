@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Create Account | Captured Moments</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f5f2;
+      color: #2f2a27;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-bar {
+      height: 8px;
+      background: linear-gradient(
+        90deg,
+        #c9a27e,
+        #e8d5c0,
+        #b88962
+      );
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5ddd6;
+      padding: 22px 20px;
+      text-align: center;
+    }
+
+    .brand {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .signup-card {
+      width: 100%;
+      max-width: 460px;
+      background: white;
+      border-radius: 20px;
+      padding: 34px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.07);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 30px;
+      text-align: center;
+    }
+
+    .subtitle {
+      margin: 10px 0 28px;
+      text-align: center;
+      color: #746b65;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #d8cec5;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-bottom: 18px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #b88962;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      background: #2f2a27;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.92;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .error {
+      color: #a33a3a;
+    }
+
+    .success {
+      color: #34734a;
+    }
+
+    .login-link {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 14px;
+      color: #746b65;
+    }
+
+    .login-link a {
+      color: #8b6040;
+      font-weight: 700;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar"></div>
+
+  <header>
+    <div class="brand">
+      Captured Moments
+    </div>
+  </header>
+
+  <main>
+
+    <section class="signup-card">
+
+      <h1>Create Your Account</h1>
+
+      <p class="subtitle">
+        Create an account to manage your events and guest information.
+      </p>
+
+      <form id="signupForm">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="you@example.com"
+          required
+        >
+
+        <label for="password">
+          Password
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          placeholder="Create a password"
+          minlength="6"
+          required
+        >
+
+        <label for="confirmPassword">
+          Confirm Password
+        </label>
+
+        <input
+          id="confirmPassword"
+          type="password"
+          placeholder="Enter your password again"
+          minlength="6"
+          required
+        >
+
+        <button
+          id="signupButton"
+          type="submit"
+        >
+          Create Account
+        </button>
+
+      </form>
+
+      <div
+        id="status"
+        class="status"
+      ></div>
+
+      <div class="login-link">
+        Already have an account?
+        <a href="login.html">
+          Log in
+        </a>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script
+    type="module"
+    src="signup.js"
+  ></script>
+
+</body>
+</html>
