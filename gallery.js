@@ -34,8 +34,45 @@ const status =
 const downloadAllBtn =
   document.getElementById("downloadAllBtn");
 
+const rsvpSection =
+  document.getElementById("rsvpSection");
+
+const rsvpForm =
+  document.getElementById("rsvpForm");
+
+const rsvpName =
+  document.getElementById("rsvpName");
+
+const rsvpEmail =
+  document.getElementById("rsvpEmail");
+
+const guestCount =
+  document.getElementById("guestCount");
+
+const rsvpMessage =
+  document.getElementById("rsvpMessage");
+
+const submitRsvpBtn =
+  document.getElementById("submitRsvpBtn");
+
+const rsvpMessageStatus =
+  document.getElementById(
+    "rsvpMessageStatus"
+  );
+
+const guestCountGroup =
+  document.getElementById(
+    "guestCountGroup"
+  );
+
 let photos = [];
 
+let currentEvent = null;
+
+
+/* ---------------------------------
+   Load gallery
+--------------------------------- */
 
 async function loadGallery() {
 
@@ -51,12 +88,16 @@ async function loadGallery() {
       "No event code was provided.";
 
     return;
+
   }
 
 
   try {
 
-    // Get the event
+    /* ---------------------------------
+       Get event
+    --------------------------------- */
+
     const {
       data: event,
       error: eventError
@@ -73,6 +114,19 @@ async function loadGallery() {
     }
 
 
+    if (!event) {
+
+      throw new Error(
+        "Event not found."
+      );
+
+    }
+
+
+    currentEvent =
+      event;
+
+
     eventName.textContent =
       event.event_name;
 
@@ -80,7 +134,25 @@ async function loadGallery() {
       `EVENT ${event.code}`;
 
 
-    // Get all photos for this event
+    /* ---------------------------------
+       Show RSVP if enabled
+    --------------------------------- */
+
+    if (
+      event.rsvp_enabled === true &&
+      rsvpSection
+    ) {
+
+      rsvpSection.style.display =
+        "block";
+
+    }
+
+
+    /* ---------------------------------
+       Get photos
+    --------------------------------- */
+
     const {
       data,
       error
@@ -88,7 +160,10 @@ async function loadGallery() {
       await supabase
         .from("photos")
         .select("*")
-        .eq("event_id", event.id)
+        .eq(
+          "event_id",
+          event.id
+        )
         .order(
           "created_at",
           {
@@ -124,6 +199,10 @@ async function loadGallery() {
 }
 
 
+/* ---------------------------------
+   Render gallery
+--------------------------------- */
+
 function renderGallery() {
 
   gallery.innerHTML =
@@ -145,11 +224,14 @@ function renderGallery() {
       </div>
     `;
 
+
     if (downloadAllBtn) {
       downloadAllBtn.disabled = true;
     }
 
+
     return;
+
   }
 
 
@@ -259,6 +341,221 @@ function renderGallery() {
 }
 
 
+/* ---------------------------------
+   RSVP attendance selection
+--------------------------------- */
+
+const attendanceInputs =
+  document.querySelectorAll(
+    'input[name="attending"]'
+  );
+
+
+attendanceInputs.forEach(
+  input => {
+
+    input.addEventListener(
+      "change",
+      () => {
+
+        if (
+          input.value === "false" &&
+          input.checked
+        ) {
+
+          guestCount.value =
+            "1";
+
+          guestCountGroup.style.display =
+            "none";
+
+        }
+
+
+        if (
+          input.value === "true" &&
+          input.checked
+        ) {
+
+          guestCountGroup.style.display =
+            "grid";
+
+        }
+
+      }
+    );
+
+  }
+);
+
+
+/* ---------------------------------
+   Submit RSVP
+--------------------------------- */
+
+if (rsvpForm) {
+
+  rsvpForm.addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      if (!currentEvent) {
+
+        rsvpMessageStatus.textContent =
+          "Event information has not loaded yet.";
+
+        return;
+
+      }
+
+
+      const selectedAttendance =
+        document.querySelector(
+          'input[name="attending"]:checked'
+        );
+
+
+      if (!selectedAttendance) {
+
+        rsvpMessageStatus.textContent =
+          "Please choose whether you are attending.";
+
+        return;
+
+      }
+
+
+      const name =
+        rsvpName.value.trim();
+
+      const email =
+        rsvpEmail.value.trim();
+
+      const attending =
+        selectedAttendance.value === "true";
+
+      const numberOfGuests =
+        attending
+          ? Number(guestCount.value)
+          : 1;
+
+      const message =
+        rsvpMessage.value.trim();
+
+
+      if (!name) {
+
+        rsvpMessageStatus.textContent =
+          "Please enter your name.";
+
+        rsvpName.focus();
+
+        return;
+
+      }
+
+
+      submitRsvpBtn.disabled =
+        true;
+
+      submitRsvpBtn.textContent =
+        "Submitting…";
+
+      rsvpMessageStatus.textContent =
+        "";
+
+
+      try {
+
+        const {
+          error
+        } =
+          await supabase
+            .from("rsvps")
+            .insert({
+
+              event_id:
+                currentEvent.id,
+
+              name,
+
+              email:
+                email || null,
+
+              attending,
+
+              guest_count:
+                numberOfGuests,
+
+              message:
+                message || null
+
+            });
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        rsvpForm.innerHTML = `
+          <div class="rsvp-success">
+            Thank you, ${escapeHtml(name)}! Your RSVP has been submitted.
+          </div>
+        `;
+
+
+      } catch (error) {
+
+        console.error(
+          "RSVP ERROR:",
+          error
+        );
+
+
+        rsvpMessageStatus.textContent =
+          "Could not submit your RSVP. Please try again.";
+
+        submitRsvpBtn.disabled =
+          false;
+
+        submitRsvpBtn.textContent =
+          "Submit RSVP";
+
+      }
+
+    }
+  );
+
+}
+
+
+/* ---------------------------------
+   Escape HTML
+--------------------------------- */
+
+function escapeHtml(value) {
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+  div.textContent =
+    value;
+
+  return div.innerHTML;
+
+}
+
+
+/* ---------------------------------
+   Download all photos
+--------------------------------- */
+
 if (downloadAllBtn) {
 
   downloadAllBtn.addEventListener(
@@ -293,7 +590,7 @@ if (downloadAllBtn) {
           photo.url;
 
         link.download =
-          `instant-moments-${i + 1}.jpg`;
+          `captured-moments-${i + 1}.jpg`;
 
         link.target =
           "_blank";
@@ -327,5 +624,9 @@ if (downloadAllBtn) {
 
 }
 
+
+/* ---------------------------------
+   Start
+--------------------------------- */
 
 loadGallery();
