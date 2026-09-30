@@ -165,6 +165,26 @@ if (!code) {
 
 
     /* -------------------------------
+       Apply saved event colors
+    ------------------------------- */
+
+    document.documentElement.style.setProperty(
+      "--primary-color",
+      event.primary_color || "#2563eb"
+    );
+
+    document.documentElement.style.setProperty(
+      "--secondary-color",
+      event.secondary_color || "#fffdf8"
+    );
+
+    document.documentElement.style.setProperty(
+      "--accent-color",
+      event.accent_color || "#c8a24a"
+    );
+
+
+    /* -------------------------------
        Event URLs
     ------------------------------- */
 
@@ -307,6 +327,21 @@ if (!code) {
     console.log(
       "Gallery URL:",
       galleryUrl
+    );
+
+    console.log(
+      "Primary color:",
+      event.primary_color
+    );
+
+    console.log(
+      "Secondary color:",
+      event.secondary_color
+    );
+
+    console.log(
+      "Accent color:",
+      event.accent_color
     );
 
 
