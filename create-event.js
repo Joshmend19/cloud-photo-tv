@@ -62,9 +62,17 @@ const editCode =
 const selectedPackage =
   params.get("package");
 
-
 const isEditMode =
   Boolean(editCode);
+
+
+/* ---------------------------------
+   Existing package for edit mode
+--------------------------------- */
+
+let editPackage = null;
+
+let editLoaded = !isEditMode;
 
 
 /* ---------------------------------
@@ -106,8 +114,11 @@ async function loadEditEvent() {
 
   try {
 
+    createBtn.disabled = true;
+
     status.textContent =
       "Loading your event…";
+
 
     const {
       data: event,
@@ -124,34 +135,90 @@ async function loadEditEvent() {
       throw error;
     }
 
+    if (!event) {
+      throw new Error(
+        "Event not found."
+      );
+    }
+
+
+    console.log(
+      "EDIT EVENT LOADED:",
+      event
+    );
+
+
+    /* -------------------------------
+       Save existing package
+    ------------------------------- */
+
+    editPackage =
+      event.package || "instant";
+
+
+    if (
+      editPackage !== "instant" &&
+      editPackage !== "plus"
+    ) {
+
+      editPackage =
+        "instant";
+
+    }
+
+
+    console.log(
+      "EDIT PACKAGE:",
+      editPackage
+    );
+
 
     /* -------------------------------
        Fill basic information
     ------------------------------- */
 
-    eventType.value =
-      event.event_type;
+    if (eventType) {
+      eventType.value =
+        event.event_type || "";
+    }
 
-    eventName.value =
-      event.event_name;
+    if (eventName) {
+      eventName.value =
+        event.event_name || "";
+    }
 
-    eventDate.value =
-      event.event_date;
+    if (eventDate) {
+      eventDate.value =
+        event.event_date || "";
+    }
 
-    startTime.value =
-      event.start_time.slice(0, 5);
+    if (startTime) {
+      startTime.value =
+        event.start_time
+          ? event.start_time.slice(0, 5)
+          : "";
+    }
 
-    endTime.value =
-      event.end_time.slice(0, 5);
+    if (endTime) {
+      endTime.value =
+        event.end_time
+          ? event.end_time.slice(0, 5)
+          : "";
+    }
 
 
     /* -------------------------------
        Fill TV choice
     ------------------------------- */
 
+    const tvValue =
+      event.has_tv === false
+        ? "false"
+        : "true";
+
     const tvChoice =
       document.querySelector(
-        `input[name="hasTV"][value="${event.has_tv ? "true" : "false"}"]`
+        `input[name="hasTV"][value="${tvValue}"]`
       );
 
     if (tvChoice) {
@@ -177,13 +244,29 @@ async function loadEditEvent() {
        Fill background
     ------------------------------- */
 
+    const backgroundValue =
+      event.background || "default";
+
     const backgroundChoice =
       document.querySelector(
-        `input[name="background"][value="${event.background}"]`
+        `input[name="background"][value="${backgroundValue}"]`
       );
 
     if (backgroundChoice) {
+
       backgroundChoice.checked = true;
+
+    } else {
+
+      const classicBackground =
+        document.querySelector(
+          'input[name="background"][value="default"]'
+        );
+
+      if (classicBackground) {
+        classicBackground.checked = true;
+      }
+
     }
 
 
@@ -192,45 +275,41 @@ async function loadEditEvent() {
     ------------------------------- */
 
     if (primaryColor) {
+
       primaryColor.value =
-        event.primary_color || "#b97979";
+        event.primary_color ||
+        "#b97979";
+
     }
 
     if (secondaryColor) {
+
       secondaryColor.value =
-        event.secondary_color || "#fffaf8";
+        event.secondary_color ||
+        "#fffaf8";
+
     }
 
     if (accentColor) {
+
       accentColor.value =
-        event.accent_color || "#c8a24a";
+        event.accent_color ||
+        "#c8a24a";
+
     }
 
 
     /* -------------------------------
-       Set package
+       Finish loading
     ------------------------------- */
 
-    const packageToUse =
-      event.package || "instant";
-
-    console.log(
-      "EDITING EVENT:",
-      event
-    );
-
-    console.log(
-      "EVENT PACKAGE:",
-      packageToUse
-    );
-
-
-    /* -------------------------------
-       Update button
-    ------------------------------- */
+    editLoaded = true;
 
     createBtn.textContent =
       "Save Event Changes";
+
+    createBtn.disabled =
+      false;
 
     status.textContent =
       "Your event details have been loaded.";
@@ -247,6 +326,8 @@ async function loadEditEvent() {
 
     createBtn.disabled =
       true;
+
+    editLoaded = false;
 
   }
 
@@ -272,50 +353,27 @@ createBtn.addEventListener(
 
 
     /* -------------------------------
+       Make sure edit event finished
+    ------------------------------- */
+
+    if (isEditMode && !editLoaded) {
+
+      status.textContent =
+        "Please wait for your event to finish loading.";
+
+      return;
+
+    }
+
+
+    /* -------------------------------
        Get package
     ------------------------------- */
 
     let currentPackage =
-      selectedPackage;
-
-
-    /* -------------------------------
-       If editing, get package
-       directly from the event
-    ------------------------------- */
-
-    if (isEditMode) {
-
-      const {
-        data: existingEvent,
-        error: existingEventError
-      } =
-        await supabase
-          .from("events")
-          .select("package")
-          .eq("code", editCode)
-          .single();
-
-
-      if (existingEventError) {
-
-        console.error(
-          "PACKAGE LOAD ERROR:",
-          existingEventError
-        );
-
-        status.textContent =
-          "Could not load the event package.";
-
-        return;
-
-      }
-
-
-      currentPackage =
-        existingEvent.package;
-
-    }
+      isEditMode
+        ? editPackage
+        : selectedPackage;
 
 
     /* -------------------------------
@@ -424,7 +482,7 @@ createBtn.addEventListener(
     const selectedBackground =
       document.querySelector(
         'input[name="background"]:checked'
-      )?.value || "classic";
+      )?.value || "default";
 
 
     /* -------------------------------
@@ -441,7 +499,7 @@ createBtn.addEventListener(
       "#c8a24a";
 
     let finalBackground =
-      "classic";
+      "default";
 
 
     if (
@@ -534,9 +592,7 @@ createBtn.addEventListener(
 
 
         if (updateError) {
-
           throw updateError;
-
         }
 
 
@@ -594,17 +650,12 @@ createBtn.addEventListener(
 
 
         if (checkError) {
-
           throw checkError;
-
         }
 
 
         if (!existing) {
-
-          code =
-            possibleCode;
-
+          code = possibleCode;
         }
 
 
@@ -678,9 +729,7 @@ createBtn.addEventListener(
 
 
       if (eventError) {
-
         throw eventError;
-
       }
 
 
