@@ -27,7 +27,6 @@
     .brand {
       font-size: 26px;
       font-weight: bold;
-      color: #172033;
     }
 
     .tagline {
@@ -37,9 +36,9 @@
     }
 
     main {
-      max-width: 850px;
+      max-width: 900px;
       margin: 40px auto;
-      padding: 0 20px 50px;
+      padding: 0 20px 60px;
     }
 
     .page-header {
@@ -48,61 +47,32 @@
     }
 
     .page-header h1 {
-      margin-bottom: 10px;
+      margin: 0 0 10px;
       font-size: 34px;
     }
 
     .page-header p {
+      margin: 0;
       color: #666;
-      font-size: 16px;
     }
 
     .form-section {
-      background: #ffffff;
+      background: white;
       border-radius: 16px;
       padding: 28px;
       margin-bottom: 24px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
     }
 
     .form-section h2 {
       margin-top: 0;
       margin-bottom: 8px;
-      font-size: 22px;
     }
 
     .section-description {
       color: #777;
       margin-top: 0;
       margin-bottom: 22px;
-    }
-
-    label.field-label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    input[type="text"],
-    input[type="date"],
-    input[type="time"],
-    select {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #d8d2ce;
-      border-radius: 9px;
-      font-size: 15px;
-      background: #fff;
-    }
-
-    .field {
-      margin-bottom: 20px;
-    }
-
-    .two-column {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
     }
 
     .package-section {
@@ -112,43 +82,43 @@
     .package-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      gap: 22px;
     }
 
     .package-card {
-      border: 2px solid #ddd;
-      border-radius: 15px;
-      padding: 24px;
+      border: 2px solid #e2d9d4;
+      border-radius: 16px;
+      padding: 25px;
       background: #fff;
     }
 
     .package-card h3 {
       margin-top: 0;
-      font-size: 21px;
+      font-size: 23px;
     }
 
     .package-price {
-      font-size: 25px;
+      font-size: 30px;
       font-weight: bold;
-      margin: 12px 0;
+      margin: 10px 0;
     }
 
     .package-card ul {
       padding-left: 20px;
-      line-height: 1.7;
       color: #555;
+      line-height: 1.7;
     }
 
     .package-button {
       width: 100%;
+      padding: 14px;
       border: none;
       border-radius: 9px;
-      padding: 13px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
       background: #b97979;
       color: white;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
     }
 
     .package-button:hover {
@@ -178,21 +148,49 @@
 
     .selected-package-name {
       font-weight: bold;
-      font-size: 18px;
+      font-size: 19px;
     }
 
     .selected-package-description {
-      color: #777;
       margin-top: 5px;
+      color: #777;
     }
 
     .change-package {
-      display: inline-block;
       margin-top: 12px;
+      display: inline-block;
       color: #a45f5f;
-      cursor: pointer;
-      font-size: 14px;
       font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d8d2ce;
+      border-radius: 9px;
+      font-size: 15px;
+      background: white;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
     }
 
     .radio-grid {
@@ -237,10 +235,10 @@
     }
 
     .locked-message {
-      font-size: 13px;
       color: #a45f5f;
-      margin-top: 8px;
+      font-size: 13px;
       font-weight: bold;
+      margin-top: 10px;
     }
 
     .guestbook-option {
@@ -257,7 +255,11 @@
     }
 
     .guestbook-option input {
-      margin-top: 4px;
+      margin-top: 5px;
+    }
+
+    .guestbook-icon {
+      font-size: 24px;
     }
 
     .guestbook-option strong {
@@ -271,10 +273,6 @@
       font-size: 14px;
     }
 
-    .guestbook-icon {
-      font-size: 24px;
-    }
-
     .submit-section {
       text-align: center;
       margin-top: 30px;
@@ -283,14 +281,14 @@
     #createBtn {
       width: 100%;
       max-width: 500px;
+      padding: 16px;
       border: none;
       border-radius: 10px;
-      padding: 16px;
+      background: #b97979;
+      color: white;
       font-size: 17px;
       font-weight: bold;
       cursor: pointer;
-      background: #b97979;
-      color: white;
     }
 
     #createBtn:disabled {
@@ -310,10 +308,6 @@
       .radio-grid,
       .color-grid {
         grid-template-columns: 1fr;
-      }
-
-      main {
-        margin-top: 25px;
       }
     }
   </style>
@@ -335,8 +329,12 @@
       </p>
     </div>
 
+
     <!-- PACKAGE SELECTION -->
-    <section class="form-section package-section" id="packageSection">
+    <section
+      class="form-section package-section"
+      id="packageSection"
+    >
 
       <h2>Choose Your Package</h2>
 
@@ -347,9 +345,12 @@
       <div class="package-grid">
 
         <div class="package-card">
+
           <h3>Captured Moments</h3>
 
-          <div class="package-price">$19</div>
+          <div class="package-price">
+            $19
+          </div>
 
           <p>per event</p>
 
@@ -372,12 +373,17 @@
           >
             Choose Captured Moments
           </button>
+
         </div>
 
+
         <div class="package-card">
+
           <h3>Captured Moments Plus</h3>
 
-          <div class="package-price">$39</div>
+          <div class="package-price">
+            $39
+          </div>
 
           <p>per event</p>
 
@@ -400,19 +406,28 @@
           >
             Choose Captured Moments Plus
           </button>
+
         </div>
 
       </div>
+
     </section>
 
 
     <!-- SETUP -->
     <section id="setupSection">
 
-      <!-- SELECTED PACKAGE -->
-      <div class="selected-package" id="selectedPackageBox">
 
-        <div class="selected-package-name" id="selectedPackageName"></div>
+      <!-- SELECTED PACKAGE -->
+      <div
+        class="selected-package"
+        id="selectedPackageBox"
+      >
+
+        <div
+          class="selected-package-name"
+          id="selectedPackageName"
+        ></div>
 
         <div
           class="selected-package-description"
@@ -437,6 +452,7 @@
         <p class="section-description">
           Tell us about your event.
         </p>
+
 
         <div class="field">
 
@@ -879,11 +895,13 @@
   </main>
 
 
-  <!-- PACKAGE SELECTION LOGIC -->
+  <!-- PACKAGE SELECTION -->
   <script>
 
     const urlParams =
-      new URLSearchParams(window.location.search);
+      new URLSearchParams(
+        window.location.search
+      );
 
     const packageFromUrl =
       urlParams.get("package");
@@ -894,6 +912,16 @@
 
     function selectPackage(packageName) {
 
+      /*
+        IMPORTANT:
+        Store the package directly on window.
+        This allows create-event.js to see
+        the selection immediately.
+      */
+      window.selectedCapturedPackage =
+        packageName;
+
+
       const url =
         new URL(window.location.href);
 
@@ -902,22 +930,34 @@
         packageName
       );
 
+
       window.history.replaceState(
         {},
         "",
         url
       );
 
-      showPackage(packageName);
+
+      showPackage(
+        packageName
+      );
+
     }
 
 
     function changePackage() {
 
+      window.selectedCapturedPackage =
+        null;
+
+
       const url =
         new URL(window.location.href);
 
-      url.searchParams.delete("package");
+      url.searchParams.delete(
+        "package"
+      );
+
 
       window.history.replaceState(
         {},
@@ -925,42 +965,67 @@
         url
       );
 
-      packageSection.style.display = "block";
 
-      setupSection.classList.remove("visible");
+      packageSection.style.display =
+        "block";
 
-      selectedPackageBox.classList.remove("visible");
+
+      setupSection.classList.remove(
+        "visible"
+      );
+
+
+      selectedPackageBox.classList.remove(
+        "visible"
+      );
+
     }
 
 
-    function showPackage(packageName) {
+    function showPackage(
+      packageName
+    ) {
 
-      packageSection.style.display = "none";
-
-      setupSection.classList.add("visible");
-
-      selectedPackageBox.classList.add("visible");
+      packageSection.style.display =
+        "none";
 
 
-      if (packageName === "plus") {
+      setupSection.classList.add(
+        "visible"
+      );
+
+
+      selectedPackageBox.classList.add(
+        "visible"
+      );
+
+
+      if (
+        packageName === "plus"
+      ) {
 
         selectedPackageName.textContent =
           "Captured Moments Plus";
 
+
         selectedPackageDescription.textContent =
           "$39 per event • Full customization";
+
 
         colorsSection.classList.remove(
           "locked-section"
         );
 
+
         backgroundSection.classList.remove(
           "locked-section"
         );
 
+
         logoSection.classList.remove(
           "locked-section"
         );
+
 
         enableCustomization();
 
@@ -969,23 +1034,30 @@
         selectedPackageName.textContent =
           "Captured Moments";
 
+
         selectedPackageDescription.textContent =
           "$19 per event • Standard event setup";
+
 
         colorsSection.classList.add(
           "locked-section"
         );
 
+
         backgroundSection.classList.add(
           "locked-section"
         );
+
 
         logoSection.classList.add(
           "locked-section"
         );
 
+
         disableCustomization();
+
       }
+
     }
 
 
@@ -995,11 +1067,15 @@
         .querySelectorAll(
           "#colorsSection input, #backgroundSection input, #logoSection input"
         )
-        .forEach(input => {
+        .forEach(
+          input => {
 
-          input.disabled = true;
+            input.disabled =
+              true;
 
-        });
+          }
+        );
+
     }
 
 
@@ -1009,11 +1085,15 @@
         .querySelectorAll(
           "#colorsSection input, #backgroundSection input, #logoSection input"
         )
-        .forEach(input => {
+        .forEach(
+          input => {
 
-          input.disabled = false;
+            input.disabled =
+              false;
 
-        });
+          }
+        );
+
     }
 
 
@@ -1022,16 +1102,20 @@
       packageSection.style.display =
         "none";
 
+
       selectedPackageBox.classList.remove(
         "visible"
       );
+
 
       setupSection.classList.add(
         "visible"
       );
 
+
       pageTitle.textContent =
         "Edit Your Event";
+
 
       pageSubtitle.textContent =
         "Update your event details and save your changes.";
@@ -1043,14 +1127,20 @@
       packageFromUrl === "plus"
     ) {
 
-      showPackage(packageFromUrl);
+      window.selectedCapturedPackage =
+        packageFromUrl;
+
+
+      showPackage(
+        packageFromUrl
+      );
 
     }
 
   </script>
 
 
-  <!-- THIS MUST BE THE LAST SCRIPT -->
+  <!-- CREATE EVENT JAVASCRIPT -->
   <script
     type="module"
     src="./create-event.js"
