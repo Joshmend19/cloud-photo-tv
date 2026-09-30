@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Dashboard | Captured Moments</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f5f2;
+      color: #2f2a27;
+    }
+
+    .top-bar {
+      height: 8px;
+      background: linear-gradient(
+        90deg,
+        #c9a27e,
+        #e8d5c0,
+        #b88962
+      );
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5ddd6;
+      padding: 18px 24px;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .logout-button {
+      border: 1px solid #d8cec5;
+      background: white;
+      color: #2f2a27;
+      border-radius: 9px;
+      padding: 10px 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .logout-button:hover {
+      background: #f7f5f2;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px 60px;
+    }
+
+    .welcome {
+      margin-bottom: 30px;
+    }
+
+    .welcome h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    .welcome p {
+      margin-top: 8px;
+      color: #746b65;
+    }
+
+    .create-button {
+      display: inline-block;
+      background: #2f2a27;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 13px 20px;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .events-section {
+      background: white;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .events-section h2 {
+      margin-top: 0;
+    }
+
+    .status {
+      color: #746b65;
+      margin: 20px 0;
+    }
+
+    .error {
+      color: #a33a3a;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .event-card {
+      border: 1px solid #e5ddd6;
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .event-card h3 {
+      margin: 0 0 8px;
+      font-size: 21px;
+    }
+
+    .event-date {
+      color: #746b65;
+      margin-bottom: 15px;
+    }
+
+    .event-code {
+      display: inline-block;
+      background: #f7f5f2;
+      padding: 6px 9px;
+      border-radius: 7px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .event-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .event-actions a {
+      text-decoration: none;
+      border-radius: 8px;
+      padding: 9px 12px;
+      background: #2f2a27;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 35px 20px;
+      color: #746b65;
+    }
+
+    @media (max-width: 700px) {
+      .events-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+      }
+
+      .welcome h1 {
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar"></div>
+
+  <header>
+    <div class="nav">
+
+      <div class="brand">
+        Captured Moments
+      </div>
+
+      <button
+        id="logoutButton"
+        class="logout-button"
+      >
+        Log Out
+      </button>
+
+    </div>
+  </header>
+
+  <main>
+
+    <section class="welcome">
+
+      <h1>
+        Your Dashboard
+      </h1>
+
+      <p>
+        Manage your events, RSVPs, guestbook, and galleries.
+      </p>
+
+      <a
+        href="create-event.html"
+        class="create-button"
+      >
+        Create New Event
+      </a>
+
+    </section>
+
+    <section class="events-section">
+
+      <h2>
+        Your Events
+      </h2>
+
+      <div
+        id="status"
+        class="status"
+      >
+        Loading your events...
+      </div>
+
+      <div
+        id="eventsGrid"
+        class="events-grid"
+      ></div>
+
+    </section>
+
+  </main>
+
+  <script
+    type="module"
+    src="dashboard.js"
+  ></script>
+
+</body>
+</html>
