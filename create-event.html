@@ -1,526 +1,481 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Create Your Event | Instant Moments</title>
+  <title>Create Your Event | Captured Moments</title>
 
   <style>
+    :root {
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --orange: #f97316;
+      --yellow: #facc15;
+      --navy: #172033;
+      --muted: #64748b;
+      --light: #f5f8ff;
+      --warm: #fffdf8;
+      --border: #e2e8f0;
+      --green: #22c55e;
+    }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
+      margin: 0;
       font-family:
+        Inter,
+        system-ui,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
         sans-serif;
-
-      color: #172033;
-
-      background:
-        radial-gradient(
-          circle at 5% 10%,
-          rgba(250, 204, 21, 0.14),
-          transparent 24%
-        ),
-
-        radial-gradient(
-          circle at 95% 15%,
-          rgba(124, 58, 237, 0.12),
-          transparent 25%
-        ),
-
-        #fffdf8;
-
-      min-height: 100vh;
-      line-height: 1.6;
+      background: var(--warm);
+      color: var(--navy);
     }
 
     a {
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
     }
-
-
-    /* =========================
-       NAVIGATION
-    ========================= */
 
     .navbar {
-      background: rgba(255, 253, 248, 0.96);
-
-      border-bottom: 1px solid #e9e7e2;
-
-      position: sticky;
-      top: 0;
-
-      z-index: 100;
-
-      backdrop-filter: blur(12px);
-    }
-
-    .nav-inner {
-      max-width: 1180px;
-
-      margin: auto;
-
-      padding: 17px 24px;
-
+      height: 76px;
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
+      padding: 0 6%;
+      background: white;
+      border-bottom: 1px solid #eef2f7;
     }
 
     .logo {
       display: flex;
-
       align-items: center;
-
       gap: 10px;
-
-      font-size: 21px;
-
+      font-size: 1.2rem;
       font-weight: 800;
-
-      letter-spacing: -0.6px;
     }
 
     .logo-mark {
-      width: 36px;
-      height: 36px;
-
+      width: 38px;
+      height: 38px;
       border-radius: 11px;
-
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
       background:
         linear-gradient(
           135deg,
-          #2563eb,
-          #7c3aed
+          var(--blue),
+          var(--purple)
         );
-
-      color: white;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      box-shadow:
-        0 5px 14px rgba(37, 99, 235, 0.25);
     }
 
-    .logo-text span {
-      color: #2563eb;
+    .logo span {
+      color: var(--blue);
     }
 
     .back-link {
-      color: #667085;
-
-      font-size: 14px;
-
+      color: var(--muted);
       font-weight: 600;
+      font-size: 0.95rem;
     }
 
     .back-link:hover {
-      color: #2563eb;
+      color: var(--blue);
     }
 
-
-    /* =========================
-       PAGE HEADER
-    ========================= */
+    .page {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 55px 20px 80px;
+    }
 
     .page-header {
       text-align: center;
-
-      padding: 65px 20px 35px;
-    }
-
-    .eyebrow {
-      display: inline-block;
-
-      background: #eef4ff;
-
-      color: #2563eb;
-
-      border: 1px solid #d8e5ff;
-
-      padding: 7px 13px;
-
-      border-radius: 999px;
-
-      font-size: 13px;
-
-      font-weight: 700;
-
-      margin-bottom: 17px;
+      margin-bottom: 38px;
     }
 
     .page-header h1 {
-      font-size:
-        clamp(38px, 5vw, 55px);
-
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
       line-height: 1.05;
-
-      letter-spacing: -2px;
-
-      margin-bottom: 14px;
-    }
-
-    .page-header h1 span {
-      color: #2563eb;
     }
 
     .page-header p {
-      color: #697386;
-
-      font-size: 17px;
-
-      max-width: 600px;
-
-      margin: auto;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
     }
 
+    /* PACKAGE SELECTION */
 
-    /* =========================
-       FORM CONTAINER
-    ========================= */
+    .package-section {
+      margin-bottom: 40px;
+    }
 
-    .form-wrapper {
-      width: min(900px, calc(100% - 32px));
+    .section-title {
+      text-align: center;
+      margin-bottom: 22px;
+    }
 
-      margin: 0 auto 80px;
+    .section-title h2 {
+      margin: 0 0 7px;
+      font-size: 1.6rem;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .package-card {
+      position: relative;
+      padding: 28px;
+      border: 2px solid var(--border);
+      border-radius: 22px;
+      background: white;
+      transition: 0.2s ease;
+    }
+
+    .package-card:hover {
+      border-color: #cbd5e1;
+      transform: translateY(-2px);
+    }
+
+    .package-card.plus {
+      border-color: var(--purple);
+      box-shadow:
+        0 15px 40px rgba(124, 58, 237, 0.12);
+    }
+
+    .popular {
+      position: absolute;
+      top: -13px;
+      right: 20px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--purple);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .package-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.4rem;
+    }
+
+    .price {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .price span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .package-card ul {
+      margin: 0 0 22px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .package-card li {
+      margin: 10px 0;
+      color: #475569;
+      font-size: 0.95rem;
+    }
+
+    .package-card li::before {
+      content: "✓";
+      margin-right: 8px;
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .package-button {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      background: var(--blue);
+      color: white;
+    }
+
+    .package-card.plus .package-button {
+      background: var(--purple);
+    }
+
+    /* SELECTED PACKAGE */
+
+    .selected-package {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 30px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: #eef4ff;
+      border: 1px solid #dbe7ff;
+    }
+
+    .selected-package.visible {
+      display: flex;
+    }
+
+    .selected-package strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .selected-package small {
+      color: var(--muted);
+    }
+
+    .change-package {
+      border: 0;
+      background: white;
+      color: var(--blue);
+      font-weight: 700;
+      padding: 9px 13px;
+      border-radius: 9px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* FORM */
+
+    .setup-section {
+      display: none;
+    }
+
+    .setup-section.visible {
+      display: block;
     }
 
     .form-card {
       background: white;
-
-      border: 1px solid #e1e5eb;
-
-      border-radius: 20px;
-
-      padding: 42px;
-
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
       box-shadow:
-        0 20px 55px rgba(23, 32, 51, 0.08);
+        0 15px 45px rgba(15, 23, 42, 0.05);
+      margin-bottom: 25px;
     }
-
-
-    /* =========================
-       FORM SECTIONS
-    ========================= */
 
     .form-section {
-      padding-bottom: 34px;
-
       margin-bottom: 34px;
-
-      border-bottom: 1px solid #edf0f4;
     }
 
-    .form-section:last-of-type {
-      border-bottom: none;
-
+    .form-section:last-child {
       margin-bottom: 0;
-
-      padding-bottom: 0;
     }
 
-    .section-title {
-      display: flex;
-
-      align-items: center;
-
-      gap: 12px;
-
-      margin-bottom: 20px;
-    }
-
-    .section-number {
-      width: 34px;
-      height: 34px;
-
-      border-radius: 50%;
-
-      background: #eef4ff;
-
-      color: #2563eb;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      font-weight: 800;
-
-      font-size: 14px;
-
-      flex-shrink: 0;
-    }
-
-    .section-title h2 {
-      font-size: 21px;
+    .form-section h2 {
+      margin: 0 0 7px;
+      font-size: 1.35rem;
     }
 
     .section-description {
-      color: #737b89;
-
-      font-size: 14px;
-
-      margin-top: -12px;
-
-      margin-left: 46px;
-
-      margin-bottom: 22px;
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
     }
-
-
-    /* =========================
-       FORM GRID
-    ========================= */
 
     .form-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
     }
 
-    .full-width {
-      grid-column: 1 / -1;
-    }
-
-    .field {
+    .form-group {
       display: flex;
-
       flex-direction: column;
-
       gap: 7px;
     }
 
-    label {
-      font-size: 14px;
-
-      font-weight: 700;
-
-      color: #303949;
+    .form-group.full {
+      grid-column: 1 / -1;
     }
 
-    input,
+    label {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    input[type="file"] {
+      width: 100%;
+      border: 1px solid #dbe2ea;
+      border-radius: 11px;
+      padding: 12px 13px;
+      font: inherit;
+      background: white;
+      color: var(--navy);
+    }
+
     select {
       width: 100%;
-
-      border: 1px solid #d8dde6;
-
+      border: 1px solid #dbe2ea;
+      border-radius: 11px;
+      padding: 12px 13px;
+      font: inherit;
       background: white;
-
-      color: #172033;
-
-      border-radius: 9px;
-
-      padding: 13px 14px;
-
-      font-size: 15px;
-
-      outline: none;
-
-      transition: 0.15s;
+      color: var(--navy);
     }
 
     input:focus,
     select:focus {
-      border-color: #2563eb;
-
+      outline: none;
+      border-color: var(--blue);
       box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.10);
+        0 0 0 3px rgba(37, 99, 235, 0.1);
     }
 
-    input[type="file"] {
-      padding: 10px;
+    /* TV OPTIONS */
 
-      cursor: pointer;
-    }
-
-    .field-help {
-      color: #89909d;
-
-      font-size: 12px;
-    }
-
-
-    /* =========================
-       EVENT TYPE
-    ========================= */
-
-    .event-type-grid {
+    .tv-options {
       display: grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
     }
 
-    .event-option {
+    .tv-option {
       position: relative;
     }
 
-    .event-option input {
+    .tv-option input {
       position: absolute;
-
       opacity: 0;
-
       pointer-events: none;
     }
 
-    .event-option label {
-      display: flex;
-
-      flex-direction: column;
-
-      align-items: center;
-
-      justify-content: center;
-
-      text-align: center;
-
-      min-height: 95px;
-
-      padding: 12px;
-
-      border: 1px solid #dfe3ea;
-
-      border-radius: 12px;
-
-      cursor: pointer;
-
-      transition: 0.15s;
-
-      background: white;
-    }
-
-    .event-option label:hover {
-      border-color: #b9cdfb;
-
-      background: #f8faff;
-    }
-
-    .event-option input:checked + label {
-      border-color: #2563eb;
-
-      background: #eef4ff;
-
-      color: #1d4ed8;
-
-      box-shadow:
-        0 5px 15px rgba(37, 99, 235, 0.10);
-    }
-
-    .event-emoji {
-      font-size: 25px;
-
-      margin-bottom: 4px;
-    }
-
-
-    /* =========================
-       THEMES
-    ========================= */
-
-    .theme-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap: 14px;
-    }
-
-    .theme-option {
-      position: relative;
-    }
-
-    .theme-option input {
-      position: absolute;
-
-      opacity: 0;
-
-      pointer-events: none;
-    }
-
-    .theme-option label {
+    .tv-option label {
       display: block;
-
-      border: 2px solid #e0e4ea;
-
-      border-radius: 13px;
-
-      overflow: hidden;
-
+      padding: 20px;
+      border: 2px solid var(--border);
+      border-radius: 16px;
       cursor: pointer;
-
-      background: white;
-
-      transition: 0.15s;
+      transition: 0.2s ease;
     }
 
-    .theme-option label:hover {
-      transform: translateY(-2px);
-
-      border-color: #b9cdfb;
+    .tv-option label:hover {
+      border-color: #cbd5e1;
     }
 
-    .theme-option input:checked + label {
-      border-color: #2563eb;
-
+    .tv-option input:checked + label {
+      border-color: var(--blue);
+      background: #f4f7ff;
       box-shadow:
-        0 6px 18px rgba(37, 99, 235, 0.12);
+        0 0 0 3px rgba(37, 99, 235, 0.08);
+    }
+
+    .tv-icon {
+      font-size: 1.7rem;
+      margin-bottom: 9px;
+    }
+
+    .tv-option strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+
+    .tv-option span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* THEME OPTIONS */
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .option-card {
+      position: relative;
+    }
+
+    .option-card input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .option-card label {
+      display: block;
+      padding: 15px;
+      border: 2px solid var(--border);
+      border-radius: 13px;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.2s ease;
+    }
+
+    .option-card label:hover {
+      border-color: #cbd5e1;
+    }
+
+    .option-card input:checked + label {
+      border-color: var(--blue);
+      background: #f4f7ff;
     }
 
     .theme-preview {
-      height: 70px;
+      height: 55px;
+      border-radius: 9px;
+      margin-bottom: 9px;
     }
 
-    .theme-classic {
+    .classic {
       background:
         linear-gradient(
           135deg,
-          #2563eb,
-          #7c3aed
+          #b97979,
+          #fffaf8
         );
     }
 
-    .theme-elegant {
+    .elegant {
       background:
         linear-gradient(
           135deg,
           #172033,
-          #667085
+          #c8a24a
         );
     }
 
-    .theme-celebration {
+    .celebration {
       background:
         linear-gradient(
           135deg,
@@ -529,97 +484,44 @@
         );
     }
 
-    .theme-modern {
+    .modern {
       background:
         linear-gradient(
           135deg,
-          #06b6d4,
-          #2563eb
+          #2563eb,
+          #7c3aed
         );
     }
 
-    .theme-name {
-      padding: 10px;
-
-      text-align: center;
-
-      font-size: 13px;
-
-      font-weight: 700;
-    }
-
-
-    /* =========================
-       COLOR PICKERS
-    ========================= */
+    /* COLORS */
 
     .color-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 15px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
     }
 
-    .color-field {
-      border: 1px solid #e1e5eb;
-
-      border-radius: 12px;
-
-      padding: 14px;
-
-      background: #fafbfc;
-    }
-
-    .color-field label {
-      display: block;
-
-      margin-bottom: 9px;
-    }
-
-    .color-input-row {
+    .color-input {
       display: flex;
-
       align-items: center;
-
       gap: 10px;
     }
 
-    input[type="color"] {
-      width: 48px;
-      height: 42px;
-
+    .color-input input[type="color"] {
+      width: 55px;
+      height: 45px;
       padding: 3px;
-
-      border: 1px solid #d8dde6;
-
-      border-radius: 8px;
-
-      cursor: pointer;
-
+      border: 1px solid #dbe2ea;
+      border-radius: 10px;
       background: white;
+      cursor: pointer;
     }
 
-    .color-description {
-      color: #8a919e;
-
-      font-size: 11px;
-
-      margin-top: 7px;
-    }
-
-
-    /* =========================
-       BACKGROUND
-    ========================= */
+    /* BACKGROUNDS */
 
     .background-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
     }
 
@@ -629,640 +531,322 @@
 
     .background-option input {
       position: absolute;
-
       opacity: 0;
-
       pointer-events: none;
     }
 
     .background-option label {
       display: block;
-
-      border: 2px solid #e0e4ea;
-
-      border-radius: 12px;
-
-      overflow: hidden;
-
+      border: 2px solid var(--border);
+      border-radius: 13px;
+      padding: 9px;
       cursor: pointer;
-
-      background: white;
-
-      transition: 0.15s;
+      transition: 0.2s ease;
     }
 
     .background-option input:checked + label {
-      border-color: #2563eb;
+      border-color: var(--blue);
+      background: #f4f7ff;
     }
 
     .background-preview {
-      height: 65px;
+      height: 75px;
+      border-radius: 8px;
+      margin-bottom: 8px;
     }
 
     .background-classic {
-      background:
-        linear-gradient(
-          135deg,
-          #fffdf8,
-          #eef4ff
-        );
+      background: #fffaf8;
     }
 
     .background-soft {
       background:
         linear-gradient(
           135deg,
-          #fff7ed,
-          #fef3c7
+          #f5f8ff,
+          #f8f2ff
         );
     }
 
     .background-celebration {
       background:
-        linear-gradient(
-          135deg,
-          #fef3c7,
-          #fee2e2,
-          #ede9fe
-        );
+        radial-gradient(
+          circle at 20% 20%,
+          #facc15 0 8%,
+          transparent 9%
+        ),
+        radial-gradient(
+          circle at 80% 70%,
+          #f97316 0 8%,
+          transparent 9%
+        ),
+        #fff7ed;
     }
 
     .background-minimal {
       background: #ffffff;
+      border: 1px solid #e2e8f0;
     }
 
-    .background-name {
-      padding: 9px;
-
-      text-align: center;
-
-      font-size: 12px;
-
-      font-weight: 700;
-    }
-
-
-    /* =========================
-       LOGO UPLOAD
-    ========================= */
-
-    .upload-box {
-      border: 2px dashed #d8dde6;
-
-      border-radius: 13px;
-
-      padding: 25px;
-
-      text-align: center;
-
-      background: #fafbfc;
-    }
-
-    .upload-box:hover {
-      border-color: #9db8f5;
-
-      background: #f8faff;
-    }
-
-    .upload-icon {
-      font-size: 28px;
-
-      margin-bottom: 7px;
-    }
-
-    .upload-box p {
-      color: #697386;
-
-      font-size: 13px;
-
-      margin-bottom: 12px;
-    }
-
-
-    /* =========================
-       PACKAGE SELECTION
-    ========================= */
-
-    .package-section {
-      margin-bottom: 34px;
-    }
-
-    .package-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 16px;
-    }
-
-    .package-card {
-      border: 2px solid #e0e4ea;
-
-      border-radius: 14px;
-
-      padding: 22px;
-
-      background: white;
-
-      transition: 0.15s;
-    }
-
-    .package-card:hover {
-      border-color: #b9cdfb;
-
-      transform: translateY(-2px);
-    }
-
-    .package-card h3 {
-      font-size: 19px;
-
-      margin-bottom: 7px;
-    }
-
-    .package-price {
-      font-size: 28px;
-
-      font-weight: 800;
-
-      color: #2563eb;
-
-      margin-bottom: 12px;
-    }
-
-    .package-card ul {
-      padding-left: 20px;
-
-      color: #697386;
-
-      font-size: 13px;
-
-      line-height: 1.7;
-
-      margin-bottom: 18px;
-    }
-
-    .package-button {
-      width: 100%;
-
-      border: none;
-
-      border-radius: 9px;
-
-      padding: 13px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #2563eb,
-          #4f46e5
-        );
-
-      color: white;
-
-      font-weight: 800;
-
-      cursor: pointer;
-    }
-
-    .package-button:hover {
-      opacity: 0.92;
-    }
-
-    .selected-package {
-      display: none;
-
-      background: #eef4ff;
-
-      border: 1px solid #d8e5ff;
-
-      border-radius: 12px;
-
-      padding: 16px;
-
-      margin-bottom: 24px;
-    }
-
-    .selected-package.visible {
-      display: block;
-    }
-
-    .selected-package-name {
-      font-weight: 800;
-
-      color: #1d4ed8;
-    }
-
-    .selected-package-description {
-      color: #697386;
-
-      font-size: 13px;
-
-      margin-top: 3px;
-    }
-
-    .change-package {
-      display: inline-block;
-
-      margin-top: 8px;
-
-      color: #2563eb;
-
-      font-size: 13px;
-
-      font-weight: 700;
-
-      cursor: pointer;
-    }
-
-
-    /* =========================
-       TV + GUESTBOOK
-    ========================= */
-
-    .tv-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 12px;
-    }
-
-    .tv-option {
-      border: 1px solid #dfe3ea;
-
-      border-radius: 10px;
-
-      padding: 14px;
-
-      cursor: pointer;
-
-      background: white;
-    }
-
-    .tv-option input {
-      width: auto;
-
-      margin-right: 8px;
-
-      box-shadow: none;
-    }
+    /* GUESTBOOK */
 
     .guestbook-option {
-      border: 1px solid #dfe3ea;
-
-      border-radius: 12px;
-
-      padding: 16px;
-
-      background: #fafbfc;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 20px;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      background: white;
+      transition: 0.2s ease;
     }
 
-    .guestbook-option label {
-      display: flex;
-
-      align-items: flex-start;
-
-      gap: 10px;
-
-      cursor: pointer;
+    .guestbook-option:hover {
+      border-color: #cbd5e1;
     }
 
     .guestbook-option input {
-      width: auto;
-
+      width: 20px;
+      height: 20px;
       margin-top: 3px;
+      accent-color: var(--purple);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
 
-      box-shadow: none;
+    .guestbook-option label {
+      cursor: pointer;
+      display: block;
+      flex: 1;
     }
 
     .guestbook-icon {
-      font-size: 22px;
+      font-size: 1.7rem;
+      margin-bottom: 7px;
+    }
+
+    .guestbook-option strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1rem;
     }
 
     .guestbook-option span {
       display: block;
-
-      color: #697386;
-
-      font-size: 13px;
-
-      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      font-weight: 500;
     }
 
+    /* LOCKED */
 
-    /* =========================
-       BUTTON
-    ========================= */
+    .locked-section {
+      position: relative;
+      opacity: 0.62;
+    }
 
-    .submit-area {
-      padding-top: 30px;
+    .locked-section::after {
+      content: "Available with Captured Moments Plus";
+      display: block;
+      margin-top: 12px;
+      color: var(--purple);
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
 
+    .locked-section input,
+    .locked-section label {
+      cursor: not-allowed;
+    }
+
+    /* BUTTON */
+
+    .create-area {
       text-align: center;
+      padding-top: 5px;
     }
 
     #createBtn {
       width: 100%;
-
-      border: none;
-
-      border-radius: 10px;
-
-      padding: 16px 25px;
-
+      border: 0;
+      border-radius: 14px;
+      padding: 16px 22px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: white;
       background:
         linear-gradient(
           135deg,
-          #2563eb,
-          #4f46e5
+          var(--blue),
+          var(--purple)
         );
-
-      color: white;
-
-      font-size: 16px;
-
-      font-weight: 800;
-
       cursor: pointer;
-
       box-shadow:
-        0 9px 22px rgba(37, 99, 235, 0.22);
-
-      transition: 0.2s;
+        0 12px 25px rgba(37, 99, 235, 0.2);
+      transition: 0.2s ease;
     }
 
     #createBtn:hover:not(:disabled) {
-      transform: translateY(-2px);
-
+      transform: translateY(-1px);
       box-shadow:
-        0 12px 28px rgba(37, 99, 235, 0.28);
+        0 15px 30px rgba(37, 99, 235, 0.25);
     }
 
     #createBtn:disabled {
-      opacity: 0.65;
-
+      opacity: 0.6;
       cursor: not-allowed;
     }
 
     #status {
       margin-top: 13px;
-
-      color: #667085;
-
-      font-size: 13px;
-
+      color: #dc2626;
+      font-weight: 600;
       min-height: 20px;
     }
 
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      background: #111827;
-
-      color: white;
-
-      padding: 35px 24px;
-
-      text-align: center;
+    .secure-note {
+      margin-top: 15px;
+      color: var(--muted);
+      font-size: 0.85rem;
     }
-
-    footer p {
-      color: #9da6b5;
-
-      font-size: 13px;
-    }
-
-
-    /* =========================
-       MOBILE
-    ========================= */
 
     @media (max-width: 800px) {
 
-      .event-type-grid {
-        grid-template-columns:
-          repeat(2, 1fr);
+      .package-grid,
+      .tv-options {
+        grid-template-columns: 1fr;
       }
 
-      .theme-grid {
-        grid-template-columns:
-          repeat(2, 1fr);
-      }
-
+      .option-grid,
       .background-grid {
-        grid-template-columns:
-          repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .color-grid {
-        grid-template-columns:
-          1fr;
-      }
-
-      .form-grid {
-        grid-template-columns:
-          1fr;
-      }
-
-      .package-grid {
-        grid-template-columns:
-          1fr;
+        grid-template-columns: 1fr;
       }
 
     }
-
 
     @media (max-width: 600px) {
 
-      .nav-inner {
-        padding: 14px 18px;
+      .navbar {
+        padding: 0 20px;
       }
 
-      .logo {
-        font-size: 18px;
-      }
-
-      .logo-mark {
-        width: 32px;
-        height: 32px;
-      }
-
-      .back-link {
-        font-size: 12px;
-      }
-
-      .page-header {
-        padding: 48px 18px 28px;
-      }
-
-      .page-header h1 {
-        letter-spacing: -1.5px;
-      }
-
-      .form-wrapper {
-        width: calc(100% - 22px);
-
-        margin-bottom: 45px;
+      .page {
+        padding: 38px 15px 60px;
       }
 
       .form-card {
-        padding: 24px 18px;
-
-        border-radius: 16px;
+        padding: 22px;
+        border-radius: 18px;
       }
 
-      .event-type-grid {
-        grid-template-columns:
-          repeat(2, 1fr);
+      .form-grid {
+        grid-template-columns: 1fr;
       }
 
-      .theme-grid {
-        grid-template-columns:
-          1fr 1fr;
+      .form-group.full {
+        grid-column: auto;
       }
 
+      .selected-package {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .option-grid,
       .background-grid {
-        grid-template-columns:
-          1fr 1fr;
-      }
-
-      .tv-grid {
-        grid-template-columns:
-          1fr;
+        grid-template-columns: 1fr 1fr;
       }
 
     }
-
   </style>
-
 </head>
-
 
 <body>
 
-
-  <!-- =========================
-       NAVIGATION
-  ========================= -->
-
   <nav class="navbar">
 
-    <div class="nav-inner">
+    <a href="index.html" class="logo">
 
+      <div class="logo-mark">
+        ✦
+      </div>
 
-      <a
-        href="index.html"
-        class="logo"
-      >
+      Captured <span>Moments</span>
 
-        <div class="logo-mark">
-          ✦
-        </div>
+    </a>
 
-        <div class="logo-text">
-          Instant <span>Moments</span>
-        </div>
-
-      </a>
-
-
-      <a
-        href="index.html"
-        class="back-link"
-      >
-        ← Back to Home
-      </a>
-
-
-    </div>
+    <a href="index.html" class="back-link">
+      ← Back to Home
+    </a>
 
   </nav>
 
 
-  <!-- =========================
-       HEADER
-  ========================= -->
+  <main class="page">
 
-  <header class="page-header">
+    <div class="page-header">
 
-    <div class="eyebrow">
-      ✨ Let's create something memorable
+      <h1 id="pageTitle">
+        Create Your Event
+      </h1>
+
+      <p id="pageSubtitle">
+        Set up your event and let Captured Moments handle the memories.
+      </p>
+
     </div>
 
 
-    <h1>
-      Create Your <span>Event</span>
-    </h1>
+    <!-- PACKAGE SELECTION -->
 
-
-    <p>
-      Tell us about your event and customize
-      the experience your guests will see.
-    </p>
-
-  </header>
-
-
-  <!-- =========================
-       PACKAGE SELECTION
-  ========================= -->
-
-  <section
-    class="form-wrapper package-section"
-    id="packageSection"
-  >
-
-    <div class="form-card">
+    <section
+      id="packageSection"
+      class="package-section"
+    >
 
       <div class="section-title">
 
-        <div class="section-number">
-          ★
-        </div>
+        <h2>Choose Your Package</h2>
 
-        <h2>
-          Choose Your Package
-        </h2>
+        <p>
+          Pick the option that works best for your event.
+        </p>
 
       </div>
 
 
-      <p class="section-description">
-        Choose the package that fits your event.
-      </p>
-
-
       <div class="package-grid">
-
 
         <div class="package-card">
 
-          <h3>
-            Captured Moments
-          </h3>
+          <h3>Captured Moments</h3>
 
-          <div class="package-price">
+          <div class="price">
             $19
+            <span>/ event</span>
           </div>
 
           <ul>
+
             <li>Event-specific QR code</li>
             <li>Guest photo uploads</li>
             <li>Live TV slideshow</li>
             <li>Event photo gallery</li>
             <li>Photo downloads</li>
             <li>Automatic gallery emails</li>
-            <li>Standard themes</li>
+            <li>Standard Captured Moments themes</li>
+            <li>Preset colors and backgrounds</li>
             <li>Up to 500 photos</li>
-            <li>30-day gallery</li>
+            <li>Gallery available for 30 days</li>
+
           </ul>
 
           <button
-            type="button"
             class="package-button"
             onclick="selectPackage('instant')"
           >
@@ -1272,30 +856,34 @@
         </div>
 
 
-        <div class="package-card">
+        <div class="package-card plus">
 
-          <h3>
-            Captured Moments Plus
-          </h3>
+          <div class="popular">
+            MOST POPULAR
+          </div>
 
-          <div class="package-price">
+          <h3>Captured Moments Plus</h3>
+
+          <div class="price">
             $39
+            <span>/ event</span>
           </div>
 
           <ul>
+
             <li>Everything in Captured Moments</li>
             <li>Higher photo capacity</li>
             <li>Custom colors</li>
             <li>Custom background</li>
-            <li>Custom logo/photo</li>
+            <li>Custom logo or photo</li>
             <li>Premium themes</li>
             <li>Custom event branding</li>
-            <li>Larger photo files</li>
-            <li>1-year gallery</li>
+            <li>Larger photo file limits</li>
+            <li>Gallery available for 1 year</li>
+
           </ul>
 
           <button
-            type="button"
             class="package-button"
             onclick="selectPackage('plus')"
           >
@@ -1306,701 +894,582 @@
 
       </div>
 
-    </div>
-
-  </section>
+    </section>
 
 
-  <!-- =========================
-       FORM
-  ========================= -->
+    <!-- SELECTED PACKAGE -->
 
-  <main class="form-wrapper">
+    <div
+      id="selectedPackage"
+      class="selected-package"
+    >
 
-    <div class="form-card">
+      <div>
 
+        <strong id="selectedPackageName">
+          Captured Moments
+        </strong>
 
-      <!-- SELECTED PACKAGE -->
-
-      <div
-        class="selected-package"
-        id="selectedPackageBox"
-      >
-
-        <div
-          class="selected-package-name"
-          id="selectedPackageName"
-        ></div>
-
-        <div
-          class="selected-package-description"
-          id="selectedPackageDescription"
-        ></div>
-
-        <div
-          class="change-package"
-          onclick="changePackage()"
-        >
-          Change Package
-        </div>
+        <small id="selectedPackageDescription">
+          Standard event setup
+        </small>
 
       </div>
 
+      <button
+        class="change-package"
+        onclick="changePackage()"
+      >
+        Change Package
+      </button>
 
-      <!-- EVENT DETAILS -->
+    </div>
 
-      <section class="form-section">
 
-        <div class="section-title">
+    <!-- EVENT SETUP -->
 
-          <div class="section-number">
-            1
-          </div>
+    <section
+      id="setupSection"
+      class="setup-section"
+    >
 
-          <h2>
-            Event Details
-          </h2>
+      <div class="form-card">
 
-        </div>
 
+        <div class="form-section">
 
-        <p class="section-description">
-          Start with the basics about your event.
-        </p>
+          <h2>Event Information</h2>
 
-
-        <div class="form-grid">
-
-
-          <div class="field full-width">
-
-            <label for="eventName">
-              Event Name
-            </label>
-
-            <input
-              id="eventName"
-              type="text"
-              placeholder="Josh's Birthday Party"
-              autocomplete="off"
-            >
-
-          </div>
-
-
-          <div class="field">
-
-            <label for="eventDate">
-              Event Date
-            </label>
-
-            <input
-              id="eventDate"
-              type="date"
-            >
-
-          </div>
-
-
-          <div class="field">
-
-            <label for="eventType">
-              Event Type
-            </label>
-
-            <select id="eventType">
-
-              <option value="Birthday">
-                Birthday
-              </option>
-
-              <option value="Graduation">
-                Graduation
-              </option>
-
-              <option value="Wedding">
-                Wedding
-              </option>
-
-              <option value="Retirement">
-                Retirement
-              </option>
-
-              <option value="Baby Shower">
-                Baby Shower
-              </option>
-
-              <option value="Anniversary">
-                Anniversary
-              </option>
-
-              <option value="Sports Event">
-                Sports Event
-              </option>
-
-              <option value="Other">
-                Other
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <div class="field">
-
-            <label for="startTime">
-              Start Time
-            </label>
-
-            <input
-              id="startTime"
-              type="time"
-            >
-
-          </div>
-
-
-          <div class="field">
-
-            <label for="endTime">
-              End Time
-            </label>
-
-            <input
-              id="endTime"
-              type="time"
-            >
-
-          </div>
-
-
-        </div>
-
-      </section>
-
-
-      <!-- THEME -->
-
-      <section class="form-section">
-
-        <div class="section-title">
-
-          <div class="section-number">
-            2
-          </div>
-
-          <h2>
-            Choose Your Theme
-          </h2>
-
-        </div>
-
-
-        <p class="section-description">
-          Pick a starting style for your event.
-        </p>
-
-
-        <div class="theme-grid">
-
-
-          <div class="theme-option">
-
-            <input
-              type="radio"
-              name="theme"
-              id="themeClassic"
-              value="classic"
-              checked
-            >
-
-            <label for="themeClassic">
-
-              <div
-                class="theme-preview theme-classic"
-              ></div>
-
-              <div class="theme-name">
-                Classic
-              </div>
-
-            </label>
-
-          </div>
-
-
-          <div class="theme-option">
-
-            <input
-              type="radio"
-              name="theme"
-              id="themeElegant"
-              value="elegant"
-            >
-
-            <label for="themeElegant">
-
-              <div
-                class="theme-preview theme-elegant"
-              ></div>
-
-              <div class="theme-name">
-                Elegant
-              </div>
-
-            </label>
-
-          </div>
-
-
-          <div class="theme-option">
-
-            <input
-              type="radio"
-              name="theme"
-              id="themeCelebration"
-              value="celebration"
-            >
-
-            <label for="themeCelebration">
-
-              <div
-                class="theme-preview theme-celebration"
-              ></div>
-
-              <div class="theme-name">
-                Celebration
-              </div>
-
-            </label>
-
-          </div>
-
-
-          <div class="theme-option">
-
-            <input
-              type="radio"
-              name="theme"
-              id="themeModern"
-              value="modern"
-            >
-
-            <label for="themeModern">
-
-              <div
-                class="theme-preview theme-modern"
-              ></div>
-
-              <div class="theme-name">
-                Modern
-              </div>
-
-            </label>
-
-          </div>
-
-
-        </div>
-
-      </section>
-
-
-      <!-- COLORS -->
-
-      <section class="form-section">
-
-        <div class="section-title">
-
-          <div class="section-number">
-            3
-          </div>
-
-          <h2>
-            Choose Your Colors
-          </h2>
-
-        </div>
-
-
-        <p class="section-description">
-          Choose the colors you'd like your
-          event experience to use.
-        </p>
-
-
-        <div class="color-grid">
-
-
-          <div class="color-field">
-
-            <label for="primaryColor">
-              Primary Color
-            </label>
-
-            <div class="color-input-row">
-
-              <input
-                id="primaryColor"
-                type="color"
-                value="#2563eb"
-              >
-
-              <span>
-                Main brand color
-              </span>
-
-            </div>
-
-            <div class="color-description">
-              Used for buttons and main accents.
-            </div>
-
-          </div>
-
-
-          <div class="color-field">
-
-            <label for="secondaryColor">
-              Background Color
-            </label>
-
-            <div class="color-input-row">
-
-              <input
-                id="secondaryColor"
-                type="color"
-                value="#fffdf8"
-              >
-
-              <span>
-                Main background
-              </span>
-
-            </div>
-
-            <div class="color-description">
-              Used behind your event content.
-            </div>
-
-          </div>
-
-
-          <div class="color-field">
-
-            <label for="accentColor">
-              Accent Color
-            </label>
-
-            <div class="color-input-row">
-
-              <input
-                id="accentColor"
-                type="color"
-                value="#f97316"
-              >
-
-              <span>
-                Highlight color
-              </span>
-
-            </div>
-
-            <div class="color-description">
-              Used for special details and accents.
-            </div>
-
-          </div>
-
-
-        </div>
-
-      </section>
-
-
-      <!-- BACKGROUND -->
-
-      <section class="form-section">
-
-        <div class="section-title">
-
-          <div class="section-number">
-            4
-          </div>
-
-          <h2>
-            Choose Your Background
-          </h2>
-
-        </div>
-
-
-        <p class="section-description">
-          Choose the style that will appear
-          behind your event experience.
-        </p>
-
-
-        <div class="background-grid">
-
-
-          <div class="background-option">
-
-            <input
-              type="radio"
-              name="background"
-              id="backgroundClassic"
-              value="default"
-              checked
-            >
-
-            <label for="backgroundClassic">
-
-              <div
-                class="
-                  background-preview
-                  background-classic
-                "
-              ></div>
-
-              <div class="background-name">
-                Classic
-              </div>
-
-            </label>
-
-          </div>
-
-
-          <div class="background-option">
-
-            <input
-              type="radio"
-              name="background"
-              id="backgroundSoft"
-              value="soft"
-            >
-
-            <label for="backgroundSoft">
-
-              <div
-                class="
-                  background-preview
-                  background-soft
-                "
-              ></div>
-
-              <div class="background-name">
-                Soft & Elegant
-              </div>
-
-            </label>
-
-          </div>
-
-
-          <div class="background-option">
-
-            <input
-              type="radio"
-              name="background"
-              id="backgroundCelebration"
-              value="celebration"
-            >
-
-            <label for="backgroundCelebration">
-
-              <div
-                class="
-                  background-preview
-                  background-celebration
-                "
-              ></div>
-
-              <div class="background-name">
-                Celebration
-              </div>
-
-            </label>
-
-          </div>
-
-
-          <div class="background-option">
-
-            <input
-              type="radio"
-              name="background"
-              id="backgroundMinimal"
-              value="minimal"
-            >
-
-            <label for="backgroundMinimal">
-
-              <div
-                class="
-                  background-preview
-                  background-minimal
-                "
-              ></div>
-
-              <div class="background-name">
-                Minimal
-              </div>
-
-            </label>
-
-          </div>
-
-
-        </div>
-
-      </section>
-
-
-      <!-- LOGO -->
-
-      <section class="form-section">
-
-        <div class="section-title">
-
-          <div class="section-number">
-            5
-          </div>
-
-          <h2>
-            Add a Logo or Photo
-          </h2>
-
-        </div>
-
-
-        <p class="section-description">
-          Optional. Add a logo, photo, or other
-          image to personalize your event.
-        </p>
-
-
-        <div class="upload-box">
-
-          <div class="upload-icon">
-            🖼️
-          </div>
-
-
-          <p>
-            Upload an image for your event
+          <p class="section-description">
+            Tell us about your event.
           </p>
 
 
-          <input
-            id="logoInput"
-            type="file"
-            accept="image/*"
-          >
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label for="eventName">
+                Event Name
+              </label>
+
+              <input
+                type="text"
+                id="eventName"
+                placeholder="Donna's 60th Birthday"
+              >
+
+            </div>
 
 
-          <div class="field-help">
-            JPG, PNG, or WEBP recommended.
+            <div class="form-group">
+
+              <label for="eventType">
+                Event Type
+              </label>
+
+              <select id="eventType">
+
+                <option value="Birthday">
+                  Birthday
+                </option>
+
+                <option value="Graduation">
+                  Graduation
+                </option>
+
+                <option value="Wedding">
+                  Wedding
+                </option>
+
+                <option value="Retirement">
+                  Retirement
+                </option>
+
+                <option value="Baby Shower">
+                  Baby Shower
+                </option>
+
+                <option value="Anniversary">
+                  Anniversary
+                </option>
+
+                <option value="Sports Event">
+                  Sports Event
+                </option>
+
+                <option value="Other">
+                  Other
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="eventDate">
+                Event Date
+              </label>
+
+              <input
+                type="date"
+                id="eventDate"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="startTime">
+                Start Time
+              </label>
+
+              <input
+                type="time"
+                id="startTime"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="endTime">
+                End Time
+              </label>
+
+              <input
+                type="time"
+                id="endTime"
+              >
+
+            </div>
+
           </div>
 
         </div>
 
-      </section>
+
+        <!-- TV ACCESS -->
+
+        <div class="form-section">
+
+          <h2>TV Display</h2>
+
+          <p class="section-description">
+            Will you have access to a TV at your event?
+          </p>
 
 
-      <!-- TV ACCESS -->
+          <div class="tv-options">
 
-      <section class="form-section">
+            <div class="tv-option">
 
-        <div class="section-title">
+              <input
+                type="radio"
+                id="tvYes"
+                name="hasTV"
+                value="true"
+                checked
+              >
 
-          <div class="section-number">
-            6
+              <label for="tvYes">
+
+                <div class="tv-icon">
+                  📺
+                </div>
+
+                <strong>
+                  Yes, I have a TV
+                </strong>
+
+                <span>
+                  Display guest photos live during your event.
+                </span>
+
+              </label>
+
+            </div>
+
+
+            <div class="tv-option">
+
+              <input
+                type="radio"
+                id="tvNo"
+                name="hasTV"
+                value="false"
+              >
+
+              <label for="tvNo">
+
+                <div class="tv-icon">
+                  📱
+                </div>
+
+                <strong>
+                  No, I don't have a TV
+                </strong>
+
+                <span>
+                  Guests can still upload, view, and download photos.
+                </span>
+
+              </label>
+
+            </div>
+
           </div>
-
-          <h2>
-            Do You Have Access to a TV?
-          </h2>
 
         </div>
 
 
-        <p class="section-description">
-          If you have a TV, your guests' photos can appear live during your event.
-        </p>
+        <!-- THEME -->
+
+        <div class="form-section">
+
+          <h2>Choose Your Theme</h2>
+
+          <p class="section-description">
+            Pick the look that fits your event.
+          </p>
 
 
-        <div class="tv-grid">
+          <div class="option-grid">
 
-          <label class="tv-option">
+            <div class="option-card">
+
+              <input
+                type="radio"
+                id="themeClassic"
+                name="theme"
+                value="classic"
+                checked
+              >
+
+              <label for="themeClassic">
+
+                <div class="theme-preview classic"></div>
+
+                Classic
+
+              </label>
+
+            </div>
+
+
+            <div class="option-card">
+
+              <input
+                type="radio"
+                id="themeElegant"
+                name="theme"
+                value="elegant"
+              >
+
+              <label for="themeElegant">
+
+                <div class="theme-preview elegant"></div>
+
+                Elegant
+
+              </label>
+
+            </div>
+
+
+            <div class="option-card">
+
+              <input
+                type="radio"
+                id="themeCelebration"
+                name="theme"
+                value="celebration"
+              >
+
+              <label for="themeCelebration">
+
+                <div class="theme-preview celebration"></div>
+
+                Celebration
+
+              </label>
+
+            </div>
+
+
+            <div class="option-card">
+
+              <input
+                type="radio"
+                id="themeModern"
+                name="theme"
+                value="modern"
+              >
+
+              <label for="themeModern">
+
+                <div class="theme-preview modern"></div>
+
+                Modern
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- COLORS -->
+
+        <div
+          id="colorsSection"
+          class="form-section"
+        >
+
+          <h2>Choose Your Colors</h2>
+
+          <p class="section-description">
+            Customize the colors used throughout your event.
+          </p>
+
+
+          <div class="color-grid">
+
+            <div class="form-group">
+
+              <label for="primaryColor">
+                Primary Color
+              </label>
+
+              <div class="color-input">
+
+                <input
+                  type="color"
+                  id="primaryColor"
+                  value="#b97979"
+                >
+
+                <span>
+                  Main color
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="secondaryColor">
+                Secondary Color
+              </label>
+
+              <div class="color-input">
+
+                <input
+                  type="color"
+                  id="secondaryColor"
+                  value="#fffaf8"
+                >
+
+                <span>
+                  Background color
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="accentColor">
+                Accent Color
+              </label>
+
+              <div class="color-input">
+
+                <input
+                  type="color"
+                  id="accentColor"
+                  value="#c8a24a"
+                >
+
+                <span>
+                  Accent color
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- BACKGROUND -->
+
+        <div
+          id="backgroundSection"
+          class="form-section"
+        >
+
+          <h2>Choose Your Background</h2>
+
+          <p class="section-description">
+            Choose the background style for your event.
+          </p>
+
+
+          <div class="background-grid">
+
+            <div class="background-option">
+
+              <input
+                type="radio"
+                id="backgroundClassic"
+                name="background"
+                value="classic"
+                checked
+              >
+
+              <label for="backgroundClassic">
+
+                <div class="background-preview background-classic"></div>
+
+                Classic
+
+              </label>
+
+            </div>
+
+
+            <div class="background-option">
+
+              <input
+                type="radio"
+                id="backgroundSoft"
+                name="background"
+                value="soft"
+              >
+
+              <label for="backgroundSoft">
+
+                <div class="background-preview background-soft"></div>
+
+                Soft
+
+              </label>
+
+            </div>
+
+
+            <div class="background-option">
+
+              <input
+                type="radio"
+                id="backgroundCelebration"
+                name="background"
+                value="celebration"
+              >
+
+              <label for="backgroundCelebration">
+
+                <div class="background-preview background-celebration"></div>
+
+                Celebration
+
+              </label>
+
+            </div>
+
+
+            <div class="background-option">
+
+              <input
+                type="radio"
+                id="backgroundMinimal"
+                name="background"
+                value="minimal"
+              >
+
+              <label for="backgroundMinimal">
+
+                <div class="background-preview background-minimal"></div>
+
+                Minimal
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- LOGO -->
+
+        <div
+          id="logoSection"
+          class="form-section"
+        >
+
+          <h2>Add Your Logo or Photo</h2>
+
+          <p class="section-description">
+            Add a logo or photo to personalize your event.
+          </p>
+
+          <div class="form-group">
+
+            <label for="logoInput">
+              Logo or Photo
+            </label>
 
             <input
-              type="radio"
-              name="hasTV"
-              value="true"
-              checked
+              type="file"
+              id="logoInput"
+              accept="image/png,image/jpeg,image/webp"
             >
 
-            Yes, I have a TV
-
-          </label>
-
-
-          <label class="tv-option">
-
-            <input
-              type="radio"
-              name="hasTV"
-              value="false"
-            >
-
-            No, I don't have a TV
-
-          </label>
-
-        </div>
-
-      </section>
-
-
-      <!-- GUESTBOOK -->
-
-      <section class="form-section">
-
-        <div class="section-title">
-
-          <div class="section-number">
-            7
           </div>
 
-          <h2>
-            Digital Guestbook
-          </h2>
-
         </div>
 
 
-        <p class="section-description">
-          Give your guests a place to leave a special message for your event.
-        </p>
+        <!-- GUESTBOOK -->
 
+        <div
+          id="guestbookSection"
+          class="form-section"
+        >
 
-        <div class="guestbook-option">
+          <h2>Digital Guestbook</h2>
 
-          <label for="guestbookEnabled">
+          <p class="section-description">
+            Give your guests a place to leave a special message for your event.
+          </p>
+
+          <div class="guestbook-option">
 
             <input
               type="checkbox"
               id="guestbookEnabled"
             >
 
-            <div class="guestbook-icon">
-              💌
-            </div>
+            <label for="guestbookEnabled">
 
-            <div>
+              <div class="guestbook-icon">
+                💌
+              </div>
 
               <strong>
                 Add a Digital Guestbook
@@ -2010,54 +1479,44 @@
                 Guests can leave their name and a message that will be saved with your event.
               </span>
 
-            </div>
+            </label>
 
-          </label>
+          </div>
 
         </div>
 
-      </section>
 
+        <!-- CREATE -->
 
-      <!-- SUBMIT -->
+        <div class="create-area">
 
-      <div class="submit-area">
+          <button
+            id="createBtn"
+            type="button"
+          >
+            Continue to Checkout
+          </button>
 
+          <div id="status"></div>
 
-        <button
-          id="createBtn"
-          type="button"
-        >
-          Continue to Checkout →
-        </button>
+          <div class="secure-note">
+            🔒 Your event information is securely saved.
+          </div>
 
-
-        <div id="status"></div>
-
+        </div>
 
       </div>
 
-
-    </div>
+    </section>
 
   </main>
 
 
-  <!-- FOOTER -->
-
-  <footer>
-
-    <p>
-      ✦ Instant Moments · Your moments,
-      instantly shared.
-    </p>
-
-  </footer>
-
-
-  <!-- PACKAGE SELECTION -->
-
   <script>
+
+    /* ---------------------------------
+       Package elements
+    --------------------------------- */
 
     const packageSection =
       document.getElementById(
@@ -2065,13 +1524,13 @@
       );
 
     const setupSection =
-      document.querySelector(
-        ".form-wrapper:not(.package-section)"
+      document.getElementById(
+        "setupSection"
       );
 
     const selectedPackageBox =
       document.getElementById(
-        "selectedPackageBox"
+        "selectedPackage"
       );
 
     const selectedPackageName =
@@ -2084,6 +1543,35 @@
         "selectedPackageDescription"
       );
 
+    const colorsSection =
+      document.getElementById(
+        "colorsSection"
+      );
+
+    const backgroundSection =
+      document.getElementById(
+        "backgroundSection"
+      );
+
+    const logoSection =
+      document.getElementById(
+        "logoSection"
+      );
+
+    const pageTitle =
+      document.getElementById(
+        "pageTitle"
+      );
+
+    const pageSubtitle =
+      document.getElementById(
+        "pageSubtitle"
+      );
+
+
+    /* ---------------------------------
+       URL parameters
+    --------------------------------- */
 
     const urlParams =
       new URLSearchParams(
@@ -2097,32 +1585,27 @@
       urlParams.get("edit");
 
 
-    function selectPackage(
-      packageName
-    ) {
+    /* ---------------------------------
+       Package selection
+    --------------------------------- */
 
-      window.selectedCapturedPackage =
-        packageName;
-
+    function selectPackage(packageName) {
 
       const url =
         new URL(
           window.location.href
         );
 
-
       url.searchParams.set(
         "package",
         packageName
       );
-
 
       window.history.replaceState(
         {},
         "",
         url
       );
-
 
       showPackage(
         packageName
@@ -2133,20 +1616,14 @@
 
     function changePackage() {
 
-      window.selectedCapturedPackage =
-        null;
-
-
       const url =
         new URL(
           window.location.href
         );
 
-
       url.searchParams.delete(
         "package"
       );
-
 
       window.history.replaceState(
         {},
@@ -2154,14 +1631,12 @@
         url
       );
 
-
       packageSection.style.display =
         "block";
 
-
-      setupSection.style.display =
-        "none";
-
+      setupSection.classList.remove(
+        "visible"
+      );
 
       selectedPackageBox.classList.remove(
         "visible"
@@ -2170,72 +1645,133 @@
     }
 
 
-    function showPackage(
-      packageName
-    ) {
+    function showPackage(packageName) {
 
       packageSection.style.display =
         "none";
 
-
-      setupSection.style.display =
-        "block";
-
+      setupSection.classList.add(
+        "visible"
+      );
 
       selectedPackageBox.classList.add(
         "visible"
       );
 
 
-      if (
-        packageName === "plus"
-      ) {
+      if (packageName === "plus") {
 
         selectedPackageName.textContent =
           "Captured Moments Plus";
 
-
         selectedPackageDescription.textContent =
           "$39 per event • Full customization";
+
+        colorsSection.classList.remove(
+          "locked-section"
+        );
+
+        backgroundSection.classList.remove(
+          "locked-section"
+        );
+
+        logoSection.classList.remove(
+          "locked-section"
+        );
+
+        enableCustomization();
 
       } else {
 
         selectedPackageName.textContent =
           "Captured Moments";
 
-
         selectedPackageDescription.textContent =
           "$19 per event • Standard event setup";
+
+        colorsSection.classList.add(
+          "locked-section"
+        );
+
+        backgroundSection.classList.add(
+          "locked-section"
+        );
+
+        logoSection.classList.add(
+          "locked-section"
+        );
+
+        disableCustomization();
 
       }
 
     }
 
 
+    function disableCustomization() {
+
+      document
+        .querySelectorAll(
+          "#colorsSection input, #backgroundSection input, #logoSection input"
+        )
+        .forEach(
+          input => {
+            input.disabled = true;
+          }
+        );
+
+    }
+
+
+    function enableCustomization() {
+
+      document
+        .querySelectorAll(
+          "#colorsSection input, #backgroundSection input, #logoSection input"
+        )
+        .forEach(
+          input => {
+            input.disabled = false;
+          }
+        );
+
+    }
+
+
+    /* ---------------------------------
+       Edit mode
+    --------------------------------- */
+
     if (editCode) {
 
       packageSection.style.display =
         "none";
 
-
-      setupSection.style.display =
-        "block";
-
-
       selectedPackageBox.classList.remove(
         "visible"
       );
 
+      setupSection.classList.add(
+        "visible"
+      );
+
+      pageTitle.textContent =
+        "Edit Your Event";
+
+      pageSubtitle.textContent =
+        "Update your event details and save your changes.";
+
     }
+
+
+    /* ---------------------------------
+       Normal package mode
+    --------------------------------- */
 
     else if (
       packageFromUrl === "instant" ||
       packageFromUrl === "plus"
     ) {
-
-      window.selectedCapturedPackage =
-        packageFromUrl;
-
 
       showPackage(
         packageFromUrl
@@ -2243,24 +1779,13 @@
 
     }
 
-    else {
-
-      setupSection.style.display =
-        "none";
-
-    }
-
   </script>
 
-
-  <!-- CREATE EVENT JAVASCRIPT -->
 
   <script
     type="module"
     src="create-event.js"
   ></script>
 
-
 </body>
-
 </html>
