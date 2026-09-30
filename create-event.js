@@ -10,48 +10,40 @@ const supabase = createClient(
   SUPABASE_ANON_KEY
 );
 
-const eventType = document.getElementById("eventType");
-const eventName = document.getElementById("eventName");
-const eventDate = document.getElementById("eventDate");
-const startTime = document.getElementById("startTime");
-const endTime = document.getElementById("endTime");
-
-const primaryColor = document.getElementById("primaryColor");
-const secondaryColor = document.getElementById("secondaryColor");
-const accentColor = document.getElementById("accentColor");
-
-const createBtn = document.getElementById("createBtn");
-const status = document.getElementById("status");
-
 
 /* ---------------------------------
-   Get package from URL
+   Form elements
 --------------------------------- */
 
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
+const eventType =
+  document.getElementById("eventType");
 
-const selectedPackage =
-  (params.get("package") || "")
-    .toLowerCase();
+const eventName =
+  document.getElementById("eventName");
 
+const eventDate =
+  document.getElementById("eventDate");
 
-/* ---------------------------------
-   Validate package
---------------------------------- */
+const startTime =
+  document.getElementById("startTime");
 
-if (
-  selectedPackage !== "instant" &&
-  selectedPackage !== "plus"
-) {
+const endTime =
+  document.getElementById("endTime");
 
-  status.textContent =
-    "Please choose a package before creating your event.";
+const primaryColor =
+  document.getElementById("primaryColor");
 
-  createBtn.disabled = true;
-}
+const secondaryColor =
+  document.getElementById("secondaryColor");
+
+const accentColor =
+  document.getElementById("accentColor");
+
+const createBtn =
+  document.getElementById("createBtn");
+
+const status =
+  document.getElementById("status");
 
 
 /* ---------------------------------
@@ -67,11 +59,13 @@ function createEventCode() {
 
   for (let i = 0; i < 6; i++) {
 
-    code += characters[
-      Math.floor(
-        Math.random() * characters.length
-      )
-    ];
+    code +=
+      characters[
+        Math.floor(
+          Math.random() *
+          characters.length
+        )
+      ];
 
   }
 
@@ -90,9 +84,18 @@ createBtn.addEventListener(
     status.textContent = "";
 
 
-    /* -----------------------------
-       Validate package
-    ----------------------------- */
+    /* -------------------------------
+       Get package
+    ------------------------------- */
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const selectedPackage =
+      params.get("package");
+
 
     if (
       selectedPackage !== "instant" &&
@@ -100,31 +103,20 @@ createBtn.addEventListener(
     ) {
 
       status.textContent =
-        "Please choose a package before creating your event.";
+        "Please choose a package first.";
 
       return;
+
     }
 
 
-    /* -----------------------------
-       Get TV selection
-    ----------------------------- */
-
-    const tvSelection =
-      document.querySelector(
-        'input[name="hasTV"]:checked'
-      );
-
-    const hasTV =
-      tvSelection?.value === "true";
-
-
-    /* -----------------------------
-       Validate event information
-    ----------------------------- */
+    /* -------------------------------
+       Get event information
+    ------------------------------- */
 
     const name =
       eventName.value.trim();
+
 
     if (!name) {
 
@@ -134,7 +126,9 @@ createBtn.addEventListener(
       eventName.focus();
 
       return;
+
     }
+
 
     if (!eventDate.value) {
 
@@ -142,28 +136,111 @@ createBtn.addEventListener(
         "Please choose an event date.";
 
       return;
+
     }
 
-    if (!startTime.value || !endTime.value) {
+
+    if (
+      !startTime.value ||
+      !endTime.value
+    ) {
 
       status.textContent =
         "Please choose a start and end time.";
 
       return;
+
     }
 
-    if (endTime.value <= startTime.value) {
+
+    if (
+      endTime.value <=
+      startTime.value
+    ) {
 
       status.textContent =
         "The end time must be after the start time.";
 
       return;
+
     }
 
 
-    /* -----------------------------
+    /* -------------------------------
+       Get TV choice
+    ------------------------------- */
+
+    const selectedTV =
+      document.querySelector(
+        'input[name="hasTV"]:checked'
+      );
+
+
+    const hasTV =
+      selectedTV
+        ? selectedTV.value === "true"
+        : true;
+
+
+    /* -------------------------------
+       Get theme
+    ------------------------------- */
+
+    const selectedTheme =
+      document.querySelector(
+        'input[name="theme"]:checked'
+      )?.value || "classic";
+
+
+    /* -------------------------------
+       Get background
+    ------------------------------- */
+
+    const selectedBackground =
+      document.querySelector(
+        'input[name="background"]:checked'
+      )?.value || "classic";
+
+
+    /* -------------------------------
+       Package customization
+    ------------------------------- */
+
+    let finalPrimaryColor =
+      "#b97979";
+
+    let finalSecondaryColor =
+      "#fffaf8";
+
+    let finalAccentColor =
+      "#c8a24a";
+
+    let finalBackground =
+      "classic";
+
+
+    if (
+      selectedPackage === "plus"
+    ) {
+
+      finalPrimaryColor =
+        primaryColor.value;
+
+      finalSecondaryColor =
+        secondaryColor.value;
+
+      finalAccentColor =
+        accentColor.value;
+
+      finalBackground =
+        selectedBackground;
+
+    }
+
+
+    /* -------------------------------
        Disable button
-    ----------------------------- */
+    ------------------------------- */
 
     createBtn.disabled = true;
 
@@ -174,7 +251,7 @@ createBtn.addEventListener(
     try {
 
       /* -----------------------------
-         Find unique event code
+         Create unique code
       ----------------------------- */
 
       let code = null;
@@ -182,25 +259,43 @@ createBtn.addEventListener(
       let attempts = 0;
 
 
-      while (!code && attempts < 10) {
+      while (
+        !code &&
+        attempts < 10
+      ) {
 
         const possibleCode =
           createEventCode();
 
 
-        const { data: existing } =
+        const {
+          data: existing,
+          error: checkError
+        } =
           await supabase
             .from("events")
             .select("id")
-            .eq("code", possibleCode)
+            .eq(
+              "code",
+              possibleCode
+            )
             .maybeSingle();
+
+
+        if (checkError) {
+
+          throw checkError;
+
+        }
 
 
         if (!existing) {
 
-          code = possibleCode;
+          code =
+            possibleCode;
 
         }
+
 
         attempts++;
 
@@ -217,89 +312,18 @@ createBtn.addEventListener(
 
 
       /* -----------------------------
-         Get selected theme
-      ----------------------------- */
-
-      const selectedTheme =
-        document.querySelector(
-          'input[name="theme"]:checked'
-        )?.value || "classic";
-
-
-      /* -----------------------------
-         Get selected background
-      ----------------------------- */
-
-      const selectedBackground =
-        document.querySelector(
-          'input[name="background"]:checked'
-        )?.value || "classic";
-
-
-      /* -----------------------------
-         Package customization
-      ----------------------------- */
-
-      let finalTheme =
-        selectedTheme;
-
-      let finalPrimaryColor =
-        primaryColor?.value || "#b97979";
-
-      let finalSecondaryColor =
-        secondaryColor?.value || "#fffaf8";
-
-      let finalAccentColor =
-        accentColor?.value || "#c8a24a";
-
-      let finalBackground =
-        selectedBackground;
-
-
-      /*
-        Captured Moments uses
-        the standard design.
-
-        Captured Moments Plus allows
-        the selected customization.
-      */
-
-      if (selectedPackage === "instant") {
-
-        finalTheme =
-          "classic";
-
-        finalPrimaryColor =
-          "#b97979";
-
-        finalSecondaryColor =
-          "#fffaf8";
-
-        finalAccentColor =
-          "#c8a24a";
-
-        finalBackground =
-          "classic";
-
-      }
-
-
-      /* -----------------------------
          Create event
       ----------------------------- */
 
-      const { data: event, error: eventError } =
+      const {
+        data: event,
+        error: eventError
+      } =
         await supabase
           .from("events")
           .insert({
 
             code,
-
-            package:
-              selectedPackage,
-
-            has_tv:
-              hasTV,
 
             event_type:
               eventType.value,
@@ -317,7 +341,7 @@ createBtn.addEventListener(
               endTime.value,
 
             theme:
-              finalTheme,
+              selectedTheme,
 
             primary_color:
               finalPrimaryColor,
@@ -331,8 +355,11 @@ createBtn.addEventListener(
             background:
               finalBackground,
 
-            logo_url:
-              null
+            package:
+              selectedPackage,
+
+            has_tv:
+              hasTV
 
           })
           .select()
@@ -347,16 +374,17 @@ createBtn.addEventListener(
 
 
       /* -----------------------------
-         Create session
+         Create TV/photo session
       ----------------------------- */
 
-      const { error: sessionError } =
+      const {
+        error: sessionError
+      } =
         await supabase
           .from("sessions")
           .insert({
 
-            code:
-              code,
+            code,
 
             event_id:
               event.id,
@@ -369,15 +397,18 @@ createBtn.addEventListener(
 
       if (sessionError) {
 
-        /*
-          Remove the event if the
-          session cannot be created.
-        */
+        /* ---------------------------
+           Remove incomplete event
+        --------------------------- */
 
         await supabase
           .from("events")
           .delete()
-          .eq("id", event.id);
+          .eq(
+            "id",
+            event.id
+          );
+
 
         throw sessionError;
 
@@ -385,7 +416,7 @@ createBtn.addEventListener(
 
 
       /* -----------------------------
-         Save event code
+         Save temporary event code
       ----------------------------- */
 
       sessionStorage.setItem(
@@ -399,19 +430,21 @@ createBtn.addEventListener(
         event
       );
 
+
+      console.log(
+        "TV ACCESS:",
+        hasTV
+      );
+
+
       console.log(
         "PACKAGE:",
         selectedPackage
       );
 
-      console.log(
-        "HAS TV:",
-        hasTV
-      );
-
 
       /* -----------------------------
-         Go to event-created page
+         Continue
       ----------------------------- */
 
       location.href =
@@ -420,12 +453,18 @@ createBtn.addEventListener(
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "EVENT CREATION ERROR:",
+        error
+      );
+
 
       status.textContent =
         "Could not create the event. Please try again.";
 
-      createBtn.disabled = false;
+
+      createBtn.disabled =
+        false;
 
       createBtn.textContent =
         "Continue to Checkout";
