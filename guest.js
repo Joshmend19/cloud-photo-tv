@@ -57,17 +57,31 @@ async function loadEvent() {
   try {
 
     const {
-      data: event,
+      data,
       error
-    } = await supabase
-      .from("events")
-      .select("*")
-      .eq("code", code)
-      .single();
+    } = await supabase.rpc(
+      "get_public_event",
+      {
+        p_code: code
+      }
+    );
 
 
     if (error) {
       throw error;
+    }
+
+
+    const event =
+      Array.isArray(data)
+        ? data[0]
+        : data;
+
+
+    if (!event) {
+      throw new Error(
+        "Event not found."
+      );
     }
 
 
