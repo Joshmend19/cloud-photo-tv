@@ -639,9 +639,10 @@
       border: 1px solid #e2e8f0;
     }
 
-    /* GUESTBOOK */
+    /* GUESTBOOK + RSVP */
 
-    .guestbook-option {
+    .guestbook-option,
+    .rsvp-option {
       display: flex;
       align-items: flex-start;
       gap: 15px;
@@ -652,11 +653,13 @@
       transition: 0.2s ease;
     }
 
-    .guestbook-option:hover {
+    .guestbook-option:hover,
+    .rsvp-option:hover {
       border-color: #cbd5e1;
     }
 
-    .guestbook-option input {
+    .guestbook-option input,
+    .rsvp-option input {
       width: 20px;
       height: 20px;
       margin-top: 3px;
@@ -665,29 +668,45 @@
       flex-shrink: 0;
     }
 
-    .guestbook-option label {
+    .rsvp-option input {
+      accent-color: var(--gold);
+    }
+
+    .guestbook-option label,
+    .rsvp-option label {
       cursor: pointer;
       display: block;
       flex: 1;
     }
 
-    .guestbook-icon {
+    .guestbook-icon,
+    .rsvp-icon {
       font-size: 1.7rem;
       margin-bottom: 7px;
     }
 
-    .guestbook-option strong {
+    .guestbook-option strong,
+    .rsvp-option strong {
       display: block;
       margin-bottom: 5px;
       font-size: 1rem;
     }
 
-    .guestbook-option span {
+    .guestbook-option span,
+    .rsvp-option span {
       display: block;
       color: var(--muted);
       font-size: 0.88rem;
       line-height: 1.5;
       font-weight: 500;
+    }
+
+    .rsvp-included {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--gold) !important;
+      font-size: 0.8rem !important;
+      font-weight: 800 !important;
     }
 
     /* LOCKED */
@@ -709,6 +728,22 @@
     .locked-section input,
     .locked-section label {
       cursor: not-allowed;
+    }
+
+    /* BUSINESS INCLUDED */
+
+    .business-included {
+      border-color: var(--gold);
+      background:
+        linear-gradient(
+          135deg,
+          #fffdf7,
+          #fffaf0
+        );
+    }
+
+    .business-included input {
+      accent-color: var(--gold);
     }
 
     /* BUTTON */
@@ -1620,6 +1655,59 @@
         </div>
 
 
+        <!-- RSVP -->
+
+        <div
+          id="rsvpSection"
+          class="form-section"
+        >
+
+          <h2>RSVP Service</h2>
+
+          <p class="section-description">
+            Let your guests RSVP to your event and tell you who is attending.
+          </p>
+
+          <div
+            id="rsvpOption"
+            class="rsvp-option"
+          >
+
+            <input
+              type="checkbox"
+              id="rsvpEnabled"
+            >
+
+            <label for="rsvpEnabled">
+
+              <div class="rsvp-icon">
+                💍
+              </div>
+
+              <strong>
+                Add RSVP Service
+              </strong>
+
+              <span>
+                Guests can confirm whether they are attending,
+                enter how many people are coming, and leave an optional message.
+              </span>
+
+              <span
+                id="rsvpIncluded"
+                class="rsvp-included"
+                style="display: none;"
+              >
+                ✓ Included with Captured Moments Business
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+
         <!-- CREATE -->
 
         <div class="create-area">
@@ -1690,6 +1778,21 @@
     const logoSection =
       document.getElementById(
         "logoSection"
+      );
+
+    const rsvpEnabled =
+      document.getElementById(
+        "rsvpEnabled"
+      );
+
+    const rsvpOption =
+      document.getElementById(
+        "rsvpOption"
+      );
+
+    const rsvpIncluded =
+      document.getElementById(
+        "rsvpIncluded"
       );
 
     const pageTitle =
@@ -1782,6 +1885,15 @@
         "visible"
       );
 
+      rsvpEnabled.checked = false;
+
+      rsvpIncluded.style.display =
+        "none";
+
+      rsvpOption.classList.remove(
+        "business-included"
+      );
+
     }
 
 
@@ -1822,6 +1934,19 @@
         enableCustomization();
 
 
+        /* BUSINESS INCLUDES RSVP */
+
+        rsvpEnabled.checked =
+          true;
+
+        rsvpIncluded.style.display =
+          "block";
+
+        rsvpOption.classList.add(
+          "business-included"
+        );
+
+
       } else if (packageName === "plus") {
 
         selectedPackageName.textContent =
@@ -1845,6 +1970,17 @@
         enableCustomization();
 
 
+        rsvpEnabled.checked =
+          false;
+
+        rsvpIncluded.style.display =
+          "none";
+
+        rsvpOption.classList.remove(
+          "business-included"
+        );
+
+
       } else {
 
         selectedPackageName.textContent =
@@ -1866,6 +2002,17 @@
         );
 
         disableCustomization();
+
+
+        rsvpEnabled.checked =
+          false;
+
+        rsvpIncluded.style.display =
+          "none";
+
+        rsvpOption.classList.remove(
+          "business-included"
+        );
 
       }
 
