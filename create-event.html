@@ -21,6 +21,7 @@
       --warm: #fffdf8;
       --border: #e2e8f0;
       --green: #22c55e;
+      --gold: #c8a24a;
     }
 
     * {
@@ -95,7 +96,7 @@
     }
 
     .page {
-      max-width: 1050px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 55px 20px 80px;
     }
@@ -140,8 +141,8 @@
 
     .package-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
     }
 
     .package-card {
@@ -164,6 +165,12 @@
         0 15px 40px rgba(124, 58, 237, 0.12);
     }
 
+    .package-card.business {
+      border-color: var(--gold);
+      box-shadow:
+        0 15px 40px rgba(200, 162, 74, 0.14);
+    }
+
     .popular {
       position: absolute;
       top: -13px;
@@ -176,9 +183,21 @@
       font-weight: 800;
     }
 
+    .business-badge {
+      position: absolute;
+      top: -13px;
+      right: 20px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
     .package-card h3 {
       margin: 0 0 8px;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
     }
 
     .price {
@@ -202,7 +221,7 @@
     .package-card li {
       margin: 10px 0;
       color: #475569;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
 
     .package-card li::before {
@@ -226,6 +245,10 @@
 
     .package-card.plus .package-button {
       background: var(--purple);
+    }
+
+    .package-card.business .package-button {
+      background: var(--gold);
     }
 
     /* SELECTED PACKAGE */
@@ -739,9 +762,22 @@
       font-size: 0.85rem;
     }
 
+    @media (max-width: 1000px) {
+
+      .package-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .package-card {
+        max-width: 650px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+    }
+
     @media (max-width: 800px) {
 
-      .package-grid,
       .tv-options {
         grid-template-columns: 1fr;
       }
@@ -861,6 +897,8 @@
 
       <div class="package-grid">
 
+        <!-- CAPTURED MOMENTS -->
+
         <div class="package-card">
 
           <h3>Captured Moments</h3>
@@ -895,6 +933,8 @@
         </div>
 
 
+        <!-- CAPTURED MOMENTS PLUS -->
+
         <div class="package-card plus">
 
           <div class="popular">
@@ -927,6 +967,45 @@
             onclick="selectPackage('plus')"
           >
             Choose Captured Moments Plus
+          </button>
+
+        </div>
+
+
+        <!-- CAPTURED MOMENTS BUSINESS -->
+
+        <div class="package-card business">
+
+          <div class="business-badge">
+            EVERYTHING INCLUDED
+          </div>
+
+          <h3>Captured Moments Business</h3>
+
+          <div class="price">
+            $59
+            <span>/ event</span>
+          </div>
+
+          <ul>
+
+            <li>Everything in Captured Moments Plus</li>
+            <li>Digital Guestbook</li>
+            <li>RSVP Service</li>
+            <li>Unlimited photos</li>
+            <li>Full event customization</li>
+            <li>Premium themes</li>
+            <li>Custom event branding</li>
+            <li>1-year gallery</li>
+            <li>All available features included</li>
+
+          </ul>
+
+          <button
+            class="package-button"
+            onclick="selectPackage('business')"
+          >
+            Choose Business
           </button>
 
         </div>
@@ -1720,7 +1799,30 @@
       );
 
 
-      if (packageName === "plus") {
+      if (packageName === "business") {
+
+        selectedPackageName.textContent =
+          "Captured Moments Business";
+
+        selectedPackageDescription.textContent =
+          "$59 per event • Everything included";
+
+        colorsSection.classList.remove(
+          "locked-section"
+        );
+
+        backgroundSection.classList.remove(
+          "locked-section"
+        );
+
+        logoSection.classList.remove(
+          "locked-section"
+        );
+
+        enableCustomization();
+
+
+      } else if (packageName === "plus") {
 
         selectedPackageName.textContent =
           "Captured Moments Plus";
@@ -1741,6 +1843,7 @@
         );
 
         enableCustomization();
+
 
       } else {
 
@@ -1831,7 +1934,8 @@
 
     else if (
       packageFromUrl === "instant" ||
-      packageFromUrl === "plus"
+      packageFromUrl === "plus" ||
+      packageFromUrl === "business"
     ) {
 
       window.selectedCapturedPackage =
