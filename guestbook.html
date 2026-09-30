@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Guestbook | Captured Moments</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f8f6f3;
+      color: #333;
+    }
+
+    .top-bar {
+      height: 8px;
+      background: linear-gradient(
+        90deg,
+        #d4af37,
+        #f5e6c8,
+        #c9a0a0,
+        #d4af37
+      );
+    }
+
+    header {
+      background: white;
+      padding: 22px 20px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .brand {
+      font-size: 26px;
+      font-weight: 700;
+      color: #b08d57;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #777;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 35px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin: 0 0 8px;
+      color: #333;
+    }
+
+    .event-date {
+      text-align: center;
+      color: #888;
+      margin-bottom: 30px;
+    }
+
+    .intro {
+      text-align: center;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: inherit;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #c9a0a0;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(
+        135deg,
+        #c9a0a0,
+        #b08d57
+      );
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.92;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 15px;
+      min-height: 20px;
+      font-size: 14px;
+    }
+
+    .status.error {
+      color: #c0392b;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 25px 10px;
+    }
+
+    .success-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .success h2 {
+      margin-bottom: 10px;
+    }
+
+    .success p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .footer {
+      text-align: center;
+      color: #999;
+      font-size: 13px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 30px auto;
+      }
+
+      .card {
+        padding: 25px 20px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar"></div>
+
+  <header>
+    <div class="brand">Captured Moments</div>
+    <div class="subtitle">Your moments, captured and shared.</div>
+  </header>
+
+  <main class="container">
+
+    <div class="card">
+
+      <div id="guestbookFormSection">
+
+        <h1 id="eventName">Guestbook</h1>
+
+        <div class="event-date" id="eventDate">
+          Loading event...
+        </div>
+
+        <p class="intro">
+          Leave a message for the host and help make this event even more memorable.
+        </p>
+
+        <form id="guestbookForm">
+
+          <label for="guestName">Your Name</label>
+          <input
+            type="text"
+            id="guestName"
+            placeholder="Enter your name"
+            maxlength="100"
+            required
+          />
+
+          <label for="guestMessage">Your Message</label>
+          <textarea
+            id="guestMessage"
+            placeholder="Write a message for the host..."
+            maxlength="1000"
+            required
+          ></textarea>
+
+          <button type="submit" id="submitGuestbookBtn">
+            Sign the Guestbook
+          </button>
+
+          <div id="guestbookStatus" class="status"></div>
+
+        </form>
+
+      </div>
+
+      <div id="successMessage" class="success">
+
+        <div class="success-icon">💌</div>
+
+        <h2>Thank You!</h2>
+
+        <p id="successText">
+          Your message has been added to the guestbook.
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="footer">
+      Captured Moments · Your moments, captured and shared.
+    </div>
+
+  </main>
+
+  <script type="module" src="guestbook.js"></script>
+
+</body>
+</html>
