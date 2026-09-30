@@ -152,6 +152,40 @@
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     }
 
+    /* Event Stats */
+
+    .stats-section {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 35px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 16px;
+      padding: 22px 15px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    .stat-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .stat-number {
+      font-size: 27px;
+      font-weight: 700;
+      color: #b08d57;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      color: #777;
+      font-size: 13px;
+    }
+
     .section-title {
       margin: 35px 0 15px;
       font-size: 22px;
@@ -260,6 +294,12 @@
       margin: 35px 0;
     }
 
+    @media (max-width: 850px) {
+      .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     @media (max-width: 650px) {
       header {
         padding: 18px;
@@ -289,6 +329,17 @@
         padding: 25px 18px;
       }
     }
+
+    @media (max-width: 500px) {
+      .stats-section {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .stat-card {
+        padding: 18px 10px;
+      }
+    }
   </style>
 </head>
 
@@ -297,6 +348,7 @@
   <div class="top-bar"></div>
 
   <header>
+
     <div class="brand">
       Captured Moments
     </div>
@@ -307,9 +359,12 @@
     >
       ← Dashboard
     </a>
+
   </header>
 
   <main class="container">
+
+    <!-- Hero -->
 
     <section class="hero">
 
@@ -326,6 +381,8 @@
       </p>
 
     </section>
+
+    <!-- Event Information -->
 
     <section class="event-card">
 
@@ -373,6 +430,96 @@
       </div>
 
     </section>
+
+    <!-- Event Stats -->
+
+    <section class="stats-section">
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          📸
+        </div>
+
+        <div
+          class="stat-number"
+          id="photoCount"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Photos Uploaded
+        </div>
+
+      </div>
+
+      <div
+        class="stat-card"
+        id="rsvpStatCard"
+      >
+
+        <div class="stat-icon">
+          📋
+        </div>
+
+        <div
+          class="stat-number"
+          id="rsvpCount"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          RSVPs
+        </div>
+
+      </div>
+
+      <div
+        class="stat-card"
+        id="guestbookStatCard"
+      >
+
+        <div class="stat-icon">
+          💌
+        </div>
+
+        <div
+          class="stat-number"
+          id="guestbookCount"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Guestbook Messages
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          📺
+        </div>
+
+        <div
+          class="stat-number"
+          id="tvStatus"
+        >
+          —
+        </div>
+
+        <div class="stat-label">
+          TV Display
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Event Tools -->
 
     <h2 class="section-title">
       Event Tools
@@ -478,6 +625,8 @@
 
     </div>
 
+    <!-- No TV Notice -->
+
     <div
       class="no-tv"
       id="noTvNotice"
@@ -485,6 +634,8 @@
       This event does not have TV display enabled.
       Guests can still upload photos and use the event gallery.
     </div>
+
+    <!-- Event Settings -->
 
     <section class="manage-section">
 
