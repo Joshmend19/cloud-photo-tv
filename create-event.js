@@ -1,9 +1,5 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
-
-import {
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-} from "./config.js";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config.js";
 
 const supabase = createClient(
   SUPABASE_URL,
@@ -15,29 +11,15 @@ const supabase = createClient(
    Form elements
 --------------------------------- */
 
-const eventType =
-  document.getElementById("eventType");
+const eventType = document.getElementById("eventType");
+const eventName = document.getElementById("eventName");
+const eventDate = document.getElementById("eventDate");
+const startTime = document.getElementById("startTime");
+const endTime = document.getElementById("endTime");
 
-const eventName =
-  document.getElementById("eventName");
-
-const eventDate =
-  document.getElementById("eventDate");
-
-const startTime =
-  document.getElementById("startTime");
-
-const endTime =
-  document.getElementById("endTime");
-
-const primaryColor =
-  document.getElementById("primaryColor");
-
-const secondaryColor =
-  document.getElementById("secondaryColor");
-
-const accentColor =
-  document.getElementById("accentColor");
+const primaryColor = document.getElementById("primaryColor");
+const secondaryColor = document.getElementById("secondaryColor");
+const accentColor = document.getElementById("accentColor");
 
 const guestbookEnabled =
   document.getElementById("guestbookEnabled");
@@ -54,19 +36,32 @@ const status =
 --------------------------------- */
 
 const params =
-  new URLSearchParams(
-    window.location.search
-  );
+  new URLSearchParams(window.location.search);
 
 const editCode =
-  (params.get("edit") || "")
-    .toUpperCase();
-
-const selectedPackage =
-  params.get("package");
+  (params.get("edit") || "").toUpperCase();
 
 const isEditMode =
   Boolean(editCode);
+
+
+/* ---------------------------------
+   Selected package
+--------------------------------- */
+
+// Get package from URL if it exists
+const urlPackage =
+  params.get("package");
+
+// Store it globally so the package buttons
+// can update it immediately.
+if (
+  urlPackage === "instant" ||
+  urlPackage === "plus"
+) {
+  window.selectedCapturedPackage =
+    urlPackage;
+}
 
 
 /* ---------------------------------
@@ -75,7 +70,8 @@ const isEditMode =
 
 let editPackage = null;
 
-let editLoaded = !isEditMode;
+let editLoaded =
+  !isEditMode;
 
 
 /* ---------------------------------
@@ -126,17 +122,17 @@ async function loadEditEvent() {
     const {
       data: event,
       error
-    } =
-      await supabase
-        .from("events")
-        .select("*")
-        .eq("code", editCode)
-        .single();
+    } = await supabase
+      .from("events")
+      .select("*")
+      .eq("code", editCode)
+      .single();
 
 
     if (error) {
       throw error;
     }
+
 
     if (!event) {
       throw new Error(
@@ -185,28 +181,36 @@ async function loadEditEvent() {
         event.event_type || "";
     }
 
+
     if (eventName) {
       eventName.value =
         event.event_name || "";
     }
+
 
     if (eventDate) {
       eventDate.value =
         event.event_date || "";
     }
 
+
     if (startTime) {
+
       startTime.value =
         event.start_time
           ? event.start_time.slice(0, 5)
           : "";
+
     }
 
+
     if (endTime) {
+
       endTime.value =
         event.end_time
           ? event.end_time.slice(0, 5)
           : "";
+
     }
 
 
@@ -219,10 +223,12 @@ async function loadEditEvent() {
         ? "false"
         : "true";
 
+
     const tvChoice =
       document.querySelector(
         `input[name="hasTV"][value="${tvValue}"]`
       );
+
 
     if (tvChoice) {
       tvChoice.checked = true;
@@ -238,6 +244,7 @@ async function loadEditEvent() {
         `input[name="theme"][value="${event.theme}"]`
       );
 
+
     if (themeChoice) {
       themeChoice.checked = true;
     }
@@ -250,10 +257,12 @@ async function loadEditEvent() {
     const backgroundValue =
       event.background || "default";
 
+
     const backgroundChoice =
       document.querySelector(
         `input[name="background"][value="${backgroundValue}"]`
       );
+
 
     if (backgroundChoice) {
 
@@ -285,6 +294,7 @@ async function loadEditEvent() {
 
     }
 
+
     if (secondaryColor) {
 
       secondaryColor.value =
@@ -292,6 +302,7 @@ async function loadEditEvent() {
         "#fffaf8";
 
     }
+
 
     if (accentColor) {
 
@@ -323,13 +334,14 @@ async function loadEditEvent() {
     createBtn.textContent =
       "Save Event Changes";
 
-    createBtn.disabled =
-      false;
+    createBtn.disabled = false;
 
     status.textContent =
       "Your event details have been loaded.";
 
-  } catch (error) {
+  }
+
+  catch (error) {
 
     console.error(
       "EDIT EVENT LOAD ERROR:",
@@ -339,8 +351,7 @@ async function loadEditEvent() {
     status.textContent =
       "Could not load this event.";
 
-    createBtn.disabled =
-      true;
+    createBtn.disabled = true;
 
     editLoaded = false;
 
@@ -371,7 +382,10 @@ createBtn.addEventListener(
        Make sure edit event finished
     ------------------------------- */
 
-    if (isEditMode && !editLoaded) {
+    if (
+      isEditMode &&
+      !editLoaded
+    ) {
 
       status.textContent =
         "Please wait for your event to finish loading.";
@@ -385,10 +399,26 @@ createBtn.addEventListener(
        Get package
     ------------------------------- */
 
-    let currentPackage =
-      isEditMode
-        ? editPackage
-        : selectedPackage;
+    let currentPackage;
+
+
+    if (isEditMode) {
+
+      currentPackage =
+        editPackage;
+
+    } else {
+
+      currentPackage =
+        window.selectedCapturedPackage;
+
+    }
+
+
+    console.log(
+      "SELECTED PACKAGE:",
+      currentPackage
+    );
 
 
     /* -------------------------------
@@ -487,7 +517,8 @@ createBtn.addEventListener(
     const selectedTheme =
       document.querySelector(
         'input[name="theme"]:checked'
-      )?.value || "classic";
+      )?.value ||
+      "classic";
 
 
     /* -------------------------------
@@ -497,7 +528,8 @@ createBtn.addEventListener(
     const selectedBackground =
       document.querySelector(
         'input[name="background"]:checked'
-      )?.value || "default";
+      )?.value ||
+      "default";
 
 
     /* -------------------------------
@@ -560,6 +592,7 @@ createBtn.addEventListener(
 
     try {
 
+
       /* =================================
          EDIT EXISTING EVENT
       ================================= */
@@ -569,54 +602,53 @@ createBtn.addEventListener(
         const {
           data: updatedEvent,
           error: updateError
-        } =
-          await supabase
-            .from("events")
-            .update({
+        } = await supabase
+          .from("events")
+          .update({
 
-              event_type:
-                eventType.value,
+            event_type:
+              eventType.value,
 
-              event_name:
-                name,
+            event_name:
+              name,
 
-              event_date:
-                eventDate.value,
+            event_date:
+              eventDate.value,
 
-              start_time:
-                startTime.value,
+            start_time:
+              startTime.value,
 
-              end_time:
-                endTime.value,
+            end_time:
+              endTime.value,
 
-              theme:
-                selectedTheme,
+            theme:
+              selectedTheme,
 
-              primary_color:
-                finalPrimaryColor,
+            primary_color:
+              finalPrimaryColor,
 
-              secondary_color:
-                finalSecondaryColor,
+            secondary_color:
+              finalSecondaryColor,
 
-              accent_color:
-                finalAccentColor,
+            accent_color:
+              finalAccentColor,
 
-              background:
-                finalBackground,
+            background:
+              finalBackground,
 
-              has_tv:
-                hasTV,
+            has_tv:
+              hasTV,
 
-              guestbook_enabled:
-                isGuestbookEnabled
+            guestbook_enabled:
+              isGuestbookEnabled
 
-            })
-            .eq(
-              "code",
-              editCode
-            )
-            .select()
-            .single();
+          })
+          .eq(
+            "code",
+            editCode
+          )
+          .select()
+          .single();
 
 
         if (updateError) {
@@ -666,15 +698,14 @@ createBtn.addEventListener(
         const {
           data: existing,
           error: checkError
-        } =
-          await supabase
-            .from("events")
-            .select("id")
-            .eq(
-              "code",
-              possibleCode
-            )
-            .maybeSingle();
+        } = await supabase
+          .from("events")
+          .select("id")
+          .eq(
+            "code",
+            possibleCode
+          )
+          .maybeSingle();
 
 
         if (checkError) {
@@ -708,55 +739,54 @@ createBtn.addEventListener(
       const {
         data: event,
         error: eventError
-      } =
-        await supabase
-          .from("events")
-          .insert({
+      } = await supabase
+        .from("events")
+        .insert({
 
-            code,
+          code,
 
-            event_type:
-              eventType.value,
+          event_type:
+            eventType.value,
 
-            event_name:
-              name,
+          event_name:
+            name,
 
-            event_date:
-              eventDate.value,
+          event_date:
+            eventDate.value,
 
-            start_time:
-              startTime.value,
+          start_time:
+            startTime.value,
 
-            end_time:
-              endTime.value,
+          end_time:
+            endTime.value,
 
-            theme:
-              selectedTheme,
+          theme:
+            selectedTheme,
 
-            primary_color:
-              finalPrimaryColor,
+          primary_color:
+            finalPrimaryColor,
 
-            secondary_color:
-              finalSecondaryColor,
+          secondary_color:
+            finalSecondaryColor,
 
-            accent_color:
-              finalAccentColor,
+          accent_color:
+            finalAccentColor,
 
-            background:
-              finalBackground,
+          background:
+            finalBackground,
 
-            package:
-              currentPackage,
+          package:
+            currentPackage,
 
-            has_tv:
-              hasTV,
+          has_tv:
+            hasTV,
 
-            guestbook_enabled:
-              isGuestbookEnabled
+          guestbook_enabled:
+            isGuestbookEnabled
 
-          })
-          .select()
-          .single();
+        })
+        .select()
+        .single();
 
 
       if (eventError) {
@@ -770,20 +800,19 @@ createBtn.addEventListener(
 
       const {
         error: sessionError
-      } =
-        await supabase
-          .from("sessions")
-          .insert({
+      } = await supabase
+        .from("sessions")
+        .insert({
 
-            code,
+          code,
 
-            event_id:
-              event.id,
+          event_id:
+            event.id,
 
-            active:
-              true
+          active:
+            true
 
-          });
+        });
 
 
       if (sessionError) {
@@ -816,18 +845,15 @@ createBtn.addEventListener(
         event
       );
 
-
       console.log(
         "TV ACCESS:",
         hasTV
       );
 
-
       console.log(
         "PACKAGE:",
         currentPackage
       );
-
 
       console.log(
         "GUESTBOOK:",
@@ -842,8 +868,10 @@ createBtn.addEventListener(
       location.href =
         `event-created.html?code=${code}`;
 
+    }
 
-    } catch (error) {
+
+    catch (error) {
 
       console.error(
         "EVENT SAVE ERROR:",
@@ -855,8 +883,8 @@ createBtn.addEventListener(
         "Could not save the event. Please try again.";
 
 
-      createBtn.disabled =
-        false;
+      createBtn.disabled = false;
+
 
       createBtn.textContent =
         isEditMode
