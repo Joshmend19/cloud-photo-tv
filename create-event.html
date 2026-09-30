@@ -1,1791 +1,882 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Create Your Event | Captured Moments</title>
-
-  <style>
-    :root {
-      --blue: #2563eb;
-      --purple: #7c3aed;
-      --orange: #f97316;
-      --yellow: #facc15;
-      --navy: #172033;
-      --muted: #64748b;
-      --light: #f5f8ff;
-      --warm: #fffdf8;
-      --border: #e2e8f0;
-      --green: #22c55e;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-      background: var(--warm);
-      color: var(--navy);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .navbar {
-      height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 6%;
-      background: white;
-      border-bottom: 1px solid #eef2f7;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.2rem;
-      font-weight: 800;
-    }
-
-    .logo-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.2rem;
-      background:
-        linear-gradient(
-          135deg,
-          var(--blue),
-          var(--purple)
-        );
-    }
-
-    .logo span {
-      color: var(--blue);
-    }
-
-    .back-link {
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .back-link:hover {
-      color: var(--blue);
-    }
-
-    .page {
-      max-width: 1050px;
-      margin: 0 auto;
-      padding: 55px 20px 80px;
-    }
-
-    .page-header {
-      text-align: center;
-      margin-bottom: 38px;
-    }
-
-    .page-header h1 {
-      margin: 0 0 12px;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      line-height: 1.05;
-    }
-
-    .page-header p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
-
-    /* PACKAGE SELECTION */
-
-    .package-section {
-      margin-bottom: 40px;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 22px;
-    }
-
-    .section-title h2 {
-      margin: 0 0 7px;
-      font-size: 1.6rem;
-    }
-
-    .section-title p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .package-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
-    }
-
-    .package-card {
-      position: relative;
-      padding: 28px;
-      border: 2px solid var(--border);
-      border-radius: 22px;
-      background: white;
-      transition: 0.2s ease;
-    }
-
-    .package-card:hover {
-      border-color: #cbd5e1;
-      transform: translateY(-2px);
-    }
-
-    .package-card.plus {
-      border-color: var(--purple);
-      box-shadow:
-        0 15px 40px rgba(124, 58, 237, 0.12);
-    }
-
-    .popular {
-      position: absolute;
-      top: -13px;
-      right: 20px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: var(--purple);
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 800;
-    }
-
-    .package-card h3 {
-      margin: 0 0 8px;
-      font-size: 1.4rem;
-    }
-
-    .price {
-      margin-bottom: 20px;
-      font-size: 2rem;
-      font-weight: 800;
-    }
-
-    .price span {
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .package-card ul {
-      margin: 0 0 22px;
-      padding: 0;
-      list-style: none;
-    }
-
-    .package-card li {
-      margin: 10px 0;
-      color: #475569;
-      font-size: 0.95rem;
-    }
-
-    .package-card li::before {
-      content: "✓";
-      margin-right: 8px;
-      color: var(--green);
-      font-weight: 800;
-    }
-
-    .package-button {
-      width: 100%;
-      border: 0;
-      border-radius: 12px;
-      padding: 13px 18px;
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
-      background: var(--blue);
-      color: white;
-    }
-
-    .package-card.plus .package-button {
-      background: var(--purple);
-    }
-
-    /* SELECTED PACKAGE */
-
-    .selected-package {
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 30px;
-      padding: 18px 20px;
-      border-radius: 16px;
-      background: #eef4ff;
-      border: 1px solid #dbe7ff;
-    }
-
-    .selected-package.visible {
-      display: flex;
-    }
-
-    .selected-package strong {
-      display: block;
-      margin-bottom: 3px;
-    }
-
-    .selected-package small {
-      color: var(--muted);
-    }
-
-    .change-package {
-      border: 0;
-      background: white;
-      color: var(--blue);
-      font-weight: 700;
-      padding: 9px 13px;
-      border-radius: 9px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    /* FORM */
-
-    .setup-section {
-      display: none;
-    }
-
-    .setup-section.visible {
-      display: block;
-    }
-
-    .form-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow:
-        0 15px 45px rgba(15, 23, 42, 0.05);
-      margin-bottom: 25px;
-    }
-
-    .form-section {
-      margin-bottom: 34px;
-    }
-
-    .form-section:last-child {
-      margin-bottom: 0;
-    }
-
-    .form-section h2 {
-      margin: 0 0 7px;
-      font-size: 1.35rem;
-    }
-
-    .section-description {
-      margin: 0 0 20px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .form-group.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      font-weight: 700;
-      font-size: 0.9rem;
-    }
-
-    input[type="text"],
-    input[type="date"],
-    input[type="time"],
-    input[type="file"] {
-      width: 100%;
-      border: 1px solid #dbe2ea;
-      border-radius: 11px;
-      padding: 12px 13px;
-      font: inherit;
-      background: white;
-      color: var(--navy);
-    }
-
-    select {
-      width: 100%;
-      border: 1px solid #dbe2ea;
-      border-radius: 11px;
-      padding: 12px 13px;
-      font: inherit;
-      background: white;
-      color: var(--navy);
-    }
-
-    input:focus,
-    select:focus {
-      outline: none;
-      border-color: var(--blue);
-      box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    /* TV OPTIONS */
-
-    .tv-options {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .tv-option {
-      position: relative;
-    }
-
-    .tv-option input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .tv-option label {
-      display: block;
-      padding: 20px;
-      border: 2px solid var(--border);
-      border-radius: 16px;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .tv-option label:hover {
-      border-color: #cbd5e1;
-    }
-
-    .tv-option input:checked + label {
-      border-color: var(--blue);
-      background: #f4f7ff;
-      box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.08);
-    }
-
-    .tv-icon {
-      font-size: 1.7rem;
-      margin-bottom: 9px;
-    }
-
-    .tv-option strong {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 1rem;
-    }
-
-    .tv-option span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.5;
-      font-weight: 500;
-    }
-
-    /* THEME OPTIONS */
-
-    .option-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    .option-card {
-      position: relative;
-    }
-
-    .option-card input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .option-card label {
-      display: block;
-      padding: 15px;
-      border: 2px solid var(--border);
-      border-radius: 13px;
-      cursor: pointer;
-      text-align: center;
-      transition: 0.2s ease;
-    }
-
-    .option-card label:hover {
-      border-color: #cbd5e1;
-    }
-
-    .option-card input:checked + label {
-      border-color: var(--blue);
-      background: #f4f7ff;
-    }
-
-    .theme-preview {
-      height: 55px;
-      border-radius: 9px;
-      margin-bottom: 9px;
-    }
-
-    .classic {
-      background:
-        linear-gradient(
-          135deg,
-          #b97979,
-          #fffaf8
-        );
-    }
-
-    .elegant {
-      background:
-        linear-gradient(
-          135deg,
-          #172033,
-          #c8a24a
-        );
-    }
-
-    .celebration {
-      background:
-        linear-gradient(
-          135deg,
-          #f97316,
-          #facc15
-        );
-    }
-
-    .modern {
-      background:
-        linear-gradient(
-          135deg,
-          #2563eb,
-          #7c3aed
-        );
-    }
-
-    /* COLORS */
-
-    .color-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .color-input {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .color-input input[type="color"] {
-      width: 55px;
-      height: 45px;
-      padding: 3px;
-      border: 1px solid #dbe2ea;
-      border-radius: 10px;
-      background: white;
-      cursor: pointer;
-    }
-
-    /* BACKGROUNDS */
-
-    .background-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    .background-option {
-      position: relative;
-    }
-
-    .background-option input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .background-option label {
-      display: block;
-      border: 2px solid var(--border);
-      border-radius: 13px;
-      padding: 9px;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .background-option input:checked + label {
-      border-color: var(--blue);
-      background: #f4f7ff;
-    }
-
-    .background-preview {
-      height: 75px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-    }
-
-    .background-classic {
-      background: #fffaf8;
-    }
-
-    .background-soft {
-      background:
-        linear-gradient(
-          135deg,
-          #f5f8ff,
-          #f8f2ff
-        );
-    }
-
-    .background-celebration {
-      background:
-        radial-gradient(
-          circle at 20% 20%,
-          #facc15 0 8%,
-          transparent 9%
-        ),
-        radial-gradient(
-          circle at 80% 70%,
-          #f97316 0 8%,
-          transparent 9%
-        ),
-        #fff7ed;
-    }
-
-    .background-minimal {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-    }
-
-    /* GUESTBOOK */
-
-    .guestbook-option {
-      display: flex;
-      align-items: flex-start;
-      gap: 15px;
-      padding: 20px;
-      border: 2px solid var(--border);
-      border-radius: 16px;
-      background: white;
-      transition: 0.2s ease;
-    }
-
-    .guestbook-option:hover {
-      border-color: #cbd5e1;
-    }
-
-    .guestbook-option input {
-      width: 20px;
-      height: 20px;
-      margin-top: 3px;
-      accent-color: var(--purple);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .guestbook-option label {
-      cursor: pointer;
-      display: block;
-      flex: 1;
-    }
-
-    .guestbook-icon {
-      font-size: 1.7rem;
-      margin-bottom: 7px;
-    }
-
-    .guestbook-option strong {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 1rem;
-    }
-
-    .guestbook-option span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.5;
-      font-weight: 500;
-    }
-
-    /* LOCKED */
-
-    .locked-section {
-      position: relative;
-      opacity: 0.62;
-    }
-
-    .locked-section::after {
-      content: "Available with Captured Moments Plus";
-      display: block;
-      margin-top: 12px;
-      color: var(--purple);
-      font-size: 0.85rem;
-      font-weight: 800;
-    }
-
-    .locked-section input,
-    .locked-section label {
-      cursor: not-allowed;
-    }
-
-    /* BUTTON */
-
-    .create-area {
-      text-align: center;
-      padding-top: 5px;
-    }
-
-    #createBtn {
-      width: 100%;
-      border: 0;
-      border-radius: 14px;
-      padding: 16px 22px;
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: white;
-      background:
-        linear-gradient(
-          135deg,
-          var(--blue),
-          var(--purple)
-        );
-      cursor: pointer;
-      box-shadow:
-        0 12px 25px rgba(37, 99, 235, 0.2);
-      transition: 0.2s ease;
-    }
-
-    #createBtn:hover:not(:disabled) {
-      transform: translateY(-1px);
-      box-shadow:
-        0 15px 30px rgba(37, 99, 235, 0.25);
-    }
-
-    #createBtn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    #status {
-      margin-top: 13px;
-      color: #dc2626;
-      font-weight: 600;
-      min-height: 20px;
-    }
-
-    .secure-note {
-      margin-top: 15px;
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
-
-    @media (max-width: 800px) {
-
-      .package-grid,
-      .tv-options {
-        grid-template-columns: 1fr;
-      }
-
-      .option-grid,
-      .background-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .color-grid {
-        grid-template-columns: 1fr;
-      }
-
-    }
-
-    @media (max-width: 600px) {
-
-      .navbar {
-        padding: 0 20px;
-      }
-
-      .page {
-        padding: 38px 15px 60px;
-      }
-
-      .form-card {
-        padding: 22px;
-        border-radius: 18px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-group.full {
-        grid-column: auto;
-      }
-
-      .selected-package {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .option-grid,
-      .background-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-    }
-  </style>
-</head>
-
-<body>
-
-  <nav class="navbar">
-
-    <a href="index.html" class="logo">
-
-      <div class="logo-mark">
-        ✦
-      </div>
-
-      Captured <span>Moments</span>
-
-    </a>
-
-    <a href="index.html" class="back-link">
-      ← Back to Home
-    </a>
-
-  </nav>
-
-
-  <main class="page">
-
-    <div class="page-header">
-
-      <h1 id="pageTitle">
-        Create Your Event
-      </h1>
-
-      <p id="pageSubtitle">
-        Set up your event and let Captured Moments handle the memories.
-      </p>
-
-    </div>
-
-
-    <!-- PACKAGE SELECTION -->
-
-    <section
-      id="packageSection"
-      class="package-section"
-    >
-
-      <div class="section-title">
-
-        <h2>Choose Your Package</h2>
-
-        <p>
-          Pick the option that works best for your event.
-        </p>
-
-      </div>
-
-
-      <div class="package-grid">
-
-        <div class="package-card">
-
-          <h3>Captured Moments</h3>
-
-          <div class="price">
-            $19
-            <span>/ event</span>
-          </div>
-
-          <ul>
-
-            <li>Event-specific QR code</li>
-            <li>Guest photo uploads</li>
-            <li>Live TV slideshow</li>
-            <li>Event photo gallery</li>
-            <li>Photo downloads</li>
-            <li>Automatic gallery emails</li>
-            <li>Standard Captured Moments themes</li>
-            <li>Preset colors and backgrounds</li>
-            <li>Up to 500 photos</li>
-            <li>Gallery available for 30 days</li>
-
-          </ul>
-
-          <button
-            class="package-button"
-            onclick="selectPackage('instant')"
-          >
-            Choose Captured Moments
-          </button>
-
-        </div>
-
-
-        <div class="package-card plus">
-
-          <div class="popular">
-            MOST POPULAR
-          </div>
-
-          <h3>Captured Moments Plus</h3>
-
-          <div class="price">
-            $39
-            <span>/ event</span>
-          </div>
-
-          <ul>
-
-            <li>Everything in Captured Moments</li>
-            <li>Higher photo capacity</li>
-            <li>Custom colors</li>
-            <li>Custom background</li>
-            <li>Custom logo or photo</li>
-            <li>Premium themes</li>
-            <li>Custom event branding</li>
-            <li>Larger photo file limits</li>
-            <li>Gallery available for 1 year</li>
-
-          </ul>
-
-          <button
-            class="package-button"
-            onclick="selectPackage('plus')"
-          >
-            Choose Captured Moments Plus
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- SELECTED PACKAGE -->
-
-    <div
-      id="selectedPackage"
-      class="selected-package"
-    >
-
-      <div>
-
-        <strong id="selectedPackageName">
-          Captured Moments
-        </strong>
-
-        <small id="selectedPackageDescription">
-          Standard event setup
-        </small>
-
-      </div>
-
-      <button
-        class="change-package"
-        onclick="changePackage()"
-      >
-        Change Package
-      </button>
-
-    </div>
-
-
-    <!-- EVENT SETUP -->
-
-    <section
-      id="setupSection"
-      class="setup-section"
-    >
-
-      <div class="form-card">
-
-
-        <div class="form-section">
-
-          <h2>Event Information</h2>
-
-          <p class="section-description">
-            Tell us about your event.
-          </p>
-
-
-          <div class="form-grid">
-
-            <div class="form-group">
-
-              <label for="eventName">
-                Event Name
-              </label>
-
-              <input
-                type="text"
-                id="eventName"
-                placeholder="Donna's 60th Birthday"
-              >
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="eventType">
-                Event Type
-              </label>
-
-              <select id="eventType">
-
-                <option value="Birthday">
-                  Birthday
-                </option>
-
-                <option value="Graduation">
-                  Graduation
-                </option>
-
-                <option value="Wedding">
-                  Wedding
-                </option>
-
-                <option value="Retirement">
-                  Retirement
-                </option>
-
-                <option value="Baby Shower">
-                  Baby Shower
-                </option>
-
-                <option value="Anniversary">
-                  Anniversary
-                </option>
-
-                <option value="Sports Event">
-                  Sports Event
-                </option>
-
-                <option value="Other">
-                  Other
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="eventDate">
-                Event Date
-              </label>
-
-              <input
-                type="date"
-                id="eventDate"
-              >
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="startTime">
-                Start Time
-              </label>
-
-              <input
-                type="time"
-                id="startTime"
-              >
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="endTime">
-                End Time
-              </label>
-
-              <input
-                type="time"
-                id="endTime"
-              >
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- TV ACCESS -->
-
-        <div class="form-section">
-
-          <h2>TV Display</h2>
-
-          <p class="section-description">
-            Will you have access to a TV at your event?
-          </p>
-
-
-          <div class="tv-options">
-
-            <div class="tv-option">
-
-              <input
-                type="radio"
-                id="tvYes"
-                name="hasTV"
-                value="true"
-                checked
-              >
-
-              <label for="tvYes">
-
-                <div class="tv-icon">
-                  📺
-                </div>
-
-                <strong>
-                  Yes, I have a TV
-                </strong>
-
-                <span>
-                  Display guest photos live during your event.
-                </span>
-
-              </label>
-
-            </div>
-
-
-            <div class="tv-option">
-
-              <input
-                type="radio"
-                id="tvNo"
-                name="hasTV"
-                value="false"
-              >
-
-              <label for="tvNo">
-
-                <div class="tv-icon">
-                  📱
-                </div>
-
-                <strong>
-                  No, I don't have a TV
-                </strong>
-
-                <span>
-                  Guests can still upload, view, and download photos.
-                </span>
-
-              </label>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- THEME -->
-
-        <div class="form-section">
-
-          <h2>Choose Your Theme</h2>
-
-          <p class="section-description">
-            Pick the look that fits your event.
-          </p>
-
-
-          <div class="option-grid">
-
-            <div class="option-card">
-
-              <input
-                type="radio"
-                id="themeClassic"
-                name="theme"
-                value="classic"
-                checked
-              >
-
-              <label for="themeClassic">
-
-                <div class="theme-preview classic"></div>
-
-                Classic
-
-              </label>
-
-            </div>
-
-
-            <div class="option-card">
-
-              <input
-                type="radio"
-                id="themeElegant"
-                name="theme"
-                value="elegant"
-              >
-
-              <label for="themeElegant">
-
-                <div class="theme-preview elegant"></div>
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-                Elegant
-
-              </label>
-
-            </div>
-
-
-            <div class="option-card">
+import {
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+} from "./config.js";
 
-              <input
-                type="radio"
-                id="themeCelebration"
-                name="theme"
-                value="celebration"
-              >
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
-              <label for="themeCelebration">
 
-                <div class="theme-preview celebration"></div>
+/* ---------------------------------
+   Form elements
+--------------------------------- */
 
-                Celebration
+const eventType =
+  document.getElementById("eventType");
 
-              </label>
+const eventName =
+  document.getElementById("eventName");
 
-            </div>
+const eventDate =
+  document.getElementById("eventDate");
 
+const startTime =
+  document.getElementById("startTime");
 
-            <div class="option-card">
+const endTime =
+  document.getElementById("endTime");
 
-              <input
-                type="radio"
-                id="themeModern"
-                name="theme"
-                value="modern"
-              >
+const primaryColor =
+  document.getElementById("primaryColor");
 
-              <label for="themeModern">
+const secondaryColor =
+  document.getElementById("secondaryColor");
 
-                <div class="theme-preview modern"></div>
+const accentColor =
+  document.getElementById("accentColor");
 
-                Modern
+const guestbookEnabled =
+  document.getElementById("guestbookEnabled");
 
-              </label>
+const createBtn =
+  document.getElementById("createBtn");
 
-            </div>
+const status =
+  document.getElementById("status");
 
-          </div>
 
-        </div>
+/* ---------------------------------
+   URL parameters
+--------------------------------- */
 
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
 
-        <!-- COLORS -->
+const editCode =
+  (params.get("edit") || "")
+    .toUpperCase();
 
-        <div
-          id="colorsSection"
-          class="form-section"
-        >
+const isEditMode =
+  Boolean(editCode);
 
-          <h2>Choose Your Colors</h2>
 
-          <p class="section-description">
-            Customize the colors used throughout your event.
-          </p>
+/* ---------------------------------
+   Get currently selected package
+--------------------------------- */
 
+function getSelectedPackage() {
 
-          <div class="color-grid">
+  const currentParams =
+    new URLSearchParams(
+      window.location.search
+    );
 
-            <div class="form-group">
+  return currentParams.get("package");
 
-              <label for="primaryColor">
-                Primary Color
-              </label>
+}
 
-              <div class="color-input">
 
-                <input
-                  type="color"
-                  id="primaryColor"
-                  value="#b97979"
-                >
+/* ---------------------------------
+   Existing package for edit mode
+--------------------------------- */
 
-                <span>
-                  Main color
-                </span>
+let editPackage = null;
 
-              </div>
+let editLoaded = !isEditMode;
 
-            </div>
 
+/* ---------------------------------
+   Create unique event code
+--------------------------------- */
 
-            <div class="form-group">
+function createEventCode() {
 
-              <label for="secondaryColor">
-                Secondary Color
-              </label>
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-              <div class="color-input">
+  let code = "";
 
-                <input
-                  type="color"
-                  id="secondaryColor"
-                  value="#fffaf8"
-                >
+  for (let i = 0; i < 6; i++) {
 
-                <span>
-                  Background color
-                </span>
-
-              </div>
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="accentColor">
-                Accent Color
-              </label>
-
-              <div class="color-input">
-
-                <input
-                  type="color"
-                  id="accentColor"
-                  value="#c8a24a"
-                >
-
-                <span>
-                  Accent color
-                </span>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- BACKGROUND -->
-
-        <div
-          id="backgroundSection"
-          class="form-section"
-        >
-
-          <h2>Choose Your Background</h2>
-
-          <p class="section-description">
-            Choose the background style for your event.
-          </p>
-
-
-          <div class="background-grid">
-
-            <div class="background-option">
-
-              <input
-                type="radio"
-                id="backgroundClassic"
-                name="background"
-                value="classic"
-                checked
-              >
-
-              <label for="backgroundClassic">
-
-                <div class="background-preview background-classic"></div>
-
-                Classic
-
-              </label>
-
-            </div>
-
-
-            <div class="background-option">
-
-              <input
-                type="radio"
-                id="backgroundSoft"
-                name="background"
-                value="soft"
-              >
-
-              <label for="backgroundSoft">
-
-                <div class="background-preview background-soft"></div>
-
-                Soft
-
-              </label>
-
-            </div>
-
-
-            <div class="background-option">
-
-              <input
-                type="radio"
-                id="backgroundCelebration"
-                name="background"
-                value="celebration"
-              >
-
-              <label for="backgroundCelebration">
-
-                <div class="background-preview background-celebration"></div>
-
-                Celebration
-
-              </label>
-
-            </div>
-
-
-            <div class="background-option">
-
-              <input
-                type="radio"
-                id="backgroundMinimal"
-                name="background"
-                value="minimal"
-              >
-
-              <label for="backgroundMinimal">
-
-                <div class="background-preview background-minimal"></div>
-
-                Minimal
-
-              </label>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- LOGO -->
-
-        <div
-          id="logoSection"
-          class="form-section"
-        >
-
-          <h2>Add Your Logo or Photo</h2>
-
-          <p class="section-description">
-            Add a logo or photo to personalize your event.
-          </p>
-
-          <div class="form-group">
-
-            <label for="logoInput">
-              Logo or Photo
-            </label>
-
-            <input
-              type="file"
-              id="logoInput"
-              accept="image/png,image/jpeg,image/webp"
-            >
-
-          </div>
-
-        </div>
-
-
-        <!-- GUESTBOOK -->
-
-        <div
-          id="guestbookSection"
-          class="form-section"
-        >
-
-          <h2>Digital Guestbook</h2>
-
-          <p class="section-description">
-            Give your guests a place to leave a special message for your event.
-          </p>
-
-          <div class="guestbook-option">
-
-            <input
-              type="checkbox"
-              id="guestbookEnabled"
-            >
-
-            <label for="guestbookEnabled">
-
-              <div class="guestbook-icon">
-                💌
-              </div>
-
-              <strong>
-                Add a Digital Guestbook
-              </strong>
-
-              <span>
-                Guests can leave their name and a message that will be saved with your event.
-              </span>
-
-            </label>
-
-          </div>
-
-        </div>
-
-
-        <!-- CREATE -->
-
-        <div class="create-area">
-
-          <button
-            id="createBtn"
-            type="button"
-          >
-            Continue to Checkout
-          </button>
-
-          <div id="status"></div>
-
-          <div class="secure-note">
-            🔒 Your event information is securely saved.
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <script>
-
-    /* ---------------------------------
-       Package elements
-    --------------------------------- */
-
-    const packageSection =
-      document.getElementById(
-        "packageSection"
-      );
-
-    const setupSection =
-      document.getElementById(
-        "setupSection"
-      );
-
-    const selectedPackageBox =
-      document.getElementById(
-        "selectedPackage"
-      );
-
-    const selectedPackageName =
-      document.getElementById(
-        "selectedPackageName"
-      );
-
-    const selectedPackageDescription =
-      document.getElementById(
-        "selectedPackageDescription"
-      );
-
-    const colorsSection =
-      document.getElementById(
-        "colorsSection"
-      );
-
-    const backgroundSection =
-      document.getElementById(
-        "backgroundSection"
-      );
-
-    const logoSection =
-      document.getElementById(
-        "logoSection"
-      );
-
-    const pageTitle =
-      document.getElementById(
-        "pageTitle"
-      );
-
-    const pageSubtitle =
-      document.getElementById(
-        "pageSubtitle"
-      );
-
-
-    /* ---------------------------------
-       URL parameters
-    --------------------------------- */
-
-    const urlParams =
-      new URLSearchParams(
-        window.location.search
-      );
-
-    const packageFromUrl =
-      urlParams.get("package");
-
-    const editCode =
-      urlParams.get("edit");
-
-
-    /* ---------------------------------
-       Package selection
-    --------------------------------- */
-
-    function selectPackage(packageName) {
-
-      const url =
-        new URL(
-          window.location.href
-        );
-
-      url.searchParams.set(
-        "package",
-        packageName
-      );
-
-      window.history.replaceState(
-        {},
-        "",
-        url
-      );
-
-      showPackage(
-        packageName
-      );
-
-    }
-
-
-    function changePackage() {
-
-      const url =
-        new URL(
-          window.location.href
-        );
-
-      url.searchParams.delete(
-        "package"
-      );
-
-      window.history.replaceState(
-        {},
-        "",
-        url
-      );
-
-      packageSection.style.display =
-        "block";
-
-      setupSection.classList.remove(
-        "visible"
-      );
-
-      selectedPackageBox.classList.remove(
-        "visible"
-      );
-
-    }
-
-
-    function showPackage(packageName) {
-
-      packageSection.style.display =
-        "none";
-
-      setupSection.classList.add(
-        "visible"
-      );
-
-      selectedPackageBox.classList.add(
-        "visible"
-      );
-
-
-      if (packageName === "plus") {
-
-        selectedPackageName.textContent =
-          "Captured Moments Plus";
-
-        selectedPackageDescription.textContent =
-          "$39 per event • Full customization";
-
-        colorsSection.classList.remove(
-          "locked-section"
-        );
-
-        backgroundSection.classList.remove(
-          "locked-section"
-        );
-
-        logoSection.classList.remove(
-          "locked-section"
-        );
-
-        enableCustomization();
-
-      } else {
-
-        selectedPackageName.textContent =
-          "Captured Moments";
-
-        selectedPackageDescription.textContent =
-          "$19 per event • Standard event setup";
-
-        colorsSection.classList.add(
-          "locked-section"
-        );
-
-        backgroundSection.classList.add(
-          "locked-section"
-        );
-
-        logoSection.classList.add(
-          "locked-section"
-        );
-
-        disableCustomization();
-
-      }
-
-    }
-
-
-    function disableCustomization() {
-
-      document
-        .querySelectorAll(
-          "#colorsSection input, #backgroundSection input, #logoSection input"
+    code +=
+      characters[
+        Math.floor(
+          Math.random() *
+          characters.length
         )
-        .forEach(
-          input => {
-            input.disabled = true;
-          }
-        );
+      ];
 
+  }
+
+  return code;
+}
+
+
+/* ---------------------------------
+   Load existing event for editing
+--------------------------------- */
+
+async function loadEditEvent() {
+
+  if (!isEditMode) {
+    return;
+  }
+
+  try {
+
+    createBtn.disabled = true;
+
+    status.textContent =
+      "Loading your event…";
+
+
+    const {
+      data: event,
+      error
+    } =
+      await supabase
+        .from("events")
+        .select("*")
+        .eq("code", editCode)
+        .single();
+
+
+    if (error) {
+      throw error;
     }
 
-
-    function enableCustomization() {
-
-      document
-        .querySelectorAll(
-          "#colorsSection input, #backgroundSection input, #logoSection input"
-        )
-        .forEach(
-          input => {
-            input.disabled = false;
-          }
-        );
-
-    }
-
-
-    /* ---------------------------------
-       Edit mode
-    --------------------------------- */
-
-    if (editCode) {
-
-      packageSection.style.display =
-        "none";
-
-      selectedPackageBox.classList.remove(
-        "visible"
+    if (!event) {
+      throw new Error(
+        "Event not found."
       );
-
-      setupSection.classList.add(
-        "visible"
-      );
-
-      pageTitle.textContent =
-        "Edit Your Event";
-
-      pageSubtitle.textContent =
-        "Update your event details and save your changes.";
-
     }
 
 
-    /* ---------------------------------
-       Normal package mode
-    --------------------------------- */
+    console.log(
+      "EDIT EVENT LOADED:",
+      event
+    );
 
-    else if (
-      packageFromUrl === "instant" ||
-      packageFromUrl === "plus"
+
+    /* -------------------------------
+       Save existing package
+    ------------------------------- */
+
+    editPackage =
+      event.package || "instant";
+
+
+    if (
+      editPackage !== "instant" &&
+      editPackage !== "plus"
     ) {
 
-      showPackage(
-        packageFromUrl
-      );
+      editPackage =
+        "instant";
 
     }
 
-  </script>
+
+    console.log(
+      "EDIT PACKAGE:",
+      editPackage
+    );
 
 
-  <script
-    type="module"
-    src="create-event.js"
-  ></script>
+    /* -------------------------------
+       Fill basic information
+    ------------------------------- */
 
-</body>
-</html>
+    if (eventType) {
+      eventType.value =
+        event.event_type || "";
+    }
+
+    if (eventName) {
+      eventName.value =
+        event.event_name || "";
+    }
+
+    if (eventDate) {
+      eventDate.value =
+        event.event_date || "";
+    }
+
+    if (startTime) {
+      startTime.value =
+        event.start_time
+          ? event.start_time.slice(0, 5)
+          : "";
+    }
+
+    if (endTime) {
+      endTime.value =
+        event.end_time
+          ? event.end_time.slice(0, 5)
+          : "";
+    }
+
+
+    /* -------------------------------
+       Fill TV choice
+    ------------------------------- */
+
+    const tvValue =
+      event.has_tv === false
+        ? "false"
+        : "true";
+
+    const tvChoice =
+      document.querySelector(
+        `input[name="hasTV"][value="${tvValue}"]`
+      );
+
+    if (tvChoice) {
+      tvChoice.checked = true;
+    }
+
+
+    /* -------------------------------
+       Fill theme
+    ------------------------------- */
+
+    const themeChoice =
+      document.querySelector(
+        `input[name="theme"][value="${event.theme}"]`
+      );
+
+    if (themeChoice) {
+      themeChoice.checked = true;
+    }
+
+
+    /* -------------------------------
+       Fill background
+    ------------------------------- */
+
+    const backgroundValue =
+      event.background || "default";
+
+    const backgroundChoice =
+      document.querySelector(
+        `input[name="background"][value="${backgroundValue}"]`
+      );
+
+    if (backgroundChoice) {
+
+      backgroundChoice.checked = true;
+
+    } else {
+
+      const classicBackground =
+        document.querySelector(
+          'input[name="background"][value="default"]'
+        );
+
+      if (classicBackground) {
+        classicBackground.checked = true;
+      }
+
+    }
+
+
+    /* -------------------------------
+       Fill colors
+    ------------------------------- */
+
+    if (primaryColor) {
+
+      primaryColor.value =
+        event.primary_color ||
+        "#b97979";
+
+    }
+
+    if (secondaryColor) {
+
+      secondaryColor.value =
+        event.secondary_color ||
+        "#fffaf8";
+
+    }
+
+    if (accentColor) {
+
+      accentColor.value =
+        event.accent_color ||
+        "#c8a24a";
+
+    }
+
+
+    /* -------------------------------
+       Fill Guestbook choice
+    ------------------------------- */
+
+    if (guestbookEnabled) {
+
+      guestbookEnabled.checked =
+        event.guestbook_enabled === true;
+
+    }
+
+
+    /* -------------------------------
+       Finish loading
+    ------------------------------- */
+
+    editLoaded = true;
+
+    createBtn.textContent =
+      "Save Event Changes";
+
+    createBtn.disabled =
+      false;
+
+    status.textContent =
+      "Your event details have been loaded.";
+
+  } catch (error) {
+
+    console.error(
+      "EDIT EVENT LOAD ERROR:",
+      error
+    );
+
+    status.textContent =
+      "Could not load this event.";
+
+    createBtn.disabled =
+      true;
+
+    editLoaded = false;
+
+  }
+
+}
+
+
+/* ---------------------------------
+   Load edit mode
+--------------------------------- */
+
+loadEditEvent();
+
+
+/* ---------------------------------
+   Create or update event
+--------------------------------- */
+
+createBtn.addEventListener(
+  "click",
+  async () => {
+
+    status.textContent = "";
+
+
+    /* -------------------------------
+       Make sure edit event finished
+    ------------------------------- */
+
+    if (isEditMode && !editLoaded) {
+
+      status.textContent =
+        "Please wait for your event to finish loading.";
+
+      return;
+
+    }
+
+
+    /* -------------------------------
+       Get package
+    ------------------------------- */
+
+    let currentPackage =
+      isEditMode
+        ? editPackage
+        : getSelectedPackage();
+
+
+    /* -------------------------------
+       Validate package
+    ------------------------------- */
+
+    if (
+      currentPackage !== "instant" &&
+      currentPackage !== "plus"
+    ) {
+
+      status.textContent =
+        "Please choose a package first.";
+
+      return;
+
+    }
+
+
+    /* -------------------------------
+       Get event information
+    ------------------------------- */
+
+    const name =
+      eventName.value.trim();
+
+
+    if (!name) {
+
+      status.textContent =
+        "Please enter an event name.";
+
+      eventName.focus();
+
+      return;
+
+    }
+
+
+    if (!eventDate.value) {
+
+      status.textContent =
+        "Please choose an event date.";
+
+      return;
+
+    }
+
+
+    if (
+      !startTime.value ||
+      !endTime.value
+    ) {
+
+      status.textContent =
+        "Please choose a start and end time.";
+
+      return;
+
+    }
+
+
+    if (
+      endTime.value <=
+      startTime.value
+    ) {
+
+      status.textContent =
+        "The end time must be after the start time.";
+
+      return;
+
+    }
+
+
+    /* -------------------------------
+       Get TV choice
+    ------------------------------- */
+
+    const selectedTV =
+      document.querySelector(
+        'input[name="hasTV"]:checked'
+      );
+
+
+    const hasTV =
+      selectedTV
+        ? selectedTV.value === "true"
+        : true;
+
+
+    /* -------------------------------
+       Get theme
+    ------------------------------- */
+
+    const selectedTheme =
+      document.querySelector(
+        'input[name="theme"]:checked'
+      )?.value || "classic";
+
+
+    /* -------------------------------
+       Get background
+    ------------------------------- */
+
+    const selectedBackground =
+      document.querySelector(
+        'input[name="background"]:checked'
+      )?.value || "default";
+
+
+    /* -------------------------------
+       Get Guestbook choice
+    ------------------------------- */
+
+    const isGuestbookEnabled =
+      guestbookEnabled
+        ? guestbookEnabled.checked
+        : false;
+
+
+    /* -------------------------------
+       Package customization
+    ------------------------------- */
+
+    let finalPrimaryColor =
+      "#b97979";
+
+    let finalSecondaryColor =
+      "#fffaf8";
+
+    let finalAccentColor =
+      "#c8a24a";
+
+    let finalBackground =
+      "default";
+
+
+    if (
+      currentPackage === "plus"
+    ) {
+
+      finalPrimaryColor =
+        primaryColor.value;
+
+      finalSecondaryColor =
+        secondaryColor.value;
+
+      finalAccentColor =
+        accentColor.value;
+
+      finalBackground =
+        selectedBackground;
+
+    }
+
+
+    /* --------------------------------
+       Disable button
+    -------------------------------- */
+
+    createBtn.disabled = true;
+
+    createBtn.textContent =
+      isEditMode
+        ? "Saving changes…"
+        : "Creating event…";
+
+
+    try {
+
+      /* =================================
+         EDIT EXISTING EVENT
+      ================================= */
+
+      if (isEditMode) {
+
+        const {
+          data: updatedEvent,
+          error: updateError
+        } =
+          await supabase
+            .from("events")
+            .update({
+
+              event_type:
+                eventType.value,
+
+              event_name:
+                name,
+
+              event_date:
+                eventDate.value,
+
+              start_time:
+                startTime.value,
+
+              end_time:
+                endTime.value,
+
+              theme:
+                selectedTheme,
+
+              primary_color:
+                finalPrimaryColor,
+
+              secondary_color:
+                finalSecondaryColor,
+
+              accent_color:
+                finalAccentColor,
+
+              background:
+                finalBackground,
+
+              has_tv:
+                hasTV,
+
+              guestbook_enabled:
+                isGuestbookEnabled
+
+            })
+            .eq(
+              "code",
+              editCode
+            )
+            .select()
+            .single();
+
+
+        if (updateError) {
+          throw updateError;
+        }
+
+
+        console.log(
+          "EVENT UPDATED:",
+          updatedEvent
+        );
+
+
+        sessionStorage.setItem(
+          "cptv_event_code",
+          editCode
+        );
+
+
+        location.href =
+          `event-created.html?code=${editCode}`;
+
+
+        return;
+
+      }
+
+
+      /* =================================
+         CREATE NEW EVENT
+      ================================= */
+
+      let code = null;
+
+      let attempts = 0;
+
+
+      while (
+        !code &&
+        attempts < 10
+      ) {
+
+        const possibleCode =
+          createEventCode();
+
+
+        const {
+          data: existing,
+          error: checkError
+        } =
+          await supabase
+            .from("events")
+            .select("id")
+            .eq(
+              "code",
+              possibleCode
+            )
+            .maybeSingle();
+
+
+        if (checkError) {
+          throw checkError;
+        }
+
+
+        if (!existing) {
+          code = possibleCode;
+        }
+
+
+        attempts++;
+
+      }
+
+
+      if (!code) {
+
+        throw new Error(
+          "Could not create a unique event code."
+        );
+
+      }
+
+
+      /* -----------------------------
+         Create event
+      ----------------------------- */
+
+      const {
+        data: event,
+        error: eventError
+      } =
+        await supabase
+          .from("events")
+          .insert({
+
+            code,
+
+            event_type:
+              eventType.value,
+
+            event_name:
+              name,
+
+            event_date:
+              eventDate.value,
+
+            start_time:
+              startTime.value,
+
+            end_time:
+              endTime.value,
+
+            theme:
+              selectedTheme,
+
+            primary_color:
+              finalPrimaryColor,
+
+            secondary_color:
+              finalSecondaryColor,
+
+            accent_color:
+              finalAccentColor,
+
+            background:
+              finalBackground,
+
+            package:
+              currentPackage,
+
+            has_tv:
+              hasTV,
+
+            guestbook_enabled:
+              isGuestbookEnabled
+
+          })
+          .select()
+          .single();
+
+
+      if (eventError) {
+        throw eventError;
+      }
+
+
+      /* -----------------------------
+         Create TV/photo session
+      ----------------------------- */
+
+      const {
+        error: sessionError
+      } =
+        await supabase
+          .from("sessions")
+          .insert({
+
+            code,
+
+            event_id:
+              event.id,
+
+            active:
+              true
+
+          });
+
+
+      if (sessionError) {
+
+        await supabase
+          .from("events")
+          .delete()
+          .eq(
+            "id",
+            event.id
+          );
+
+        throw sessionError;
+
+      }
+
+
+      /* -----------------------------
+         Save temporary event code
+      ----------------------------- */
+
+      sessionStorage.setItem(
+        "cptv_event_code",
+        code
+      );
+
+
+      console.log(
+        "EVENT CREATED:",
+        event
+      );
+
+
+      console.log(
+        "TV ACCESS:",
+        hasTV
+      );
+
+
+      console.log(
+        "PACKAGE:",
+        currentPackage
+      );
+
+
+      console.log(
+        "GUESTBOOK:",
+        isGuestbookEnabled
+      );
+
+
+      /* -----------------------------
+         Continue
+      ----------------------------- */
+
+      location.href =
+        `event-created.html?code=${code}`;
+
+
+    } catch (error) {
+
+      console.error(
+        "EVENT SAVE ERROR:",
+        error
+      );
+
+
+      status.textContent =
+        "Could not save the event. Please try again.";
+
+
+      createBtn.disabled =
+        false;
+
+      createBtn.textContent =
+        isEditMode
+          ? "Save Event Changes"
+          : "Continue to Checkout";
+
+    }
+
+  }
+);
