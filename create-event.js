@@ -20,13 +20,43 @@ const primaryColor = document.getElementById("primaryColor");
 const secondaryColor = document.getElementById("secondaryColor");
 const accentColor = document.getElementById("accentColor");
 
-const background = document.querySelector(
-  'input[name="background"]:checked'
-);
-
 const createBtn = document.getElementById("createBtn");
 const status = document.getElementById("status");
 
+
+/* ---------------------------------
+   Get selected package from URL
+--------------------------------- */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const selectedPackage =
+  (params.get("package") || "")
+    .toLowerCase();
+
+
+/* ---------------------------------
+   Validate package
+--------------------------------- */
+
+if (
+  selectedPackage !== "instant" &&
+  selectedPackage !== "plus"
+) {
+
+  status.textContent =
+    "Please choose a package before creating your event.";
+
+  createBtn.disabled = true;
+}
+
+
+/* ---------------------------------
+   Create unique event code
+--------------------------------- */
 
 function createEventCode() {
 
@@ -49,11 +79,36 @@ function createEventCode() {
 }
 
 
+/* ---------------------------------
+   Create event
+--------------------------------- */
+
 createBtn.addEventListener(
   "click",
   async () => {
 
     status.textContent = "";
+
+
+    /* -----------------------------
+       Make sure package is valid
+    ----------------------------- */
+
+    if (
+      selectedPackage !== "instant" &&
+      selectedPackage !== "plus"
+    ) {
+
+      status.textContent =
+        "Please choose a package before creating your event.";
+
+      return;
+    }
+
+
+    /* -----------------------------
+       Validate required fields
+    ----------------------------- */
 
     const name =
       eventName.value.trim();
@@ -93,6 +148,10 @@ createBtn.addEventListener(
     }
 
 
+    /* -----------------------------
+       Disable button while creating
+    ----------------------------- */
+
     createBtn.disabled = true;
 
     createBtn.textContent =
@@ -100,6 +159,10 @@ createBtn.addEventListener(
 
 
     try {
+
+      /* -----------------------------
+         Find unique event code
+      ----------------------------- */
 
       let code = null;
 
@@ -140,19 +203,87 @@ createBtn.addEventListener(
       }
 
 
+      /* -----------------------------
+         Get selected theme
+      ----------------------------- */
+
       const selectedTheme =
         document.querySelector(
           'input[name="theme"]:checked'
         )?.value || "classic";
 
 
-      // Create the event
+      /* -----------------------------
+         Get selected background
+      ----------------------------- */
+
+      const selectedBackground =
+        document.querySelector(
+          'input[name="background"]:checked'
+        )?.value || "default";
+
+
+      /* -----------------------------
+         Package settings
+      ----------------------------- */
+
+      let finalPrimaryColor =
+        primaryColor?.value || "#b97979";
+
+      let finalSecondaryColor =
+        secondaryColor?.value || "#fffaf8";
+
+      let finalAccentColor =
+        accentColor?.value || "#c8a24a";
+
+      let finalTheme =
+        selectedTheme;
+
+      let finalBackground =
+        selectedBackground;
+
+
+      /*
+        Instant uses the standard
+        Instant Moments design.
+
+        Plus keeps the customer's
+        selected customization.
+      */
+
+      if (selectedPackage === "instant") {
+
+        finalTheme =
+          "classic";
+
+        finalPrimaryColor =
+          "#b97979";
+
+        finalSecondaryColor =
+          "#fffaf8";
+
+        finalAccentColor =
+          "#c8a24a";
+
+        finalBackground =
+          "default";
+
+      }
+
+
+      /* -----------------------------
+         Create the event
+      ----------------------------- */
+
       const { data: event, error: eventError } =
         await supabase
           .from("events")
           .insert({
 
             code,
+
+            package:
+              selectedPackage,
 
             event_type:
               eventType.value,
@@ -170,19 +301,22 @@ createBtn.addEventListener(
               endTime.value,
 
             theme:
-              selectedTheme,
+              finalTheme,
 
             primary_color:
-              primaryColor.value,
+              finalPrimaryColor,
 
             secondary_color:
-              secondaryColor.value,
+              finalSecondaryColor,
 
             accent_color:
-              accentColor.value,
+              finalAccentColor,
 
             background:
-              background.value
+              finalBackground,
+
+            logo_url:
+              null
 
           })
           .select()
@@ -196,28 +330,35 @@ createBtn.addEventListener(
       }
 
 
-      // Create the session used by the current
-      // working TV/photo system.
+      /* -----------------------------
+         Create session for the
+         current working TV/photo system
+      ----------------------------- */
+
       const { error: sessionError } =
         await supabase
           .from("sessions")
           .insert({
 
-            code: code,
+            code:
+              code,
 
             event_id:
               event.id,
 
-            active: true
+            active:
+              true
 
           });
 
 
       if (sessionError) {
 
-        // If the session could not be created,
-        // remove the event so we don't leave
-        // an incomplete event behind.
+        /*
+          If the session could not be created,
+          remove the event so we don't leave
+          an incomplete event behind.
+        */
 
         await supabase
           .from("events")
@@ -229,21 +370,32 @@ createBtn.addEventListener(
       }
 
 
-      console.log(
-        "EVENT CREATED:",
-        event
-      );
+      /* -----------------------------
+         Save event code temporarily
+      ----------------------------- */
 
-
-      // Save the event code temporarily so
-      // the next page can use it.
       sessionStorage.setItem(
         "cptv_event_code",
         code
       );
 
 
-      // Go to the event setup page.
+      console.log(
+        "EVENT CREATED:",
+        event
+      );
+
+
+      console.log(
+        "PACKAGE:",
+        selectedPackage
+      );
+
+
+      /* -----------------------------
+         Go to event-created page
+      ----------------------------- */
+
       location.href =
         `event-created.html?code=${code}`;
 
