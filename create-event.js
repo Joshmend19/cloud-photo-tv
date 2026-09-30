@@ -25,7 +25,7 @@ const status = document.getElementById("status");
 
 
 /* ---------------------------------
-   Get selected package from URL
+   Get package from URL
 --------------------------------- */
 
 const params =
@@ -91,7 +91,7 @@ createBtn.addEventListener(
 
 
     /* -----------------------------
-       Make sure package is valid
+       Validate package
     ----------------------------- */
 
     if (
@@ -107,7 +107,20 @@ createBtn.addEventListener(
 
 
     /* -----------------------------
-       Validate required fields
+       Get TV selection
+    ----------------------------- */
+
+    const tvSelection =
+      document.querySelector(
+        'input[name="hasTV"]:checked'
+      );
+
+    const hasTV =
+      tvSelection?.value === "true";
+
+
+    /* -----------------------------
+       Validate event information
     ----------------------------- */
 
     const name =
@@ -149,7 +162,7 @@ createBtn.addEventListener(
 
 
     /* -----------------------------
-       Disable button while creating
+       Disable button
     ----------------------------- */
 
     createBtn.disabled = true;
@@ -220,12 +233,15 @@ createBtn.addEventListener(
       const selectedBackground =
         document.querySelector(
           'input[name="background"]:checked'
-        )?.value || "default";
+        )?.value || "classic";
 
 
       /* -----------------------------
-         Package settings
+         Package customization
       ----------------------------- */
+
+      let finalTheme =
+        selectedTheme;
 
       let finalPrimaryColor =
         primaryColor?.value || "#b97979";
@@ -236,19 +252,16 @@ createBtn.addEventListener(
       let finalAccentColor =
         accentColor?.value || "#c8a24a";
 
-      let finalTheme =
-        selectedTheme;
-
       let finalBackground =
         selectedBackground;
 
 
       /*
-        Instant uses the standard
-        Instant Moments design.
+        Captured Moments uses
+        the standard design.
 
-        Plus keeps the customer's
-        selected customization.
+        Captured Moments Plus allows
+        the selected customization.
       */
 
       if (selectedPackage === "instant") {
@@ -266,13 +279,13 @@ createBtn.addEventListener(
           "#c8a24a";
 
         finalBackground =
-          "default";
+          "classic";
 
       }
 
 
       /* -----------------------------
-         Create the event
+         Create event
       ----------------------------- */
 
       const { data: event, error: eventError } =
@@ -284,6 +297,9 @@ createBtn.addEventListener(
 
             package:
               selectedPackage,
+
+            has_tv:
+              hasTV,
 
             event_type:
               eventType.value,
@@ -331,8 +347,7 @@ createBtn.addEventListener(
 
 
       /* -----------------------------
-         Create session for the
-         current working TV/photo system
+         Create session
       ----------------------------- */
 
       const { error: sessionError } =
@@ -355,9 +370,8 @@ createBtn.addEventListener(
       if (sessionError) {
 
         /*
-          If the session could not be created,
-          remove the event so we don't leave
-          an incomplete event behind.
+          Remove the event if the
+          session cannot be created.
         */
 
         await supabase
@@ -371,7 +385,7 @@ createBtn.addEventListener(
 
 
       /* -----------------------------
-         Save event code temporarily
+         Save event code
       ----------------------------- */
 
       sessionStorage.setItem(
@@ -385,10 +399,14 @@ createBtn.addEventListener(
         event
       );
 
-
       console.log(
         "PACKAGE:",
         selectedPackage
+      );
+
+      console.log(
+        "HAS TV:",
+        hasTV
       );
 
 
