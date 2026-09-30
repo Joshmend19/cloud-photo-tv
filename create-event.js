@@ -363,16 +363,27 @@ async function loadEditEvent() {
 
 
     /* ---------------------------------
-       Business always includes RSVP
+       Business always includes
+       Guestbook + RSVP
     --------------------------------- */
 
     if (
-      editPackage === "business" &&
-      rsvpEnabled
+      editPackage === "business"
     ) {
 
-      rsvpEnabled.checked =
-        true;
+      if (guestbookEnabled) {
+
+        guestbookEnabled.checked =
+          true;
+
+      }
+
+      if (rsvpEnabled) {
+
+        rsvpEnabled.checked =
+          true;
+
+      }
 
     }
 
@@ -572,7 +583,7 @@ createBtn.addEventListener(
        GUESTBOOK
     --------------------------------- */
 
-    const isGuestbookEnabled =
+    let isGuestbookEnabled =
       guestbookEnabled
         ? guestbookEnabled.checked
         : false;
@@ -589,12 +600,16 @@ createBtn.addEventListener(
 
 
     /* ---------------------------------
-       BUSINESS ALWAYS INCLUDES RSVP
+       BUSINESS ALWAYS INCLUDES
+       GUESTBOOK + RSVP
     --------------------------------- */
 
     if (
       currentPackage === "business"
     ) {
+
+      isGuestbookEnabled =
+        true;
 
       isRSVPEnabled =
         true;
