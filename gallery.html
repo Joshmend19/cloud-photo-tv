@@ -4,17 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Event Gallery | Instant Moments</title>
+  <title>Event Gallery | Captured Moments</title>
 
   <style>
     :root {
-      --blue: #2563eb;
-      --purple: #7c3aed;
-      --orange: #f97316;
-      --yellow: #facc15;
+      --primary-color: #2563eb;
+      --secondary-color: #fffdf8;
+      --accent-color: #c8a24a;
       --navy: #172033;
-      --warm-white: #fffdf8;
-      --light-blue: #f5f8ff;
+      --light-background: #f5f8ff;
     }
 
     * {
@@ -24,7 +22,7 @@
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--light-blue);
+      background: var(--light-background);
       color: var(--navy);
     }
 
@@ -32,15 +30,13 @@
       height: 6px;
       background: linear-gradient(
         90deg,
-        var(--blue),
-        var(--purple),
-        var(--orange),
-        var(--yellow)
+        var(--primary-color),
+        var(--accent-color)
       );
     }
 
     nav {
-      background: white;
+      background: var(--secondary-color);
       padding: 18px 24px;
       border-bottom: 1px solid #e5e7eb;
     }
@@ -71,17 +67,17 @@
       color: white;
       background: linear-gradient(
         135deg,
-        var(--blue),
-        var(--purple)
+        var(--primary-color),
+        var(--accent-color)
       );
     }
 
     .logo span {
-      color: var(--blue);
+      color: var(--primary-color);
     }
 
     .back-link {
-      color: var(--blue);
+      color: var(--primary-color);
       text-decoration: none;
       font-weight: 700;
     }
@@ -113,8 +109,12 @@
       margin-top: 15px;
       padding: 8px 14px;
       border-radius: 999px;
-      background: #eaf1ff;
-      color: var(--blue);
+      background: color-mix(
+        in srgb,
+        var(--primary-color) 12%,
+        white
+      );
+      color: var(--primary-color);
       font-size: 13px;
       font-weight: 800;
       letter-spacing: 1.5px;
@@ -141,13 +141,13 @@
       color: white;
       background: linear-gradient(
         135deg,
-        var(--blue),
-        var(--purple)
+        var(--primary-color),
+        var(--accent-color)
       );
     }
 
     .secondary {
-      background: white;
+      background: var(--secondary-color);
       color: var(--navy);
       border: 1px solid #dbe2ea;
     }
@@ -174,7 +174,7 @@
     }
 
     .photo-card {
-      background: white;
+      background: var(--secondary-color);
       border-radius: 18px;
       overflow: hidden;
       box-shadow:
@@ -208,7 +208,7 @@
     }
 
     .download-link {
-      color: var(--blue);
+      color: var(--primary-color);
       text-decoration: none;
       font-size: 13px;
       font-weight: 700;
@@ -217,7 +217,7 @@
     .empty {
       text-align: center;
       padding: 70px 20px;
-      background: white;
+      background: var(--secondary-color);
       border-radius: 20px;
       color: #64748b;
     }
@@ -265,14 +265,14 @@
 
       <div class="logo">
         <div class="logo-mark">✦</div>
-        Instant <span>Moments</span>
+        Captured <span>Moments</span>
       </div>
 
       <a
         href="index.html"
         class="back-link"
       >
-        Instant Moments
+        Captured Moments
       </a>
 
     </div>
@@ -295,7 +295,7 @@
         id="eventCode"
         class="event-code"
       >
-        EVENT ------ 
+        EVENT ------
       </div>
 
     </section>
@@ -334,6 +334,90 @@
     type="module"
     src="./gallery.js"
   ></script>
+
+
+  <!-- Load the event's saved colors -->
+
+  <script type="module">
+
+    import { createClient }
+      from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+    import {
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    } from "./config.js";
+
+
+    const supabase =
+      createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const code =
+      (params.get("code") || "")
+        .toUpperCase();
+
+
+    if (code) {
+
+      try {
+
+        const {
+          data: event,
+          error
+        } =
+          await supabase
+            .from("events")
+            .select(
+              "primary_color, secondary_color, accent_color"
+            )
+            .eq(
+              "code",
+              code
+            )
+            .single();
+
+
+        if (!error && event) {
+
+          document.documentElement.style.setProperty(
+            "--primary-color",
+            event.primary_color || "#2563eb"
+          );
+
+          document.documentElement.style.setProperty(
+            "--secondary-color",
+            event.secondary_color || "#fffdf8"
+          );
+
+          document.documentElement.style.setProperty(
+            "--accent-color",
+            event.accent_color || "#c8a24a"
+          );
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "GALLERY COLOR ERROR:",
+          error
+        );
+
+      }
+
+    }
+
+  </script>
 
 </body>
 </html>
