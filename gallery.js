@@ -34,40 +34,7 @@ const status =
 const downloadAllBtn =
   document.getElementById("downloadAllBtn");
 
-const rsvpSection =
-  document.getElementById("rsvpSection");
-
-const rsvpForm =
-  document.getElementById("rsvpForm");
-
-const rsvpName =
-  document.getElementById("rsvpName");
-
-const rsvpEmail =
-  document.getElementById("rsvpEmail");
-
-const guestCount =
-  document.getElementById("guestCount");
-
-const rsvpMessage =
-  document.getElementById("rsvpMessage");
-
-const submitRsvpBtn =
-  document.getElementById("submitRsvpBtn");
-
-const rsvpMessageStatus =
-  document.getElementById(
-    "rsvpMessageStatus"
-  );
-
-const guestCountGroup =
-  document.getElementById(
-    "guestCountGroup"
-  );
-
 let photos = [];
-
-let currentEvent = null;
 
 
 /* ---------------------------------
@@ -88,30 +55,36 @@ async function loadGallery() {
       "No event code was provided.";
 
     return;
-
   }
 
 
   try {
 
     /* ---------------------------------
-       Get event
+       Get public event
     --------------------------------- */
 
     const {
-      data: event,
+      data,
       error: eventError
     } =
-      await supabase
-        .from("events")
-        .select("*")
-        .eq("code", code)
-        .single();
+      await supabase.rpc(
+        "get_public_event",
+        {
+          p_code: code
+        }
+      );
 
 
     if (eventError) {
       throw eventError;
     }
+
+
+    const event =
+      Array.isArray(data)
+        ? data[0]
+        : data;
 
 
     if (!event) {
@@ -123,30 +96,12 @@ async function loadGallery() {
     }
 
 
-    currentEvent =
-      event;
-
-
     eventName.textContent =
-      event.event_name;
+      event.event_name ||
+      "Event Gallery";
 
     eventCode.textContent =
       `EVENT ${event.code}`;
-
-
-    /* ---------------------------------
-       Show RSVP if enabled
-    --------------------------------- */
-
-    if (
-      event.rsvp_enabled === true &&
-      rsvpSection
-    ) {
-
-      rsvpSection.style.display =
-        "block";
-
-    }
 
 
     /* ---------------------------------
@@ -154,8 +109,8 @@ async function loadGallery() {
     --------------------------------- */
 
     const {
-      data,
-      error
+      data: photoData,
+      error: photoError
     } =
       await supabase
         .from("photos")
@@ -172,13 +127,13 @@ async function loadGallery() {
         );
 
 
-    if (error) {
-      throw error;
+    if (photoError) {
+      throw photoError;
     }
 
 
     photos =
-      data || [];
+      photoData || [];
 
 
     renderGallery();
@@ -190,6 +145,9 @@ async function loadGallery() {
       "GALLERY ERROR:",
       error
     );
+
+    eventName.textContent =
+      "Unable to Load Gallery";
 
     status.textContent =
       "There was a problem loading the gallery.";
@@ -337,217 +295,6 @@ function renderGallery() {
 
     }
   );
-
-}
-
-
-/* ---------------------------------
-   RSVP attendance selection
---------------------------------- */
-
-const attendanceInputs =
-  document.querySelectorAll(
-    'input[name="attending"]'
-  );
-
-
-attendanceInputs.forEach(
-  input => {
-
-    input.addEventListener(
-      "change",
-      () => {
-
-        if (
-          input.value === "false" &&
-          input.checked
-        ) {
-
-          guestCount.value =
-            "1";
-
-          guestCountGroup.style.display =
-            "none";
-
-        }
-
-
-        if (
-          input.value === "true" &&
-          input.checked
-        ) {
-
-          guestCountGroup.style.display =
-            "grid";
-
-        }
-
-      }
-    );
-
-  }
-);
-
-
-/* ---------------------------------
-   Submit RSVP
---------------------------------- */
-
-if (rsvpForm) {
-
-  rsvpForm.addEventListener(
-    "submit",
-    async event => {
-
-      event.preventDefault();
-
-
-      if (!currentEvent) {
-
-        rsvpMessageStatus.textContent =
-          "Event information has not loaded yet.";
-
-        return;
-
-      }
-
-
-      const selectedAttendance =
-        document.querySelector(
-          'input[name="attending"]:checked'
-        );
-
-
-      if (!selectedAttendance) {
-
-        rsvpMessageStatus.textContent =
-          "Please choose whether you are attending.";
-
-        return;
-
-      }
-
-
-      const name =
-        rsvpName.value.trim();
-
-      const email =
-        rsvpEmail.value.trim();
-
-      const attending =
-        selectedAttendance.value === "true";
-
-      const numberOfGuests =
-        attending
-          ? Number(guestCount.value)
-          : 1;
-
-      const message =
-        rsvpMessage.value.trim();
-
-
-      if (!name) {
-
-        rsvpMessageStatus.textContent =
-          "Please enter your name.";
-
-        rsvpName.focus();
-
-        return;
-
-      }
-
-
-      submitRsvpBtn.disabled =
-        true;
-
-      submitRsvpBtn.textContent =
-        "Submitting…";
-
-      rsvpMessageStatus.textContent =
-        "";
-
-
-      try {
-
-        const {
-          error
-        } =
-          await supabase
-            .from("rsvps")
-            .insert({
-
-              event_id:
-                currentEvent.id,
-
-              name,
-
-              email:
-                email || null,
-
-              attending,
-
-              guest_count:
-                numberOfGuests,
-
-              message:
-                message || null
-
-            });
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        rsvpForm.innerHTML = `
-          <div class="rsvp-success">
-            Thank you, ${escapeHtml(name)}! Your RSVP has been submitted.
-          </div>
-        `;
-
-
-      } catch (error) {
-
-        console.error(
-          "RSVP ERROR:",
-          error
-        );
-
-
-        rsvpMessageStatus.textContent =
-          "Could not submit your RSVP. Please try again.";
-
-        submitRsvpBtn.disabled =
-          false;
-
-        submitRsvpBtn.textContent =
-          "Submit RSVP";
-
-      }
-
-    }
-  );
-
-}
-
-
-/* ---------------------------------
-   Escape HTML
---------------------------------- */
-
-function escapeHtml(value) {
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-  div.textContent =
-    value;
-
-  return div.innerHTML;
 
 }
 
