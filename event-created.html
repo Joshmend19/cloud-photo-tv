@@ -514,6 +514,71 @@
     }
 
 
+    /* EDIT EVENT */
+
+    .edit-event {
+      margin-top: 18px;
+
+      display: flex;
+
+      justify-content: center;
+    }
+
+
+    .edit-event-button {
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 8px;
+
+      padding: 12px 20px;
+
+      border-radius: 12px;
+
+      background: white;
+
+      border:
+        1px solid
+        color-mix(
+          in srgb,
+          var(--primary-color) 20%,
+          #dbe2ea
+        );
+
+      color: var(--primary-color);
+
+      font-size: 14px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+      transition: 0.18s;
+    }
+
+
+    .edit-event-button:hover {
+      transform: translateY(-1px);
+
+      background:
+        color-mix(
+          in srgb,
+          var(--primary-color) 6%,
+          white
+        );
+
+      border-color:
+        color-mix(
+          in srgb,
+          var(--primary-color) 35%,
+          #dbe2ea
+        );
+    }
+
+
     /* LINKS */
 
     .links-section {
@@ -976,6 +1041,21 @@
         <div id="eventCode">
           ------
         </div>
+
+      </div>
+
+
+      <!-- EDIT EVENT -->
+
+      <div class="edit-event">
+
+        <a
+          id="editEventBtn"
+          class="edit-event-button"
+          href="#"
+        >
+          ✏️ Edit Event
+        </a>
 
       </div>
 
