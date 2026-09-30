@@ -49,6 +49,9 @@ const tvLink =
 const galleryLink =
   document.getElementById("galleryLink");
 
+const rsvpLink =
+  document.getElementById("rsvpLink");
+
 const tvNotice =
   document.getElementById("tvNotice");
 
@@ -212,6 +215,9 @@ if (!code) {
     const galleryUrl =
       `${window.location.origin}/cloud-photo-tv/gallery.html?code=${event.code}`;
 
+    const rsvpUrl =
+      `${window.location.origin}/cloud-photo-tv/rsvp.html?code=${event.code}`;
+
 
     /* -------------------------------
        Always provide gallery
@@ -219,6 +225,30 @@ if (!code) {
 
     galleryLink.href =
       galleryUrl;
+
+
+    /* -------------------------------
+       RSVP handling
+    ------------------------------- */
+
+    const rsvpEnabled =
+      event.rsvp_enabled === true;
+
+
+    if (rsvpEnabled) {
+
+      rsvpLink.href =
+        rsvpUrl;
+
+      rsvpLink.style.display =
+        "block";
+
+    } else {
+
+      rsvpLink.style.display =
+        "none";
+
+    }
 
 
     /* -------------------------------
@@ -334,6 +364,16 @@ if (!code) {
     console.log(
       "Gallery URL:",
       galleryUrl
+    );
+
+    console.log(
+      "RSVP enabled:",
+      rsvpEnabled
+    );
+
+    console.log(
+      "RSVP URL:",
+      rsvpUrl
     );
 
     console.log(
