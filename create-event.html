@@ -362,7 +362,7 @@
     .tv-options {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
+      gap: 18px;
     }
 
     .tv-option {
@@ -376,42 +376,70 @@
     }
 
     .tv-option label {
-      display: block;
-      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      min-height: 150px;
+      padding: 22px;
       border: 2px solid var(--border);
-      border-radius: 16px;
+      border-radius: 18px;
+      background: white;
       cursor: pointer;
       transition: 0.2s ease;
     }
 
     .tv-option label:hover {
       border-color: #cbd5e1;
+      transform: translateY(-2px);
+      box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.06);
     }
 
     .tv-option input:checked + label {
       border-color: var(--blue);
       background: #f4f7ff;
       box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.08);
+        0 0 0 3px rgba(37, 99, 235, 0.08),
+        0 10px 25px rgba(37, 99, 235, 0.08);
     }
 
     .tv-icon {
-      font-size: 1.7rem;
-      margin-bottom: 9px;
+      width: 58px;
+      height: 58px;
+      min-width: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+      background: #eef4ff;
+      font-size: 1.9rem;
+    }
+
+    .tv-content {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
     }
 
     .tv-option strong {
       display: block;
-      margin-bottom: 5px;
-      font-size: 1rem;
+      font-size: 1.05rem;
     }
 
     .tv-option span {
       display: block;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       line-height: 1.5;
       font-weight: 500;
+    }
+
+    .tv-option small {
+      display: block;
+      margin-top: 3px;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
     }
 
     /* THEME OPTIONS */
@@ -757,6 +785,17 @@
         flex-direction: column;
       }
 
+      .tv-option label {
+        min-height: auto;
+        padding: 18px;
+      }
+
+      .tv-icon {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+      }
+
       .option-grid,
       .background-grid {
         grid-template-columns: 1fr 1fr;
@@ -1060,7 +1099,7 @@
           <h2>TV Display</h2>
 
           <p class="section-description">
-            Will you have access to a TV at your event?
+            Choose whether you want to display guest photos live during your event.
           </p>
 
 
@@ -1082,13 +1121,21 @@
                   📺
                 </div>
 
-                <strong>
-                  Yes, I have a TV
-                </strong>
+                <div class="tv-content">
 
-                <span>
-                  Display guest photos live during your event.
-                </span>
+                  <strong>
+                    Yes, I have a TV
+                  </strong>
+
+                  <span>
+                    Show guest photos live on your TV as they are uploaded.
+                  </span>
+
+                  <small>
+                    ✦ Live photo slideshow
+                  </small>
+
+                </div>
 
               </label>
 
@@ -1110,13 +1157,21 @@
                   📱
                 </div>
 
-                <strong>
-                  No, I don't have a TV
-                </strong>
+                <div class="tv-content">
 
-                <span>
-                  Guests can still upload, view, and download photos.
-                </span>
+                  <strong>
+                    No, I don't have a TV
+                  </strong>
+
+                  <span>
+                    No problem. Guests can still upload, view, and download photos.
+                  </span>
+
+                  <small>
+                    ✦ Photo sharing still works
+                  </small>
+
+                </div>
 
               </label>
 
@@ -1591,6 +1646,9 @@
 
     function selectPackage(packageName) {
 
+      window.selectedCapturedPackage =
+        packageName;
+
       const url =
         new URL(
           window.location.href
@@ -1615,6 +1673,9 @@
 
 
     function changePackage() {
+
+      window.selectedCapturedPackage =
+        null;
 
       const url =
         new URL(
@@ -1772,6 +1833,9 @@
       packageFromUrl === "instant" ||
       packageFromUrl === "plus"
     ) {
+
+      window.selectedCapturedPackage =
+        packageFromUrl;
 
       showPackage(
         packageFromUrl
