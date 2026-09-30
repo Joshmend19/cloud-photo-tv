@@ -170,126 +170,7 @@
       font-weight: 600;
     }
 
-    /* ---------------------------------
-       RSVP
-    --------------------------------- */
-
-    .rsvp-section {
-      max-width: 700px;
-      margin: 0 auto 50px;
-      padding: 30px;
-      background: white;
-      border-radius: 20px;
-      box-shadow:
-        0 8px 25px rgba(
-          23,
-          32,
-          51,
-          0.08
-        );
-    }
-
-    .rsvp-section h2 {
-      margin: 0 0 8px;
-      text-align: center;
-      font-size: 28px;
-    }
-
-    .rsvp-section > p {
-      margin: 0 0 25px;
-      text-align: center;
-      color: #64748b;
-    }
-
-    .rsvp-form {
-      display: grid;
-      gap: 18px;
-    }
-
-    .form-group {
-      display: grid;
-      gap: 7px;
-    }
-
-    .form-group label {
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 12px 13px;
-      border: 1px solid #dbe2ea;
-      border-radius: 10px;
-      font-size: 15px;
-      font-family: inherit;
-      background: white;
-      color: var(--navy);
-    }
-
-    .form-group textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .attendance-options {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .attendance-option {
-      position: relative;
-    }
-
-    .attendance-option input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .attendance-option label {
-      display: block;
-      padding: 14px;
-      text-align: center;
-      border: 1px solid #dbe2ea;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 700;
-      background: #fff;
-    }
-
-    .attendance-option input:checked + label {
-      border-color: var(--primary-color);
-      background: color-mix(
-        in srgb,
-        var(--primary-color) 10%,
-        white
-      );
-      color: var(--primary-color);
-    }
-
-    .rsvp-message {
-      text-align: center;
-      min-height: 22px;
-      color: #64748b;
-      font-weight: 600;
-    }
-
-    .rsvp-success {
-      text-align: center;
-      padding: 20px;
-      border-radius: 14px;
-      background: #f0fdf4;
-      color: #166534;
-      font-weight: 700;
-    }
-
-    /* ---------------------------------
-       Gallery
-    --------------------------------- */
+    /* Gallery */
 
     .gallery {
       display: grid;
@@ -347,6 +228,7 @@
       background: white;
       border-radius: 20px;
       color: #64748b;
+      grid-column: 1 / -1;
     }
 
     .empty h2 {
@@ -379,14 +261,6 @@
       .back-link {
         font-size: 14px;
       }
-
-      .rsvp-section {
-        padding: 22px;
-      }
-
-      .attendance-options {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
@@ -413,7 +287,6 @@
     </div>
   </nav>
 
-
   <main>
 
     <section class="hero">
@@ -435,191 +308,6 @@
 
     </section>
 
-
-    <!-- RSVP -->
-
-    <section
-      id="rsvpSection"
-      class="rsvp-section"
-      style="display: none;"
-    >
-
-      <h2>RSVP</h2>
-
-      <p>
-        Let us know if you'll be joining us.
-      </p>
-
-      <form
-        id="rsvpForm"
-        class="rsvp-form"
-      >
-
-        <div class="form-group">
-
-          <label for="rsvpName">
-            Name
-          </label>
-
-          <input
-            type="text"
-            id="rsvpName"
-            required
-            placeholder="Your name"
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="rsvpEmail">
-            Email
-          </label>
-
-          <input
-            type="email"
-            id="rsvpEmail"
-            placeholder="Your email"
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            Will you be attending?
-          </label>
-
-          <div class="attendance-options">
-
-            <div class="attendance-option">
-
-              <input
-                type="radio"
-                id="attendingYes"
-                name="attending"
-                value="true"
-                required
-              >
-
-              <label for="attendingYes">
-                Yes, I'll be there
-              </label>
-
-            </div>
-
-
-            <div class="attendance-option">
-
-              <input
-                type="radio"
-                id="attendingNo"
-                name="attending"
-                value="false"
-              >
-
-              <label for="attendingNo">
-                No, I can't make it
-              </label>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div
-          id="guestCountGroup"
-          class="form-group"
-        >
-
-          <label for="guestCount">
-            Number of guests
-          </label>
-
-          <select id="guestCount">
-
-            <option value="1">
-              1
-            </option>
-
-            <option value="2">
-              2
-            </option>
-
-            <option value="3">
-              3
-            </option>
-
-            <option value="4">
-              4
-            </option>
-
-            <option value="5">
-              5
-            </option>
-
-            <option value="6">
-              6
-            </option>
-
-            <option value="7">
-              7
-            </option>
-
-            <option value="8">
-              8
-            </option>
-
-            <option value="9">
-              9
-            </option>
-
-            <option value="10">
-              10
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="rsvpMessage">
-            Message
-          </label>
-
-          <textarea
-            id="rsvpMessage"
-            placeholder="Optional message"
-          ></textarea>
-
-        </div>
-
-
-        <button
-          type="submit"
-          id="submitRsvpBtn"
-          class="primary"
-        >
-          Submit RSVP
-        </button>
-
-
-        <div
-          id="rsvpMessageStatus"
-          class="rsvp-message"
-        ></div>
-
-      </form>
-
-    </section>
-
-
     <section class="actions">
 
       <button
@@ -631,7 +319,6 @@
 
     </section>
 
-
     <div
       id="status"
       class="status"
@@ -639,21 +326,17 @@
       Loading photos...
     </div>
 
-
     <section
       id="gallery"
       class="gallery"
     ></section>
 
-
   </main>
-
 
   <script
     type="module"
     src="./gallery.js"
   ></script>
-
 
   <script type="module">
 
@@ -665,55 +348,50 @@
       SUPABASE_ANON_KEY
     } from "./config.js";
 
-
     const supabase =
       createClient(
         SUPABASE_URL,
         SUPABASE_ANON_KEY
       );
 
-
     const params =
       new URLSearchParams(
         window.location.search
       );
 
-
     const code =
       (params.get("code") || "")
         .toUpperCase();
-
 
     if (code) {
 
       try {
 
         const {
-          data: event,
+          data,
           error
         } =
-          await supabase
-            .from("events")
-            .select(
-              "primary_color, secondary_color, accent_color"
-            )
-            .eq(
-              "code",
-              code
-            )
-            .single();
+          await supabase.rpc(
+            "get_public_event",
+            {
+              p_code: code
+            }
+          );
 
+        if (error) {
+          throw error;
+        }
 
-        if (!error && event) {
+        const event =
+          Array.isArray(data)
+            ? data[0]
+            : data;
+
+        if (event) {
 
           document.documentElement.style.setProperty(
             "--primary-color",
             event.primary_color || "#2563eb"
-          );
-
-          document.documentElement.style.setProperty(
-            "--secondary-color",
-            event.secondary_color || "#fffdf8"
           );
 
           document.documentElement.style.setProperty(
