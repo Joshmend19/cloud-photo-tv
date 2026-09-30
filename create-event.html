@@ -663,9 +663,12 @@
       width: 20px;
       height: 20px;
       margin-top: 3px;
-      accent-color: var(--purple);
       cursor: pointer;
       flex-shrink: 0;
+    }
+
+    .guestbook-option input {
+      accent-color: var(--purple);
     }
 
     .rsvp-option input {
@@ -728,6 +731,26 @@
     .locked-section input,
     .locked-section label {
       cursor: not-allowed;
+    }
+
+    /* RSVP LOCKED */
+
+    .rsvp-locked {
+      opacity: 0.62;
+    }
+
+    .rsvp-locked input,
+    .rsvp-locked label {
+      cursor: not-allowed;
+    }
+
+    .rsvp-locked::after {
+      content: "Available with Captured Moments Business";
+      display: block;
+      margin-top: 12px;
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 800;
     }
 
     /* BUSINESS INCLUDED */
@@ -1088,6 +1111,8 @@
 
       <div class="form-card">
 
+
+        <!-- EVENT INFORMATION -->
 
         <div class="form-section">
 
@@ -1681,7 +1706,7 @@
             <label for="rsvpEnabled">
 
               <div class="rsvp-icon">
-                💍
+                📋
               </div>
 
               <strong>
@@ -1885,13 +1910,18 @@
         "visible"
       );
 
-      rsvpEnabled.checked = false;
+      rsvpEnabled.checked =
+        false;
 
       rsvpIncluded.style.display =
         "none";
 
       rsvpOption.classList.remove(
         "business-included"
+      );
+
+      rsvpOption.classList.remove(
+        "rsvp-locked"
       );
 
     }
@@ -1910,6 +1940,10 @@
         "visible"
       );
 
+
+      /* ---------------------------------
+         BUSINESS
+      --------------------------------- */
 
       if (packageName === "business") {
 
@@ -1946,8 +1980,19 @@
           "business-included"
         );
 
+        rsvpOption.classList.remove(
+          "rsvp-locked"
+        );
 
-      } else if (packageName === "plus") {
+
+      }
+
+
+      /* ---------------------------------
+         PLUS
+      --------------------------------- */
+
+      else if (packageName === "plus") {
 
         selectedPackageName.textContent =
           "Captured Moments Plus";
@@ -1980,8 +2025,19 @@
           "business-included"
         );
 
+        rsvpOption.classList.add(
+          "rsvp-locked"
+        );
 
-      } else {
+
+      }
+
+
+      /* ---------------------------------
+         CAPTURED MOMENTS
+      --------------------------------- */
+
+      else {
 
         selectedPackageName.textContent =
           "Captured Moments";
@@ -2012,6 +2068,10 @@
 
         rsvpOption.classList.remove(
           "business-included"
+        );
+
+        rsvpOption.classList.add(
+          "rsvp-locked"
         );
 
       }
