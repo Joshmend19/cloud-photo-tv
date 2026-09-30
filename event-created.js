@@ -1,403 +1,166 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+import { supabase } from "./config.js";
+import QRCode from "https://cdn.jsdelivr.net/npm/qrcode@1.5.3/+esm";
 
-  <title>Event Ready | Captured Moments</title>
+const params = new URLSearchParams(window.location.search);
+const eventCode = params.get("code");
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+const eventName = document.getElementById("eventName");
+const eventDate = document.getElementById("eventDate");
+const eventCodeDisplay = document.getElementById("eventCode");
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f8f6f3;
-      color: #333;
-    }
+const qrCode = document.getElementById("qrCode");
 
-    .top-bar {
-      height: 8px;
-      background: linear-gradient(
-        90deg,
-        #d4af37,
-        #f5e6c8,
-        #c9a0a0,
-        #d4af37
-      );
-    }
+const tvLink = document.getElementById("tvLink");
+const galleryLink = document.getElementById("galleryLink");
+const rsvpLink = document.getElementById("rsvpLink");
+const guestbookLink = document.getElementById("guestbookLink");
 
-    header {
-      background: white;
-      padding: 22px 20px;
-      text-align: center;
-      border-bottom: 1px solid #eee;
-    }
+const noTvNotice = document.getElementById("noTvNotice");
+const editEventLink = document.getElementById("editEventLink");
 
-    .brand {
-      font-size: 26px;
-      font-weight: 700;
-      color: #b08d57;
-    }
+function formatEventDate(dateString) {
+  if (!dateString) return "";
 
-    .container {
-      max-width: 950px;
-      margin: 45px auto;
-      padding: 0 20px;
-    }
+  const date = new Date(`${dateString}T00:00:00`);
 
-    .hero {
-      text-align: center;
-      margin-bottom: 35px;
-    }
+  if (Number.isNaN(date.getTime())) {
+    return dateString;
+  }
 
-    .success-icon {
-      width: 75px;
-      height: 75px;
-      margin: 0 auto 20px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f0e4d4;
-      font-size: 38px;
-    }
+  return date.toLocaleDateString(undefined, {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
+}
 
-    h1 {
-      margin: 0 0 10px;
-      font-size: 36px;
-    }
+async function loadEvent() {
+  if (!eventCode) {
+    eventName.textContent = "Event Not Found";
+    eventDate.textContent = "No event code was provided.";
+    return;
+  }
 
-    .hero p {
-      color: #777;
-      font-size: 17px;
-      margin: 0;
-    }
+  const { data: event, error } = await supabase
+    .from("events")
+    .select("*")
+    .eq("code", eventCode)
+    .single();
 
-    .event-card {
-      background: white;
-      border-radius: 18px;
-      padding: 30px;
-      margin-bottom: 25px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
-    }
+  if (error || !event) {
+    console.error("Error loading event:", error);
 
-    .event-name {
-      text-align: center;
-      font-size: 30px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
+    eventName.textContent = "Unable to Load Event";
+    eventDate.textContent = "Please try again later.";
 
-    .event-date {
-      text-align: center;
-      color: #777;
-      font-size: 16px;
-    }
+    return;
+  }
 
-    .code-box {
-      margin: 25px auto 0;
-      max-width: 300px;
-      text-align: center;
-      background: #faf8f5;
-      border-radius: 12px;
-      padding: 18px;
-    }
+  eventName.textContent = event.event_name || "Your Event";
+  eventDate.textContent = formatEventDate(event.event_date);
+  eventCodeDisplay.textContent = event.code;
 
-    .code-label {
-      font-size: 13px;
-      color: #888;
-      margin-bottom: 6px;
-    }
+  const guestUrl =
+    `${window.location.origin}/cloud-photo-tv/guest.html?code=${event.code}`;
 
-    .event-code {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: 4px;
-      color: #b08d57;
-    }
+  const tvUrl =
+    `${window.location.origin}/cloud-photo-tv/tv.html?code=${event.code}`;
 
-    .qr-section {
-      text-align: center;
-      margin-top: 30px;
-    }
+  const galleryUrl =
+    `${window.location.origin}/cloud-photo-tv/gallery.html?code=${event.code}`;
 
-    .qr-section h2 {
-      margin-bottom: 8px;
-    }
+  const rsvpUrl =
+    `${window.location.origin}/cloud-photo-tv/rsvp.html?code=${event.code}`;
 
-    .qr-section p {
-      color: #777;
-      margin-bottom: 20px;
-    }
+  const guestbookUrl =
+    `${window.location.origin}/cloud-photo-tv/guestbook.html?code=${event.code}`;
 
-    #qrCode {
-      display: inline-block;
-      padding: 15px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    }
+  // -----------------------------
+  // Gallery
+  // -----------------------------
 
-    .links-section {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-top: 25px;
-    }
+  galleryLink.href = galleryUrl;
 
-    .link-card {
-      display: block;
-      background: white;
-      border-radius: 16px;
-      padding: 25px 20px;
-      text-align: center;
-      text-decoration: none;
-      color: #333;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
+  // -----------------------------
+  // RSVP
+  // -----------------------------
 
-    .link-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    }
+  const rsvpEnabled =
+    event.rsvp_enabled === true;
 
-    .link-icon {
-      font-size: 35px;
-      margin-bottom: 12px;
-    }
+  if (rsvpEnabled) {
+    rsvpLink.href = rsvpUrl;
+    rsvpLink.style.display = "block";
+  } else {
+    rsvpLink.style.display = "none";
+  }
 
-    .link-card h3 {
-      margin: 0 0 8px;
-      font-size: 20px;
-    }
+  // -----------------------------
+  // Guestbook
+  // -----------------------------
 
-    .link-card p {
-      margin: 0 0 18px;
-      color: #777;
-      font-size: 14px;
-      line-height: 1.5;
-    }
+  const guestbookEnabled =
+    event.guestbook_enabled === true;
 
-    .link-button {
-      display: inline-block;
-      padding: 10px 16px;
-      border-radius: 8px;
-      background: #f0e4d4;
-      color: #8c7045;
-      font-weight: 600;
-      font-size: 14px;
-    }
+  if (guestbookEnabled) {
+    guestbookLink.href = guestbookUrl;
+    guestbookLink.style.display = "block";
+  } else {
+    guestbookLink.style.display = "none";
+  }
 
-    #rsvpLink {
-      display: none;
-    }
+  // -----------------------------
+  // TV Display
+  // -----------------------------
 
-    #guestbookLink {
-      display: none;
-    }
+  const hasTv =
+    event.has_tv === true;
 
-    .no-tv {
-      display: none;
-      background: #fff8ed;
-      border: 1px solid #f0dfc0;
-      border-radius: 12px;
-      padding: 18px;
-      margin-top: 20px;
-      text-align: center;
-      color: #765f38;
-    }
+  if (hasTv) {
+    tvLink.href = tvUrl;
+    tvLink.style.display = "block";
+    noTvNotice.style.display = "none";
+  } else {
+    tvLink.style.display = "none";
+    noTvNotice.style.display = "block";
+  }
 
-    .edit-section {
-      text-align: center;
-      margin-top: 30px;
-    }
+  // -----------------------------
+  // Edit Event
+  // -----------------------------
 
-    .edit-button {
-      display: inline-block;
-      padding: 12px 22px;
-      border-radius: 9px;
-      background: white;
-      border: 1px solid #d8c7ad;
-      color: #8c7045;
-      text-decoration: none;
-      font-weight: 600;
-    }
+  editEventLink.href =
+    `create-event.html?edit=${event.code}`;
 
-    .footer {
-      text-align: center;
-      color: #999;
-      font-size: 13px;
-      margin: 35px 0;
-    }
+  // -----------------------------
+  // QR Code
+  // -----------------------------
 
-    @media (max-width: 850px) {
-      .links-section {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+  qrCode.innerHTML = "";
 
-    @media (max-width: 600px) {
-      .container {
-        margin: 30px auto;
+  await QRCode.toCanvas(
+    guestUrl,
+    {
+      width: 220,
+      margin: 2
+    },
+    (error, canvas) => {
+      if (error) {
+        console.error("QR code error:", error);
+        return;
       }
 
-      h1 {
-        font-size: 30px;
-      }
-
-      .event-name {
-        font-size: 25px;
-      }
-
-      .links-section {
-        grid-template-columns: 1fr;
-      }
-
-      .event-card {
-        padding: 25px 18px;
-      }
+      qrCode.appendChild(canvas);
     }
-  </style>
-</head>
+  );
 
-<body>
+  console.log("Event loaded:", event);
+  console.log("Guest URL:", guestUrl);
+  console.log("TV URL:", tvUrl);
+  console.log("Gallery URL:", galleryUrl);
+  console.log("RSVP URL:", rsvpUrl);
+  console.log("Guestbook URL:", guestbookUrl);
+}
 
-  <div class="top-bar"></div>
-
-  <header>
-    <div class="brand">Captured Moments</div>
-  </header>
-
-  <main class="container">
-
-    <section class="hero">
-      <div class="success-icon">✓</div>
-
-      <h1>Your Event Is Ready!</h1>
-
-      <p>
-        Everything is set up. Share your event links with your guests.
-      </p>
-    </section>
-
-    <section class="event-card">
-
-      <div class="event-name" id="eventName">
-        Your Event
-      </div>
-
-      <div class="event-date" id="eventDate">
-        Loading event information...
-      </div>
-
-      <div class="code-box">
-        <div class="code-label">
-          Event Code
-        </div>
-
-        <div class="event-code" id="eventCode">
-          ------
-        </div>
-      </div>
-
-      <div class="qr-section">
-
-        <h2>Guest Upload QR Code</h2>
-
-        <p>
-          Guests can scan this QR code to upload photos to your event.
-        </p>
-
-        <div id="qrCode"></div>
-
-      </div>
-
-    </section>
-
-    <div class="links-section">
-
-      <a id="tvLink" class="link-card" href="#">
-        <div class="link-icon">📺</div>
-
-        <h3>TV Display</h3>
-
-        <p>
-          Open this page on the TV to display your event photos live.
-        </p>
-
-        <span class="link-button">
-          Open TV Display →
-        </span>
-      </a>
-
-      <a id="galleryLink" class="link-card" href="#">
-        <div class="link-icon">🖼️</div>
-
-        <h3>Event Gallery</h3>
-
-        <p>
-          View and download the photos from your event.
-        </p>
-
-        <span class="link-button">
-          Open Gallery →
-        </span>
-      </a>
-
-      <a id="rsvpLink" class="link-card" href="#">
-        <div class="link-icon">📋</div>
-
-        <h3>RSVP</h3>
-
-        <p>
-          Share this link with guests before
-          your event so they can RSVP.
-        </p>
-
-        <span class="link-button">
-          Open RSVP Page →
-        </span>
-      </a>
-
-      <a id="guestbookLink" class="link-card" href="#">
-        <div class="link-icon">💌</div>
-
-        <h3>Guestbook</h3>
-
-        <p>
-          Share this link with guests so they can leave
-          a message for the host.
-        </p>
-
-        <span class="link-button">
-          Open Guestbook →
-        </span>
-      </a>
-
-    </div>
-
-    <div class="no-tv" id="noTvNotice">
-      This event does not have TV display enabled.
-      Guests can still upload photos and use the event gallery.
-    </div>
-
-    <div class="edit-section">
-      <a id="editEventLink" class="edit-button" href="#">
-        Edit Event
-      </a>
-    </div>
-
-    <div class="footer">
-      Captured Moments · Your moments, captured and shared.
-    </div>
-
-  </main>
-
-  <script type="module" src="event-created.js"></script>
-
-</body>
-</html>
+loadEvent();
