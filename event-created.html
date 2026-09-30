@@ -10,7 +10,7 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Your Event Is Ready | Instant Moments</title>
+  <title>Your Event Is Ready | Captured Moments</title>
 
   <style>
 
@@ -463,6 +463,43 @@
     }
 
 
+    /* TV NOTICE */
+
+    .tv-notice {
+      display: none;
+
+      margin-top: 22px;
+
+      padding: 18px 20px;
+
+      border-radius: 15px;
+
+      background: #f4f7ff;
+
+      border: 1px solid #dbe7ff;
+
+      color: #334155;
+    }
+
+    .tv-notice.visible {
+      display: block;
+    }
+
+    .tv-notice strong {
+      display: block;
+
+      margin-bottom: 4px;
+
+      color: #172033;
+    }
+
+    .tv-notice p {
+      color: #697386;
+
+      font-size: 13px;
+    }
+
+
     /* NEXT STEPS */
 
     .next-steps {
@@ -650,7 +687,7 @@
         </div>
 
         <div class="logo-text">
-          Instant <span>Moments</span>
+          Captured <span>Moments</span>
         </div>
 
       </a>
@@ -685,7 +722,7 @@
         Your Event Is <span>Ready!</span>
       </h1>
 
-      <p>
+      <p id="heroMessage">
         Everything is set up. Share the QR code
         with your guests and start collecting
         memories.
@@ -829,11 +866,31 @@
     </section>
 
 
+    <!-- TV NOTICE -->
+
+    <div
+      id="tvNotice"
+      class="tv-notice"
+    >
+
+      <strong>
+        📱 No TV? No problem.
+      </strong>
+
+      <p>
+        Your event still works normally. Guests
+        can scan the QR code, upload photos, and
+        access the event gallery without a TV.
+      </p>
+
+    </div>
+
+
     <!-- NEXT STEPS -->
 
     <section class="next-steps">
 
-      <h2>
+      <h2 id="nextStepsTitle">
         What happens next?
       </h2>
 
@@ -847,7 +904,7 @@
             1
           </div>
 
-          <p>
+          <p id="stepOne">
             Display the QR code at your event
             so guests can easily find it.
           </p>
@@ -861,7 +918,7 @@
             2
           </div>
 
-          <p>
+          <p id="stepTwo">
             Open the TV Display on the screen
             you want to use.
           </p>
@@ -875,7 +932,7 @@
             3
           </div>
 
-          <p>
+          <p id="stepThree">
             Guests send photos and they appear
             live on the TV.
           </p>
@@ -899,8 +956,8 @@
   <footer>
 
     <p>
-      ✦ Instant Moments · Your moments,
-      instantly shared.
+      ✦ Captured Moments · Your moments,
+      captured and shared.
     </p>
 
   </footer>
