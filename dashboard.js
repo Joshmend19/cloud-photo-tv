@@ -209,6 +209,20 @@ async function loadDashboard() {
                     : ""
                 }
 
+                ${
+                  event.guestbook_enabled
+                    ? `
+                      <a
+                        href="guestbook-results.html?code=${encodeURIComponent(
+                          event.code
+                        )}"
+                      >
+                        Guestbook
+                      </a>
+                    `
+                    : ""
+                }
+
                 <a
                   href="gallery.html?code=${encodeURIComponent(
                     event.code
