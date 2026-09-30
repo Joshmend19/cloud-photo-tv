@@ -1,5 +1,16 @@
-import { supabase } from "./config.js";
+import {
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+} from "./config.js";
+
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
 import QRCode from "https://cdn.jsdelivr.net/npm/qrcode@1.5.3/+esm";
+
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
 const params = new URLSearchParams(window.location.search);
 const eventCode = params.get("code");
@@ -81,6 +92,7 @@ async function loadEvent() {
   // -----------------------------
 
   galleryLink.href = galleryUrl;
+  galleryLink.style.display = "block";
 
   // -----------------------------
   // RSVP
@@ -139,21 +151,23 @@ async function loadEvent() {
 
   qrCode.innerHTML = "";
 
-  await QRCode.toCanvas(
-    guestUrl,
-    {
-      width: 220,
-      margin: 2
-    },
-    (error, canvas) => {
-      if (error) {
-        console.error("QR code error:", error);
-        return;
-      }
+  try {
+    const canvas = document.createElement("canvas");
 
-      qrCode.appendChild(canvas);
-    }
-  );
+    await QRCode.toCanvas(
+      canvas,
+      guestUrl,
+      {
+        width: 220,
+        margin: 2
+      }
+    );
+
+    qrCode.appendChild(canvas);
+
+  } catch (error) {
+    console.error("QR code error:", error);
+  }
 
   console.log("Event loaded:", event);
   console.log("Guest URL:", guestUrl);
