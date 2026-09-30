@@ -64,6 +64,9 @@ const stepThree =
 const status =
   document.getElementById("status");
 
+const editEventBtn =
+  document.getElementById("editEventBtn");
+
 
 /* ---------------------------------
    Format time
@@ -185,6 +188,18 @@ if (!code) {
 
 
     /* -------------------------------
+       Edit Event button
+    ------------------------------- */
+
+    if (editEventBtn) {
+
+      editEventBtn.href =
+        `create-event.html?edit=${event.code}`;
+
+    }
+
+
+    /* -------------------------------
        Event URLs
     ------------------------------- */
 
@@ -216,10 +231,6 @@ if (!code) {
 
     if (hasTV) {
 
-      /* -----------------------------
-         Customer has a TV
-      ----------------------------- */
-
       tvLink.href =
         tvUrl;
 
@@ -240,10 +251,6 @@ if (!code) {
         "Guests send photos and they appear live on the TV.";
 
     } else {
-
-      /* -----------------------------
-         Customer does not have a TV
-      ----------------------------- */
 
       tvLink.style.display =
         "none";
@@ -327,6 +334,11 @@ if (!code) {
     console.log(
       "Gallery URL:",
       galleryUrl
+    );
+
+    console.log(
+      "Edit Event URL:",
+      `create-event.html?edit=${event.code}`
     );
 
     console.log(
