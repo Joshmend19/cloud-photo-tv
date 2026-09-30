@@ -93,7 +93,11 @@ signupForm.addEventListener(
     } =
       await supabase.auth.signUp({
         email,
-        password
+        password,
+        options: {
+          emailRedirectTo:
+            "https://joshmend19.github.io/cloud-photo-tv/login.html"
+        }
       });
 
     if (error) {
@@ -123,7 +127,7 @@ signupForm.addEventListener(
     );
 
     status.textContent =
-      "Your account was created successfully. You can now log in.";
+      "Your account was created successfully. Check your email to verify your account.";
 
     status.className =
       "status success";
@@ -134,11 +138,6 @@ signupForm.addEventListener(
 
     signupButton.textContent =
       "Create Account";
-
-    setTimeout(() => {
-      window.location.href =
-        "login.html";
-    }, 1500);
 
   }
 );
