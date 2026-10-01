@@ -296,14 +296,14 @@ async function loadEvent() {
   if (guestbookButton) {
     guestbookButton.style.display =
       guestbookEnabled
-        ? "block"
+        ? "flex"
         : "none";
   }
 
   if (rsvpButton) {
     rsvpButton.style.display =
       rsvpEnabled
-        ? "block"
+        ? "flex"
         : "none";
   }
 
