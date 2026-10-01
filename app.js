@@ -163,37 +163,70 @@ async function startTV() {
 
   show("tvView");
 
-
   let code =
     urlCode ||
-    sessionStorage.getItem(
-      "cptv_code"
-    );
-
-
-  /*
-    If this is an event-created TV page,
-    use the event code from the URL.
-
-    Otherwise create/use the old
-    prototype session.
-  */
+    sessionStorage.getItem("cptv_code");
 
   if (!code) {
+    code = await createSession();
+    sessionStorage.setItem("cptv_code", code);
+  }
 
-    code =
-      await createSession();
+  let event = null;
+  let eventId = null;
+  let eventEndTime = null;
 
-    sessionStorage.setItem(
-      "cptv_code",
-      code
+  /*
+    Load the public event information.
+
+    This uses the secure public RPC instead
+    of directly reading the events table.
+  */
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabase.rpc(
+        "get_public_event",
+        {
+          p_code: code
+        }
+      );
+
+    if (error) {
+      throw error;
+    }
+
+    event =
+      Array.isArray(data)
+        ? data[0]
+        : data;
+
+    if (event) {
+
+      eventId =
+        event.id;
+
+      eventEndTime =
+        event.end_time;
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Could not load public event:",
+      error
     );
 
   }
 
 
   /*
-    Make sure the session exists.
+    Get the session.
   */
 
   const {
@@ -221,8 +254,26 @@ async function startTV() {
   }
 
 
-  const eventId =
-    session.event_id || null;
+  /*
+    Use session information as a fallback.
+  */
+
+  if (!eventId) {
+
+    eventId =
+      session.event_id ||
+      null;
+
+  }
+
+
+  if (!eventEndTime) {
+
+    eventEndTime =
+      session.event_end_time ||
+      null;
+
+  }
 
 
   /*
@@ -245,17 +296,23 @@ async function startTV() {
 
 
   /*
-    Store all photos for this TV.
+    Slideshow state.
   */
 
   let photos = [];
 
-
   let currentIndex = 0;
-
 
   let slideshowTimer = null;
 
+  let realtimeChannel = null;
+
+  let eventHasEnded = false;
+
+
+  /*
+    Display one photo.
+  */
 
   function showPhoto(photo) {
 
@@ -273,6 +330,10 @@ async function startTV() {
   }
 
 
+  /*
+    Start/restart the slideshow.
+  */
+
   function startSlideshow() {
 
     if (slideshowTimer) {
@@ -281,7 +342,8 @@ async function startTV() {
         slideshowTimer
       );
 
-      slideshowTimer = null;
+      slideshowTimer =
+        null;
 
     }
 
@@ -292,10 +354,6 @@ async function startTV() {
 
     }
 
-
-    /*
-      Show the current photo immediately.
-    */
 
     showPhoto(
       photos[currentIndex]
@@ -315,7 +373,7 @@ async function startTV() {
 
 
     /*
-      Cycle through photos every 5 seconds.
+      Change photos every 5 seconds.
     */
 
     slideshowTimer =
@@ -337,6 +395,10 @@ async function startTV() {
   }
 
 
+  /*
+    Add a new photo to the slideshow.
+  */
+
   function addPhoto(photo) {
 
     /*
@@ -355,13 +417,10 @@ async function startTV() {
     }
 
 
-    photos.push(photo);
+    photos.push(
+      photo
+    );
 
-
-    /*
-      Include the new photo
-      in the slideshow.
-    */
 
     startSlideshow();
 
@@ -377,66 +436,199 @@ async function startTV() {
 
 
   /*
-    Listen for new photos in real time.
+    Check whether the event has ended.
   */
 
-  const channel =
-    supabase
-      .channel(
-        "photos-" + code
+  function checkEventEnded() {
+
+    if (
+      !event ||
+      !event.event_date ||
+      !eventEndTime
+    ) {
+
+      return false;
+
+    }
+
+
+    /*
+      Combine the event date and
+      event end time.
+    */
+
+    const endDateTime =
+      `${event.event_date}T${eventEndTime}`;
+
+
+    const eventEnd =
+      new Date(
+        endDateTime
+      );
+
+
+    if (
+      Number.isNaN(
+        eventEnd.getTime()
       )
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "photos",
-          filter:
-            `session_code=eq.${code}`
-        },
-        payload => {
+    ) {
 
-          console.log(
-            "REALTIME PHOTO RECEIVED:",
-            payload.new
+      return false;
+
+    }
+
+
+    if (
+      new Date() >=
+      eventEnd
+    ) {
+
+      if (!eventHasEnded) {
+
+        eventHasEnded =
+          true;
+
+
+        /*
+          Stop listening for new photos.
+        */
+
+        if (realtimeChannel) {
+
+          supabase.removeChannel(
+            realtimeChannel
           );
 
-
-          /*
-            If this event has an event_id,
-            only accept photos belonging
-            to this event.
-          */
-
-          if (
-            eventId &&
-            payload.new.event_id &&
-            payload.new.event_id !== eventId
-          ) {
-
-            return;
-
-          }
-
-
-          addPhoto(
-            payload.new
-          );
+          realtimeChannel =
+            null;
 
         }
-      )
-      .subscribe(status => {
 
-        console.log(
-          "REALTIME STATUS:",
-          status
-        );
 
-      });
+        if ($("tvStatus")) {
+
+          $("tvStatus").textContent =
+            `${photos.length} photo${photos.length === 1 ? "" : "s"} received · Event ended`;
+
+        }
+
+      }
+
+
+      return true;
+
+    }
+
+
+    return false;
+
+  }
 
 
   /*
-    Load existing photos.
+    Check the event end time every second.
+  */
+
+  const endCheckTimer =
+    setInterval(() => {
+
+      if (
+        checkEventEnded()
+      ) {
+
+        clearInterval(
+          endCheckTimer
+        );
+
+      }
+
+    }, 1000);
+
+
+  /*
+    Listen for new photos while the
+    event is active.
+  */
+
+  if (
+    !checkEventEnded()
+  ) {
+
+    realtimeChannel =
+      supabase
+        .channel(
+          "photos-" + code
+        )
+        .on(
+          "postgres_changes",
+          {
+            event: "INSERT",
+            schema: "public",
+            table: "photos",
+            filter:
+              `session_code=eq.${code}`
+          },
+          payload => {
+
+            /*
+              Ignore any photo that arrives
+              after the event has ended.
+            */
+
+            if (
+              checkEventEnded()
+            ) {
+
+              return;
+
+            }
+
+
+            console.log(
+              "REALTIME PHOTO RECEIVED:",
+              payload.new
+            );
+
+
+            /*
+              Make sure the photo belongs
+              to this event.
+            */
+
+            if (
+              eventId &&
+              payload.new.event_id &&
+              payload.new.event_id !== eventId
+            ) {
+
+              return;
+
+            }
+
+
+            addPhoto(
+              payload.new
+            );
+
+          }
+        )
+        .subscribe(status => {
+
+          console.log(
+            "REALTIME STATUS:",
+            status
+          );
+
+        });
+
+  }
+
+
+  /*
+    Load all existing photos.
+
+    Existing photos remain available even
+    after the event has ended.
   */
 
   let photoQuery =
@@ -454,12 +646,6 @@ async function startTV() {
         }
       );
 
-
-  /*
-    If this is a new event,
-    make sure we only load photos
-    belonging to that event.
-  */
 
   if (eventId) {
 
@@ -487,22 +673,44 @@ async function startTV() {
 
 
   photos =
-    data || [];
+    data ||
+    [];
 
 
-  if (photos.length) {
+  /*
+    Start slideshow if photos already exist.
+  */
+
+  if (
+    photos.length
+  ) {
 
     startSlideshow();
 
   }
 
 
+  /*
+    Update TV status.
+  */
+
   if ($("tvStatus")) {
 
-    $("tvStatus").textContent =
-      photos.length
-        ? `${photos.length} photo${photos.length === 1 ? "" : "s"} received`
-        : "Ready for photos";
+    if (
+      checkEventEnded()
+    ) {
+
+      $("tvStatus").textContent =
+        `${photos.length} photo${photos.length === 1 ? "" : "s"} received · Event ended`;
+
+    } else {
+
+      $("tvStatus").textContent =
+        photos.length
+          ? `${photos.length} photo${photos.length === 1 ? "" : "s"} received`
+          : "Ready for photos";
+
+    }
 
   }
 
@@ -564,7 +772,52 @@ async function startUpload(code) {
 
 
   const eventId =
-    session.event_id || null;
+    session.event_id ||
+    null;
+
+
+  /*
+    Keep track of when the event ends.
+  */
+
+  const eventEndTime =
+    session.event_end_time ||
+    null;
+
+
+  /*
+    Check whether the event has ended.
+  */
+
+  function checkEventEnded() {
+
+    if (!eventEndTime) {
+
+      return false;
+
+    }
+
+
+    const eventEnd =
+      new Date(
+        eventEndTime
+      );
+
+
+    if (
+      Number.isNaN(
+        eventEnd.getTime()
+      )
+    ) {
+
+      return false;
+
+    }
+
+
+    return new Date() >= eventEnd;
+
+  }
 
 
   /*
@@ -595,7 +848,89 @@ async function startUpload(code) {
     $("uploadStatus");
 
 
+  /*
+    Immediately disable the upload
+    interface if the event has ended.
+  */
+
+  if (
+    checkEventEnded()
+  ) {
+
+    input.disabled =
+      true;
+
+    email.disabled =
+      true;
+
+    button.disabled =
+      true;
+
+    status.textContent =
+      "This event has ended. Photo uploads are closed.";
+
+    return;
+
+  }
+
+
+  /*
+    Check the event again periodically.
+  */
+
+  const eventEndCheck =
+    setInterval(() => {
+
+      if (
+        checkEventEnded()
+      ) {
+
+        clearInterval(
+          eventEndCheck
+        );
+
+
+        input.disabled =
+          true;
+
+        email.disabled =
+          true;
+
+        button.disabled =
+          true;
+
+        status.textContent =
+          "This event has ended. Photo uploads are closed.";
+
+      }
+
+    }, 1000);
+
+
+  /*
+    Check the event when the guest
+    chooses a photo.
+  */
+
   input.onchange = () => {
+
+    if (
+      checkEventEnded()
+    ) {
+
+      input.value =
+        "";
+
+      button.disabled =
+        true;
+
+      status.textContent =
+        "This event has ended. Photo uploads are closed.";
+
+      return;
+
+    }
+
 
     const file =
       input.files?.[0];
@@ -633,8 +968,37 @@ async function startUpload(code) {
   };
 
 
+  /*
+    Upload the photo.
+  */
+
   button.onclick =
     async () => {
+
+      /*
+        Check again right before upload.
+      */
+
+      if (
+        checkEventEnded()
+      ) {
+
+        input.disabled =
+          true;
+
+        email.disabled =
+          true;
+
+        button.disabled =
+          true;
+
+        status.textContent =
+          "This event has ended. Photo uploads are closed.";
+
+        return;
+
+      }
+
 
       const file =
         input.files?.[0];
@@ -668,6 +1032,22 @@ async function startUpload(code) {
 
 
       try {
+
+        /*
+          Check one more time before
+          creating the storage file.
+        */
+
+        if (
+          checkEventEnded()
+        ) {
+
+          throw new Error(
+            "EVENT_ENDED"
+          );
+
+        }
+
 
         /*
           Create a unique storage path.
@@ -726,6 +1106,9 @@ async function startUpload(code) {
 
         /*
           Save the photo record.
+
+          The database policy also checks that
+          the event is still active.
         */
 
         const photoData = {
@@ -745,8 +1128,8 @@ async function startUpload(code) {
 
 
         /*
-          Connect the photo to
-          the event when available.
+          Connect the photo to the event
+          when available.
         */
 
         if (eventId) {
@@ -774,6 +1157,9 @@ async function startUpload(code) {
 
         /*
           Save the guest email.
+
+          This is used later for the
+          automatic gallery email.
         */
 
         const emailData = {
@@ -788,8 +1174,8 @@ async function startUpload(code) {
 
 
         /*
-          Connect the email to
-          the event when available.
+          Connect the email to the event
+          when available.
         */
 
         if (eventId) {
@@ -833,16 +1219,37 @@ async function startUpload(code) {
 
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          error
+        );
 
 
-        status.textContent =
-          "Upload failed. Check your Supabase setup.";
+        if (
+          error.message ===
+          "EVENT_ENDED"
+        ) {
 
-      } finally {
+          input.disabled =
+            true;
 
-        button.disabled =
-          false;
+          email.disabled =
+            true;
+
+          button.disabled =
+            true;
+
+          status.textContent =
+            "This event has ended. Photo uploads are closed.";
+
+        } else {
+
+          status.textContent =
+            "Upload failed. Check the browser console for the error.";
+
+          button.disabled =
+            false;
+
+        }
 
       }
 
@@ -905,7 +1312,9 @@ async function startUpload(code) {
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     show("loading");
