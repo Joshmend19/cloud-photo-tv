@@ -39,6 +39,7 @@ const status =
 
 
 let eventId = null;
+let eventEndTime = null;
 
 
 async function loadEvent() {
@@ -88,8 +89,14 @@ async function loadEvent() {
     eventId =
       event.id;
 
+    eventEndTime =
+      event.end_time;
+
     eventName.textContent =
       event.event_name;
+
+
+    checkEventEnded();
 
 
   } catch (error) {
@@ -107,9 +114,65 @@ async function loadEvent() {
 }
 
 
+function checkEventEnded() {
+
+  if (!eventEndTime) {
+    return false;
+  }
+
+
+  const now =
+    new Date();
+
+  const [hours, minutes, seconds = 0] =
+    eventEndTime
+      .split(":")
+      .map(Number);
+
+
+  const eventEnd =
+    new Date();
+
+  eventEnd.setHours(
+    hours,
+    minutes,
+    seconds,
+    0
+  );
+
+
+  if (now >= eventEnd) {
+
+    input.disabled =
+      true;
+
+    button.disabled =
+      true;
+
+    label.textContent =
+      "📷 Photo uploads closed";
+
+    status.textContent =
+      "This event has ended. Photo uploads are closed.";
+
+    return true;
+
+  }
+
+
+  return false;
+
+}
+
+
 input.addEventListener(
   "change",
   () => {
+
+    if (checkEventEnded()) {
+      return;
+    }
+
 
     const file =
       input.files?.[0];
@@ -150,6 +213,11 @@ input.addEventListener(
 button.addEventListener(
   "click",
   async () => {
+
+    if (checkEventEnded()) {
+      return;
+    }
+
 
     const file =
       input.files?.[0];
@@ -307,8 +375,10 @@ button.addEventListener(
 
     } finally {
 
-      button.disabled =
-        false;
+      if (!checkEventEnded()) {
+        button.disabled =
+          false;
+      }
 
     }
 
