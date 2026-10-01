@@ -299,7 +299,10 @@ async function loadEvent() {
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "EVENT LOAD ERROR:",
+      error
+    );
 
     eventName.textContent =
       "Event not found.";
@@ -739,10 +742,16 @@ button.addEventListener(
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "UPLOAD ERROR:",
+        error
+      );
 
       status.textContent =
-        "Upload failed. Please try again.";
+        `Upload failed: ${
+          error.message ||
+          "Unknown error"
+        }`;
 
     } finally {
 
@@ -837,10 +846,16 @@ galleryRequestSubmit.addEventListener(
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "GALLERY REQUEST ERROR:",
+        error
+      );
 
       galleryRequestStatus.textContent =
-        "We couldn't save your email. Please try again.";
+        `We couldn't save your email: ${
+          error.message ||
+          "Unknown error"
+        }`;
 
     } finally {
 
