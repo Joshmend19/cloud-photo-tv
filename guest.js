@@ -751,6 +751,9 @@ button.addEventListener(
         `Upload failed: ${
           error.message ||
           "Unknown error"
+        } | ${
+          error.details ||
+          ""
         }`;
 
     } finally {
@@ -855,6 +858,9 @@ galleryRequestSubmit.addEventListener(
         `We couldn't save your email: ${
           error.message ||
           "Unknown error"
+        } | ${
+          error.details ||
+          ""
         }`;
 
     } finally {
