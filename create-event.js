@@ -929,6 +929,9 @@ createBtn.addEventListener(
          CREATE SESSION
       --------------------------------- */
 
+      const eventEndDateTime =
+        `${eventDate.value}T${endTime.value}:00`;
+
       const {
         error: sessionError
       } =
@@ -942,7 +945,10 @@ createBtn.addEventListener(
               event.id,
 
             active:
-              true
+              true,
+
+            event_end_time:
+              eventEndDateTime
 
           });
 
