@@ -108,12 +108,12 @@ const galleryRequestButton =
 
 const backFromUploadButton =
   document.getElementById(
-    "backFromUploadButton"
+    "backFromUpload"
   );
 
 const backFromGalleryRequestButton =
   document.getElementById(
-    "backFromGalleryRequestButton"
+    "backFromGalleryRequest"
   );
 
 let eventId = null;
@@ -237,7 +237,11 @@ async function loadEvent() {
 
     console.error(
       "Event loading error:",
-      error
+      JSON.stringify(
+        error,
+        null,
+        2
+      )
     );
 
     if (status) {
@@ -284,18 +288,14 @@ async function loadEvent() {
       "Captured Moments";
   }
 
-  if (
-    guestbookButton
-  ) {
+  if (guestbookButton) {
     guestbookButton.style.display =
       guestbookEnabled
         ? "block"
         : "none";
   }
 
-  if (
-    rsvpButton
-  ) {
+  if (rsvpButton) {
     rsvpButton.style.display =
       rsvpEnabled
         ? "block"
@@ -387,9 +387,7 @@ photoInput?.addEventListener(
       return;
     }
 
-    if (
-      fileLabel
-    ) {
+    if (fileLabel) {
       fileLabel.textContent =
         file.name;
     }
@@ -563,9 +561,14 @@ uploadBtn?.addEventListener(
           );
 
       if (emailError) {
+
         console.warn(
           "Email save warning:",
-          emailError
+          JSON.stringify(
+            emailError,
+            null,
+            2
+          )
         );
       }
 
@@ -584,7 +587,11 @@ uploadBtn?.addEventListener(
 
       console.error(
         "UPLOAD ERROR:",
-        error
+        JSON.stringify(
+          error,
+          null,
+          2
+        )
       );
 
       status.textContent =
@@ -593,6 +600,12 @@ uploadBtn?.addEventListener(
           "Unknown error"
         } | ${
           error.details ||
+          ""
+        } | ${
+          error.hint ||
+          ""
+        } | ${
+          error.code ||
           ""
         }`;
     }
@@ -666,7 +679,11 @@ galleryRequestSubmit?.addEventListener(
 
       console.error(
         "GALLERY REQUEST ERROR:",
-        error
+        JSON.stringify(
+          error,
+          null,
+          2
+        )
       );
 
       galleryRequestStatus.textContent =
