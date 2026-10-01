@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
 
-  <title>Guest Hub | Captured Moments</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Captured Moments</title>
 
   <style>
-    :root {
-      --blue: #2563eb;
-      --purple: #7c3aed;
-      --orange: #f97316;
-      --yellow: #facc15;
-      --navy: #172033;
-      --light-blue: #f5f8ff;
-    }
-
     * {
       box-sizing: border-box;
     }
@@ -23,610 +18,347 @@
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--light-blue);
-      color: var(--navy);
+      background: #f7f5f2;
+      color: #333;
+      min-height: 100vh;
     }
 
-    .top-bar {
-      height: 6px;
-      background: linear-gradient(
-        90deg,
-        var(--blue),
-        var(--purple),
-        var(--orange),
-        var(--yellow)
-      );
-    }
-
-    nav {
-      background: white;
-      padding: 18px 24px;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 21px;
-      font-weight: 800;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .logo-mark {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      background: linear-gradient(
-        135deg,
-        var(--blue),
-        var(--purple)
-      );
-    }
-
-    .logo span {
-      color: var(--blue);
-    }
-
-    main {
-      min-height: calc(100vh - 100px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
+    .container {
+      width: min(92%, 700px);
+      margin: 0 auto;
+      padding: 40px 0;
     }
 
     .card {
-      width: 100%;
-      max-width: 560px;
       background: white;
-      border-radius: 24px;
-      padding: 36px;
-      box-shadow: 0 20px 50px rgba(23, 32, 51, 0.10);
-      text-align: center;
-    }
-
-    .icon {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 20px;
       border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 34px;
-      background: #eef4ff;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     }
 
     h1 {
-      margin: 0 0 8px;
-      font-size: 32px;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 10px;
     }
 
-    .description {
-      margin: 0 auto 10px;
-      color: #64748b;
-      line-height: 1.6;
-      max-width: 430px;
+    h2 {
+      text-align: center;
+      margin-top: 0;
     }
 
-    .event-name {
-      font-weight: 700;
-      color: var(--blue);
-      margin-bottom: 28px;
-      font-size: 18px;
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 30px;
     }
 
-    .hub {
-      display: grid;
-      gap: 12px;
+    .hub-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .hub-button {
       width: 100%;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 18px;
-      background: white;
-      color: var(--navy);
+      padding: 17px 20px;
+      border: none;
+      border-radius: 12px;
+      background: #222;
+      color: white;
+      font-size: 17px;
+      font-weight: 600;
       cursor: pointer;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: 0.2s;
-      font-size: 16px;
-      font-weight: 700;
+      transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
     .hub-button:hover {
-      border-color: var(--blue);
-      background: #f8fbff;
+      opacity: 0.9;
       transform: translateY(-1px);
     }
 
-    .hub-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 13px;
-      background: #eef4ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      flex-shrink: 0;
+    .hub-button:active {
+      transform: translateY(0);
     }
 
-    .hub-text {
-      flex: 1;
+    .form-group {
+      margin-bottom: 18px;
     }
 
-    .hub-title {
+    label {
       display: block;
-      margin-bottom: 3px;
-    }
-
-    .hub-description {
-      display: block;
-      color: #64748b;
-      font-size: 13px;
-      font-weight: 400;
-    }
-
-    .arrow {
-      color: #94a3b8;
-      font-size: 20px;
-    }
-
-    .section {
-      display: none;
-      text-align: left;
-    }
-
-    .section.active {
-      display: block;
-    }
-
-    .back-button {
-      border: 0;
-      background: transparent;
-      color: var(--blue);
-      font-weight: 700;
-      cursor: pointer;
-      padding: 0;
-      margin-bottom: 22px;
-      font-size: 15px;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .section-title .section-icon {
-      font-size: 34px;
-      margin-bottom: 8px;
-    }
-
-    .section-title h2 {
-      margin: 0 0 6px;
-      font-size: 25px;
-    }
-
-    .section-title p {
-      margin: 0;
-      color: #64748b;
-      line-height: 1.5;
-    }
-
-    .file-label {
-      display: block;
-      padding: 22px;
-      border: 2px dashed #cbd5e1;
-      border-radius: 16px;
-      cursor: pointer;
-      transition: 0.2s;
-      color: #475569;
+      margin-bottom: 7px;
       font-weight: 600;
-      margin-bottom: 16px;
-      text-align: center;
     }
 
-    .file-label:hover {
-      border-color: var(--blue);
-      background: #f8fbff;
-    }
-
-    #photoInput {
-      display: none;
-    }
-
-    input[type="email"] {
+    input[type="text"],
+    input[type="email"],
+    input[type="file"] {
       width: 100%;
-      padding: 15px 16px;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
       font-size: 16px;
-      margin-bottom: 16px;
-      outline: none;
     }
 
-    input[type="email"]:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    input[type="file"] {
+      background: white;
     }
 
     .primary-button {
       width: 100%;
-      border: 0;
-      border-radius: 12px;
-      padding: 16px;
-      font-size: 16px;
-      font-weight: 700;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #222;
       color: white;
-      background: linear-gradient(
-        135deg,
-        var(--blue),
-        var(--purple)
-      );
+      font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
     }
 
-    .primary-button:hover {
-      opacity: 0.92;
-    }
-
-    .primary-button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+    .secondary-button {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background: white;
+      color: #333;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 12px;
     }
 
     .status {
-      min-height: 24px;
-      margin-top: 18px;
-      font-weight: 600;
+      margin-top: 15px;
       text-align: center;
+      font-size: 15px;
     }
 
-    .gallery-note {
-      margin-top: 22px;
-      padding-top: 20px;
-      border-top: 1px solid #e5e7eb;
-      color: #64748b;
+    .file-label {
+      display: block;
+      margin-top: 8px;
+      color: #777;
       font-size: 14px;
-      line-height: 1.5;
-      text-align: center;
     }
 
     .hidden {
       display: none !important;
     }
 
-    @media (max-width: 600px) {
-      .card {
-        padding: 28px 20px;
-        border-radius: 20px;
-      }
+    .back-button {
+      margin-bottom: 20px;
+      border: none;
+      background: none;
+      color: #555;
+      font-size: 15px;
+      cursor: pointer;
+      padding: 0;
+    }
 
-      h1 {
-        font-size: 27px;
-      }
+    .back-button:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="top-bar"></div>
+  <div class="container">
 
-  <nav>
-    <div class="logo">
-      <div class="logo-mark">✦</div>
-      Captured <span>Moments</span>
-    </div>
-  </nav>
+    <!-- =========================
+         GUEST HUB
+    ========================== -->
 
-  <main>
+    <section
+      id="hubSection"
+      class="card"
+    >
+      <h1>Captured Moments</h1>
 
-    <div class="card">
-
-      <!-- GUEST HUB -->
-
-      <div id="hubSection">
-
-        <div class="icon">
-          🎉
-        </div>
-
-        <h1>Guest Hub</h1>
-
-        <p class="description">
-          Share your memories and be part of the event.
-        </p>
-
-        <div
-          class="event-name"
-          id="eventName"
-        >
-          Loading event...
-        </div>
-
-        <div class="hub">
-
-          <button
-            type="button"
-            class="hub-button"
-            id="uploadPhotosButton"
-          >
-            <div class="hub-icon">
-              📸
-            </div>
-
-            <div class="hub-text">
-              <span class="hub-title">
-                Upload Photos
-              </span>
-
-              <span class="hub-description">
-                Share your photos with everyone
-              </span>
-            </div>
-
-            <span class="arrow">
-              →
-            </span>
-          </button>
-
-
-          <button
-            type="button"
-            class="hub-button"
-            id="guestbookButton"
-            style="display: none;"
-          >
-            <div class="hub-icon">
-              📖
-            </div>
-
-            <div class="hub-text">
-              <span class="hub-title">
-                Guestbook
-              </span>
-
-              <span class="hub-description">
-                Leave a message for the host
-              </span>
-            </div>
-
-            <span class="arrow">
-              →
-            </span>
-          </button>
-
-
-          <button
-            type="button"
-            class="hub-button"
-            id="rsvpButton"
-            style="display: none;"
-          >
-            <div class="hub-icon">
-              📋
-            </div>
-
-            <div class="hub-text">
-              <span class="hub-title">
-                RSVP
-              </span>
-
-              <span class="hub-description">
-                Let the host know if you're attending
-              </span>
-            </div>
-
-            <span class="arrow">
-              →
-            </span>
-          </button>
-
-
-          <button
-            type="button"
-            class="hub-button"
-            id="galleryButton"
-          >
-            <div class="hub-icon">
-              🖼️
-            </div>
-
-            <div class="hub-text">
-              <span class="hub-title">
-                View Gallery
-              </span>
-
-              <span class="hub-description">
-                See photos from the event
-              </span>
-            </div>
-
-            <span class="arrow">
-              →
-            </span>
-          </button>
-
-
-          <button
-            type="button"
-            class="hub-button"
-            id="galleryRequestButton"
-          >
-            <div class="hub-icon">
-              📧
-            </div>
-
-            <div class="hub-text">
-              <span class="hub-title">
-                Get Gallery Link
-              </span>
-
-              <span class="hub-description">
-                Receive the gallery by email
-              </span>
-            </div>
-
-            <span class="arrow">
-              →
-            </span>
-          </button>
-
-        </div>
-
-        <div
-          class="status"
-          id="hubStatus"
-        ></div>
-
-      </div>
-
-
-      <!-- UPLOAD PHOTOS -->
-
-      <div
-        class="section"
-        id="uploadSection"
+      <p
+        id="eventName"
+        class="subtitle"
       >
+        Loading event...
+      </p>
+
+      <div class="hub-buttons">
 
         <button
           type="button"
-          class="back-button"
-          id="backFromUpload"
+          class="hub-button"
+          id="uploadPhotosButton"
         >
-          ← Back to Guest Hub
+          📸 Upload Photos
         </button>
 
-        <div class="section-title">
-
-          <div class="section-icon">
-            📸
-          </div>
-
-          <h2>Upload Photos</h2>
-
-          <p>
-            Share a photo from the event.
-          </p>
-
-        </div>
-
-
-        <label
-          class="file-label"
-          for="photoInput"
-          id="fileLabel"
+        <button
+          type="button"
+          class="hub-button"
+          id="guestbookButton"
+          style="display: none;"
         >
-          📷 Choose a photo
+          📖 Guestbook
+        </button>
+
+        <button
+          type="button"
+          class="hub-button"
+          id="rsvpButton"
+          style="display: none;"
+        >
+          📋 RSVP
+        </button>
+
+        <button
+          type="button"
+          class="hub-button"
+          id="galleryButton"
+        >
+          🖼️ View Gallery
+        </button>
+
+        <button
+          type="button"
+          class="hub-button"
+          id="galleryRequestButton"
+        >
+          📧 Get Gallery Link
+        </button>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         UPLOAD PHOTOS
+    ========================== -->
+
+    <section
+      id="uploadSection"
+      class="card hidden"
+    >
+
+      <button
+        type="button"
+        class="back-button"
+        id="backFromUpload"
+      >
+        ← Back
+      </button>
+
+      <h2>Upload Photos</h2>
+
+      <div class="form-group">
+
+        <label for="photoInput">
+          Choose Photos
         </label>
 
         <input
           type="file"
           id="photoInput"
-          accept="image/*"
-        >
+          accept="image/jpeg,image/png,image/webp"
+          multiple
+        />
 
+        <div
+          id="fileLabel"
+          class="file-label"
+        >
+          JPG, PNG, or WEBP
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="emailInput">
+          Your Email
+          <span style="font-weight: normal; color: #777;">
+            (optional)
+          </span>
+        </label>
 
         <input
           type="email"
           id="emailInput"
-          placeholder="Your email address"
-          autocomplete="email"
-        >
-
-
-        <button
-          type="button"
-          class="primary-button"
-          id="uploadBtn"
-        >
-          Send Photo to TV
-        </button>
-
-
-        <div
-          class="status"
-          id="uploadStatus"
-        ></div>
-
-
-        <div class="gallery-note">
-          Enter your email so you can receive the event gallery
-          when the event is over.
-        </div>
+          placeholder="you@example.com"
+        />
 
       </div>
 
-
-      <!-- GALLERY REQUEST -->
+      <button
+        type="button"
+        class="primary-button"
+        id="uploadBtn"
+      >
+        Upload Photos
+      </button>
 
       <div
-        class="section"
-        id="galleryRequestSection"
+        id="uploadStatus"
+        class="status"
+      ></div>
+
+    </section>
+
+
+    <!-- =========================
+         GALLERY REQUEST
+    ========================== -->
+
+    <section
+      id="galleryRequestSection"
+      class="card hidden"
+    >
+
+      <button
+        type="button"
+        class="back-button"
+        id="backFromGalleryRequest"
       >
+        ← Back
+      </button>
 
-        <button
-          type="button"
-          class="back-button"
-          id="backFromGalleryRequest"
-        >
-          ← Back to Guest Hub
-        </button>
+      <h2>Get Your Gallery Link</h2>
 
-        <div class="section-title">
+      <p class="subtitle">
+        Enter your email and we'll send you the event gallery link.
+      </p>
 
-          <div class="section-icon">
-            📧
-          </div>
+      <div class="form-group">
 
-          <h2>Get Gallery Link</h2>
-
-          <p>
-            Enter your email and we'll send you the event gallery.
-          </p>
-
-        </div>
-
+        <label for="galleryEmailInput">
+          Email Address
+        </label>
 
         <input
           type="email"
           id="galleryEmailInput"
-          placeholder="Your email address"
-          autocomplete="email"
-        >
-
-
-        <button
-          type="button"
-          class="primary-button"
-          id="galleryRequestSubmit"
-        >
-          Send Me the Gallery
-        </button>
-
-
-        <div
-          class="status"
-          id="galleryRequestStatus"
-        ></div>
+          placeholder="you@example.com"
+        />
 
       </div>
 
-    </div>
+      <button
+        type="button"
+        class="primary-button"
+        id="galleryRequestSubmit"
+      >
+        Send Gallery Link
+      </button>
 
-  </main>
+      <div
+        id="galleryRequestStatus"
+        class="status"
+      ></div>
+
+    </section>
+
+  </div>
 
 
   <script
