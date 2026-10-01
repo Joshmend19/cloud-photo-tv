@@ -273,6 +273,20 @@ async function loadEvent() {
   rsvpEnabled =
     event.rsvp_enabled === true;
 
+  console.log(
+    "EVENT SETTINGS:",
+    JSON.stringify(
+      {
+        guestbook_enabled:
+          event.guestbook_enabled,
+        rsvp_enabled:
+          event.rsvp_enabled
+      },
+      null,
+      2
+    )
+  );
+
   if (eventName) {
     eventName.textContent =
       event.event_name ||
