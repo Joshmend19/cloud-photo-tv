@@ -526,9 +526,9 @@ uploadBtn?.addEventListener(
       };
 
       console.log(
-        "PHOTO DATA BEING INSERTED:",
-        photoData
-      );
+  "PHOTO DATA BEING INSERTED:",
+  JSON.stringify(photoData, null, 2)
+);
 
       const {
         error: photoError
