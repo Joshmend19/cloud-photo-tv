@@ -1,14 +1,17 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import {
+  createClient
+} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 import {
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 } from "./config.js";
 
-const supabase = createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+const supabase =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 
 const params =
   new URLSearchParams(
@@ -20,31 +23,45 @@ const code =
     .toUpperCase();
 
 const eventName =
-  document.getElementById("eventName");
+  document.getElementById(
+    "eventName"
+  );
 
 const input =
-  document.getElementById("photoInput");
+  document.getElementById(
+    "photoInput"
+  );
 
 const email =
-  document.getElementById("emailInput");
+  document.getElementById(
+    "emailInput"
+  );
 
 const button =
-  document.getElementById("uploadBtn");
+  document.getElementById(
+    "uploadBtn"
+  );
 
 const label =
-  document.getElementById("fileLabel");
+  document.getElementById(
+    "fileLabel"
+  );
 
 const status =
-  document.getElementById("uploadStatus");
+  document.getElementById(
+    "uploadStatus"
+  );
 
 
 let eventId = null;
+let eventDate = null;
 let eventEndTime = null;
 
 
 async function loadEvent() {
 
   if (!code) {
+
     eventName.textContent =
       "Event not found.";
 
@@ -60,12 +77,13 @@ async function loadEvent() {
     const {
       data,
       error
-    } = await supabase.rpc(
-      "get_public_event",
-      {
-        p_code: code
-      }
-    );
+    } =
+      await supabase.rpc(
+        "get_public_event",
+        {
+          p_code: code
+        }
+      );
 
 
     if (error) {
@@ -89,8 +107,12 @@ async function loadEvent() {
     eventId =
       event.id;
 
+    eventDate =
+      event.event_date;
+
     eventEndTime =
       event.end_time;
+
 
     eventName.textContent =
       event.event_name;
@@ -116,22 +138,29 @@ async function loadEvent() {
 
 function checkEventEnded() {
 
-  if (!eventEndTime) {
+  if (
+    !eventDate ||
+    !eventEndTime
+  ) {
     return false;
   }
 
 
-  const now =
-    new Date();
-
-  const [hours, minutes, seconds = 0] =
+  const [
+    hours,
+    minutes,
+    seconds = 0
+  ] =
     eventEndTime
       .split(":")
       .map(Number);
 
 
   const eventEnd =
-    new Date();
+    new Date(
+      `${eventDate}T00:00:00`
+    );
+
 
   eventEnd.setHours(
     hours,
@@ -141,7 +170,13 @@ function checkEventEnded() {
   );
 
 
-  if (now >= eventEnd) {
+  const now =
+    new Date();
+
+
+  if (
+    now >= eventEnd
+  ) {
 
     input.disabled =
       true;
@@ -169,7 +204,9 @@ input.addEventListener(
   "change",
   () => {
 
-    if (checkEventEnded()) {
+    if (
+      checkEventEnded()
+    ) {
       return;
     }
 
@@ -214,13 +251,20 @@ button.addEventListener(
   "click",
   async () => {
 
-    if (checkEventEnded()) {
+    /*
+     * Check again immediately before
+     * starting the upload.
+     */
+    if (
+      checkEventEnded()
+    ) {
       return;
     }
 
 
     const file =
       input.files?.[0];
+
 
     const mail =
       email.value
@@ -249,6 +293,17 @@ button.addEventListener(
 
 
     try {
+
+      /*
+       * Check one more time before
+       * sending the file to Storage.
+       */
+      if (
+        checkEventEnded()
+      ) {
+        return;
+      }
+
 
       const extension =
         file.name
@@ -290,6 +345,17 @@ button.addEventListener(
           .getPublicUrl(
             path
           );
+
+
+      /*
+       * Check again before creating
+       * the permanent photo record.
+       */
+      if (
+        checkEventEnded()
+      ) {
+        return;
+      }
 
 
       const photoData = {
@@ -375,9 +441,13 @@ button.addEventListener(
 
     } finally {
 
-      if (!checkEventEnded()) {
+      if (
+        !checkEventEnded()
+      ) {
+
         button.disabled =
           false;
+
       }
 
     }
