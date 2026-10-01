@@ -123,7 +123,6 @@ let guestbookEnabled = false;
 let rsvpEnabled = false;
 
 function showHub() {
-
   hubSection.style.display =
     "block";
 
@@ -135,7 +134,6 @@ function showHub() {
 }
 
 function showUpload() {
-
   hubSection.style.display =
     "none";
 
@@ -147,7 +145,6 @@ function showUpload() {
 }
 
 function showGalleryRequest() {
-
   hubSection.style.display =
     "none";
 
@@ -159,7 +156,6 @@ function showGalleryRequest() {
 }
 
 function eventHasEnded() {
-
   if (
     !eventDate ||
     !eventEndTime
@@ -184,7 +180,6 @@ function eventHasEnded() {
 }
 
 function closeUploadsIfNeeded() {
-
   if (!eventHasEnded()) {
     return false;
   }
@@ -211,9 +206,7 @@ function closeUploadsIfNeeded() {
 }
 
 async function loadEvent() {
-
   if (!code) {
-
     if (status) {
       status.textContent =
         "Missing event code.";
@@ -234,7 +227,6 @@ async function loadEvent() {
     );
 
   if (error) {
-
     console.error(
       "Event loading error:",
       JSON.stringify(
@@ -258,7 +250,6 @@ async function loadEvent() {
       : data;
 
   if (!event) {
-
     if (status) {
       status.textContent =
         "Event not found.";
@@ -308,7 +299,6 @@ async function loadEvent() {
 uploadPhotosButton?.addEventListener(
   "click",
   () => {
-
     if (
       closeUploadsIfNeeded()
     ) {
@@ -322,7 +312,6 @@ uploadPhotosButton?.addEventListener(
 guestbookButton?.addEventListener(
   "click",
   () => {
-
     window.location.href =
       `guestbook.html?code=${encodeURIComponent(
         code
@@ -333,7 +322,6 @@ guestbookButton?.addEventListener(
 rsvpButton?.addEventListener(
   "click",
   () => {
-
     window.location.href =
       `rsvp.html?code=${encodeURIComponent(
         code
@@ -344,7 +332,6 @@ rsvpButton?.addEventListener(
 galleryButton?.addEventListener(
   "click",
   () => {
-
     window.location.href =
       `gallery.html?code=${encodeURIComponent(
         code
@@ -355,7 +342,6 @@ galleryButton?.addEventListener(
 galleryRequestButton?.addEventListener(
   "click",
   () => {
-
     showGalleryRequest();
   }
 );
@@ -363,7 +349,6 @@ galleryRequestButton?.addEventListener(
 backFromUploadButton?.addEventListener(
   "click",
   () => {
-
     showHub();
   }
 );
@@ -371,7 +356,6 @@ backFromUploadButton?.addEventListener(
 backFromGalleryRequestButton?.addEventListener(
   "click",
   () => {
-
     showHub();
   }
 );
@@ -379,7 +363,6 @@ backFromGalleryRequestButton?.addEventListener(
 photoInput?.addEventListener(
   "change",
   () => {
-
     const file =
       photoInput.files?.[0];
 
@@ -397,13 +380,10 @@ photoInput?.addEventListener(
 uploadBtn?.addEventListener(
   "click",
   async () => {
-
     if (
       eventHasEnded()
     ) {
-
       closeUploadsIfNeeded();
-
       return;
     }
 
@@ -414,7 +394,6 @@ uploadBtn?.addEventListener(
       emailInput.value.trim();
 
     if (!file) {
-
       status.textContent =
         "Please choose a photo.";
 
@@ -422,7 +401,6 @@ uploadBtn?.addEventListener(
     }
 
     if (!email) {
-
       status.textContent =
         "Please enter your email.";
 
@@ -433,7 +411,6 @@ uploadBtn?.addEventListener(
       file.size >
       6 * 1024 * 1024
     ) {
-
       status.textContent =
         "Photo must be 6 MB or smaller.";
 
@@ -441,7 +418,6 @@ uploadBtn?.addEventListener(
     }
 
     if (!eventId) {
-
       status.textContent =
         "Event information is not available.";
 
@@ -455,13 +431,10 @@ uploadBtn?.addEventListener(
       "Uploading photo...";
 
     try {
-
       if (
         eventHasEnded()
       ) {
-
         closeUploadsIfNeeded();
-
         return;
       }
 
@@ -499,9 +472,7 @@ uploadBtn?.addEventListener(
       if (
         eventHasEnded()
       ) {
-
         closeUploadsIfNeeded();
-
         return;
       }
 
@@ -526,9 +497,13 @@ uploadBtn?.addEventListener(
       };
 
       console.log(
-  "PHOTO DATA BEING INSERTED:",
-  JSON.stringify(photoData, null, 2)
-);
+        "PHOTO DATA BEING INSERTED:",
+        JSON.stringify(
+          photoData,
+          null,
+          2
+        )
+      );
 
       const {
         error: photoError
@@ -561,7 +536,6 @@ uploadBtn?.addEventListener(
           );
 
       if (emailError) {
-
         console.warn(
           "Email save warning:",
           JSON.stringify(
@@ -584,7 +558,6 @@ uploadBtn?.addEventListener(
       }
 
     } catch (error) {
-
       console.error(
         "UPLOAD ERROR:",
         JSON.stringify(
@@ -620,12 +593,10 @@ uploadBtn?.addEventListener(
 galleryRequestSubmit?.addEventListener(
   "click",
   async () => {
-
     const email =
       galleryEmailInput.value.trim();
 
     if (!email) {
-
       galleryRequestStatus.textContent =
         "Please enter your email.";
 
@@ -633,7 +604,6 @@ galleryRequestSubmit?.addEventListener(
     }
 
     if (!eventId) {
-
       galleryRequestStatus.textContent =
         "Event information is not available.";
 
@@ -647,7 +617,6 @@ galleryRequestSubmit?.addEventListener(
       "Saving your request...";
 
     try {
-
       const {
         error
       } =
@@ -676,7 +645,6 @@ galleryRequestSubmit?.addEventListener(
         "";
 
     } catch (error) {
-
       console.error(
         "GALLERY REQUEST ERROR:",
         JSON.stringify(
