@@ -68,6 +68,31 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function isEventCompleted(event) {
+
+  if (
+    !event.event_date ||
+    !event.end_time
+  ) {
+    return false;
+  }
+
+  const endDateTime =
+    new Date(
+      `${event.event_date}T${event.end_time}`
+    );
+
+  if (
+    Number.isNaN(
+      endDateTime.getTime()
+    )
+  ) {
+    return false;
+  }
+
+  return new Date() >= endDateTime;
+}
+
 logoutButton.addEventListener(
   "click",
   async () => {
@@ -158,6 +183,11 @@ async function loadDashboard() {
       .map(
         (event) => {
 
+          const completed =
+            isEventCompleted(
+              event
+            );
+
           return `
             <div class="event-card">
 
@@ -183,6 +213,20 @@ async function loadDashboard() {
                     event.code
                   )}
                 </strong>
+              </div>
+
+              <div
+                class="event-status ${
+                  completed
+                    ? "completed"
+                    : "active"
+                }"
+              >
+                ${
+                  completed
+                    ? "Completed"
+                    : "Active"
+                }
               </div>
 
               <div class="event-actions">
