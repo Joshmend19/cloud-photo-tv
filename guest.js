@@ -1,11 +1,11 @@
 import {
-  createClient
-} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
-
-import {
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 } from "./config.js";
+
+import {
+  createClient
+} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 const supabase =
   createClient(
@@ -19,46 +19,7 @@ const params =
   );
 
 const code =
-  (params.get("code") || "")
-    .toUpperCase();
-
-
-// =========================
-// PAGE ELEMENTS
-// =========================
-
-const eventName =
-  document.getElementById(
-    "eventName"
-  );
-
-const input =
-  document.getElementById(
-    "photoInput"
-  );
-
-const email =
-  document.getElementById(
-    "emailInput"
-  );
-
-const button =
-  document.getElementById(
-    "uploadBtn"
-  );
-
-const label =
-  document.getElementById(
-    "fileLabel"
-  );
-
-const status =
-  document.getElementById(
-    "uploadStatus"
-  );
-
-
-// Guest Hub
+  params.get("code");
 
 const hubSection =
   document.getElementById(
@@ -73,6 +34,51 @@ const uploadSection =
 const galleryRequestSection =
   document.getElementById(
     "galleryRequestSection"
+  );
+
+const eventName =
+  document.getElementById(
+    "eventName"
+  );
+
+const photoInput =
+  document.getElementById(
+    "photoInput"
+  );
+
+const emailInput =
+  document.getElementById(
+    "emailInput"
+  );
+
+const uploadBtn =
+  document.getElementById(
+    "uploadBtn"
+  );
+
+const fileLabel =
+  document.getElementById(
+    "fileLabel"
+  );
+
+const status =
+  document.getElementById(
+    "uploadStatus"
+  );
+
+const galleryEmailInput =
+  document.getElementById(
+    "galleryEmailInput"
+  );
+
+const galleryRequestSubmit =
+  document.getElementById(
+    "galleryRequestSubmit"
+  );
+
+const galleryRequestStatus =
+  document.getElementById(
+    "galleryRequestStatus"
   );
 
 const uploadPhotosButton =
@@ -100,40 +106,15 @@ const galleryRequestButton =
     "galleryRequestButton"
   );
 
-const backFromUpload =
+const backFromUploadButton =
   document.getElementById(
-    "backFromUpload"
+    "backFromUploadButton"
   );
 
-const backFromGalleryRequest =
+const backFromGalleryRequestButton =
   document.getElementById(
-    "backFromGalleryRequest"
+    "backFromGalleryRequestButton"
   );
-
-const hubStatus =
-  document.getElementById(
-    "hubStatus"
-  );
-
-const galleryEmailInput =
-  document.getElementById(
-    "galleryEmailInput"
-  );
-
-const galleryRequestSubmit =
-  document.getElementById(
-    "galleryRequestSubmit"
-  );
-
-const galleryRequestStatus =
-  document.getElementById(
-    "galleryRequestStatus"
-  );
-
-
-// =========================
-// EVENT DATA
-// =========================
 
 let eventId = null;
 let eventDate = null;
@@ -141,269 +122,204 @@ let eventEndTime = null;
 let guestbookEnabled = false;
 let rsvpEnabled = false;
 
-
-// =========================
-// PAGE NAVIGATION
-// =========================
-
 function showHub() {
 
-  hubSection.classList.remove(
-    "hidden"
-  );
+  hubSection.style.display =
+    "block";
 
-  uploadSection.classList.remove(
-    "active"
-  );
+  uploadSection.style.display =
+    "none";
 
-  galleryRequestSection.classList.remove(
-    "active"
-  );
-
+  galleryRequestSection.style.display =
+    "none";
 }
-
 
 function showUpload() {
 
-  hubSection.classList.add(
-    "hidden"
-  );
+  hubSection.style.display =
+    "none";
 
-  uploadSection.classList.add(
-    "active"
-  );
+  uploadSection.style.display =
+    "block";
 
-  galleryRequestSection.classList.remove(
-    "active"
-  );
-
+  galleryRequestSection.style.display =
+    "none";
 }
-
 
 function showGalleryRequest() {
 
-  hubSection.classList.add(
-    "hidden"
-  );
+  hubSection.style.display =
+    "none";
 
-  uploadSection.classList.remove(
-    "active"
-  );
+  uploadSection.style.display =
+    "none";
 
-  galleryRequestSection.classList.add(
-    "active"
-  );
-
+  galleryRequestSection.style.display =
+    "block";
 }
 
-
-// =========================
-// EVENT LOAD
-// =========================
-
-async function loadEvent() {
-
-  if (!code) {
-
-    eventName.textContent =
-      "Event not found.";
-
-    hubStatus.textContent =
-      "No event code was provided.";
-
-    return;
-
-  }
-
-
-  try {
-
-    const {
-      data,
-      error
-    } =
-      await supabase.rpc(
-        "get_public_event",
-        {
-          p_code: code
-        }
-      );
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    const event =
-      Array.isArray(data)
-        ? data[0]
-        : data;
-
-
-    if (!event) {
-      throw new Error(
-        "Event not found."
-      );
-    }
-
-
-    eventId =
-      event.id;
-
-    eventDate =
-      event.event_date;
-
-    eventEndTime =
-      event.end_time;
-
-    guestbookEnabled =
-      event.guestbook_enabled === true;
-
-    rsvpEnabled =
-      event.rsvp_enabled === true;
-
-
-    eventName.textContent =
-      event.event_name;
-
-
-    // Show Guestbook only when enabled
-
-    if (
-      guestbookEnabled
-    ) {
-
-      guestbookButton.classList.remove(
-        "hidden"
-      );
-
-    }
-
-
-    // Show RSVP only when enabled
-
-    if (
-      rsvpEnabled
-    ) {
-
-      rsvpButton.classList.remove(
-        "hidden"
-      );
-
-    }
-
-
-    checkEventEnded();
-
-
-  } catch (error) {
-
-    console.error(
-      "EVENT LOAD ERROR:",
-      error
-    );
-
-    eventName.textContent =
-      "Event not found.";
-
-    hubStatus.textContent =
-      "We could not find this event.";
-
-  }
-
-}
-
-
-// =========================
-// EVENT END CHECK
-// =========================
-
-function checkEventEnded() {
+function eventHasEnded() {
 
   if (
     !eventDate ||
     !eventEndTime
   ) {
-
     return false;
-
   }
 
-
-  const [
-    hours,
-    minutes,
-    seconds = 0
-  ] =
-    eventEndTime
-      .split(":")
-      .map(Number);
-
-
-  const eventEnd =
+  const endDateTime =
     new Date(
-      `${eventDate}T00:00:00`
+      `${eventDate}T${eventEndTime}`
     );
 
-
-  eventEnd.setHours(
-    hours,
-    minutes,
-    seconds,
-    0
-  );
-
-
-  const now =
-    new Date();
-
-
   if (
-    now >= eventEnd
+    Number.isNaN(
+      endDateTime.getTime()
+    )
   ) {
-
-    input.disabled =
-      true;
-
-    button.disabled =
-      true;
-
-    label.textContent =
-      "📷 Photo uploads closed";
-
-    status.textContent =
-      "This event has ended. Photo uploads are closed.";
-
-    return true;
-
+    return false;
   }
 
-
-  return false;
-
+  return new Date() >= endDateTime;
 }
 
+function closeUploadsIfNeeded() {
 
-// =========================
-// UPLOAD BUTTON
-// =========================
+  if (!eventHasEnded()) {
+    return false;
+  }
 
-uploadPhotosButton.addEventListener(
+  if (photoInput) {
+    photoInput.disabled = true;
+  }
+
+  if (uploadBtn) {
+    uploadBtn.disabled = true;
+  }
+
+  if (fileLabel) {
+    fileLabel.textContent =
+      "Photo uploads are closed";
+  }
+
+  if (status) {
+    status.textContent =
+      "This event has ended. Photo uploads are closed.";
+  }
+
+  return true;
+}
+
+async function loadEvent() {
+
+  if (!code) {
+
+    if (status) {
+      status.textContent =
+        "Missing event code.";
+    }
+
+    return;
+  }
+
+  const {
+    data,
+    error
+  } =
+    await supabase.rpc(
+      "get_public_event",
+      {
+        p_code: code
+      }
+    );
+
+  if (error) {
+
+    console.error(
+      "Event loading error:",
+      error
+    );
+
+    if (status) {
+      status.textContent =
+        "Could not load this event.";
+    }
+
+    return;
+  }
+
+  const event =
+    Array.isArray(data)
+      ? data[0]
+      : data;
+
+  if (!event) {
+
+    if (status) {
+      status.textContent =
+        "Event not found.";
+    }
+
+    return;
+  }
+
+  eventId =
+    event.id;
+
+  eventDate =
+    event.event_date;
+
+  eventEndTime =
+    event.end_time;
+
+  guestbookEnabled =
+    event.guestbook_enabled === true;
+
+  rsvpEnabled =
+    event.rsvp_enabled === true;
+
+  if (eventName) {
+    eventName.textContent =
+      event.event_name ||
+      "Captured Moments";
+  }
+
+  if (
+    guestbookButton
+  ) {
+    guestbookButton.style.display =
+      guestbookEnabled
+        ? "block"
+        : "none";
+  }
+
+  if (
+    rsvpButton
+  ) {
+    rsvpButton.style.display =
+      rsvpEnabled
+        ? "block"
+        : "none";
+  }
+
+  closeUploadsIfNeeded();
+}
+
+uploadPhotosButton?.addEventListener(
   "click",
   () => {
 
-    showUpload();
+    if (
+      closeUploadsIfNeeded()
+    ) {
+      return;
+    }
 
+    showUpload();
   }
 );
 
-
-// =========================
-// GUESTBOOK BUTTON
-// =========================
-
-guestbookButton.addEventListener(
+guestbookButton?.addEventListener(
   "click",
   () => {
 
@@ -411,16 +327,10 @@ guestbookButton.addEventListener(
       `guestbook.html?code=${encodeURIComponent(
         code
       )}`;
-
   }
 );
 
-
-// =========================
-// RSVP BUTTON
-// =========================
-
-rsvpButton.addEventListener(
+rsvpButton?.addEventListener(
   "click",
   () => {
 
@@ -428,16 +338,10 @@ rsvpButton.addEventListener(
       `rsvp.html?code=${encodeURIComponent(
         code
       )}`;
-
   }
 );
 
-
-// =========================
-// GALLERY BUTTON
-// =========================
-
-galleryButton.addEventListener(
+galleryButton?.addEventListener(
   "click",
   () => {
 
@@ -445,300 +349,236 @@ galleryButton.addEventListener(
       `gallery.html?code=${encodeURIComponent(
         code
       )}`;
-
   }
 );
 
-
-// =========================
-// GALLERY REQUEST
-// =========================
-
-galleryRequestButton.addEventListener(
+galleryRequestButton?.addEventListener(
   "click",
   () => {
 
     showGalleryRequest();
-
   }
 );
 
-
-// =========================
-// BACK BUTTONS
-// =========================
-
-backFromUpload.addEventListener(
+backFromUploadButton?.addEventListener(
   "click",
   () => {
 
     showHub();
-
   }
 );
 
-
-backFromGalleryRequest.addEventListener(
+backFromGalleryRequestButton?.addEventListener(
   "click",
   () => {
 
     showHub();
-
   }
 );
 
-
-// =========================
-// PHOTO SELECTION
-// =========================
-
-input.addEventListener(
+photoInput?.addEventListener(
   "change",
   () => {
 
-    if (
-      checkEventEnded()
-    ) {
+    const file =
+      photoInput.files?.[0];
 
+    if (!file) {
       return;
-
     }
 
+    if (
+      fileLabel
+    ) {
+      fileLabel.textContent =
+        file.name;
+    }
+  }
+);
 
-    const file =
-      input.files?.[0];
-
-
-    button.disabled =
-      !file;
-
-
-    label.textContent =
-      file?.name ||
-      "📷 Choose a photo";
-
+uploadBtn?.addEventListener(
+  "click",
+  async () => {
 
     if (
-      file &&
+      eventHasEnded()
+    ) {
+
+      closeUploadsIfNeeded();
+
+      return;
+    }
+
+    const file =
+      photoInput.files?.[0];
+
+    const email =
+      emailInput.value.trim();
+
+    if (!file) {
+
+      status.textContent =
+        "Please choose a photo.";
+
+      return;
+    }
+
+    if (!email) {
+
+      status.textContent =
+        "Please enter your email.";
+
+      return;
+    }
+
+    if (
       file.size >
       6 * 1024 * 1024
     ) {
 
       status.textContent =
-        "Please choose a photo under 6 MB.";
-
-      button.disabled =
-        true;
-
-    } else {
-
-      status.textContent =
-        "";
-
-    }
-
-  }
-);
-
-
-// =========================
-// PHOTO UPLOAD
-// =========================
-
-button.addEventListener(
-  "click",
-  async () => {
-
-    /*
-     * Check immediately before
-     * starting the upload.
-     */
-
-    if (
-      checkEventEnded()
-    ) {
+        "Photo must be 6 MB or smaller.";
 
       return;
-
     }
 
-
-    const file =
-      input.files?.[0];
-
-
-    const mail =
-      email.value
-        .trim()
-        .toLowerCase();
-
-
-    if (
-      !file ||
-      !mail.includes("@")
-    ) {
+    if (!eventId) {
 
       status.textContent =
-        "Please choose a photo and enter a valid email.";
+        "Event information is not available.";
 
       return;
-
     }
 
-
-    button.disabled =
+    uploadBtn.disabled =
       true;
 
     status.textContent =
-      "Uploading…";
-
+      "Uploading photo...";
 
     try {
 
-      /*
-       * Check again before
-       * sending the file to Storage.
-       */
-
       if (
-        checkEventEnded()
+        eventHasEnded()
       ) {
 
-        return;
+        closeUploadsIfNeeded();
 
+        return;
       }
 
-
-      const extension =
+      const fileExtension =
         file.name
           .split(".")
           .pop()
           .toLowerCase();
 
+      const fileName =
+        `${crypto.randomUUID()}.${fileExtension}`;
 
-      const path =
-        `${code}/${crypto.randomUUID()}.${extension}`;
+      const filePath =
+        `${code}/${fileName}`;
 
-
-      const upload =
+      const {
+        error: storageError
+      } =
         await supabase.storage
           .from("photos")
           .upload(
-            path,
+            filePath,
             file,
             {
               contentType:
                 file.type,
-
-              upsert:
-                false
+              upsert: false
             }
           );
 
-
-      if (upload.error) {
-        throw upload.error;
+      if (storageError) {
+        throw storageError;
       }
 
+      if (
+        eventHasEnded()
+      ) {
+
+        closeUploadsIfNeeded();
+
+        return;
+      }
 
       const {
-        data: publicUrl
+        data: publicUrlData
       } =
         supabase.storage
           .from("photos")
           .getPublicUrl(
-            path
+            filePath
           );
 
-
-      /*
-       * Check again before
-       * creating the permanent
-       * photo record.
-       */
-
-      if (
-        checkEventEnded()
-      ) {
-
-        return;
-
-      }
-
+      const url =
+        publicUrlData.publicUrl;
 
       const photoData = {
-
-        session_code:
-          code,
-
-        url:
-          publicUrl.publicUrl,
-
-        path,
-
-        email:
-          mail,
-
-        event_id:
-          eventId
-
+        session_code: code,
+        url: url,
+        path: filePath,
+        email: email,
+        event_id: eventId
       };
 
+      console.log(
+        "PHOTO DATA BEING INSERTED:",
+        photoData
+      );
 
-      const photoInsert =
+      const {
+        error: photoError
+      } =
         await supabase
           .from("photos")
           .insert(
             photoData
           );
 
-
-      if (photoInsert.error) {
-        throw photoInsert.error;
+      if (photoError) {
+        throw photoError;
       }
 
-
-      const emailData = {
-
-        session_code:
-          code,
-
-        email:
-          mail,
-
-        event_id:
-          eventId
-
-      };
-
-
-      const emailInsert =
+      const {
+        error: emailError
+      } =
         await supabase
           .from("emails")
           .upsert(
-            emailData,
+            {
+              session_code: code,
+              email: email,
+              event_id: eventId
+            },
             {
               onConflict:
                 "session_code,email"
             }
           );
 
-
-      if (emailInsert.error) {
-        throw emailInsert.error;
+      if (emailError) {
+        console.warn(
+          "Email save warning:",
+          emailError
+        );
       }
 
-
       status.textContent =
-        "✓ Photo sent! Check the TV.";
+        "Photo uploaded successfully!";
 
-
-      input.value =
+      photoInput.value =
         "";
 
-      label.textContent =
-        "📷 Choose another photo";
-
+      if (fileLabel) {
+        fileLabel.textContent =
+          "Choose a photo";
+      }
 
     } catch (error) {
 
@@ -755,97 +595,72 @@ button.addEventListener(
           error.details ||
           ""
         }`;
-
-    } finally {
-
-      if (
-        !checkEventEnded()
-      ) {
-
-        button.disabled =
-          false;
-
-      }
-
     }
 
+    uploadBtn.disabled =
+      false;
+
+    closeUploadsIfNeeded();
   }
 );
 
-
-// =========================
-// GALLERY REQUEST SUBMIT
-// =========================
-
-galleryRequestSubmit.addEventListener(
+galleryRequestSubmit?.addEventListener(
   "click",
   async () => {
 
-    const mail =
-      galleryEmailInput.value
-        .trim()
-        .toLowerCase();
+    const email =
+      galleryEmailInput.value.trim();
 
-
-    if (
-      !mail ||
-      !mail.includes("@")
-    ) {
+    if (!email) {
 
       galleryRequestStatus.textContent =
-        "Please enter a valid email address.";
+        "Please enter your email.";
 
       return;
-
     }
 
+    if (!eventId) {
+
+      galleryRequestStatus.textContent =
+        "Event information is not available.";
+
+      return;
+    }
 
     galleryRequestSubmit.disabled =
       true;
 
     galleryRequestStatus.textContent =
-      "Saving your email…";
-
+      "Saving your request...";
 
     try {
 
-      const emailData = {
-
-        session_code:
-          code,
-
-        email:
-          mail,
-
-        event_id:
-          eventId
-
-      };
-
-
-      const emailInsert =
+      const {
+        error
+      } =
         await supabase
           .from("emails")
           .upsert(
-            emailData,
+            {
+              session_code: code,
+              email: email,
+              event_id: eventId
+            },
             {
               onConflict:
                 "session_code,email"
             }
           );
 
-
-      if (emailInsert.error) {
-        throw emailInsert.error;
+      if (error) {
+        throw error;
       }
 
-
       galleryRequestStatus.textContent =
-        "✓ You're on the gallery list! We'll send the gallery link when the event is over.";
+        "You're all set! You'll receive the gallery link when the event ends.";
 
       galleryEmailInput.value =
         "";
-
 
     } catch (error) {
 
@@ -855,27 +670,15 @@ galleryRequestSubmit.addEventListener(
       );
 
       galleryRequestStatus.textContent =
-        `We couldn't save your email: ${
+        `Request failed: ${
           error.message ||
           "Unknown error"
-        } | ${
-          error.details ||
-          ""
         }`;
-
-    } finally {
-
-      galleryRequestSubmit.disabled =
-        false;
-
     }
 
+    galleryRequestSubmit.disabled =
+      false;
   }
 );
-
-
-// =========================
-// START
-// =========================
 
 loadEvent();
