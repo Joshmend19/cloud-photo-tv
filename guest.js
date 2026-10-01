@@ -22,6 +22,11 @@ const code =
   (params.get("code") || "")
     .toUpperCase();
 
+
+// =========================
+// PAGE ELEMENTS
+// =========================
+
 const eventName =
   document.getElementById(
     "eventName"
@@ -53,10 +58,148 @@ const status =
   );
 
 
+// Guest Hub
+
+const hubSection =
+  document.getElementById(
+    "hubSection"
+  );
+
+const uploadSection =
+  document.getElementById(
+    "uploadSection"
+  );
+
+const galleryRequestSection =
+  document.getElementById(
+    "galleryRequestSection"
+  );
+
+const uploadPhotosButton =
+  document.getElementById(
+    "uploadPhotosButton"
+  );
+
+const guestbookButton =
+  document.getElementById(
+    "guestbookButton"
+  );
+
+const rsvpButton =
+  document.getElementById(
+    "rsvpButton"
+  );
+
+const galleryButton =
+  document.getElementById(
+    "galleryButton"
+  );
+
+const galleryRequestButton =
+  document.getElementById(
+    "galleryRequestButton"
+  );
+
+const backFromUpload =
+  document.getElementById(
+    "backFromUpload"
+  );
+
+const backFromGalleryRequest =
+  document.getElementById(
+    "backFromGalleryRequest"
+  );
+
+const hubStatus =
+  document.getElementById(
+    "hubStatus"
+  );
+
+const galleryEmailInput =
+  document.getElementById(
+    "galleryEmailInput"
+  );
+
+const galleryRequestSubmit =
+  document.getElementById(
+    "galleryRequestSubmit"
+  );
+
+const galleryRequestStatus =
+  document.getElementById(
+    "galleryRequestStatus"
+  );
+
+
+// =========================
+// EVENT DATA
+// =========================
+
 let eventId = null;
 let eventDate = null;
 let eventEndTime = null;
+let guestbookEnabled = false;
+let rsvpEnabled = false;
 
+
+// =========================
+// PAGE NAVIGATION
+// =========================
+
+function showHub() {
+
+  hubSection.classList.remove(
+    "hidden"
+  );
+
+  uploadSection.classList.remove(
+    "active"
+  );
+
+  galleryRequestSection.classList.remove(
+    "active"
+  );
+
+}
+
+
+function showUpload() {
+
+  hubSection.classList.add(
+    "hidden"
+  );
+
+  uploadSection.classList.add(
+    "active"
+  );
+
+  galleryRequestSection.classList.remove(
+    "active"
+  );
+
+}
+
+
+function showGalleryRequest() {
+
+  hubSection.classList.add(
+    "hidden"
+  );
+
+  uploadSection.classList.remove(
+    "active"
+  );
+
+  galleryRequestSection.classList.add(
+    "active"
+  );
+
+}
+
+
+// =========================
+// EVENT LOAD
+// =========================
 
 async function loadEvent() {
 
@@ -65,10 +208,11 @@ async function loadEvent() {
     eventName.textContent =
       "Event not found.";
 
-    status.textContent =
+    hubStatus.textContent =
       "No event code was provided.";
 
     return;
+
   }
 
 
@@ -113,9 +257,41 @@ async function loadEvent() {
     eventEndTime =
       event.end_time;
 
+    guestbookEnabled =
+      event.guestbook_enabled === true;
+
+    rsvpEnabled =
+      event.rsvp_enabled === true;
+
 
     eventName.textContent =
       event.event_name;
+
+
+    // Show Guestbook only when enabled
+
+    if (
+      guestbookEnabled
+    ) {
+
+      guestbookButton.classList.remove(
+        "hidden"
+      );
+
+    }
+
+
+    // Show RSVP only when enabled
+
+    if (
+      rsvpEnabled
+    ) {
+
+      rsvpButton.classList.remove(
+        "hidden"
+      );
+
+    }
 
 
     checkEventEnded();
@@ -128,7 +304,7 @@ async function loadEvent() {
     eventName.textContent =
       "Event not found.";
 
-    status.textContent =
+    hubStatus.textContent =
       "We could not find this event.";
 
   }
@@ -136,13 +312,19 @@ async function loadEvent() {
 }
 
 
+// =========================
+// EVENT END CHECK
+// =========================
+
 function checkEventEnded() {
 
   if (
     !eventDate ||
     !eventEndTime
   ) {
+
     return false;
+
   }
 
 
@@ -200,6 +382,113 @@ function checkEventEnded() {
 }
 
 
+// =========================
+// UPLOAD BUTTON
+// =========================
+
+uploadPhotosButton.addEventListener(
+  "click",
+  () => {
+
+    showUpload();
+
+  }
+);
+
+
+// =========================
+// GUESTBOOK BUTTON
+// =========================
+
+guestbookButton.addEventListener(
+  "click",
+  () => {
+
+    window.location.href =
+      `guestbook.html?code=${encodeURIComponent(
+        code
+      )}`;
+
+  }
+);
+
+
+// =========================
+// RSVP BUTTON
+// =========================
+
+rsvpButton.addEventListener(
+  "click",
+  () => {
+
+    window.location.href =
+      `rsvp.html?code=${encodeURIComponent(
+        code
+      )}`;
+
+  }
+);
+
+
+// =========================
+// GALLERY BUTTON
+// =========================
+
+galleryButton.addEventListener(
+  "click",
+  () => {
+
+    window.location.href =
+      `gallery.html?code=${encodeURIComponent(
+        code
+      )}`;
+
+  }
+);
+
+
+// =========================
+// GALLERY REQUEST
+// =========================
+
+galleryRequestButton.addEventListener(
+  "click",
+  () => {
+
+    showGalleryRequest();
+
+  }
+);
+
+
+// =========================
+// BACK BUTTONS
+// =========================
+
+backFromUpload.addEventListener(
+  "click",
+  () => {
+
+    showHub();
+
+  }
+);
+
+
+backFromGalleryRequest.addEventListener(
+  "click",
+  () => {
+
+    showHub();
+
+  }
+);
+
+
+// =========================
+// PHOTO SELECTION
+// =========================
+
 input.addEventListener(
   "change",
   () => {
@@ -207,7 +496,9 @@ input.addEventListener(
     if (
       checkEventEnded()
     ) {
+
       return;
+
     }
 
 
@@ -247,18 +538,25 @@ input.addEventListener(
 );
 
 
+// =========================
+// PHOTO UPLOAD
+// =========================
+
 button.addEventListener(
   "click",
   async () => {
 
     /*
-     * Check again immediately before
+     * Check immediately before
      * starting the upload.
      */
+
     if (
       checkEventEnded()
     ) {
+
       return;
+
     }
 
 
@@ -295,13 +593,16 @@ button.addEventListener(
     try {
 
       /*
-       * Check one more time before
+       * Check again before
        * sending the file to Storage.
        */
+
       if (
         checkEventEnded()
       ) {
+
         return;
+
       }
 
 
@@ -348,13 +649,17 @@ button.addEventListener(
 
 
       /*
-       * Check again before creating
-       * the permanent photo record.
+       * Check again before
+       * creating the permanent
+       * photo record.
        */
+
       if (
         checkEventEnded()
       ) {
+
         return;
+
       }
 
 
@@ -455,5 +760,101 @@ button.addEventListener(
   }
 );
 
+
+// =========================
+// GALLERY REQUEST SUBMIT
+// =========================
+
+galleryRequestSubmit.addEventListener(
+  "click",
+  async () => {
+
+    const mail =
+      galleryEmailInput.value
+        .trim()
+        .toLowerCase();
+
+
+    if (
+      !mail ||
+      !mail.includes("@")
+    ) {
+
+      galleryRequestStatus.textContent =
+        "Please enter a valid email address.";
+
+      return;
+
+    }
+
+
+    galleryRequestSubmit.disabled =
+      true;
+
+    galleryRequestStatus.textContent =
+      "Saving your email…";
+
+
+    try {
+
+      const emailData = {
+
+        session_code:
+          code,
+
+        email:
+          mail,
+
+        event_id:
+          eventId
+
+      };
+
+
+      const emailInsert =
+        await supabase
+          .from("emails")
+          .upsert(
+            emailData,
+            {
+              onConflict:
+                "session_code,email"
+            }
+          );
+
+
+      if (emailInsert.error) {
+        throw emailInsert.error;
+      }
+
+
+      galleryRequestStatus.textContent =
+        "✓ You're on the gallery list! We'll send the gallery link when the event is over.";
+
+      galleryEmailInput.value =
+        "";
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      galleryRequestStatus.textContent =
+        "We couldn't save your email. Please try again.";
+
+    } finally {
+
+      galleryRequestSubmit.disabled =
+        false;
+
+    }
+
+  }
+);
+
+
+// =========================
+// START
+// =========================
 
 loadEvent();
