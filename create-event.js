@@ -249,6 +249,58 @@ function updateEventThemes() {
   );
 
 
+  /* ---------------------------------
+     Apply selected theme to page
+  --------------------------------- */
+
+  const themeInputs =
+    themeContainer.querySelectorAll(
+      'input[name="theme"]'
+    );
+
+
+  function applyTheme() {
+
+    const selectedTheme =
+      themeContainer.querySelector(
+        'input[name="theme"]:checked'
+      );
+
+
+    if (!selectedTheme) {
+      return;
+    }
+
+
+    document.body.dataset.theme =
+      selectedTheme.value;
+
+
+    console.log(
+      "PAGE THEME:",
+      selectedTheme.value
+    );
+
+  }
+
+
+  themeInputs.forEach(
+    input => {
+
+      input.addEventListener(
+        "change",
+        applyTheme
+      );
+
+    }
+  );
+
+
+  /* Apply the first theme immediately */
+
+  applyTheme();
+
+
   console.log(
     "THEMES UPDATED:",
     selectedEvent,
@@ -533,6 +585,10 @@ async function loadEditEvent() {
     }
 
 
+    /* ---------------------------------
+       Load saved theme
+    --------------------------------- */
+
     const themeChoice =
       document.querySelector(
         `input[name="theme"][value="${event.theme}"]`
@@ -543,6 +599,16 @@ async function loadEditEvent() {
 
       themeChoice.checked =
         true;
+
+
+      document.body.dataset.theme =
+        themeChoice.value;
+
+
+      console.log(
+        "EDIT THEME:",
+        themeChoice.value
+      );
 
     }
 
@@ -639,6 +705,7 @@ async function loadEditEvent() {
           true;
 
       }
+
 
       if (rsvpEnabled) {
 
