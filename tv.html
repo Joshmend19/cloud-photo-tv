@@ -197,6 +197,54 @@
     }
 
 
+    body[data-theme="birthday-celebration"] #tvView {
+      background:
+        radial-gradient(
+          circle at 20% 20%,
+          color-mix(
+            in srgb,
+            var(--primary-color) 35%,
+            transparent
+          ),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 80%,
+          color-mix(
+            in srgb,
+            var(--accent-color) 35%,
+            transparent
+          ),
+          transparent 30%
+        ),
+        var(--secondary-color);
+    }
+
+
+    body[data-theme="birthday-celebration"] .scan-title {
+      text-shadow:
+        0 0 20px
+        color-mix(
+          in srgb,
+          var(--primary-color) 60%,
+          transparent
+        );
+    }
+
+
+    body[data-theme="birthday-celebration"] #currentPhoto {
+      border-radius: 28px;
+
+      box-shadow:
+        0 20px 70px
+        color-mix(
+          in srgb,
+          var(--primary-color) 45%,
+          rgba(0, 0, 0, 0.45)
+        );
+    }
+
+
     .tv-header {
       position: absolute;
 
