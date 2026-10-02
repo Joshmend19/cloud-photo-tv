@@ -382,58 +382,57 @@
     }
 
     /* =========================
-       SECOND EMOJI LAYER
+       STAGGERED SECOND EMOJI LAYER
        ========================= */
 
     /*
-      The ::after layer is positioned slightly differently
-      so the two emoji patterns overlap and create a much
-      denser background without covering the page content.
+      The second pattern uses the exact same emojis,
+      but is shifted enough that it sits BETWEEN the
+      first pattern instead of directly on top of it.
     */
 
     body::after {
-      top: 10px;
-      left: 430px;
-      opacity: 0;
-      transform: scale(1.02);
+      top: 15px;
+      left: 225px;
+      transform: translate(28px, 28px);
     }
 
     body[data-theme="balloons-confetti"]::after {
-      opacity: .20;
+      opacity: .12;
     }
 
     body[data-theme="graduation"]::after,
     body[data-theme="graduation-celebration"]::after {
-      opacity: .18;
+      opacity: .11;
     }
 
     body[data-theme="wedding"]::after {
-      opacity: .16;
+      opacity: .10;
     }
 
     body[data-theme="baby-shower"]::after {
-      opacity: .16;
+      opacity: .10;
     }
 
     body[data-theme="sports-event"]::after {
-      opacity: .16;
+      opacity: .10;
     }
 
     body[data-theme="game-night"]::after {
-      opacity: .16;
+      opacity: .10;
     }
 
     body[data-theme="anniversary"]::after {
-      opacity: .16;
+      opacity: .10;
     }
 
     body[data-theme="retirement"]::after {
-      opacity: .16;
+      opacity: .10;
     }
 
     body[data-theme="other"]::after,
     body[data-theme="general-celebration"]::after {
-      opacity: .15;
+      opacity: .10;
     }
 
     /* =========================
@@ -677,11 +676,13 @@
       body::before {
         top: -15px;
         left: 100px;
+        transform: none;
       }
 
       body::after {
         top: 10px;
-        left: 190px;
+        left: 100px;
+        transform: translate(20px, 22px);
       }
 
       .hero h1 {
