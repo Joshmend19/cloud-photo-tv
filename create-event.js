@@ -269,6 +269,8 @@ if (eventType) {
     updateEventThemes
   );
 
+  updateEventThemes();
+
 }
 
 
