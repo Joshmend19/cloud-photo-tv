@@ -1,3 +1,4 @@
+```javascript
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 import {
@@ -17,6 +18,200 @@ const eventType =
   document.getElementById(
     "eventType"
   );
+
+
+/* ---------------------------------
+   Event-specific themes
+--------------------------------- */
+
+const themeSection =
+  Array.from(
+    document.querySelectorAll(".form-section")
+  ).find(
+    section =>
+      section.querySelector("h2")?.textContent.trim() ===
+      "Choose Your Theme"
+  );
+
+
+const themeContainer =
+  themeSection
+    ? themeSection.querySelector(".option-grid")
+    : null;
+
+
+const eventThemes = {
+
+  Birthday: [
+    {
+      value: "balloons-confetti",
+      label: "Balloons & Confetti"
+    },
+    {
+      value: "birthday-celebration",
+      label: "Birthday Celebration"
+    },
+    {
+      value: "colorful-party",
+      label: "Colorful Party"
+    }
+  ],
+
+  Graduation: [
+    {
+      value: "graduation",
+      label: "Graduation"
+    },
+    {
+      value: "caps-diplomas",
+      label: "Caps & Diplomas"
+    },
+    {
+      value: "school-celebration",
+      label: "School Celebration"
+    }
+  ],
+
+  Wedding: [
+    {
+      value: "elegant-flowers",
+      label: "Elegant Flowers"
+    },
+    {
+      value: "romantic-hearts",
+      label: "Romantic Hearts"
+    },
+    {
+      value: "classic-wedding",
+      label: "Classic Wedding"
+    }
+  ],
+
+  "Baby Shower": [
+    {
+      value: "baby-celebration",
+      label: "Baby Celebration"
+    },
+    {
+      value: "soft-sweet",
+      label: "Soft & Sweet"
+    },
+    {
+      value: "baby-shower",
+      label: "Baby Shower"
+    }
+  ],
+
+  "Sports Event": [
+    {
+      value: "sports",
+      label: "Sports"
+    },
+    {
+      value: "stadium",
+      label: "Stadium"
+    },
+    {
+      value: "game-day",
+      label: "Game Day"
+    }
+  ],
+
+  "Game Night": [
+    {
+      value: "gaming",
+      label: "Gaming"
+    },
+    {
+      value: "controllers",
+      label: "Controllers"
+    },
+    {
+      value: "neon-arcade",
+      label: "Neon Arcade"
+    }
+  ]
+
+};
+
+
+function updateEventThemes() {
+
+  if (!eventType || !themeContainer) {
+    return;
+  }
+
+
+  const selectedEvent =
+    eventType.value;
+
+
+  const themes =
+    eventThemes[selectedEvent];
+
+
+  if (!themes) {
+    return;
+  }
+
+
+  themeContainer.innerHTML =
+    "";
+
+
+  themes.forEach(
+    (theme, index) => {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "option-card";
+
+
+      card.innerHTML = `
+        <input
+          type="radio"
+          id="theme-${theme.value}"
+          name="theme"
+          value="${theme.value}"
+          ${index === 0 ? "checked" : ""}
+        >
+
+        <label
+          for="theme-${theme.value}"
+        >
+          ${theme.label}
+        </label>
+      `;
+
+
+      themeContainer.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+if (eventType) {
+
+  eventType.addEventListener(
+    "change",
+    updateEventThemes
+  );
+
+}
+
+
+/* ---------------------------------
+   Event form fields
+--------------------------------- */
 
 const eventName =
   document.getElementById(
@@ -209,6 +404,8 @@ async function loadEditEvent() {
       eventType.value =
         event.event_type ||
         "";
+
+      updateEventThemes();
 
     }
 
@@ -762,283 +959,5 @@ createBtn.addEventListener(
               editCode
             )
             .select()
-            .single();
-
-
-        if (updateError) {
-
-          throw updateError;
-
-        }
-
-
-        console.log(
-          "EVENT UPDATED:",
-          updatedEvent
-        );
-
-
-        sessionStorage.setItem(
-          "cptv_event_code",
-          editCode
-        );
-
-
-        location.href =
-          `event-created.html?code=${editCode}`;
-
-
-        return;
-
-      }
-
-
-      /* ---------------------------------
-         CREATE UNIQUE EVENT CODE
-      --------------------------------- */
-
-      let code = null;
-
-      let attempts = 0;
-
-
-      while (
-        !code &&
-        attempts < 10
-      ) {
-
-        const possibleCode =
-          createEventCode();
-
-
-        const {
-          data: existing,
-          error: checkError
-        } =
-          await supabase
-            .from("events")
-            .select("id")
-            .eq(
-              "code",
-              possibleCode
-            )
-            .maybeSingle();
-
-
-        if (checkError) {
-
-          throw checkError;
-
-        }
-
-
-        if (!existing) {
-
-          code =
-            possibleCode;
-
-        }
-
-
-        attempts++;
-
-      }
-
-
-      if (!code) {
-
-        throw new Error(
-          "Could not create a unique event code."
-        );
-
-      }
-
-
-      /* ---------------------------------
-         CREATE EVENT
-      --------------------------------- */
-
-      const {
-        data: event,
-        error: eventError
-      } =
-        await supabase
-          .from("events")
-          .insert({
-
-            code,
-
-            owner_id:
-              ownerId,
-
-            event_type:
-              eventType.value,
-
-            event_name:
-              name,
-
-            event_date:
-              eventDate.value,
-
-            start_time:
-              startTime.value,
-
-            end_time:
-              endTime.value,
-
-            theme:
-              selectedTheme,
-
-            primary_color:
-              finalPrimaryColor,
-
-            secondary_color:
-              finalSecondaryColor,
-
-            accent_color:
-              finalAccentColor,
-
-            background:
-              finalBackground,
-
-            package:
-              currentPackage,
-
-            has_tv:
-              hasTV,
-
-            guestbook_enabled:
-              isGuestbookEnabled,
-
-            rsvp_enabled:
-              isRSVPEnabled
-
-          })
-          .select()
-          .single();
-
-
-      if (eventError) {
-
-        throw eventError;
-
-      }
-
-
-      /* ---------------------------------
-         CREATE SESSION
-      --------------------------------- */
-
-      const eventEndDateTime =
-        `${eventDate.value}T${endTime.value}:00`;
-
-      const {
-        error: sessionError
-      } =
-        await supabase
-          .from("sessions")
-          .insert({
-
-            code,
-
-            event_id:
-              event.id,
-
-            active:
-              true,
-
-            event_end_time:
-              eventEndDateTime
-
-          });
-
-
-      if (sessionError) {
-
-        await supabase
-          .from("events")
-          .delete()
-          .eq(
-            "id",
-            event.id
-          );
-
-
-        throw sessionError;
-
-      }
-
-
-      /* ---------------------------------
-         SAVE EVENT CODE
-      --------------------------------- */
-
-      sessionStorage.setItem(
-        "cptv_event_code",
-        code
-      );
-
-
-      console.log(
-        "EVENT CREATED:",
-        event
-      );
-
-
-      console.log(
-        "TV ACCESS:",
-        hasTV
-      );
-
-
-      console.log(
-        "PACKAGE:",
-        currentPackage
-      );
-
-
-      console.log(
-        "GUESTBOOK:",
-        isGuestbookEnabled
-      );
-
-
-      console.log(
-        "RSVP:",
-        isRSVPEnabled
-      );
-
-
-      /* ---------------------------------
-         CONTINUE
-      --------------------------------- */
-
-      location.href =
-        `event-created.html?code=${code}`;
-
-
-    } catch (error) {
-
-      console.error(
-        "EVENT SAVE ERROR:",
-        error
-      );
-
-
-      status.textContent =
-        "Could not save the event. Please try again.";
-
-
-      createBtn.disabled =
-        false;
-
-
-      createBtn.textContent =
-        isEditMode
-          ? "Save Event Changes"
-          : "Continue to Checkout";
-
-    }
-
-  }
-);
+            .si
+```
