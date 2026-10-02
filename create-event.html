@@ -1,725 +1,169 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Create Your Event</title>
-
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+  <title>Create Your Event | Captured Moments</title>
 
   <style>
+    :root {
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --orange: #f97316;
+      --yellow: #facc15;
+      --navy: #172033;
+      --muted: #64748b;
+      --light: #f5f8ff;
+      --warm: #fffdf8;
+      --border: #e2e8f0;
+      --green: #22c55e;
+      --gold: #c8a24a;
+    }
 
-    /* ---------------------------------
-       BALLOONS & CONFETTI THEME
-    --------------------------------- */
+    * {
+      box-sizing: border-box;
+    }
 
-    body[data-theme="balloons-confetti"] {
-      position: relative;
-      min-height: 100vh;
+    body {
+      margin: 0;
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      background: var(--warm);
+      color: var(--navy);
+    }
 
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .navbar {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+      background: white;
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
       background:
-        radial-gradient(
-          circle at center,
-          #ffffff 0%,
-          #fff8fc 50%,
-          #ffeef7 100%
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--purple)
         );
-
-      overflow-x: hidden;
     }
 
-
-    /* Balloon + confetti background */
-
-    body[data-theme="balloons-confetti"]::before {
-
-      content:
-        "🎈   ✨   🎉   •   🎈   🎊   ✦   🎈   •   🎉   🎈   ✨   🎊   •   🎈   🎉   ✦   🎈   🎊";
-
-      position: fixed;
-
-      inset: 0;
-
-      width: 100%;
-      height: 100%;
-
-      padding: 20px;
-
-      font-size: 38px;
-
-      line-height: 2.4;
-
-      letter-spacing: 12px;
-
-      word-spacing: 18px;
-
-      opacity: 0.65;
-
-      pointer-events: none;
-
-      user-select: none;
-
-      z-index: 0;
-
-      overflow: hidden;
+    .logo span {
+      color: var(--blue);
     }
 
-
-    /* Second layer for more balloons/confetti */
-
-    body[data-theme="balloons-confetti"]::after {
-
-      content:
-        "🎊   •   🎈   ✨   🎈   🎉   •   🎈   ✦   🎊   🎈   •   🎉   ✨   🎈   🎊   •   🎈";
-
-      position: fixed;
-
-      inset: 0;
-
-      width: 100%;
-      height: 100%;
-
-      padding: 100px 10px 10px;
-
-      font-size: 27px;
-
-      line-height: 3;
-
-      letter-spacing: 20px;
-
-      word-spacing: 25px;
-
-      opacity: 0.55;
-
-      pointer-events: none;
-
-      user-select: none;
-
-      z-index: 0;
-
-      overflow: hidden;
+    .back-link {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.95rem;
     }
 
+    .back-link:hover {
+      color: var(--blue);
+    }
 
-    /* Keep the actual page content above the background */
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 55px 20px 80px;
+    }
 
-    body[data-theme="balloons-confetti"] > * {
+    .page-header {
+      text-align: center;
+      margin-bottom: 38px;
+    }
 
+    .page-header h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.05;
+    }
+
+    .page-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    /* PACKAGE SELECTION */
+
+    .package-section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .section-title h2 {
+      margin: 0 0 7px;
+      font-size: 1.6rem;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .package-card {
       position: relative;
-
-      z-index: 1;
-
+      padding: 28px;
+      border: 2px solid var(--border);
+      border-radius: 22px;
+      background: white;
+      transition: 0.2s ease;
     }
 
-  </style>
-
-</head>
-
-
-<body>
-
-  <header class="site-header">
-
-    <div class="header-content">
-
-      <a
-        href="index.html"
-        class="logo"
-      >
-        Captured Moments
-      </a>
-
-      <nav>
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="dashboard.html">
-          Dashboard
-        </a>
-
-      </nav>
-
-    </div>
-
-  </header>
-
-
-  <main class="create-event-page">
-
-    <div class="page-container">
-
-      <h1>
-        Create Your Event
-      </h1>
-
-      <p class="page-description">
-        Set up your event and customize how your guests will share their memories.
-      </p>
-
-
-      <!-- ---------------------------------
-           PACKAGE
-      --------------------------------- -->
-
-      <div class="form-section">
-
-        <h2>
-          Choose Your Package
-        </h2>
-
-        <p class="section-description">
-          Choose the package that works best for your event.
-        </p>
-
-
-        <div class="option-grid">
-
-
-          <div class="option-card">
-
-            <input
-              type="radio"
-              id="packageInstant"
-              name="package"
-              value="instant"
-            >
-
-            <label for="packageInstant">
-
-              <strong>
-                Captured Moments
-              </strong>
-
-              <span>
-                $19
-              </span>
-
-            </label>
-
-          </div>
-
-
-          <div class="option-card">
-
-            <input
-              type="radio"
-              id="packagePlus"
-              name="package"
-              value="plus"
-            >
-
-            <label for="packagePlus">
-
-              <strong>
-                Plus
-              </strong>
-
-              <span>
-                $39
-              </span>
-
-            </label>
-
-          </div>
-
-
-          <div class="option-card">
-
-            <input
-              type="radio"
-              id="packageBusiness"
-              name="package"
-              value="business"
-            >
-
-            <label for="packageBusiness">
-
-              <strong>
-                Business
-              </strong>
-
-              <span>
-                $59
-              </span>
-
-            </label>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- ---------------------------------
-           EVENT INFORMATION
-      --------------------------------- -->
-
-      <div class="form-section">
-
-        <h2>
-          Event Information
-        </h2>
-
-
-        <div class="form-group">
-
-          <label for="eventType">
-            Event Type
-          </label>
-
-          <select id="eventType">
-
-            <option value="Birthday">
-              Birthday
-            </option>
-
-            <option value="Graduation">
-              Graduation
-            </option>
-
-            <option value="Wedding">
-              Wedding
-            </option>
-
-            <option value="Retirement">
-              Retirement
-            </option>
-
-            <option value="Baby Shower">
-              Baby Shower
-            </option>
-
-            <option value="Anniversary">
-              Anniversary
-            </option>
-
-            <option value="Sports Event">
-              Sports Event
-            </option>
-
-            <option value="Game Night">
-              Game Night
-            </option>
-
-            <option value="Other">
-              Other
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="eventName">
-            Event Name
-          </label>
-
-          <input
-            type="text"
-            id="eventName"
-            placeholder="Example: Donna's 60th Birthday"
-          >
-
-        </div>
-
-
-        <div class="form-row">
-
-          <div class="form-group">
-
-            <label for="eventDate">
-              Event Date
-            </label>
-
-            <input
-              type="date"
-              id="eventDate"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="startTime">
-              Start Time
-            </label>
-
-            <input
-              type="time"
-              id="startTime"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="endTime">
-              End Time
-            </label>
-
-            <input
-              type="time"
-              id="endTime"
-            >
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- ---------------------------------
-           TV
-      --------------------------------- -->
-
-      <div class="form-section">
-
-        <h2>
-          Event TV
-        </h2>
-
-        <p class="section-description">
-          Choose whether your event will use a TV display.
-        </p>
-
-
-        <div class="option-grid">
-
-
-          <div class="option-card">
-
-            <input
-              type="radio"
-              id="tvYes"
-              name="hasTV"
-              value="true"
-              checked
-            >
-
-            <label for="tvYes">
-              Yes, I want a TV display
-            </label>
-
-          </div>
-
-
-          <div class="option-card">
-
-            <input
-              type="radio"
-              id="tvNo"
-              name="hasTV"
-              value="false"
-            >
-
-            <label for="tvNo">
-              No TV display
-            </label>
-
-          </div>
-
-
-        </div>
-
-      </div>
-
-
-      <!-- ---------------------------------
-           THEME
-      --------------------------------- -->
-
-      <div class="form-section">
-
-        <h2>
-          Choose Your Theme
-        </h2>
-
-        <p class="section-description">
-          Pick a theme that fits your event.
-        </p>
-
-
-        <div
-          id="themeOptions"
-          class="option-grid"
-        >
-          <!-- Themes are filled automatically based on event type -->
-        </div>
-
-      </div>
-
-
-      <!-- ---------------------------------
-           COLORS
-      --------------------------------- -->
-
-      <div class="form-section">
-
-        <h2>
-          Choose Your Colors
-        </h2>
-
-        <p class="section-description">
-          Customize the colors used throughout your event.
-        </p>
-
-
-        <div class="form-row">
-
-
-          <div class="form-group">
-
-            <label for="primaryColor">
-              Primary Color
-            </label>
-
-            <input
-              type="color"
-              id="primaryColor"
-              value="#b97979"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="secondaryColor">
-              Secondary Color
-            </label>
-
-            <input
-              type="color"
-              id="secondaryColor"
-              value="#fffaf8"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="accentColor">
-              Accent Color
-            </label>
-
-            <input
-              type="color"
-              id="accentColor"
-              value="#c8a24a"
-            >
-
-          </div>
-
-
-        </div>
-
-      </div>
-
-
-      <!-- ---------------------------------
-           BACKGROUND
-      --------------------------------- -->
-
-      <div class="form-section">
-
-        <h2>
-          Choose Your Background
-        </h2>
-
-        <p class="section-description">
-          Choose the background style for your event.
-        </p>
-
-
-        <div class="option-grid">
-
-
-          <div class="option-card">
-
-            <input
-              type="radio"
-              id="backgroundClassic"
-              name="background"
-              value="classic"
-              checked
-            >
-
-            <label for="backgroundClassic">
-              Classic
-            </label>
-
-          </div>
-
-
-          <div class="option-card">
-
-            <input
-              type="radio"
-              id="backgroundLight"
-              name="background"
-              value="light"
-            >
-
-            <label for="backgroundLight">
-              Light
-            </label>
-
-          </div>
-
-
-          <div class="option-card">
-
-            <input
-              type="radio"
-              id="backgroundElegant"
-              name="background"
-              value="elegant"
-            >
-
-            <label for="backgroundElegant">
-              Elegant
-            </label>
-
-          </div>
-
-
-        </div>
-
-      </div>
-
-
-      <!-- ---------------------------------
-           LOGO
-      --------------------------------- -->
-
-      <div class="form-section">
-
-        <h2>
-          Add a Logo or Photo
-        </h2>
-
-        <p class="section-description">
-          Optional. Add a photo or logo to personalize your event.
-        </p>
-
-
-        <div class="form-group">
-
-          <input
-            type="file"
-            id="eventLogo"
-            accept="image/*"
-          >
-
-        </div>
-
-      </div>
-
-
-      <!-- ---------------------------------
-           GUESTBOOK
-      --------------------------------- -->
-
-      <div class="form-section">
-
-        <h2>
-          Guestbook
-        </h2>
-
-        <div class="checkbox-group">
-
-          <input
-            type="checkbox"
-            id="guestbookEnabled"
-          >
-
-          <label for="guestbookEnabled">
-            Enable Guestbook
-          </label>
-
-        </div>
-
-      </div>
-
-
-      <!-- ---------------------------------
-           RSVP
-      --------------------------------- -->
-
-      <div class="form-section">
-
-        <h2>
-          RSVP
-        </h2>
-
-        <div class="checkbox-group">
-
-          <input
-            type="checkbox"
-            id="rsvpEnabled"
-          >
-
-          <label for="rsvpEnabled">
-            Enable RSVP
-          </label>
-
-        </div>
-
-      </div>
-
-
-      <!-- ---------------------------------
-           STATUS
-      --------------------------------- -->
-
-      <div
-        id="status"
-        class="status"
-      ></div>
-
-
-      <!-- ---------------------------------
-           CREATE BUTTON
-      --------------------------------- -->
-
-      <button
-        id="createBtn"
-        class="primary-button"
-        type="button"
-      >
-        Continue to Checkout
-      </button>
-
-
-    </div>
-
-  </main>
-
-
-  <script
-    type="module"
-    src="create-event.js"
-  ></script>
-
-</body>
-
-</html>
+    .package-card:hover {
+      border-color: #cbd5e1;
+      transform: translateY(-2px);
+    }
+
+    .package-card.plus {
+      border-color: var(--purple);
+      box-shadow:
+        0 15px 40px rgba(124, 58, 237, 0.12);
+    }
+
+    .package-
