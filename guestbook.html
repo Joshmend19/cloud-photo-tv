@@ -37,8 +37,8 @@
       content: "";
       position: fixed;
       top: -50px;
-      left: 600px;
-      width: calc(100% + 1200px);
+      left: -1000px;
+      width: calc(100% + 2000px);
       height: calc(100% + 100px);
       padding: 20px;
       font-size: 42px;
@@ -49,6 +49,8 @@
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
+      transform: scaleX(2.5);
+      transform-origin: center center;
     }
 
     /* Birthday */
@@ -685,9 +687,11 @@
         padding: 15px 5px;
         letter-spacing: 0;
         top: -15px;
-        left: 200px;
-        width: calc(100% + 400px);
+        left: -500px;
+        width: calc(100% + 1000px);
         height: calc(100% + 30px);
+        transform: scaleX(2.5);
+        transform-origin: center center;
       }
 
       .container {
