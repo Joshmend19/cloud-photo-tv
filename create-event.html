@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -166,4 +165,2006 @@
         0 15px 40px rgba(124, 58, 237, 0.12);
     }
 
-    .package-
+    .package-card.business {
+      border-color: var(--gold);
+      box-shadow:
+        0 15px 40px rgba(200, 162, 74, 0.14);
+    }
+
+    .popular {
+      position: absolute;
+      top: -13px;
+      right: 20px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--purple);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .business-badge {
+      position: absolute;
+      top: -13px;
+      right: 20px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .package-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+    }
+
+    .price {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .price span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .package-card ul {
+      margin: 0 0 22px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .package-card li {
+      margin: 10px 0;
+      color: #475569;
+      font-size: 0.9rem;
+    }
+
+    .package-card li::before {
+      content: "✓";
+      margin-right: 8px;
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .package-button {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      background: var(--blue);
+      color: white;
+    }
+
+    .package-card.plus .package-button {
+      background: var(--purple);
+    }
+
+    .package-card.business .package-button {
+      background: var(--gold);
+    }
+
+    /* SELECTED PACKAGE */
+
+    .selected-package {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 30px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: #eef4ff;
+      border: 1px solid #dbe7ff;
+    }
+
+    .selected-package.visible {
+      display: flex;
+    }
+
+    .selected-package strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .selected-package small {
+      color: var(--muted);
+    }
+
+    .change-package {
+      border: 0;
+      background: white;
+      color: var(--blue);
+      font-weight: 700;
+      padding: 9px 13px;
+      border-radius: 9px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* FORM */
+
+    .setup-section {
+      display: none;
+    }
+
+    .setup-section.visible {
+      display: block;
+    }
+
+    .form-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow:
+        0 15px 45px rgba(15, 23, 42, 0.05);
+      margin-bottom: 25px;
+    }
+
+    .form-section {
+      margin-bottom: 34px;
+    }
+
+    .form-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-section h2 {
+      margin: 0 0 7px;
+      font-size: 1.35rem;
+    }
+
+    .section-description {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    input[type="file"] {
+      width: 100%;
+      border: 1px solid #dbe2ea;
+      border-radius: 11px;
+      padding: 12px 13px;
+      font: inherit;
+      background: white;
+      color: var(--navy);
+    }
+
+    select {
+      width: 100%;
+      border: 1px solid #dbe2ea;
+      border-radius: 11px;
+      padding: 12px 13px;
+      font: inherit;
+      background: white;
+      color: var(--navy);
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    /* TV OPTIONS */
+
+    .tv-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .tv-option {
+      position: relative;
+    }
+
+    .tv-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .tv-option label {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      min-height: 150px;
+      padding: 22px;
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      background: white;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .tv-option label:hover {
+      border-color: #cbd5e1;
+      transform: translateY(-2px);
+      box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    .tv-option input:checked + label {
+      border-color: var(--blue);
+      background: #f4f7ff;
+      box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.08),
+        0 10px 25px rgba(37, 99, 235, 0.08);
+    }
+
+    .tv-icon {
+      width: 58px;
+      height: 58px;
+      min-width: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+      background: #eef4ff;
+      font-size: 1.9rem;
+    }
+
+    .tv-content {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .tv-option strong {
+      display: block;
+      font-size: 1.05rem;
+    }
+
+    .tv-option span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .tv-option small {
+      display: block;
+      margin-top: 3px;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    /* THEME OPTIONS */
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .option-card {
+      position: relative;
+    }
+
+    .option-card input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .option-card label {
+      display: block;
+      padding: 15px;
+      border: 2px solid var(--border);
+      border-radius: 13px;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.2s ease;
+    }
+
+    .option-card label:hover {
+      border-color: #cbd5e1;
+    }
+
+    .option-card input:checked + label {
+      border-color: var(--blue);
+      background: #f4f7ff;
+    }
+
+    .theme-preview {
+      height: 55px;
+      border-radius: 9px;
+      margin-bottom: 9px;
+    }
+
+    .classic {
+      background:
+        linear-gradient(
+          135deg,
+          #b97979,
+          #fffaf8
+        );
+    }
+
+    .elegant {
+      background:
+        linear-gradient(
+          135deg,
+          #172033,
+          #c8a24a
+        );
+    }
+
+    .celebration {
+      background:
+        linear-gradient(
+          135deg,
+          #f97316,
+          #facc15
+        );
+    }
+
+    .modern {
+      background:
+        linear-gradient(
+          135deg,
+          #2563eb,
+          #7c3aed
+        );
+    }
+
+    /* COLORS */
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .color-input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .color-input input[type="color"] {
+      width: 55px;
+      height: 45px;
+      padding: 3px;
+      border: 1px solid #dbe2ea;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+    }
+
+    /* BACKGROUNDS */
+
+    .background-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .background-option {
+      position: relative;
+    }
+
+    .background-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .background-option label {
+      display: block;
+      border: 2px solid var(--border);
+      border-radius: 13px;
+      padding: 9px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .background-option input:checked + label {
+      border-color: var(--blue);
+      background: #f4f7ff;
+    }
+
+    .background-preview {
+      height: 75px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .background-classic {
+      background: #fffaf8;
+    }
+
+    .background-soft {
+      background:
+        linear-gradient(
+          135deg,
+          #f5f8ff,
+          #f8f2ff
+        );
+    }
+
+    .background-celebration {
+      background:
+        radial-gradient(
+          circle at 20% 20%,
+          #facc15 0 8%,
+          transparent 9%
+        ),
+        radial-gradient(
+          circle at 80% 70%,
+          #f97316 0 8%,
+          transparent 9%
+        ),
+        #fff7ed;
+    }
+
+    .background-minimal {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* GUESTBOOK + RSVP */
+
+    .guestbook-option,
+    .rsvp-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 20px;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      background: white;
+      transition: 0.2s ease;
+    }
+
+    .guestbook-option:hover,
+    .rsvp-option:hover {
+      border-color: #cbd5e1;
+    }
+
+    .guestbook-option input,
+    .rsvp-option input {
+      width: 20px;
+      height: 20px;
+      margin-top: 3px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .guestbook-option input {
+      accent-color: var(--purple);
+    }
+
+    .rsvp-option input {
+      accent-color: var(--gold);
+    }
+
+    .guestbook-option label,
+    .rsvp-option label {
+      cursor: pointer;
+      display: block;
+      flex: 1;
+    }
+
+    .guestbook-icon,
+    .rsvp-icon {
+      font-size: 1.7rem;
+      margin-bottom: 7px;
+    }
+
+    .guestbook-option strong,
+    .rsvp-option strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+
+    .guestbook-option span,
+    .rsvp-option span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .rsvp-included {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--gold) !important;
+      font-size: 0.8rem !important;
+      font-weight: 800 !important;
+    }
+
+    /* LOCKED */
+
+    .locked-section {
+      position: relative;
+      opacity: 0.62;
+    }
+
+    .locked-section::after {
+      content: "Available with Captured Moments Plus";
+      display: block;
+      margin-top: 12px;
+      color: var(--purple);
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .locked-section input,
+    .locked-section label {
+      cursor: not-allowed;
+    }
+
+    /* RSVP LOCKED */
+
+    .rsvp-locked {
+      opacity: 0.62;
+    }
+
+    .rsvp-locked input,
+    .rsvp-locked label {
+      cursor: not-allowed;
+    }
+
+    .rsvp-locked::after {
+      content: "Available with Captured Moments Business";
+      display: block;
+      margin-top: 12px;
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    /* BUSINESS INCLUDED */
+
+    .business-included {
+      border-color: var(--gold);
+      background:
+        linear-gradient(
+          135deg,
+          #fffdf7,
+          #fffaf0
+        );
+    }
+
+    .business-included input {
+      accent-color: var(--gold);
+    }
+
+    /* BUTTON */
+
+    .create-area {
+      text-align: center;
+      padding-top: 5px;
+    }
+
+    #createBtn {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 16px 22px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: white;
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--purple)
+        );
+      cursor: pointer;
+      box-shadow:
+        0 12px 25px rgba(37, 99, 235, 0.2);
+      transition: 0.2s ease;
+    }
+
+    #createBtn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow:
+        0 15px 30px rgba(37, 99, 235, 0.25);
+    }
+
+    #createBtn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #status {
+      margin-top: 13px;
+      color: #dc2626;
+      font-weight: 600;
+      min-height: 20px;
+    }
+
+    .secure-note {
+      margin-top: 15px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 1000px) {
+
+      .package-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .package-card {
+        max-width: 650px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+    }
+
+    @media (max-width: 800px) {
+
+      .tv-options {
+        grid-template-columns: 1fr;
+      }
+
+      .option-grid,
+      .background-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .color-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .navbar {
+        padding: 0 20px;
+      }
+
+      .page {
+        padding: 38px 15px 60px;
+      }
+
+      .form-card {
+        padding: 22px;
+        border-radius: 18px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .selected-package {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .tv-option label {
+        min-height: auto;
+        padding: 18px;
+      }
+
+      .tv-icon {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+      }
+
+      .option-grid,
+      .background-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+
+    <a href="index.html" class="logo">
+
+      <div class="logo-mark">
+        ✦
+      </div>
+
+      Captured <span>Moments</span>
+
+    </a>
+
+    <a href="index.html" class="back-link">
+      ← Back to Home
+    </a>
+
+  </nav>
+
+
+  <main class="page">
+
+    <div class="page-header">
+
+      <h1 id="pageTitle">
+        Create Your Event
+      </h1>
+
+      <p id="pageSubtitle">
+        Set up your event and let Captured Moments handle the memories.
+      </p>
+
+    </div>
+
+
+    <!-- PACKAGE SELECTION -->
+
+    <section
+      id="packageSection"
+      class="package-section"
+    >
+
+      <div class="section-title">
+
+        <h2>Choose Your Package</h2>
+
+        <p>
+          Pick the option that works best for your event.
+        </p>
+
+      </div>
+
+
+      <div class="package-grid">
+
+        <!-- CAPTURED MOMENTS -->
+
+        <div class="package-card">
+
+          <h3>Captured Moments</h3>
+
+          <div class="price">
+            $19
+            <span>/ event</span>
+          </div>
+
+          <ul>
+
+            <li>Event-specific QR code</li>
+            <li>Guest photo uploads</li>
+            <li>Live TV slideshow</li>
+            <li>Event photo gallery</li>
+            <li>Photo downloads</li>
+            <li>Automatic gallery emails</li>
+            <li>Standard Captured Moments themes</li>
+            <li>Preset colors and backgrounds</li>
+            <li>Up to 500 photos</li>
+            <li>Gallery available for 30 days</li>
+
+          </ul>
+
+          <button
+            class="package-button"
+            onclick="selectPackage('instant')"
+          >
+            Choose Captured Moments
+          </button>
+
+        </div>
+
+
+        <!-- CAPTURED MOMENTS PLUS -->
+
+        <div class="package-card plus">
+
+          <div class="popular">
+            MOST POPULAR
+          </div>
+
+          <h3>Captured Moments Plus</h3>
+
+          <div class="price">
+            $39
+            <span>/ event</span>
+          </div>
+
+          <ul>
+
+            <li>Everything in Captured Moments</li>
+            <li>Higher photo capacity</li>
+            <li>Custom colors</li>
+            <li>Custom background</li>
+            <li>Custom logo or photo</li>
+            <li>Premium themes</li>
+            <li>Custom event branding</li>
+            <li>Larger photo file limits</li>
+            <li>Gallery available for 1 year</li>
+
+          </ul>
+
+          <button
+            class="package-button"
+            onclick="selectPackage('plus')"
+          >
+            Choose Captured Moments Plus
+          </button>
+
+        </div>
+
+
+        <!-- CAPTURED MOMENTS BUSINESS -->
+
+        <div class="package-card business">
+
+          <div class="business-badge">
+            EVERYTHING INCLUDED
+          </div>
+
+          <h3>Captured Moments Business</h3>
+
+          <div class="price">
+            $59
+            <span>/ event</span>
+          </div>
+
+          <ul>
+
+            <li>Everything in Captured Moments Plus</li>
+            <li>Digital Guestbook</li>
+            <li>RSVP Service</li>
+            <li>Unlimited photos</li>
+            <li>Full event customization</li>
+            <li>Premium themes</li>
+            <li>Custom event branding</li>
+            <li>1-year gallery</li>
+            <li>All available features included</li>
+
+          </ul>
+
+          <button
+            class="package-button"
+            onclick="selectPackage('business')"
+          >
+            Choose Business
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SELECTED PACKAGE -->
+
+    <div
+      id="selectedPackage"
+      class="selected-package"
+    >
+
+      <div>
+
+        <strong id="selectedPackageName">
+          Captured Moments
+        </strong>
+
+        <small id="selectedPackageDescription">
+          Standard event setup
+        </small>
+
+      </div>
+
+      <button
+        class="change-package"
+        onclick="changePackage()"
+      >
+        Change Package
+      </button>
+
+    </div>
+
+
+    <!-- EVENT SETUP -->
+
+    <section
+      id="setupSection"
+      class="setup-section"
+    >
+
+      <div class="form-card">
+
+
+        <!-- EVENT INFORMATION -->
+
+        <div class="form-section">
+
+          <h2>Event Information</h2>
+
+          <p class="section-description">
+            Tell us about your event.
+          </p>
+
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label for="eventName">
+                Event Name
+              </label>
+
+              <input
+                type="text"
+                id="eventName"
+                placeholder="Donna's 60th Birthday"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="eventType">
+                Event Type
+              </label>
+
+              <select id="eventType">
+
+                <option value="Birthday">
+                  Birthday
+                </option>
+
+                <option value="Graduation">
+                  Graduation
+                </option>
+
+                <option value="Wedding">
+                  Wedding
+                </option>
+
+                <option value="Retirement">
+                  Retirement
+                </option>
+
+                <option value="Baby Shower">
+                  Baby Shower
+                </option>
+
+                <option value="Anniversary">
+                  Anniversary
+                </option>
+
+                <option value="Sports Event">
+  Sports Event
+</option>
+
+<option value="Game Night">
+  Game Night
+</option>
+
+<option value="Other">
+  Other
+</option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="eventDate">
+                Event Date
+              </label>
+
+              <input
+                type="date"
+                id="eventDate"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="startTime">
+                Start Time
+              </label>
+
+              <input
+                type="time"
+                id="startTime"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="endTime">
+                End Time
+              </label>
+
+              <input
+                type="time"
+                id="endTime"
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- TV ACCESS -->
+
+        <div class="form-section">
+
+          <h2>TV Display</h2>
+
+          <p class="section-description">
+            Choose whether you want to display guest photos live during your event.
+          </p>
+
+
+          <div class="tv-options">
+
+            <div class="tv-option">
+
+              <input
+                type="radio"
+                id="tvYes"
+                name="hasTV"
+                value="true"
+                checked
+              >
+
+              <label for="tvYes">
+
+                <div class="tv-icon">
+                  📺
+                </div>
+
+                <div class="tv-content">
+
+                  <strong>
+                    Yes, I have a TV
+                  </strong>
+
+                  <span>
+                    Show guest photos live on your TV as they are uploaded.
+                  </span>
+
+                  <small>
+                    ✦ Live photo slideshow
+                  </small>
+
+                </div>
+
+              </label>
+
+            </div>
+
+
+            <div class="tv-option">
+
+              <input
+                type="radio"
+                id="tvNo"
+                name="hasTV"
+                value="false"
+              >
+
+              <label for="tvNo">
+
+                <div class="tv-icon">
+                  📱
+                </div>
+
+                <div class="tv-content">
+
+                  <strong>
+                    No, I don't have a TV
+                  </strong>
+
+                  <span>
+                    No problem. Guests can still upload, view, and download photos.
+                  </span>
+
+                  <small>
+                    ✦ Photo sharing still works
+                  </small>
+
+                </div>
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- THEME -->
+
+        <div class="form-section">
+
+          <h2>Choose Your Theme</h2>
+
+          <p class="section-description">
+            Pick the look that fits your event.
+          </p>
+
+
+          <div class="option-grid">
+
+            <div class="option-card">
+
+              <input
+                type="radio"
+                id="themeClassic"
+                name="theme"
+                value="classic"
+                checked
+              >
+
+              <label for="themeClassic">
+
+                <div class="theme-preview classic"></div>
+
+                Classic
+
+              </label>
+
+            </div>
+
+
+            <div class="option-card">
+
+              <input
+                type="radio"
+                id="themeElegant"
+                name="theme"
+                value="elegant"
+              >
+
+              <label for="themeElegant">
+
+                <div class="theme-preview elegant"></div>
+
+                Elegant
+
+              </label>
+
+            </div>
+
+
+            <div class="option-card">
+
+              <input
+                type="radio"
+                id="themeCelebration"
+                name="theme"
+                value="celebration"
+              >
+
+              <label for="themeCelebration">
+
+                <div class="theme-preview celebration"></div>
+
+                Celebration
+
+              </label>
+
+            </div>
+
+
+            <div class="option-card">
+
+              <input
+                type="radio"
+                id="themeModern"
+                name="theme"
+                value="modern"
+              >
+
+              <label for="themeModern">
+
+                <div class="theme-preview modern"></div>
+
+                Modern
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- COLORS -->
+
+        <div
+          id="colorsSection"
+          class="form-section"
+        >
+
+          <h2>Choose Your Colors</h2>
+
+          <p class="section-description">
+            Customize the colors used throughout your event.
+          </p>
+
+
+          <div class="color-grid">
+
+            <div class="form-group">
+
+              <label for="primaryColor">
+                Primary Color
+              </label>
+
+              <div class="color-input">
+
+                <input
+                  type="color"
+                  id="primaryColor"
+                  value="#b97979"
+                >
+
+                <span>
+                  Main color
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="secondaryColor">
+                Secondary Color
+              </label>
+
+              <div class="color-input">
+
+                <input
+                  type="color"
+                  id="secondaryColor"
+                  value="#fffaf8"
+                >
+
+                <span>
+                  Background color
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="accentColor">
+                Accent Color
+              </label>
+
+              <div class="color-input">
+
+                <input
+                  type="color"
+                  id="accentColor"
+                  value="#c8a24a"
+                >
+
+                <span>
+                  Accent color
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- BACKGROUND -->
+
+        <div
+          id="backgroundSection"
+          class="form-section"
+        >
+
+          <h2>Choose Your Background</h2>
+
+          <p class="section-description">
+            Choose the background style for your event.
+          </p>
+
+
+          <div class="background-grid">
+
+            <div class="background-option">
+
+              <input
+                type="radio"
+                id="backgroundClassic"
+                name="background"
+                value="classic"
+                checked
+              >
+
+              <label for="backgroundClassic">
+
+                <div class="background-preview background-classic"></div>
+
+                Classic
+
+              </label>
+
+            </div>
+
+
+            <div class="background-option">
+
+              <input
+                type="radio"
+                id="backgroundSoft"
+                name="background"
+                value="soft"
+              >
+
+              <label for="backgroundSoft">
+
+                <div class="background-preview background-soft"></div>
+
+                Soft
+
+              </label>
+
+            </div>
+
+
+            <div class="background-option">
+
+              <input
+                type="radio"
+                id="backgroundCelebration"
+                name="background"
+                value="celebration"
+              >
+
+              <label for="backgroundCelebration">
+
+                <div class="background-preview background-celebration"></div>
+
+                Celebration
+
+              </label>
+
+            </div>
+
+
+            <div class="background-option">
+
+              <input
+                type="radio"
+                id="backgroundMinimal"
+                name="background"
+                value="minimal"
+              >
+
+              <label for="backgroundMinimal">
+
+                <div class="background-preview background-minimal"></div>
+
+                Minimal
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- LOGO -->
+
+        <div
+          id="logoSection"
+          class="form-section"
+        >
+
+          <h2>Add Your Logo or Photo</h2>
+
+          <p class="section-description">
+            Add a logo or photo to personalize your event.
+          </p>
+
+          <div class="form-group">
+
+            <label for="logoInput">
+              Logo or Photo
+            </label>
+
+            <input
+              type="file"
+              id="logoInput"
+              accept="image/png,image/jpeg,image/webp"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- GUESTBOOK -->
+
+        <div
+          id="guestbookSection"
+          class="form-section"
+        >
+
+          <h2>Digital Guestbook</h2>
+
+          <p class="section-description">
+            Give your guests a place to leave a special message for your event.
+          </p>
+
+          <div class="guestbook-option">
+
+            <input
+              type="checkbox"
+              id="guestbookEnabled"
+            >
+
+            <label for="guestbookEnabled">
+
+              <div class="guestbook-icon">
+                💌
+              </div>
+
+              <strong>
+                Add a Digital Guestbook
+              </strong>
+
+              <span>
+                Guests can leave their name and a message that will be saved with your event.
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <!-- RSVP -->
+
+        <div
+          id="rsvpSection"
+          class="form-section"
+        >
+
+          <h2>RSVP Service</h2>
+
+          <p class="section-description">
+            Let your guests RSVP to your event and tell you who is attending.
+          </p>
+
+          <div
+            id="rsvpOption"
+            class="rsvp-option"
+          >
+
+            <input
+              type="checkbox"
+              id="rsvpEnabled"
+            >
+
+            <label for="rsvpEnabled">
+
+              <div class="rsvp-icon">
+                📋
+              </div>
+
+              <strong>
+                Add RSVP Service
+              </strong>
+
+              <span>
+                Guests can confirm whether they are attending,
+                enter how many people are coming, and leave an optional message.
+              </span>
+
+              <span
+                id="rsvpIncluded"
+                class="rsvp-included"
+                style="display: none;"
+              >
+                ✓ Included with Captured Moments Business
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <!-- CREATE -->
+
+        <div class="create-area">
+
+          <button
+            id="createBtn"
+            type="button"
+          >
+            Continue to Checkout
+          </button>
+
+          <div id="status"></div>
+
+          <div class="secure-note">
+            🔒 Your event information is securely saved.
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    /* ---------------------------------
+       Package elements
+    --------------------------------- */
+
+    const packageSection =
+      document.getElementById(
+        "packageSection"
+      );
+
+    const setupSection =
+      document.getElementById(
+        "setupSection"
+      );
+
+    const selectedPackageBox =
+      document.getElementById(
+        "selectedPackage"
+      );
+
+    const selectedPackageName =
+      document.getElementById(
+        "selectedPackageName"
+      );
+
+    const selectedPackageDescription =
+      document.getElementById(
+        "selectedPackageDescription"
+      );
+
+    const colorsSection =
+      document.getElementById(
+        "colorsSection"
+      );
+
+    const backgroundSection =
+      document.getElementById(
+        "backgroundSection"
+      );
+
+    const logoSection =
+      document.getElementById(
+        "logoSection"
+      );
+
+    const rsvpEnabled =
+      document.getElementById(
+        "rsvpEnabled"
+      );
+
+    const rsvpOption =
+      document.getElementById(
+        "rsvpOption"
+      );
+
+    const rsvpIncluded =
+      document.getElementById(
+        "rsvpIncluded"
+      );
+
+    const pageTitle =
+      document.getElementById(
+        "pageTitle"
+      );
+
+    const pageSubtitle =
+      document.getElementById(
+        "pageSubtitle"
+      );
+
+
+    /* ---------------------------------
+       URL parameters
+    --------------------------------- */
+
+    const urlParams =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const packageFromUrl =
+      urlParams.get("package");
+
+    const editCode =
+      urlParams.get("edit");
+
+
+    /* ---------------------------------
+       Package selection
+    --------------------------------- */
+
+    function selectPackage(packageName) {
+
+      window.selectedCapturedPackage =
+        packageName;
+
+      const url =
+        new URL(
+          window.location.href
+        );
+
+      url.searchParams.set(
+        "package",
+        packageName
+      );
+
+      window.history.replaceState(
+        {},
+        "",
+        url
+      );
+
+      showPackage(
+        packageName
+      );
+
+    }
+
+
+    function changePackage() {
+
+      window.selectedCapturedPackage =
+        null;
+
+      const url =
+        new URL(
+          window.location.href
+        );
+
+      url.searchParams.delete(
+        "package"
+      );
+
+      window.history.replaceState(
+        {},
+        "",
+        url
+      );
+
+      packageSection.style.display =
+        "block";
+
+      setupSection.classList.remove(
+        "visible"
+      );
+
+      selectedPackageBox.classList.remove(
+        "visible"
+      );
+
+      rsvpEnabled.checked =
+        false;
+
+      rsvpIncluded.style.display =
+        "none";
+
+      rsvpOption.classList.remove(
+        "business-included"
+      );
+
+      rsvpOption.classList.remove(
+        "rsvp-locked"
+      );
+
+    }
+
+
+    function showPackage(packageName) {
+
+      packageSection.style.display =
+        "none";
+
+      setupSection.classList.add(
+        "visible"
+      );
+
+      selectedPackageBox.classList.add(
+        "visible"
+      );
+
+
+      /* ---------------------------------
+         BUSINESS
+      --------------------------------- */
+
+      if (packageName === "business") {
+
+        selectedPackageName.textContent =
+          "Captured Moments Business";
+
+        selectedPackageDescription.textContent =
+          "$59 per event • Everything included";
+
+        colorsSection.classList.remove(
+          "locked-section"
+        );
+
+        backgroundSection.classList.remove(
+          "locked-section"
+        );
+
+        logoSection.classList.remove(
+          "locked-section"
+        );
+
+        enableCustomization();
+
+
+        /* BUSINESS INCLUDES RSVP */
+
+        rsvpEnabled.checked =
+          true;
+
+        rsvpIncluded.style.display =
+          "block";
+
+        rsvpOption.classList.add(
+          "business-included"
+        );
+
+        rsvpOption.classList.remove(
+          "rsvp-locked"
+        );
+
+
+      }
+
+
+      /* ---------------------------------
+         PLUS
+      --------------------------------- */
+
+      else if (packageName === "plus") {
+
+        selectedPackageName.textContent =
+          "Captured Moments Plus";
+
+        selectedPackageDescription.textContent =
+          "$39 per event • Full customization";
+
+        colorsSection.classList.remove(
+          "locked-section"
+        );
+
+        backgroundSection.classList.remove(
+          "locked-section"
+        );
+
+        logoSection.classList.remove(
+          "locked-section"
+        );
+
+        enableCustomization();
+
+
+        rsvpEnabled.checked =
+          false;
+
+        rsvpIncluded.style.display =
+          "none";
+
+        rsvpOption.classList.remove(
+          "business-included"
+        );
+
+        rsvpOption.classList.add(
+          "rsvp-locked"
+        );
+
+
+      }
+
+
+      /* ---------------------------------
+         CAPTURED MOMENTS
+      --------------------------------- */
+
+      else {
+
+        selectedPackageName.textContent =
+          "Captured Moments";
+
+        selectedPackageDescription.textContent =
+          "$19 per event • Standard event setup";
+
+        colorsSection.classList.add(
+          "locked-section"
+        );
+
+        backgroundSection.classList.add(
+          "locked-section"
+        );
+
+        logoSection.classList.add(
+          "locked-section"
+        );
+
+        disableCustomization();
+
+
+        rsvpEnabled.checked =
+          false;
+
+        rsvpIncluded.style.display =
+          "none";
+
+        rsvpOption.classList.remove(
+          "business-included"
+        );
+
+        rsvpOption.classList.add(
+          "rsvp-locked"
+        );
+
+      }
+
+    }
+
+
+    function disableCustomization() {
+
+      document
+        .querySelectorAll(
+          "#colorsSection input, #backgroundSection input, #logoSection input"
+        )
+        .forEach(
+          input => {
+            input.disabled = true;
+          }
+        );
+
+    }
+
+
+    function enableCustomization() {
+
+      document
+        .querySelectorAll(
+          "#colorsSection input, #backgroundSection input, #logoSection input"
+        )
+        .forEach(
+          input => {
+            input.disabled = false;
+          }
+        );
+
+    }
+
+
+    /* ---------------------------------
+       Edit mode
+    --------------------------------- */
+
+    if (editCode) {
+
+      packageSection.style.display =
+        "none";
+
+      selectedPackageBox.classList.remove(
+        "visible"
+      );
+
+      setupSection.classList.add(
+        "visible"
+      );
+
+      pageTitle.textContent =
+        "Edit Your Event";
+
+      pageSubtitle.textContent =
+        "Update your event details and save your changes.";
+
+    }
+
+
+    /* ---------------------------------
+       Normal package mode
+    --------------------------------- */
+
+    else if (
+      packageFromUrl === "instant" ||
+      packageFromUrl === "plus" ||
+      packageFromUrl === "business"
+    ) {
+
+      window.selectedCapturedPackage =
+        packageFromUrl;
+
+      showPackage(
+        packageFromUrl
+      );
+
+    }
+
+  </script>
+
+
+  <script
+    type="module"
+    src="create-event.js"
+  ></script>
+
+</body>
+</html>
