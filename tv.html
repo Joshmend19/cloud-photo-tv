@@ -110,7 +110,7 @@
 
 
     /* ---------------------------------
-       BALLOONS & CONFETTI
+       BIRTHDAY - BALLOONS & CONFETTI
     --------------------------------- */
 
     body[data-theme="balloons-confetti"] #tvView {
@@ -157,11 +157,6 @@
       color: #222;
     }
 
-
-    /* ---------------------------------
-       FULL SCREEN BALLOON & CONFETTI
-       PATTERN
-    --------------------------------- */
 
     body[data-theme="balloons-confetti"] #tvView::before {
 
@@ -213,17 +208,399 @@
     }
 
 
-    /* Keep TV content above decorations */
+    /* ---------------------------------
+       GRADUATION
+    --------------------------------- */
+
+    body[data-theme="graduation"] #tvView::before,
+    body[data-theme="graduation-celebration"] #tvView::before {
+
+      content:
+        "🎓       📜       ⭐       🎓       🎉       📜       🎓       ⭐       🎓       📜       🎉       🎓\A"
+        "   ✨       🎓       📜       ⭐       🎓       ✨       📜       🎓       ⭐       🎓       📜       ✨\A"
+        "📜       🎓       🎉       🎓       ⭐       📜       🎓       🎉       🎓       ⭐       📜       🎓\A"
+        "   🎓       ⭐       ✨       📜       🎓       ⭐       🎉       🎓       ✨       📜       🎓       ⭐\A"
+        "🎉       📜       🎓       ⭐       🎓       📜       🎉       🎓       ⭐       🎓       📜       🎉\A"
+        "   ⭐       🎓       📜       ✨       🎓       ⭐       📜       🎓       ✨       🎓       📜       ⭐\A"
+        "🎓       🎉       ⭐       📜       🎓       🎓       🎉       ⭐       📜       🎓       🎉       ⭐\A"
+        "   📜       ✨       🎓       ⭐       🎉       🎓       📜       ✨       🎓       ⭐       🎉       🎓\A"
+        "🎓       📜       ⭐       🎓       🎉       📜       🎓       ⭐       🎓       📜       🎉       🎓\A"
+        "   ✨       🎓       📜       ⭐       🎓       ✨       📜       🎓       ⭐       🎓       📜       ✨\A"
+        "📜       🎓       🎉       🎓       ⭐       📜       🎓       🎉       🎓       ⭐       📜       🎓\A"
+        "   🎓       ⭐       ✨       📜       🎓       ⭐       🎉       🎓       ✨       📜       🎓       ⭐\A"
+        "🎉       📜       🎓       ⭐       🎓       📜       🎉       🎓       ⭐       🎓       📜       🎉\A"
+        "   ⭐       🎓       📜       ✨       🎓       ⭐       📜       🎓       ✨       🎓       📜       ⭐\A"
+        "🎓       🎉       ⭐       📜       🎓       🎓       🎉       ⭐       📜       🎓       🎉       ⭐\A"
+        "   📜       ✨       🎓       ⭐       🎉       🎓       📜       ✨       🎓       ⭐       🎉       🎓\A"
+        "🎓       📜       ⭐       🎓       🎉       📜       🎓       ⭐       🎓       📜       🎉       🎓\A"
+        "   ✨       🎓       📜       ⭐       🎓       ✨       📜       🎓       ⭐       🎓       📜       ✨";
+
+      position: absolute;
+      top: -50px;
+      left: 0px;
+      width: calc(100% + 600px);
+      height: calc(100% + 100px);
+      padding: 20px;
+      font-size: 42px;
+      line-height: 2.15;
+      letter-spacing: 3px;
+      white-space: pre;
+      opacity: 0.32;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+
+    /* ---------------------------------
+       WEDDING
+    --------------------------------- */
+
+    body[data-theme="wedding"] #tvView::before {
+
+      content:
+        "💍       🌸       🤍       💕       💍       🌸       🤍       💕       💍       🌸       🤍       💕\A"
+        "   🌸       💕       💍       🤍       ✨       🌸       💍       💕       🤍       🌸       💍       ✨\A"
+        "🤍       💍       🌸       💕       🤍       💍       🌸       ✨       💕       🤍       💍       🌸\A"
+        "   💕       🌸       🤍       💍       ✨       💕       🌸       🤍       💍       🌸       💕       🤍\A"
+        "🌸       💍       💕       🤍       🌸       💍       ✨       💕       🤍       🌸       💍       💕\A"
+        "   🤍       🌸       💍       ✨       💕       🤍       🌸       💍       💕       ✨       🌸       🤍\A"
+        "💍       💕       🌸       🤍       💍       🌸       💕       🤍       💍       ✨       🌸       💕\A"
+        "   🌸       🤍       💕       💍       ✨       🌸       🤍       💕       💍       🌸       🤍       💕\A"
+        "💍       🌸       🤍       💕       💍       🌸       🤍       💕       💍       🌸       🤍       💕\A"
+        "   🌸       💕       💍       🤍       ✨       🌸       💍       💕       🤍       🌸       💍       ✨\A"
+        "🤍       💍       🌸       💕       🤍       💍       🌸       ✨       💕       🤍       💍       🌸\A"
+        "   💕       🌸       🤍       💍       ✨       💕       🌸       🤍       💍       🌸       💕       🤍\A"
+        "🌸       💍       💕       🤍       🌸       💍       ✨       💕       🤍       🌸       💍       💕\A"
+        "   🤍       🌸       💍       ✨       💕       🤍       🌸       💍       💕       ✨       🌸       🤍\A"
+        "💍       💕       🌸       🤍       💍       🌸       💕       🤍       💍       ✨       🌸       💕\A"
+        "   🌸       🤍       💕       💍       ✨       🌸       🤍       💕       💍       🌸       🤍       💕\A"
+        "💍       🌸       🤍       💕       💍       🌸       🤍       💕       💍       🌸       🤍       💕\A"
+        "   🌸       💕       💍       🤍       ✨       🌸       💍       💕       🤍       🌸       💍       ✨";
+
+      position: absolute;
+      top: -50px;
+      left: 0px;
+      width: calc(100% + 600px);
+      height: calc(100% + 100px);
+      padding: 20px;
+      font-size: 42px;
+      line-height: 2.15;
+      letter-spacing: 3px;
+      white-space: pre;
+      opacity: 0.28;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+
+    /* ---------------------------------
+       BABY SHOWER
+    --------------------------------- */
+
+    body[data-theme="baby-shower"] #tvView::before {
+
+      content:
+        "👶       🍼       🧸       ⭐       👶       🍼       🧸       ⭐       👶       🍼       🧸       ⭐\A"
+        "   ✨       👶       🍼       🧸       ⭐       👶       🍼       ✨       🧸       👶       ⭐       🍼\A"
+        "🧸       👶       ⭐       🍼       👶       🧸       ✨       🍼       👶       ⭐       🧸       👶\A"
+        "   🍼       ⭐       👶       🧸       ✨       🍼       👶       ⭐       🧸       🍼       👶       ✨\A"
+        "👶       🧸       🍼       ⭐       👶       🍼       🧸       👶       ⭐       🍼       🧸       👶\A"
+        "   ⭐       👶       🍼       ✨       🧸       ⭐       👶       🍼       ✨       🧸       👶       ⭐\A"
+        "🍼       👶       🧸       ⭐       🍼       👶       🧸       ✨       ⭐       👶       🍼       🧸\A"
+        "   👶       ✨       🧸       🍼       ⭐       👶       ✨       🧸       🍼       ⭐       👶       🧸\A"
+        "👶       🍼       🧸       ⭐       👶       🍼       🧸       ⭐       👶       🍼       🧸       ⭐\A"
+        "   ✨       👶       🍼       🧸       ⭐       👶       🍼       ✨       🧸       👶       ⭐       🍼\A"
+        "🧸       👶       ⭐       🍼       👶       🧸       ✨       🍼       👶       ⭐       🧸       👶\A"
+        "   🍼       ⭐       👶       🧸       ✨       🍼       👶       ⭐       🧸       🍼       👶       ✨\A"
+        "👶       🧸       🍼       ⭐       👶       🍼       🧸       👶       ⭐       🍼       🧸       👶\A"
+        "   ⭐       👶       🍼       ✨       🧸       ⭐       👶       🍼       ✨       🧸       👶       ⭐\A"
+        "🍼       👶       🧸       ⭐       🍼       👶       🧸       ✨       ⭐       👶       🍼       🧸\A"
+        "   👶       ✨       🧸       🍼       ⭐       👶       ✨       🧸       🍼       ⭐       👶       🧸\A"
+        "👶       🍼       🧸       ⭐       👶       🍼       🧸       ⭐       👶       🍼       🧸       ⭐\A"
+        "   ✨       👶       🍼       🧸       ⭐       👶       🍼       ✨       🧸       👶       ⭐       🍼";
+
+      position: absolute;
+      top: -50px;
+      left: 0px;
+      width: calc(100% + 600px);
+      height: calc(100% + 100px);
+      padding: 20px;
+      font-size: 42px;
+      line-height: 2.15;
+      letter-spacing: 3px;
+      white-space: pre;
+      opacity: 0.28;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+
+    /* ---------------------------------
+       SPORTS EVENT
+    --------------------------------- */
+
+    body[data-theme="sports-event"] #tvView::before {
+
+      content:
+        "🏆       ⚽       🏈       🏀       🏆       ⚾       🏈       ⚽       🏆       🏀       ⚾       🏈\A"
+        "   ⭐       🏆       ⚽       🏈       🏀       ⭐       ⚾       🏆       ⚽       🏈       🏀       ⭐\A"
+        "🏈       🏀       🏆       ⚽       ⚾       🏈       🏆       ⭐       🏀       ⚽       🏆       ⚾\A"
+        "   ⚽       ⭐       🏆       🏀       🏈       ⚾       ⚽       🏆       ⭐       🏈       🏀       ⚽\A"
+        "🏆       🏈       ⚾       🏀       🏆       ⚽       🏈       🏆       ⚾       🏀       ⚽       🏆\A"
+        "   🏀       🏆       ⭐       ⚽       🏈       🏀       🏆       ⚾       ⭐       ⚽       🏈       🏆\A"
+        "⚾       🏆       🏈       ⚽       🏀       🏆       ⚾       🏈       ⭐       🏆       ⚽       🏀\A"
+        "   🏆       ⭐       🏀       🏈       ⚽       🏆       🏀       ⭐       🏈       ⚾       🏆       ⚽\A"
+        "🏆       ⚽       🏈       🏀       🏆       ⚾       🏈       ⚽       🏆       🏀       ⚾       🏈\A"
+        "   ⭐       🏆       ⚽       🏈       🏀       ⭐       ⚾       🏆       ⚽       🏈       🏀       ⭐\A"
+        "🏈       🏀       🏆       ⚽       ⚾       🏈       🏆       ⭐       🏀       ⚽       🏆       ⚾\A"
+        "   ⚽       ⭐       🏆       🏀       🏈       ⚾       ⚽       🏆       ⭐       🏈       🏀       ⚽\A"
+        "🏆       🏈       ⚾       🏀       🏆       ⚽       🏈       🏆       ⚾       🏀       ⚽       🏆\A"
+        "   🏀       🏆       ⭐       ⚽       🏈       🏀       🏆       ⚾       ⭐       ⚽       🏈       🏆\A"
+        "⚾       🏆       🏈       ⚽       🏀       🏆       ⚾       🏈       ⭐       🏆       ⚽       🏀\A"
+        "   🏆       ⭐       🏀       🏈       ⚽       🏆       🏀       ⭐       🏈       ⚾       🏆       ⚽\A"
+        "🏆       ⚽       🏈       🏀       🏆       ⚾       🏈       ⚽       🏆       🏀       ⚾       🏈\A"
+        "   ⭐       🏆       ⚽       🏈       🏀       ⭐       ⚾       🏆       ⚽       🏈       🏀       ⭐";
+
+      position: absolute;
+      top: -50px;
+      left: 0px;
+      width: calc(100% + 600px);
+      height: calc(100% + 100px);
+      padding: 20px;
+      font-size: 42px;
+      line-height: 2.15;
+      letter-spacing: 3px;
+      white-space: pre;
+      opacity: 0.28;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+
+    /* ---------------------------------
+       GAME NIGHT
+    --------------------------------- */
+
+    body[data-theme="game-night"] #tvView::before {
+
+      content:
+        "🎮       🕹️       ⭐       🎯       🎮       🕹️       ⭐       🎯       🎮       🕹️       ⭐       🎯\A"
+        "   ✨       🎮       🕹️       ⭐       🎯       🎮       🕹️       ✨       ⭐       🎮       🎯       🕹️\A"
+        "🎯       🎮       ⭐       🕹️       🎮       🎯       ✨       🕹️       ⭐       🎮       🎯       ⭐\A"
+        "   🕹️       ⭐       🎮       🎯       ✨       🕹️       🎮       ⭐       🎯       🎮       🕹️       ✨\A"
+        "🎮       🎯       🕹️       ⭐       🎮       🕹️       🎯       🎮       ⭐       🎯       🕹️       🎮\A"
+        "   ⭐       🎮       🎯       ✨       🕹️       ⭐       🎮       🎯       ✨       🕹️       🎮       ⭐\A"
+        "🕹️       🎮       🎯       ⭐       🕹️       🎮       🎯       ✨       ⭐       🎮       🕹️       🎯\A"
+        "   🎮       ✨       🕹️       🎯       ⭐       🎮       ✨       🕹️       🎯       ⭐       🎮       🕹️\A"
+        "🎮       🕹️       ⭐       🎯       🎮       🕹️       ⭐       🎯       🎮       🕹️       ⭐       🎯\A"
+        "   ✨       🎮       🕹️       ⭐       🎯       🎮       🕹️       ✨       ⭐       🎮       🎯       🕹️\A"
+        "🎯       🎮       ⭐       🕹️       🎮       🎯       ✨       🕹️       ⭐       🎮       🎯       ⭐\A"
+        "   🕹️       ⭐       🎮       🎯       ✨       🕹️       🎮       ⭐       🎯       🎮       🕹️       ✨\A"
+        "🎮       🎯       🕹️       ⭐       🎮       🕹️       🎯       🎮       ⭐       🎯       🕹️       🎮\A"
+        "   ⭐       🎮       🎯       ✨       🕹️       ⭐       🎮       🎯       ✨       🕹️       🎮       ⭐\A"
+        "🕹️       🎮       🎯       ⭐       🕹️       🎮       🎯       ✨       ⭐       🎮       🕹️       🎯\A"
+        "   🎮       ✨       🕹️       🎯       ⭐       🎮       ✨       🕹️       🎯       ⭐       🎮       🕹️\A"
+        "🎮       🕹️       ⭐       🎯       🎮       🕹️       ⭐       🎯       🎮       🕹️       ⭐       🎯\A"
+        "   ✨       🎮       🕹️       ⭐       🎯       🎮       🕹️       ✨       ⭐       🎮       🎯       🕹️";
+
+      position: absolute;
+      top: -50px;
+      left: 0px;
+      width: calc(100% + 600px);
+      height: calc(100% + 100px);
+      padding: 20px;
+      font-size: 42px;
+      line-height: 2.15;
+      letter-spacing: 3px;
+      white-space: pre;
+      opacity: 0.28;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+
+    /* ---------------------------------
+       ANNIVERSARY
+    --------------------------------- */
+
+    body[data-theme="anniversary"] #tvView::before {
+
+      content:
+        "🎉       ❤️       💕       ✨       🎉       ❤️       💕       ✨       🎉       ❤️       💕       ✨\A"
+        "   💕       🎉       ❤️       ✨       💕       🎉       ❤️       💕       ✨       🎉       ❤️       💕\A"
+        "❤️       💕       🎉       ✨       ❤️       💕       🎉       ❤️       ✨       💕       🎉       ❤️\A"
+        "   ✨       ❤️       💕       🎉       ❤️       ✨       💕       🎉       ❤️       💕       ✨       🎉\A"
+        "🎉       💕       ❤️       ✨       🎉       ❤️       💕       🎉       ✨       ❤️       💕       🎉\A"
+        "   ❤️       🎉       💕       ✨       ❤️       💕       🎉       ❤️       ✨       🎉       💕       ❤️\A"
+        "💕       ❤️       🎉       ✨       💕       🎉       ❤️       💕       ✨       ❤️       🎉       💕\A"
+        "   🎉       ✨       ❤️       💕       🎉       ❤️       ✨       💕       🎉       ❤️       💕       ✨\A"
+        "🎉       ❤️       💕       ✨       🎉       ❤️       💕       ✨       🎉       ❤️       💕       ✨\A"
+        "   💕       🎉       ❤️       ✨       💕       🎉       ❤️       💕       ✨       🎉       ❤️       💕\A"
+        "❤️       💕       🎉       ✨       ❤️       💕       🎉       ❤️       ✨       💕       🎉       ❤️\A"
+        "   ✨       ❤️       💕       🎉       ❤️       ✨       💕       🎉       ❤️       💕       ✨       🎉\A"
+        "🎉       💕       ❤️       ✨       🎉       ❤️       💕       🎉       ✨       ❤️       💕       🎉\A"
+        "   ❤️       🎉       💕       ✨       ❤️       💕       🎉       ❤️       ✨       🎉       💕       ❤️\A"
+        "💕       ❤️       🎉       ✨       💕       🎉       ❤️       💕       ✨       ❤️       🎉       💕\A"
+        "   🎉       ✨       ❤️       💕       🎉       ❤️       ✨       💕       🎉       ❤️       💕       ✨\A"
+        "🎉       ❤️       💕       ✨       🎉       ❤️       💕       ✨       🎉       ❤️       💕       ✨\A"
+        "   💕       🎉       ❤️       ✨       💕       🎉       ❤️       💕       ✨       🎉       ❤️       💕";
+
+      position: absolute;
+      top: -50px;
+      left: 0px;
+      width: calc(100% + 600px);
+      height: calc(100% + 100px);
+      padding: 20px;
+      font-size: 42px;
+      line-height: 2.15;
+      letter-spacing: 3px;
+      white-space: pre;
+      opacity: 0.28;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+
+    /* ---------------------------------
+       RETIREMENT
+    --------------------------------- */
+
+    body[data-theme="retirement"] #tvView::before {
+
+      content:
+        "🎈       🎉       🥳       ⭐       🎈       🎉       🥳       ⭐       🎈       🎉       🥳       ⭐\A"
+        "   ✨       🎈       🎉       🥳       ⭐       🎈       🎉       ✨       🥳       🎈       ⭐       🎉\A"
+        "🎉       🥳       🎈       ⭐       🎉       🎈       ✨       🥳       ⭐       🎉       🎈       🥳\A"
+        "   🎈       ⭐       🎉       🥳       ✨       🎈       🎉       ⭐       🥳       🎈       🎉       ✨\A"
+        "🥳       🎉       🎈       ⭐       🥳       🎈       🎉       🥳       ⭐       🎉       🎈       🥳\A"
+        "   ⭐       🎈       🎉       ✨       🥳       ⭐       🎈       🎉       ✨       🥳       🎈       ⭐\A"
+        "🎉       🎈       🥳       ⭐       🎉       🥳       🎈       ✨       ⭐       🎉       🎈       🥳\A"
+        "   🎈       ✨       🎉       🥳       ⭐       🎈       ✨       🎉       🥳       ⭐       🎈       🎉\A"
+        "🎈       🎉       🥳       ⭐       🎈       🎉       🥳       ⭐       🎈       🎉       🥳       ⭐\A"
+        "   ✨       🎈       🎉       🥳       ⭐       🎈       🎉       ✨       🥳       🎈       ⭐       🎉\A"
+        "🎉       🥳       🎈       ⭐       🎉       🎈       ✨       🥳       ⭐       🎉       🎈       🥳\A"
+        "   🎈       ⭐       🎉       🥳       ✨       🎈       🎉       ⭐       🥳       🎈       🎉       ✨\A"
+        "🥳       🎉       🎈       ⭐       🥳       🎈       🎉       🥳       ⭐       🎉       🎈       🥳\A"
+        "   ⭐       🎈       🎉       ✨       🥳       ⭐       🎈       🎉       ✨       🥳       🎈       ⭐\A"
+        "🎉       🎈       🥳       ⭐       🎉       🥳       🎈       ✨       ⭐       🎉       🎈       🥳\A"
+        "   🎈       ✨       🎉       🥳       ⭐       🎈       ✨       🎉       🥳       ⭐       🎈       🎉\A"
+        "🎈       🎉       🥳       ⭐       🎈       🎉       🥳       ⭐       🎈       🎉       🥳       ⭐\A"
+        "   ✨       🎈       🎉       🥳       ⭐       🎈       🎉       ✨       🥳       🎈       ⭐       🎉";
+
+      position: absolute;
+      top: -50px;
+      left: 0px;
+      width: calc(100% + 600px);
+      height: calc(100% + 100px);
+      padding: 20px;
+      font-size: 42px;
+      line-height: 2.15;
+      letter-spacing: 3px;
+      white-space: pre;
+      opacity: 0.28;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+
+    /* ---------------------------------
+       OTHER - GENERAL CELEBRATION
+    --------------------------------- */
+
+    body[data-theme="other"] #tvView::before,
+    body[data-theme="general-celebration"] #tvView::before {
+
+      content:
+        "🎉       ✨       🎊       ⭐       🎉       ✨       🎊       ⭐       🎉       ✨       🎊       ⭐\A"
+        "   ⭐       🎉       ✨       🎊       ⭐       🎉       ✨       ⭐       🎊       🎉       ✨       🎊\A"
+        "🎊       🎉       ⭐       ✨       🎊       🎉       ⭐       🎊       ✨       🎉       ⭐       🎊\A"
+        "   ✨       🎊       🎉       ⭐       ✨       🎊       🎉       ⭐       🎊       ✨       🎉       ⭐\A"
+        "🎉       ⭐       🎊       ✨       🎉       ✨       🎊       🎉       ⭐       🎊       ✨       🎉\A"
+        "   🎊       🎉       ✨       ⭐       🎊       ⭐       🎉       ✨       ⭐       🎊       🎉       ✨\A"
+        "⭐       🎉       🎊       ✨       ⭐       🎊       🎉       ⭐       ✨       🎉       🎊       ⭐\A"
+        "   🎉       ✨       ⭐       🎊       🎉       ⭐       ✨       🎊       🎉       ⭐       🎊       ✨\A"
+        "🎉       ✨       🎊       ⭐       🎉       ✨       🎊       ⭐       🎉       ✨       🎊       ⭐\A"
+        "   ⭐       🎉       ✨       🎊       ⭐       🎉       ✨       ⭐       🎊       🎉       ✨       🎊\A"
+        "🎊       🎉       ⭐       ✨       🎊       🎉       ⭐       🎊       ✨       🎉       ⭐       🎊\A"
+        "   ✨       🎊       🎉       ⭐       ✨       🎊       🎉       ⭐       🎊       ✨       🎉       ⭐\A"
+        "🎉       ⭐       🎊       ✨       🎉       ✨       🎊       🎉       ⭐       🎊       ✨       🎉\A"
+        "   🎊       🎉       ✨       ⭐       🎊       ⭐       🎉       ✨       ⭐       🎊       🎉       ✨\A"
+        "⭐       🎉       🎊       ✨       ⭐       🎊       🎉       ⭐       ✨       🎉       🎊       ⭐\A"
+        "   🎉       ✨       ⭐       🎊       🎉       ⭐       ✨       🎊       🎉       ⭐       🎊       ✨\A"
+        "🎉       ✨       🎊       ⭐       🎉       ✨       🎊       ⭐       🎉       ✨       🎊       ⭐\A"
+        "   ⭐       🎉       ✨       🎊       ⭐       🎉       ✨       ⭐       🎊       🎉       ✨       🎊";
+
+      position: absolute;
+      top: -50px;
+      left: 0px;
+      width: calc(100% + 600px);
+      height: calc(100% + 100px);
+      padding: 20px;
+      font-size: 42px;
+      line-height: 2.15;
+      letter-spacing: 3px;
+      white-space: pre;
+      opacity: 0.28;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+
+    /* ---------------------------------
+       KEEP CONTENT ABOVE DECORATIONS
+    --------------------------------- */
 
     body[data-theme="balloons-confetti"] .tv-header,
     body[data-theme="balloons-confetti"] .photo-area,
-    body[data-theme="balloons-confetti"] .tv-status {
+    body[data-theme="balloons-confetti"] .tv-status,
+    body[data-theme="graduation"] .tv-header,
+    body[data-theme="graduation"] .photo-area,
+    body[data-theme="graduation"] .tv-status,
+    body[data-theme="graduation-celebration"] .tv-header,
+    body[data-theme="graduation-celebration"] .photo-area,
+    body[data-theme="graduation-celebration"] .tv-status,
+    body[data-theme="wedding"] .tv-header,
+    body[data-theme="wedding"] .photo-area,
+    body[data-theme="wedding"] .tv-status,
+    body[data-theme="baby-shower"] .tv-header,
+    body[data-theme="baby-shower"] .photo-area,
+    body[data-theme="baby-shower"] .tv-status,
+    body[data-theme="sports-event"] .tv-header,
+    body[data-theme="sports-event"] .photo-area,
+    body[data-theme="sports-event"] .tv-status,
+    body[data-theme="game-night"] .tv-header,
+    body[data-theme="game-night"] .photo-area,
+    body[data-theme="game-night"] .tv-status,
+    body[data-theme="anniversary"] .tv-header,
+    body[data-theme="anniversary"] .photo-area,
+    body[data-theme="anniversary"] .tv-status,
+    body[data-theme="retirement"] .tv-header,
+    body[data-theme="retirement"] .photo-area,
+    body[data-theme="retirement"] .tv-status,
+    body[data-theme="other"] .tv-header,
+    body[data-theme="other"] .photo-area,
+    body[data-theme="other"] .tv-status,
+    body[data-theme="general-celebration"] .tv-header,
+    body[data-theme="general-celebration"] .photo-area,
+    body[data-theme="general-celebration"] .tv-status {
 
       position: relative;
 
       z-index: 5;
     }
 
+
+    /* ---------------------------------
+       BIRTHDAY QR / PHOTO STYLING
+    --------------------------------- */
 
     body[data-theme="balloons-confetti"] .qr-box {
 
@@ -789,7 +1166,17 @@
       }
 
 
-      body[data-theme="balloons-confetti"] #tvView::before {
+      body[data-theme="balloons-confetti"] #tvView::before,
+      body[data-theme="graduation"] #tvView::before,
+      body[data-theme="graduation-celebration"] #tvView::before,
+      body[data-theme="wedding"] #tvView::before,
+      body[data-theme="baby-shower"] #tvView::before,
+      body[data-theme="sports-event"] #tvView::before,
+      body[data-theme="game-night"] #tvView::before,
+      body[data-theme="anniversary"] #tvView::before,
+      body[data-theme="retirement"] #tvView::before,
+      body[data-theme="other"] #tvView::before,
+      body[data-theme="general-celebration"] #tvView::before {
 
         font-size: 28px;
 
