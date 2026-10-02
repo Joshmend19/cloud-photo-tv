@@ -29,7 +29,6 @@
     html,
     body {
       margin: 0;
-
       width: 100%;
       height: 100%;
 
@@ -160,21 +159,22 @@
 
 
     /* ---------------------------------
-       BALLOONS & CONFETTI PATTERN
+       FULL SCREEN BALLOON & CONFETTI
+       PATTERN
     --------------------------------- */
 
     body[data-theme="balloons-confetti"] #tvView::before {
 
       content:
-        "🎈       🎉       🎈       🎊       🎈\A"
-        "   ✨       🎈       •       🎉       ✨\A"
-        "🎊       🎈       ✦       🎈       🎉\A"
-        "   🎈       •       🎊       ✨       🎈\A"
-        "🎉       🎈       🎊       🎈       •\A"
-        "   ✨       🎉       🎈       ✦       🎊\A"
-        "🎈       🎊       •       🎈       🎉\A"
-        "   🎈       ✨       🎉       🎈       ✦\A"
-        "🎊       🎈       🎉       •       🎈";
+        "🎈       🎉       🎈       🎊       🎈       🎉       🎈       🎊       🎈\A"
+        "   ✨       🎈       •       🎉       ✨       🎈       •       🎉       ✨\A"
+        "🎊       🎈       ✦       🎈       🎉       🎊       🎈       ✦       🎈\A"
+        "   🎈       •       🎊       ✨       🎈       •       🎉       ✨       🎈\A"
+        "🎉       🎈       🎊       🎈       •       🎉       🎈       🎊       🎈\A"
+        "   ✨       🎉       🎈       ✦       🎊       ✨       🎉       🎈       ✦\A"
+        "🎈       🎊       •       🎈       🎉       🎈       🎊       •       🎈\A"
+        "   🎈       ✨       🎉       🎈       ✦       🎈       ✨       🎉       🎈\A"
+        "🎊       🎈       🎉       •       🎈       🎊       🎈       🎉       •";
 
       position: absolute;
 
@@ -184,13 +184,13 @@
       width: 100%;
       height: 100%;
 
-      padding: 20px 30px;
+      padding: 20px 10px;
 
       font-size: 42px;
 
       line-height: 2.15;
 
-      letter-spacing: 2px;
+      letter-spacing: 3px;
 
       white-space: pre;
 
@@ -727,6 +727,10 @@
     }
 
 
+    /* ---------------------------------
+       MOBILE
+    --------------------------------- */
+
     @media (max-width: 700px) {
 
       .tv-header {
@@ -782,10 +786,9 @@
 
         line-height: 2.5;
 
-        padding: 15px;
+        padding: 15px 5px;
 
         letter-spacing: 0;
-
       }
 
     }
