@@ -11,26 +11,363 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --primary-color: #b08d57;
+      --secondary-color: #ffffff;
+      --accent-color: #c9a0a0;
+      --page-background: #f8f6f3;
+      --text-color: #333;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f8f6f3;
-      color: #333;
+      background: var(--page-background);
+      color: var(--text-color);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       EVENT THEME PATTERNS
+       ========================= */
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50px;
+      left: 0;
+      width: calc(100% + 600px);
+      height: calc(100% + 100px);
+      padding: 20px;
+      font-size: 42px;
+      line-height: 2.15;
+      letter-spacing: 3px;
+      white-space: pre;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Birthday */
+
+    body[data-theme="balloons-confetti"] {
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255, 105, 180, .15), transparent 25%),
+        radial-gradient(circle at 90% 15%, rgba(255, 215, 0, .15), transparent 25%),
+        radial-gradient(circle at 20% 85%, rgba(100, 149, 237, .15), transparent 25%),
+        radial-gradient(circle at 85% 80%, rgba(255, 99, 71, .15), transparent 25%),
+        #fff8fc;
+    }
+
+    body[data-theme="balloons-confetti"]::before {
+      content:
+        "🎈 🎉 🎂 🎊 🎈 🎁 🎈 🎉 🎂 🎊 🎈 🎁 🎈 🎉 🎂 🎊\A"
+        "🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉\A"
+        "🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉\A"
+        "🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊\A"
+        "🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁\A"
+        "🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎂 🎈 🎊 🎁 🎈 🎉 🎂 🎊\A"
+        "🎊 🎈 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁 🎈 🎂\A"
+        "🎈 🎁 🎂 🎉 🎊 🎈 🎁 🎂 🎉 🎈 🎊 🎁 🎂 🎉 🎈 🎊\A"
+        "🎉 🎈 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈\A"
+        "🎂 🎁 🎈 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈\A"
+        "🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈\A"
+        "🎁 🎈 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈\A"
+        "🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈\A"
+        "🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈\A"
+        "🎉 🎊 🎈 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈\A"
+        "🎁 🎂 🎈 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈\A"
+        "🎊 🎈 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈\A"
+        "🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈";
+      opacity: .20;
+    }
+
+    /* Graduation */
+
+    body[data-theme="graduation"],
+    body[data-theme="graduation-celebration"] {
+      background:
+        radial-gradient(circle at 10% 20%, rgba(37, 99, 235, .12), transparent 25%),
+        radial-gradient(circle at 90% 15%, rgba(200, 162, 74, .15), transparent 25%),
+        #f8fbff;
+    }
+
+    body[data-theme="graduation"]::before,
+    body[data-theme="graduation-celebration"]::before {
+      content:
+        "🎓 📜 🎓 🎉 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓\A"
+        "📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚\A"
+        "🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉\A"
+        "🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓\A"
+        "📜 🎓 📚 🎉 🎓 📜 🎓 📚 🎉 🎓 📜 🎓 📚 🎉 🎓 📜\A"
+        "🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓\A"
+        "📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚\A"
+        "🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉\A"
+        "🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓\A"
+        "📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜\A"
+        "🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓\A"
+        "📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚\A"
+        "🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉\A"
+        "🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓\A"
+        "📜 🎓 📚 🎉 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜\A"
+        "🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓\A"
+        "📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚\A"
+        "🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉";
+      opacity: .18;
+    }
+
+    /* Wedding */
+
+    body[data-theme="wedding"] {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 182, 193, .15), transparent 25%),
+        radial-gradient(circle at 85% 80%, rgba(200, 162, 74, .14), transparent 25%),
+        #fffafc;
+    }
+
+    body[data-theme="wedding"]::before {
+      content:
+        "🌸 💍 🤍 🌿 🌸 💕 🌸 💍 🤍 🌿 🌸 💕 🌸 💍 🤍\A"
+        "🤍 🌸 💕 💍 🌿 🌸 🤍 💕 🌸 💍 🌿 🌸 🤍 💕 🌸\A"
+        "🌿 🌸 💍 🤍 💕 🌸 🌿 💍 🤍 🌸 💕 🌿 🌸 💍 🤍\A"
+        "💕 🤍 🌸 🌿 💍 🌸 💕 🤍 🌿 🌸 💍 💕 🌸 🤍 🌿\A"
+        "🌸 💕 🤍 💍 🌿 🌸 💕 🤍 🌸 💍 🌿 🌸 💕 🤍 🌿\A"
+        "💍 🌸 🌿 🤍 💕 🌸 💍 🌿 🤍 🌸 💕 💍 🌸 🌿 🤍\A"
+        "🤍 💕 🌸 💍 🌿 🌸 🤍 💕 💍 🌸 🌿 🤍 💕 🌸 💍\A"
+        "🌸 🌿 💍 💕 🤍 🌸 🌿 💍 💕 🤍 🌸 🌿 💍 💕 🌸\A"
+        "💕 🌸 🤍 🌿 💍 🌸 💕 🤍 🌿 💍 🌸 💕 🤍 🌿 🌸\A"
+        "🌿 💍 🌸 🤍 💕 🌸 🌿 💍 🤍 🌸 💕 🌿 💍 🌸 🤍\A"
+        "🌸 💕 💍 🌿 🤍 🌸 💕 💍 🌿 🌸 🤍 💕 🌸 💍 🌿\A"
+        "🤍 🌸 🌿 💍 💕 🌸 🤍 🌿 💍 🌸 💕 🤍 🌸 🌿 💍\A"
+        "💍 💕 🌸 🤍 🌿 🌸 💍 💕 🤍 🌸 🌿 💍 💕 🌸 🤍\A"
+        "🌸 🤍 💕 🌿 💍 🌸 🤍 💕 🌿 🌸 💍 🤍 💕 🌸 🌿\A"
+        "🌿 🌸 💍 💕 🤍 🌸 🌿 💍 💕 🤍 🌸 🌿 💍 💕 🌸\A"
+        "💕 💍 🌸 🤍 🌿 🌸 💕 💍 🤍 🌸 🌿 💕 💍 🌸 🤍\A"
+        "🌸 🌿 💕 💍 🤍 🌸 🌿 💕 💍 🤍 🌸 🌿 💕 🌸 💍\A"
+        "🤍 💍 🌸 💕 🌿 🌸 🤍 💍 💕 🌿 🌸 🤍 💍 🌸 💕";
+      opacity: .16;
+    }
+
+    /* Baby Shower */
+
+    body[data-theme="baby-shower"] {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(147, 197, 253, .16), transparent 25%),
+        radial-gradient(circle at 85% 75%, rgba(251, 191, 36, .12), transparent 25%),
+        #f8fcff;
+    }
+
+    body[data-theme="baby-shower"]::before {
+      content:
+        "👶 🍼 🧸 ☁️ 🍼 👶 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸\A"
+        "🧸 👶 ☁️ 🍼 👶 🧸 ☁️ 🍼 👶 🧸 ☁️ 🍼 👶 🧸 ☁️\A"
+        "🍼 ☁️ 👶 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 👶 🍼 ☁️\A"
+        "☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼\A"
+        "👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸\A"
+        "🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶\A"
+        "🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️\A"
+        "☁️ 🍼 🧸 👶 ☁️ 🍼 🧸 👶 ☁️ 🍼 🧸 👶 ☁️ 🍼 🧸\A"
+        "👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼\A"
+        "🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️\A"
+        "🍼 ☁️ 🧸 👶 🍼 ☁️ 🧸 👶 🍼 ☁️ 🧸 👶 🍼 ☁️ 🧸\A"
+        "👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸\A"
+        "☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸\A"
+        "🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶\A"
+        "🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️\A"
+        "☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼\A"
+        "👶 ☁️ 🍼 🧸 👶 ☁️ 🍼 🧸 👶 ☁️ 🍼 🧸 👶 ☁️ 🍼\A"
+        "🧸 👶 🍼 ☁️ 🧸 👶 🍼 ☁️ 🧸 👶 🍼 ☁️ 🧸 👶 🍼";
+      opacity: .16;
+    }
+
+    /* Sports Event */
+
+    body[data-theme="sports-event"] {
+      background:
+        radial-gradient(circle at 10% 20%, rgba(37, 99, 235, .14), transparent 25%),
+        radial-gradient(circle at 90% 80%, rgba(220, 38, 38, .12), transparent 25%),
+        #f8fbff;
+    }
+
+    body[data-theme="sports-event"]::before {
+      content:
+        "🏈 ⚽ 🏀 ⚾ 🏆 🏈 ⚽ 🏀 ⚾ 🏆 🏈 ⚽ 🏀 ⚾ 🏆\A"
+        "🏆 🏀 🏈 ⚽ ⚾ 🏆 🏀 🏈 ⚽ ⚾ 🏆 🏀 🏈 ⚽ ⚾\A"
+        "⚽ 🏈 🏆 🏀 ⚾ ⚽ 🏈 🏆 🏀 ⚾ ⚽ 🏈 🏆 🏀 ⚾\A"
+        "🏀 ⚾ ⚽ 🏆 🏈 🏀 ⚾ ⚽ 🏆 🏈 🏀 ⚾ ⚽ 🏆 🏈\A"
+        "🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽ ⚾ 🏀\A"
+        "⚾ 🏀 🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽\A"
+        "🏆 ⚽ 🏀 ⚾ 🏈 🏆 ⚽ 🏀 ⚾ 🏈 🏆 ⚽ 🏀 ⚾ 🏈\A"
+        "🏈 ⚾ 🏆 🏀 ⚽ 🏈 ⚾ 🏆 🏀 ⚽ 🏈 ⚾ 🏆 🏀 ⚽\A"
+        "⚽ 🏀 ⚾ 🏈 🏆 ⚽ 🏀 ⚾ 🏈 🏆 ⚽ 🏀 ⚾ 🏈 🏆\A"
+        "🏀 🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽ ⚾\A"
+        "⚾ 🏆 🏈 🏀 ⚽ ⚾ 🏆 🏈 🏀 ⚽ ⚾ 🏆 🏈 🏀 ⚽\A"
+        "🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆 ⚾\A"
+        "🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾ 🏈\A"
+        "⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀\A"
+        "🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽\A"
+        "⚾ 🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆\A"
+        "🏈 🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾\A"
+        "⚽ 🏀 🏈 ⚾ 🏆 ⚽ 🏀 🏈 ⚾ 🏆 ⚽ 🏀 🏈 ⚾ 🏆";
+      opacity: .16;
+    }
+
+    /* Game Night */
+
+    body[data-theme="game-night"] {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(139, 92, 246, .16), transparent 25%),
+        radial-gradient(circle at 85% 75%, rgba(37, 99, 235, .14), transparent 25%),
+        #f8f7ff;
+    }
+
+    body[data-theme="game-night"]::before {
+      content:
+        "🎮 🕹️ 🎮 🎲 🕹️ 🎮 🃏 🎮 🕹️ 🎲 🎮 🕹️ 🎮 🃏 🎲\A"
+        "🎲 🎮 🕹️ 🎮 🃏 🎲 🎮 🕹️ 🎮 🃏 🎲 🎮 🕹️ 🎮\A"
+        "🕹️ 🎮 🎲 🃏 🎮 🕹️ 🎲 🎮 🃏 🎮 🕹️ 🎲 🎮 🃏\A"
+        "🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏\A"
+        "🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️\A"
+        "🃏 🎮 🕹️ 🎲 🃏 🎮 🕹️ 🎲 🃏 🎮 🕹️ 🎲 🃏 🎮\A"
+        "🎮 🎲 🃏 🕹️ 🎮 🎲 🃏 🕹️ 🎮 🎲 🃏 🕹️ 🎮 🎲\A"
+        "🕹️ 🃏 🎮 🎲 🕹️ 🃏 🎮 🎲 🕹️ 🃏 🎮 🎲 🕹️ 🃏\A"
+        "🎲 🎮 🕹️ 🃏 🎲 🎮 🕹️ 🃏 🎲 🎮 🕹️ 🃏 🎲 🎮\A"
+        "🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️\A"
+        "🎮 🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏\A"
+        "🕹️ 🎮 🎲 🃏 🕹️ 🎮 🎲 🃏 🕹️ 🎮 🎲 🃏 🕹️ 🎮\A"
+        "🎲 🃏 🎮 🕹️ 🎲 🃏 🎮 🕹️ 🎲 🃏 🎮 🕹️ 🎲 🃏\A"
+        "🎮 🕹️ 🃏 🎲 🎮 🕹️ 🃏 🎲 🎮 🕹️ 🃏 🎲 🎮 🕹️\A"
+        "🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏 🎲\A"
+        "🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏\A"
+        "🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲\A"
+        "🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮";
+      opacity: .16;
+    }
+
+    /* Anniversary */
+
+    body[data-theme="anniversary"] {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(244, 63, 94, .14), transparent 25%),
+        radial-gradient(circle at 85% 75%, rgba(200, 162, 74, .14), transparent 25%),
+        #fff9fb;
+    }
+
+    body[data-theme="anniversary"]::before {
+      content:
+        "❤️ 🎉 💕 ✨ ❤️ 🥂 💕 ❤️ 🎉 ✨ 💕 ❤️ 🥂 🎉\A"
+        "✨ ❤️ 💕 🎉 ❤️ ✨ 💕 🥂 ❤️ 🎉 💕 ✨ ❤️ 🥂\A"
+        "💕 ❤️ 🎉 ✨ 🥂 💕 ❤️ 🎉 ✨ ❤️ 💕 🥂 🎉\A"
+        "🎉 💕 ❤️ 🥂 ✨ 🎉 💕 ❤️ 🥂 ✨ 🎉 💕 ❤️ 🥂\A"
+        "❤️ ✨ 💕 🎉 🥂 ❤️ ✨ 💕 🎉 🥂 ❤️ ✨ 💕 🎉\A"
+        "🥂 ❤️ 🎉 💕 ✨ 🥂 ❤️ 🎉 💕 ✨ 🥂 ❤️ 🎉 💕\A"
+        "💕 🎉 ❤️ ✨ 🥂 💕 🎉 ❤️ ✨ 🥂 💕 🎉 ❤️ ✨\A"
+        "❤️ 💕 🥂 🎉 ✨ ❤️ 💕 🥂 🎉 ✨ ❤️ 💕 🥂 🎉\A"
+        "✨ 🎉 💕 ❤️ 🥂 ✨ 🎉 💕 ❤️ 🥂 ✨ 🎉 💕 ❤️\A"
+        "💕 🥂 ❤️ 🎉 ✨ 💕 🥂 ❤️ 🎉 ✨ 💕 🥂 ❤️ 🎉\A"
+        "🎉 ❤️ ✨ 💕 🥂 🎉 ❤️ ✨ 💕 🥂 🎉 ❤️ ✨ 💕\A"
+        "❤️ 🥂 💕 🎉 ✨ ❤️ 🥂 💕 🎉 ✨ ❤️ 🥂 💕 🎉\A"
+        "💕 ✨ ❤️ 🥂 🎉 💕 ✨ ❤️ 🥂 🎉 💕 ✨ ❤️ 🥂\A"
+        "🥂 🎉 💕 ❤️ ✨ 🥂 🎉 💕 ❤️ ✨ 🥂 🎉 💕 ❤️\A"
+        "❤️ 💕 🎉 ✨ 🥂 ❤️ 💕 🎉 ✨ 🥂 ❤️ 💕 🎉 ✨\A"
+        "✨ ❤️ 🥂 💕 🎉 ✨ ❤️ 🥂 💕 🎉 ✨ ❤️ 🥂 💕\A"
+        "🎉 💕 ✨ ❤️ 🥂 🎉 💕 ✨ ❤️ 🥂 🎉 💕 ✨ ❤️\A"
+        "💕 ❤️ 🎉 🥂 ✨ 💕 ❤️ 🎉 🥂 ✨ 💕 ❤️ 🎉 🥂";
+      opacity: .16;
+    }
+
+    /* Retirement */
+
+    body[data-theme="retirement"] {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(34, 197, 94, .12), transparent 25%),
+        radial-gradient(circle at 85% 75%, rgba(200, 162, 74, .14), transparent 25%),
+        #f8fff9;
+    }
+
+    body[data-theme="retirement"]::before {
+      content:
+        "🎈 🎉 🥂 🌴 🎊 🎈 🎉 🥂 🌴 🎊 🎈 🎉 🥂 🌴 🎊\A"
+        "🎊 🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂\A"
+        "🥂 🎉 🎈 🎊 🌴 🥂 🎉 🎈 🎊 🌴 🥂 🎉 🎈 🎊 🌴\A"
+        "🌴 🎊 🥂 🎈 🎉 🌴 🎊 🥂 🎈 🎉 🌴 🎊 🥂 🎈 🎉\A"
+        "🎉 🥂 🎊 🌴 🎈 🎉 🥂 🎊 🌴 🎈 🎉 🥂 🎊 🌴 🎈\A"
+        "🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂 🎊\A"
+        "🎊 🎈 🥂 🎉 🌴 🎊 🎈 🥂 🎉 🌴 🎊 🎈 🥂 🎉 🌴\A"
+        "🥂 🎉 🌴 🎊 🎈 🥂 🎉 🌴 🎊 🎈 🥂 🎉 🌴 🎊 🎈\A"
+        "🌴 🎈 🎊 🥂 🎉 🌴 🎈 🎊 🥂 🎉 🌴 🎈 🎊 🥂 🎉\A"
+        "🎉 🎊 🎈 🌴 🥂 🎉 🎊 🎈 🌴 🥂 🎉 🎊 🎈 🌴 🥂\A"
+        "🎈 🥂 🌴 🎉 🎊 🎈 🥂 🌴 🎉 🎊 🎈 🥂 🌴 🎉 🎊\A"
+        "🎊 🌴 🎉 🎈 🥂 🎊 🌴 🎉 🎈 🥂 🎊 🌴 🎉 🎈 🥂\A"
+        "🥂 🎈 🎊 🌴 🎉 🥂 🎈 🎊 🌴 🎉 🥂 🎈 🎊 🌴 🎉\A"
+        "🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂 🎊 🎈\A"
+        "🎉 🎈 🌴 🥂 🎊 🎉 🎈 🌴 🥂 🎊 🎉 🎈 🌴 🥂 🎊\A"
+        "🎊 🥂 🎉 🌴 🎈 🎊 🥂 🎉 🌴 🎈 🎊 🥂 🎉 🌴 🎈\A"
+        "🎈 🎉 🎊 🥂 🌴 🎈 🎉 🎊 🥂 🌴 🎈 🎉 🎊 🥂 🌴\A"
+        "🥂 🌴 🎈 🎊 🎉 🥂 🌴 🎈 🎊 🎉 🥂 🌴 🎈 🎊 🎉";
+      opacity: .16;
+    }
+
+    /* Other / General Celebration */
+
+    body[data-theme="other"],
+    body[data-theme="general-celebration"] {
+      background:
+        radial-gradient(circle at 10% 20%, rgba(37, 99, 235, .12), transparent 25%),
+        radial-gradient(circle at 90% 20%, rgba(244, 63, 94, .10), transparent 25%),
+        radial-gradient(circle at 50% 90%, rgba(200, 162, 74, .12), transparent 25%),
+        #fbfcff;
+    }
+
+    body[data-theme="other"]::before,
+    body[data-theme="general-celebration"]::before {
+      content:
+        "✨ 🎉 🎈 🎊 ⭐ ✨ 🎁 🎉 ⭐ 🎈 🎊 ✨ 🎉 🎁 ⭐\A"
+        "🎊 ⭐ 🎉 ✨ 🎈 🎁 ⭐ 🎊 🎉 ✨ 🎈 ⭐ 🎁 🎉 🎊\A"
+        "🎈 ✨ 🎊 ⭐ 🎉 🎁 🎈 ✨ ⭐ 🎊 🎉 🎁 🎈 ⭐ 🎉\A"
+        "🎉 🎁 ⭐ 🎈 ✨ 🎊 🎉 ⭐ 🎈 🎁 ✨ 🎊 ⭐ 🎉 🎈\A"
+        "⭐ 🎊 🎈 🎉 🎁 ✨ ⭐ 🎊 🎈 🎉 🎁 ✨ ⭐ 🎊 🎈\A"
+        "🎁 🎉 ✨ ⭐ 🎊 🎈 🎁 🎉 ⭐ ✨ 🎊 🎈 🎁 ⭐ 🎉\A"
+        "✨ ⭐ 🎈 🎊 🎉 🎁 ✨ ⭐ 🎈 🎊 🎉 🎁 ✨ ⭐ 🎈\A"
+        "🎊 🎉 🎁 ⭐ ✨ 🎈 🎊 🎉 ⭐ 🎁 ✨ 🎈 🎊 🎉 ⭐\A"
+        "🎈 🎁 ✨ 🎉 ⭐ 🎊 🎈 🎁 ✨ 🎉 ⭐ 🎊 🎈 🎁 ✨\A"
+        "🎉 ⭐ 🎊 🎈 🎁 ✨ 🎉 ⭐ 🎊 🎈 🎁 ✨ 🎉 ⭐ 🎊\A"
+        "⭐ ✨ 🎁 🎉 🎈 🎊 ⭐ ✨ 🎁 🎉 🎈 🎊 ⭐ ✨ 🎁\A"
+        "🎊 🎈 ⭐ 🎉 ✨ 🎁 🎊 🎈 ⭐ 🎉 ✨ 🎁 🎊 🎈 ⭐\A"
+        "🎁 ✨ 🎉 ⭐ 🎊 🎈 🎁 ✨ 🎉 ⭐ 🎊 🎈 🎁 ✨ 🎉\A"
+        "🎈 🎊 🎉 🎁 ⭐ ✨ 🎈 🎊 🎉 🎁 ⭐ ✨ 🎈 🎊 🎉\A"
+        "🎉 ⭐ 🎈 ✨ 🎊 🎁 🎉 ⭐ 🎈 ✨ 🎊 🎁 🎉 ⭐ 🎈\A"
+        "✨ 🎁 🎊 🎉 ⭐ 🎈 ✨ 🎁 🎊 🎉 ⭐ 🎈 ✨ 🎁 🎊\A"
+        "⭐ 🎉 🎈 🎊 ✨ 🎁 ⭐ 🎉 🎈 🎊 ✨ 🎁 ⭐ 🎉 🎈\A"
+        "🎊 ✨ 🎁 ⭐ 🎉 🎈 🎊 ✨ 🎁 ⭐ 🎉 🎈 🎊 ✨ 🎁";
+      opacity: .15;
+    }
+
+    /* Keep the page content above the pattern */
+
+    .top-bar,
+    header,
+    .container {
+      position: relative;
+      z-index: 2;
     }
 
     .top-bar {
       height: 8px;
       background: linear-gradient(
         90deg,
-        #d4af37,
-        #f5e6c8,
-        #c9a0a0,
-        #d4af37
+        var(--primary-color),
+        var(--secondary-color),
+        var(--accent-color),
+        var(--primary-color)
       );
     }
 
     header {
-      background: white;
+      background: var(--secondary-color);
       padding: 22px 20px;
       text-align: center;
       border-bottom: 1px solid #eee;
@@ -39,7 +376,7 @@
     .brand {
       font-size: 26px;
       font-weight: 700;
-      color: #b08d57;
+      color: var(--primary-color);
       margin-bottom: 8px;
     }
 
@@ -64,7 +401,7 @@
     h1 {
       text-align: center;
       margin: 0 0 8px;
-      color: #333;
+      color: var(--text-color);
     }
 
     .event-date {
@@ -105,7 +442,14 @@
     input:focus,
     textarea:focus {
       outline: none;
-      border-color: #c9a0a0;
+      border-color: var(--accent-color);
+      box-shadow:
+        0 0 0 3px
+        color-mix(
+          in srgb,
+          var(--accent-color) 12%,
+          transparent
+        );
     }
 
     button {
@@ -118,8 +462,8 @@
       color: white;
       background: linear-gradient(
         135deg,
-        #c9a0a0,
-        #b08d57
+        var(--accent-color),
+        var(--primary-color)
       );
       cursor: pointer;
     }
@@ -172,6 +516,18 @@
     }
 
     @media (max-width: 600px) {
+
+      body::before {
+        font-size: 28px;
+        line-height: 2.5;
+        padding: 15px 5px;
+        letter-spacing: 0;
+        top: -15px;
+        left: -20px;
+        width: calc(100% + 40px);
+        height: calc(100% + 30px);
+      }
+
       .container {
         margin: 30px auto;
       }
@@ -193,7 +549,9 @@
 
   <header>
     <div class="brand">Captured Moments</div>
-    <div class="subtitle">Your moments, captured and shared.</div>
+    <div class="subtitle">
+      Your moments, captured and shared.
+    </div>
   </header>
 
   <main class="container">
@@ -204,7 +562,10 @@
 
         <h1 id="eventName">Guestbook</h1>
 
-        <div class="event-date" id="eventDate">
+        <div
+          class="event-date"
+          id="eventDate"
+        >
           Loading event...
         </div>
 
@@ -214,7 +575,10 @@
 
         <form id="guestbookForm">
 
-          <label for="guestName">Your Name</label>
+          <label for="guestName">
+            Your Name
+          </label>
+
           <input
             type="text"
             id="guestName"
@@ -223,7 +587,10 @@
             required
           />
 
-          <label for="guestMessage">Your Message</label>
+          <label for="guestMessage">
+            Your Message
+          </label>
+
           <textarea
             id="guestMessage"
             placeholder="Write a message for the host..."
@@ -231,21 +598,34 @@
             required
           ></textarea>
 
-          <button type="submit" id="submitGuestbookBtn">
+          <button
+            type="submit"
+            id="submitGuestbookBtn"
+          >
             Sign the Guestbook
           </button>
 
-          <div id="guestbookStatus" class="status"></div>
+          <div
+            id="guestbookStatus"
+            class="status"
+          ></div>
 
         </form>
 
       </div>
 
-      <div id="successMessage" class="success">
+      <div
+        id="successMessage"
+        class="success"
+      >
 
-        <div class="success-icon">💌</div>
+        <div class="success-icon">
+          💌
+        </div>
 
-        <h2>Thank You!</h2>
+        <h2>
+          Thank You!
+        </h2>
 
         <p id="successText">
           Your message has been added to the guestbook.
@@ -261,7 +641,96 @@
 
   </main>
 
-  <script type="module" src="guestbook.js"></script>
+  <script
+    type="module"
+    src="guestbook.js"
+  ></script>
+
+  <script type="module">
+
+    import { createClient }
+      from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+    import {
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    } from "./config.js";
+
+    const supabase =
+      createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const code =
+      (params.get("code") || "")
+        .toUpperCase();
+
+    if (code) {
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabase.rpc(
+            "get_public_event",
+            {
+              p_code: code
+            }
+          );
+
+        if (error) {
+          throw error;
+        }
+
+        const event =
+          Array.isArray(data)
+            ? data[0]
+            : data;
+
+        if (event) {
+
+          document.documentElement.style.setProperty(
+            "--primary-color",
+            event.primary_color || "#b08d57"
+          );
+
+          document.documentElement.style.setProperty(
+            "--secondary-color",
+            event.secondary_color || "#ffffff"
+          );
+
+          document.documentElement.style.setProperty(
+            "--accent-color",
+            event.accent_color || "#c9a0a0"
+          );
+
+          if (event.theme) {
+            document.body.dataset.theme =
+              event.theme;
+          }
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "GUESTBOOK THEME ERROR:",
+          error
+        );
+
+      }
+
+    }
+
+  </script>
 
 </body>
 </html>
