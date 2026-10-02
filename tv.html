@@ -78,6 +78,10 @@
     }
 
 
+    /* ---------------------------------
+       DEFAULT TV BACKGROUND
+    --------------------------------- */
+
     #tvView {
       position: relative;
 
@@ -106,16 +110,63 @@
     }
 
 
-    #tvView::before,
-    #tvView::after {
+    /* ---------------------------------
+       BALLOONS & CONFETTI
+    --------------------------------- */
+
+    body[data-theme="balloons-confetti"] #tvView {
+      background:
+        radial-gradient(
+          circle at 10% 15%,
+          color-mix(
+            in srgb,
+            var(--primary-color) 40%,
+            transparent
+          ),
+          transparent 18%
+        ),
+        radial-gradient(
+          circle at 90% 15%,
+          color-mix(
+            in srgb,
+            var(--accent-color) 40%,
+            transparent
+          ),
+          transparent 18%
+        ),
+        radial-gradient(
+          circle at 15% 90%,
+          color-mix(
+            in srgb,
+            var(--accent-color) 35%,
+            transparent
+          ),
+          transparent 20%
+        ),
+        radial-gradient(
+          circle at 90% 90%,
+          color-mix(
+            in srgb,
+            var(--primary-color) 35%,
+            transparent
+          ),
+          transparent 20%
+        ),
+        var(--secondary-color);
+    }
+
+
+    body[data-theme="balloons-confetti"] #tvView::before,
+    body[data-theme="balloons-confetti"] #tvView::after {
       content: "";
 
       position: absolute;
 
-      width: 180px;
-      height: 180px;
+      width: 150px;
+      height: 190px;
 
-      border-radius: 50%;
+      border-radius:
+        50% 50% 45% 45%;
 
       background:
         color-mix(
@@ -124,32 +175,26 @@
           white
         );
 
-      opacity: 0;
+      opacity: 0.28;
 
       pointer-events: none;
 
       z-index: 1;
-    }
-
-
-    #tvView::before {
-      top: 80px;
-      left: 50px;
 
       box-shadow:
-        80px 150px 0
+        180px 80px 0
         color-mix(
           in srgb,
           var(--accent-color) 75%,
           white
         ),
-        170px 40px 0
+        350px -30px 0
         color-mix(
           in srgb,
           var(--primary-color) 55%,
           white
         ),
-        260px 190px 0
+        -180px 240px 0
         color-mix(
           in srgb,
           var(--accent-color) 55%,
@@ -158,35 +203,19 @@
     }
 
 
-    #tvView::after {
-      bottom: 50px;
-      right: 60px;
+    body[data-theme="balloons-confetti"] #tvView::before {
+      top: -60px;
+      left: -70px;
 
-      box-shadow:
-        -90px -130px 0
-        color-mix(
-          in srgb,
-          var(--accent-color) 75%,
-          white
-        ),
-        -190px -20px 0
-        color-mix(
-          in srgb,
-          var(--primary-color) 55%,
-          white
-        ),
-        -280px -170px 0
-        color-mix(
-          in srgb,
-          var(--accent-color) 55%,
-          white
-        );
+      transform: rotate(-12deg);
     }
 
 
-    body[data-theme="balloons-confetti"] #tvView::before,
     body[data-theme="balloons-confetti"] #tvView::after {
-      opacity: 0.25;
+      bottom: -70px;
+      right: -60px;
+
+      transform: rotate(14deg);
     }
 
 
@@ -197,36 +226,127 @@
     }
 
 
+    body[data-theme="balloons-confetti"] #currentPhoto {
+      border-radius: 24px;
+
+      box-shadow:
+        0 0 0 5px
+        color-mix(
+          in srgb,
+          var(--accent-color) 60%,
+          transparent
+        ),
+        0 20px 70px
+        rgba(0, 0, 0, 0.55);
+    }
+
+
+    body[data-theme="balloons-confetti"] .scan-title {
+      text-shadow:
+        0 0 15px
+        color-mix(
+          in srgb,
+          var(--primary-color) 60%,
+          transparent
+        );
+    }
+
+
+    /* ---------------------------------
+       BIRTHDAY CELEBRATION
+    --------------------------------- */
+
     body[data-theme="birthday-celebration"] #tvView {
       background:
         radial-gradient(
-          circle at 20% 20%,
+          circle at 20% 15%,
           color-mix(
             in srgb,
-            var(--primary-color) 35%,
+            var(--primary-color) 45%,
             transparent
           ),
-          transparent 30%
+          transparent 28%
         ),
         radial-gradient(
-          circle at 80% 80%,
+          circle at 80% 15%,
           color-mix(
             in srgb,
-            var(--accent-color) 35%,
+            var(--accent-color) 45%,
             transparent
           ),
-          transparent 30%
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 50% 100%,
+          color-mix(
+            in srgb,
+            var(--primary-color) 25%,
+            transparent
+          ),
+          transparent 35%
         ),
         var(--secondary-color);
     }
 
 
+    body[data-theme="birthday-celebration"] #tvView::before {
+      content: "🎂";
+
+      position: absolute;
+
+      top: 25px;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      font-size: 55px;
+
+      opacity: 0.8;
+
+      z-index: 2;
+
+      pointer-events: none;
+    }
+
+
+    body[data-theme="birthday-celebration"] #tvView::after {
+      content: "🎉  ✨  🎈  ✨  🎉";
+
+      position: absolute;
+
+      bottom: 25px;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      font-size: 28px;
+
+      letter-spacing: 10px;
+
+      opacity: 0.7;
+
+      white-space: nowrap;
+
+      z-index: 2;
+
+      pointer-events: none;
+    }
+
+
     body[data-theme="birthday-celebration"] .scan-title {
       text-shadow:
-        0 0 20px
+        0 0 15px
         color-mix(
           in srgb,
-          var(--primary-color) 60%,
+          var(--primary-color) 65%,
+          transparent
+        ),
+        0 0 35px
+        color-mix(
+          in srgb,
+          var(--accent-color) 40%,
           transparent
         );
     }
@@ -236,28 +356,47 @@
       border-radius: 28px;
 
       box-shadow:
+        0 0 0 5px
+        color-mix(
+          in srgb,
+          var(--primary-color) 55%,
+          transparent
+        ),
         0 20px 70px
         color-mix(
           in srgb,
-          var(--primary-color) 45%,
-          rgba(0, 0, 0, 0.45)
+          var(--primary-color) 35%,
+          rgba(0, 0, 0, 0.5)
         );
     }
 
 
+    /* ---------------------------------
+       COLORFUL PARTY
+    --------------------------------- */
+
     body[data-theme="colorful-party"] #tvView {
       background:
         radial-gradient(
-          circle at 10% 20%,
+          circle at 5% 15%,
           color-mix(
             in srgb,
-            var(--primary-color) 45%,
+            var(--primary-color) 55%,
             transparent
           ),
-          transparent 25%
+          transparent 23%
         ),
         radial-gradient(
-          circle at 90% 20%,
+          circle at 95% 15%,
+          color-mix(
+            in srgb,
+            var(--accent-color) 55%,
+            transparent
+          ),
+          transparent 23%
+        ),
+        radial-gradient(
+          circle at 10% 90%,
           color-mix(
             in srgb,
             var(--accent-color) 45%,
@@ -266,13 +405,13 @@
           transparent 25%
         ),
         radial-gradient(
-          circle at 50% 100%,
+          circle at 90% 90%,
           color-mix(
             in srgb,
-            var(--primary-color) 30%,
+            var(--primary-color) 45%,
             transparent
           ),
-          transparent 35%
+          transparent 25%
         ),
         var(--secondary-color);
     }
@@ -284,13 +423,13 @@
           90deg,
           color-mix(
             in srgb,
-            var(--primary-color) 20%,
+            var(--primary-color) 25%,
             transparent
           ),
           transparent,
           color-mix(
             in srgb,
-            var(--accent-color) 20%,
+            var(--accent-color) 25%,
             transparent
           )
         );
@@ -304,13 +443,13 @@
         0 0 12px
         color-mix(
           in srgb,
-          var(--primary-color) 65%,
+          var(--primary-color) 75%,
           transparent
         ),
         0 0 25px
         color-mix(
           in srgb,
-          var(--accent-color) 45%,
+          var(--accent-color) 55%,
           transparent
         );
     }
@@ -320,16 +459,26 @@
       border-radius: 24px;
 
       box-shadow:
-        0 0 0 4px
+        0 0 0 5px
         color-mix(
           in srgb,
-          var(--accent-color) 45%,
+          var(--accent-color) 55%,
+          transparent
+        ),
+        0 0 0 10px
+        color-mix(
+          in srgb,
+          var(--primary-color) 20%,
           transparent
         ),
         0 20px 70px
-        rgba(0, 0, 0, 0.5);
+        rgba(0, 0, 0, 0.55);
     }
 
+
+    /* ---------------------------------
+       TV HEADER
+    --------------------------------- */
 
     .tv-header {
       position: absolute;
@@ -393,6 +542,10 @@
     }
 
 
+    /* ---------------------------------
+       PHOTO AREA
+    --------------------------------- */
+
     .photo-area {
       width: 100%;
       height: 100%;
@@ -429,6 +582,10 @@
         );
     }
 
+
+    /* ---------------------------------
+       EMPTY TV
+    --------------------------------- */
 
     #emptyTv {
       text-align: center;
