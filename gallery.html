@@ -38,7 +38,8 @@
        EVENT THEME PATTERNS
        ========================= */
 
-    body::before {
+    body::before,
+    body::after {
       content: "";
       position: fixed;
       top: -50px;
@@ -56,7 +57,10 @@
       overflow: hidden;
     }
 
-    /* Birthday */
+    /* =========================
+       BIRTHDAY
+       ========================= */
+
     body[data-theme="balloons-confetti"] {
       background:
         radial-gradient(circle at 10% 20%, rgba(255, 105, 180, .15), transparent 25%),
@@ -66,7 +70,8 @@
         #fff8fc;
     }
 
-    body[data-theme="balloons-confetti"]::before {
+    body[data-theme="balloons-confetti"]::before,
+    body[data-theme="balloons-confetti"]::after {
       content:
         "🎈 🎉 🎂 🎊 🎈 🎁 🎈 🎉 🎂 🎊 🎈 🎁 🎈 🎉 🎂 🎊\A"
         "🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉\A"
@@ -80,7 +85,7 @@
         "🎂 🎁 🎈 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈\A"
         "🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈\A"
         "🎁 🎈 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈\A"
-        "🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈\A"
+        "🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎁 🎉 🎂 🎈\A"
         "🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈\A"
         "🎉 🎊 🎈 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈\A"
         "🎁 🎂 🎈 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈\A"
@@ -89,7 +94,10 @@
       opacity: .20;
     }
 
-    /* Graduation */
+    /* =========================
+       GRADUATION
+       ========================= */
+
     body[data-theme="graduation"],
     body[data-theme="graduation-celebration"] {
       background:
@@ -99,7 +107,9 @@
     }
 
     body[data-theme="graduation"]::before,
-    body[data-theme="graduation-celebration"]::before {
+    body[data-theme="graduation"]::after,
+    body[data-theme="graduation-celebration"]::before,
+    body[data-theme="graduation-celebration"]::after {
       content:
         "🎓 📜 🎓 🎉 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓\A"
         "📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚\A"
@@ -122,7 +132,10 @@
       opacity: .18;
     }
 
-    /* Wedding */
+    /* =========================
+       WEDDING
+       ========================= */
+
     body[data-theme="wedding"] {
       background:
         radial-gradient(circle at 15% 20%, rgba(255, 182, 193, .15), transparent 25%),
@@ -130,7 +143,8 @@
         #fffafc;
     }
 
-    body[data-theme="wedding"]::before {
+    body[data-theme="wedding"]::before,
+    body[data-theme="wedding"]::after {
       content:
         "🌸 💍 🤍 🌿 🌸 💕 🌸 💍 🤍 🌿 🌸 💕 🌸 💍 🤍\A"
         "🤍 🌸 💕 💍 🌿 🌸 🤍 💕 🌸 💍 🌿 🌸 🤍 💕 🌸\A"
@@ -153,7 +167,10 @@
       opacity: .16;
     }
 
-    /* Baby Shower */
+    /* =========================
+       BABY SHOWER
+       ========================= */
+
     body[data-theme="baby-shower"] {
       background:
         radial-gradient(circle at 15% 20%, rgba(147, 197, 253, .16), transparent 25%),
@@ -161,7 +178,8 @@
         #f8fcff;
     }
 
-    body[data-theme="baby-shower"]::before {
+    body[data-theme="baby-shower"]::before,
+    body[data-theme="baby-shower"]::after {
       content:
         "👶 🍼 🧸 ☁️ 🍼 👶 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸\A"
         "🧸 👶 ☁️ 🍼 👶 🧸 ☁️ 🍼 👶 🧸 ☁️ 🍼 👶 🧸 ☁️\A"
@@ -184,7 +202,10 @@
       opacity: .16;
     }
 
-    /* Sports */
+    /* =========================
+       SPORTS
+       ========================= */
+
     body[data-theme="sports-event"] {
       background:
         radial-gradient(circle at 10% 20%, rgba(37, 99, 235, .14), transparent 25%),
@@ -192,7 +213,8 @@
         #f8fbff;
     }
 
-    body[data-theme="sports-event"]::before {
+    body[data-theme="sports-event"]::before,
+    body[data-theme="sports-event"]::after {
       content:
         "🏈 ⚽ 🏀 ⚾ 🏆 🏈 ⚽ 🏀 ⚾ 🏆 🏈 ⚽ 🏀 ⚾ 🏆\A"
         "🏆 🏀 🏈 ⚽ ⚾ 🏆 🏀 🏈 ⚽ ⚾ 🏆 🏀 🏈 ⚽ ⚾\A"
@@ -215,7 +237,10 @@
       opacity: .16;
     }
 
-    /* Game Night */
+    /* =========================
+       GAME NIGHT
+       ========================= */
+
     body[data-theme="game-night"] {
       background:
         radial-gradient(circle at 15% 20%, rgba(139, 92, 246, .16), transparent 25%),
@@ -223,7 +248,8 @@
         #f8f7ff;
     }
 
-    body[data-theme="game-night"]::before {
+    body[data-theme="game-night"]::before,
+    body[data-theme="game-night"]::after {
       content:
         "🎮 🕹️ 🎮 🎲 🕹️ 🎮 🃏 🎮 🕹️ 🎲 🎮 🕹️ 🎮 🃏 🎲\A"
         "🎲 🎮 🕹️ 🎮 🃏 🎲 🎮 🕹️ 🎮 🃏 🎲 🎮 🕹️ 🎮\A"
@@ -246,7 +272,10 @@
       opacity: .16;
     }
 
-    /* Anniversary */
+    /* =========================
+       ANNIVERSARY
+       ========================= */
+
     body[data-theme="anniversary"] {
       background:
         radial-gradient(circle at 15% 20%, rgba(244, 63, 94, .14), transparent 25%),
@@ -254,7 +283,8 @@
         #fff9fb;
     }
 
-    body[data-theme="anniversary"]::before {
+    body[data-theme="anniversary"]::before,
+    body[data-theme="anniversary"]::after {
       content:
         "❤️ 🎉 💕 ✨ ❤️ 🥂 💕 ❤️ 🎉 ✨ 💕 ❤️ 🥂 🎉\A"
         "✨ ❤️ 💕 🎉 ❤️ ✨ 💕 🥂 ❤️ 🎉 💕 ✨ ❤️ 🥂\A"
@@ -277,7 +307,10 @@
       opacity: .16;
     }
 
-    /* Retirement */
+    /* =========================
+       RETIREMENT
+       ========================= */
+
     body[data-theme="retirement"] {
       background:
         radial-gradient(circle at 15% 20%, rgba(34, 197, 94, .12), transparent 25%),
@@ -285,7 +318,8 @@
         #f8fff9;
     }
 
-    body[data-theme="retirement"]::before {
+    body[data-theme="retirement"]::before,
+    body[data-theme="retirement"]::after {
       content:
         "🎈 🎉 🥂 🌴 🎊 🎈 🎉 🥂 🌴 🎊 🎈 🎉 🥂 🌴 🎊\A"
         "🎊 🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂\A"
@@ -308,7 +342,10 @@
       opacity: .16;
     }
 
-    /* Other / General Celebration */
+    /* =========================
+       OTHER / GENERAL CELEBRATION
+       ========================= */
+
     body[data-theme="other"],
     body[data-theme="general-celebration"] {
       background:
@@ -319,7 +356,9 @@
     }
 
     body[data-theme="other"]::before,
-    body[data-theme="general-celebration"]::before {
+    body[data-theme="other"]::after,
+    body[data-theme="general-celebration"]::before,
+    body[data-theme="general-celebration"]::after {
       content:
         "✨ 🎉 🎈 🎊 ⭐ ✨ 🎁 🎉 ⭐ 🎈 🎊 ✨ 🎉 🎁 ⭐\A"
         "🎊 ⭐ 🎉 ✨ 🎈 🎁 ⭐ 🎊 🎉 ✨ 🎈 ⭐ 🎁 🎉 🎊\A"
@@ -339,6 +378,61 @@
         "✨ 🎁 🎊 🎉 ⭐ 🎈 ✨ 🎁 🎊 🎉 ⭐ 🎈 ✨ 🎁 🎊\A"
         "⭐ 🎉 🎈 🎊 ✨ 🎁 ⭐ 🎉 🎈 🎊 ✨ 🎁 ⭐ 🎉 🎈\A"
         "🎊 ✨ 🎁 ⭐ 🎉 🎈 🎊 ✨ 🎁 ⭐ 🎉 🎈 🎊 ✨ 🎁";
+      opacity: .15;
+    }
+
+    /* =========================
+       SECOND EMOJI LAYER
+       ========================= */
+
+    /*
+      The ::after layer is positioned slightly differently
+      so the two emoji patterns overlap and create a much
+      denser background without covering the page content.
+    */
+
+    body::after {
+      top: 10px;
+      left: 430px;
+      opacity: 0;
+      transform: scale(1.02);
+    }
+
+    body[data-theme="balloons-confetti"]::after {
+      opacity: .20;
+    }
+
+    body[data-theme="graduation"]::after,
+    body[data-theme="graduation-celebration"]::after {
+      opacity: .18;
+    }
+
+    body[data-theme="wedding"]::after {
+      opacity: .16;
+    }
+
+    body[data-theme="baby-shower"]::after {
+      opacity: .16;
+    }
+
+    body[data-theme="sports-event"]::after {
+      opacity: .16;
+    }
+
+    body[data-theme="game-night"]::after {
+      opacity: .16;
+    }
+
+    body[data-theme="anniversary"]::after {
+      opacity: .16;
+    }
+
+    body[data-theme="retirement"]::after {
+      opacity: .16;
+    }
+
+    body[data-theme="other"]::after,
+    body[data-theme="general-celebration"]::after {
       opacity: .15;
     }
 
@@ -570,15 +664,24 @@
 
     @media (max-width: 600px) {
 
-      body::before {
+      body::before,
+      body::after {
         font-size: 28px;
         line-height: 2.5;
         padding: 15px 5px;
         letter-spacing: 0;
-        top: -15px;
-        left: 100px;
         width: calc(100% + 60px);
         height: calc(100% + 30px);
+      }
+
+      body::before {
+        top: -15px;
+        left: 100px;
+      }
+
+      body::after {
+        top: 10px;
+        left: 190px;
       }
 
       .hero h1 {
