@@ -28,6 +28,7 @@ const eventsGrid =
     "eventsGrid"
   );
 
+
 function formatEventDate(dateString) {
 
   if (!dateString) {
@@ -58,6 +59,7 @@ function formatEventDate(dateString) {
   );
 }
 
+
 function escapeHtml(value) {
 
   return String(value ?? "")
@@ -67,6 +69,7 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+
 
 function isEventCompleted(event) {
 
@@ -93,6 +96,11 @@ function isEventCompleted(event) {
   return new Date() >= endDateTime;
 }
 
+
+/* =========================
+   LOG OUT
+   ========================= */
+
 logoutButton.addEventListener(
   "click",
   async () => {
@@ -104,6 +112,11 @@ logoutButton.addEventListener(
 
   }
 );
+
+
+/* =========================
+   DELETE EVENT
+   ========================= */
 
 async function deleteEvent(
   eventCode,
@@ -126,39 +139,140 @@ async function deleteEvent(
   status.className =
     "status";
 
-  const {
-    error
-  } =
-    await supabase
-      .from("events")
-      .delete()
-      .eq(
-        "code",
-        eventCode
-      )
-      .eq(
-        "owner_id",
-        userId
+  console.log(
+    "Attempting to delete event:",
+    {
+      code: eventCode,
+      name: eventName,
+      owner_id: userId
+    }
+  );
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabase
+        .from("events")
+        .delete()
+        .eq(
+          "code",
+          eventCode
+        )
+        .eq(
+          "owner_id",
+          userId
+        )
+        .select();
+
+
+    console.log(
+      "Delete response:",
+      {
+        data,
+        error
+      }
+    );
+
+
+    /* =========================
+       DATABASE ERROR
+       ========================= */
+
+    if (error) {
+
+      console.error(
+        "Delete event error:",
+        error
       );
 
-  if (error) {
+      status.textContent =
+        `Couldn't delete the event: ${error.message}`;
+
+      status.className =
+        "status error";
+
+      window.alert(
+        `The event could not be deleted.\n\n${error.message}`
+      );
+
+      return;
+    }
+
+
+    /* =========================
+       NOTHING WAS DELETED
+       ========================= */
+
+    if (
+      !data ||
+      data.length === 0
+    ) {
+
+      console.error(
+        "Delete returned zero rows."
+      );
+
+      status.textContent =
+        "The event could not be deleted. Supabase did not allow the delete.";
+
+      status.className =
+        "status error";
+
+      window.alert(
+        "The event was not deleted.\n\nThis usually means your Supabase Row Level Security policy allows you to view the event but does not allow you to delete it."
+      );
+
+      return;
+    }
+
+
+    /* =========================
+       SUCCESS
+       ========================= */
+
+    console.log(
+      "Event successfully deleted:",
+      data
+    );
+
+    status.textContent =
+      "Event deleted successfully.";
+
+    status.className =
+      "status";
+
+
+    await loadDashboard();
+
+  } catch (error) {
 
     console.error(
-      "Delete event error:",
+      "Unexpected delete error:",
       error
     );
 
     status.textContent =
-      `Couldn't delete the event: ${error.message}`;
+      `Couldn't delete the event: ${error.message || error}`;
 
     status.className =
       "status error";
 
-    return;
+    window.alert(
+      `Something went wrong while deleting the event.\n\n${error.message || error}`
+    );
+
   }
 
-  await loadDashboard();
 }
+
+
+/* =========================
+   LOAD DASHBOARD
+   ========================= */
 
 async function loadDashboard() {
 
@@ -169,6 +283,7 @@ async function loadDashboard() {
   } =
     await supabase.auth.getSession();
 
+
   if (!session) {
 
     window.location.href =
@@ -177,13 +292,16 @@ async function loadDashboard() {
     return;
   }
 
+
   const user =
     session.user;
+
 
   console.log(
     "Logged in user:",
     user
   );
+
 
   const {
     data: events,
@@ -203,6 +321,7 @@ async function loadDashboard() {
         }
       );
 
+
   if (error) {
 
     console.error(
@@ -219,9 +338,14 @@ async function loadDashboard() {
     return;
   }
 
+
   status.textContent = "";
 
-  if (!events || events.length === 0) {
+
+  if (
+    !events ||
+    events.length === 0
+  ) {
 
     eventsGrid.innerHTML =
       `
@@ -233,6 +357,7 @@ async function loadDashboard() {
     return;
   }
 
+
   eventsGrid.innerHTML =
     events
       .map(
@@ -242,6 +367,7 @@ async function loadDashboard() {
             isEventCompleted(
               event
             );
+
 
           return `
             <div class="event-card">
@@ -348,9 +474,11 @@ async function loadDashboard() {
 
             </div>
           `;
+
         }
       )
       .join("");
+
 
   document
     .querySelectorAll(
@@ -374,6 +502,8 @@ async function loadDashboard() {
 
       }
     );
+
 }
+
 
 loadDashboard();
