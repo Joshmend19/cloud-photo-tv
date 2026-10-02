@@ -20,11 +20,335 @@
       box-sizing: border-box;
     }
 
+    html,
     body {
       margin: 0;
+      min-height: 100%;
+    }
+
+    body {
       font-family: Arial, Helvetica, sans-serif;
       background: var(--light-background);
       color: var(--navy);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       EVENT THEME PATTERNS
+       ========================= */
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50px;
+      left: 0;
+      width: calc(100% + 600px);
+      height: calc(100% + 100px);
+      padding: 20px;
+      font-size: 42px;
+      line-height: 2.15;
+      letter-spacing: 3px;
+      white-space: pre;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Birthday */
+    body[data-theme="balloons-confetti"] {
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255, 105, 180, .15), transparent 25%),
+        radial-gradient(circle at 90% 15%, rgba(255, 215, 0, .15), transparent 25%),
+        radial-gradient(circle at 20% 85%, rgba(100, 149, 237, .15), transparent 25%),
+        radial-gradient(circle at 85% 80%, rgba(255, 99, 71, .15), transparent 25%),
+        #fff8fc;
+    }
+
+    body[data-theme="balloons-confetti"]::before {
+      content:
+        "🎈 🎉 🎂 🎊 🎈 🎁 🎈 🎉 🎂 🎊 🎈 🎁 🎈 🎉 🎂 🎊\A"
+        "🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉\A"
+        "🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉\A"
+        "🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊\A"
+        "🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁\A"
+        "🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎂 🎈 🎊 🎁 🎈 🎉 🎂 🎊\A"
+        "🎊 🎈 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁 🎈 🎂\A"
+        "🎈 🎁 🎂 🎉 🎊 🎈 🎁 🎂 🎉 🎈 🎊 🎁 🎂 🎉 🎈 🎊\A"
+        "🎉 🎈 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈\A"
+        "🎂 🎁 🎈 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈\A"
+        "🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈\A"
+        "🎁 🎈 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈\A"
+        "🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈\A"
+        "🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈\A"
+        "🎉 🎊 🎈 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈\A"
+        "🎁 🎂 🎈 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈\A"
+        "🎊 🎈 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈\A"
+        "🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈";
+      opacity: .20;
+    }
+
+    /* Graduation */
+    body[data-theme="graduation"],
+    body[data-theme="graduation-celebration"] {
+      background:
+        radial-gradient(circle at 10% 20%, rgba(37, 99, 235, .12), transparent 25%),
+        radial-gradient(circle at 90% 15%, rgba(200, 162, 74, .15), transparent 25%),
+        #f8fbff;
+    }
+
+    body[data-theme="graduation"]::before,
+    body[data-theme="graduation-celebration"]::before {
+      content:
+        "🎓 📜 🎓 🎉 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓\A"
+        "📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚\A"
+        "🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉\A"
+        "🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓\A"
+        "📜 🎓 📚 🎉 🎓 📜 🎓 📚 🎉 🎓 📜 🎓 📚 🎉 🎓 📜\A"
+        "🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓\A"
+        "📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚\A"
+        "🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉\A"
+        "🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓\A"
+        "📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜\A"
+        "🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓\A"
+        "📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚\A"
+        "🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉\A"
+        "🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓\A"
+        "📜 🎓 📚 🎉 🎓 📜 🎓 📚 🎉 🎓 📜 🎓 📚 🎉 🎓 📜\A"
+        "🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓 🎉 📜 🎓 📚 🎓\A"
+        "📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚\A"
+        "🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉 🎓 📚 🎓 📜 🎉";
+      opacity: .18;
+    }
+
+    /* Wedding */
+    body[data-theme="wedding"] {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 182, 193, .15), transparent 25%),
+        radial-gradient(circle at 85% 80%, rgba(200, 162, 74, .14), transparent 25%),
+        #fffafc;
+    }
+
+    body[data-theme="wedding"]::before {
+      content:
+        "🌸 💍 🤍 🌿 🌸 💕 🌸 💍 🤍 🌿 🌸 💕 🌸 💍 🤍\A"
+        "🤍 🌸 💕 💍 🌿 🌸 🤍 💕 🌸 💍 🌿 🌸 🤍 💕 🌸\A"
+        "🌿 🌸 💍 🤍 💕 🌸 🌿 💍 🤍 🌸 💕 🌿 🌸 💍 🤍\A"
+        "💕 🤍 🌸 🌿 💍 🌸 💕 🤍 🌿 🌸 💍 💕 🌸 🤍 🌿\A"
+        "🌸 💕 🤍 💍 🌿 🌸 💕 🤍 🌸 💍 🌿 🌸 💕 🤍 🌿\A"
+        "💍 🌸 🌿 🤍 💕 🌸 💍 🌿 🤍 🌸 💕 💍 🌸 🌿 🤍\A"
+        "🤍 💕 🌸 💍 🌿 🌸 🤍 💕 💍 🌸 🌿 🤍 💕 🌸 💍\A"
+        "🌸 🌿 💍 💕 🤍 🌸 🌿 💍 💕 🤍 🌸 🌿 💍 💕 🌸\A"
+        "💕 🌸 🤍 🌿 💍 🌸 💕 🤍 🌿 💍 🌸 💕 🤍 🌿 🌸\A"
+        "🌿 💍 🌸 🤍 💕 🌸 🌿 💍 🤍 🌸 💕 🌿 💍 🌸 🤍\A"
+        "🌸 💕 💍 🌿 🤍 🌸 💕 💍 🌿 🌸 🤍 💕 🌸 💍 🌿\A"
+        "🤍 🌸 🌿 💍 💕 🌸 🤍 🌿 💍 🌸 💕 🤍 🌸 🌿 💍\A"
+        "💍 💕 🌸 🤍 🌿 🌸 💍 💕 🤍 🌸 🌿 💍 💕 🌸 🤍\A"
+        "🌸 🤍 💕 🌿 💍 🌸 🤍 💕 🌿 🌸 💍 🤍 💕 🌸 🌿\A"
+        "🌿 🌸 💍 💕 🤍 🌸 🌿 💍 💕 🤍 🌸 🌿 💍 💕 🌸\A"
+        "💕 💍 🌸 🤍 🌿 🌸 💕 💍 🤍 🌸 🌿 💕 💍 🌸 🤍\A"
+        "🌸 🌿 💕 💍 🤍 🌸 🌿 💕 💍 🤍 🌸 🌿 💕 🌸 💍\A"
+        "🤍 💍 🌸 💕 🌿 🌸 🤍 💍 💕 🌿 🌸 🤍 💍 🌸 💕";
+      opacity: .16;
+    }
+
+    /* Baby Shower */
+    body[data-theme="baby-shower"] {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(147, 197, 253, .16), transparent 25%),
+        radial-gradient(circle at 85% 75%, rgba(251, 191, 36, .12), transparent 25%),
+        #f8fcff;
+    }
+
+    body[data-theme="baby-shower"]::before {
+      content:
+        "👶 🍼 🧸 ☁️ 🍼 👶 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸\A"
+        "🧸 👶 ☁️ 🍼 👶 🧸 ☁️ 🍼 👶 🧸 ☁️ 🍼 👶 🧸 ☁️\A"
+        "🍼 ☁️ 👶 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 👶 🍼 ☁️\A"
+        "☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼\A"
+        "👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸\A"
+        "🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶\A"
+        "🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️\A"
+        "☁️ 🍼 🧸 👶 ☁️ 🍼 🧸 👶 ☁️ 🍼 🧸 👶 ☁️ 🍼 🧸\A"
+        "👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼\A"
+        "🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️\A"
+        "🍼 ☁️ 🧸 👶 🍼 ☁️ 🧸 👶 🍼 ☁️ 🧸 👶 🍼 ☁️ 🧸\A"
+        "👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸 ☁️ 👶 🍼 🧸\A"
+        "☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸 🍼 ☁️ 👶 🧸\A"
+        "🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶\A"
+        "🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️\A"
+        "☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼 👶 ☁️ 🧸 🍼\A"
+        "👶 ☁️ 🍼 🧸 👶 ☁️ 🍼 🧸 👶 ☁️ 🍼 🧸 👶 ☁️ 🍼\A"
+        "🧸 👶 🍼 ☁️ 🧸 👶 🍼 ☁️ 🧸 👶 🍼 ☁️ 🧸 👶 🍼";
+      opacity: .16;
+    }
+
+    /* Sports */
+    body[data-theme="sports-event"] {
+      background:
+        radial-gradient(circle at 10% 20%, rgba(37, 99, 235, .14), transparent 25%),
+        radial-gradient(circle at 90% 80%, rgba(220, 38, 38, .12), transparent 25%),
+        #f8fbff;
+    }
+
+    body[data-theme="sports-event"]::before {
+      content:
+        "🏈 ⚽ 🏀 ⚾ 🏆 🏈 ⚽ 🏀 ⚾ 🏆 🏈 ⚽ 🏀 ⚾ 🏆\A"
+        "🏆 🏀 🏈 ⚽ ⚾ 🏆 🏀 🏈 ⚽ ⚾ 🏆 🏀 🏈 ⚽ ⚾\A"
+        "⚽ 🏈 🏆 🏀 ⚾ ⚽ 🏈 🏆 🏀 ⚾ ⚽ 🏈 🏆 🏀 ⚾\A"
+        "🏀 ⚾ ⚽ 🏆 🏈 🏀 ⚾ ⚽ 🏆 🏈 🏀 ⚾ ⚽ 🏆 🏈\A"
+        "🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽ ⚾ 🏀\A"
+        "⚾ 🏀 🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽\A"
+        "🏆 ⚽ 🏀 ⚾ 🏈 🏆 ⚽ 🏀 ⚾ 🏈 🏆 ⚽ 🏀 ⚾ 🏈\A"
+        "🏈 ⚾ 🏆 🏀 ⚽ 🏈 ⚾ 🏆 🏀 ⚽ 🏈 ⚾ 🏆 🏀 ⚽\A"
+        "⚽ 🏀 ⚾ 🏈 🏆 ⚽ 🏀 ⚾ 🏈 🏆 ⚽ 🏀 ⚾ 🏈 🏆\A"
+        "🏀 🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽ ⚾ 🏀 🏈 🏆 ⚽ ⚾\A"
+        "⚾ 🏆 🏈 🏀 ⚽ ⚾ 🏆 🏈 🏀 ⚽ ⚾ 🏆 🏈 🏀 ⚽\A"
+        "🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆 ⚾\A"
+        "🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾ 🏈\A"
+        "⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀\A"
+        "🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽\A"
+        "⚾ 🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆 ⚾ 🏈 ⚽ 🏀 🏆\A"
+        "🏈 🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾ 🏈 🏆 🏀 ⚽ ⚾\A"
+        "⚽ 🏀 🏈 ⚾ 🏆 ⚽ 🏀 🏈 ⚾ 🏆 ⚽ 🏀 🏈 ⚾ 🏆";
+      opacity: .16;
+    }
+
+    /* Game Night */
+    body[data-theme="game-night"] {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(139, 92, 246, .16), transparent 25%),
+        radial-gradient(circle at 85% 75%, rgba(37, 99, 235, .14), transparent 25%),
+        #f8f7ff;
+    }
+
+    body[data-theme="game-night"]::before {
+      content:
+        "🎮 🕹️ 🎮 🎲 🕹️ 🎮 🃏 🎮 🕹️ 🎲 🎮 🕹️ 🎮 🃏 🎲\A"
+        "🎲 🎮 🕹️ 🎮 🃏 🎲 🎮 🕹️ 🎮 🃏 🎲 🎮 🕹️ 🎮\A"
+        "🕹️ 🎮 🎲 🃏 🎮 🕹️ 🎲 🎮 🃏 🎮 🕹️ 🎲 🎮 🃏\A"
+        "🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏\A"
+        "🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️\A"
+        "🃏 🎮 🕹️ 🎲 🃏 🎮 🕹️ 🎲 🃏 🎮 🕹️ 🎲 🃏 🎮\A"
+        "🎮 🎲 🃏 🕹️ 🎮 🎲 🃏 🕹️ 🎮 🎲 🃏 🕹️ 🎮 🎲\A"
+        "🕹️ 🃏 🎮 🎲 🕹️ 🃏 🎮 🎲 🕹️ 🃏 🎮 🎲 🕹️ 🃏\A"
+        "🎲 🎮 🕹️ 🃏 🎲 🎮 🕹️ 🃏 🎲 🎮 🕹️ 🃏 🎲 🎮\A"
+        "🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️\A"
+        "🎮 🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏\A"
+        "🕹️ 🎮 🎲 🃏 🕹️ 🎮 🎲 🃏 🕹️ 🎮 🎲 🃏 🕹️ 🎮\A"
+        "🎲 🃏 🎮 🕹️ 🎲 🃏 🎮 🕹️ 🎲 🃏 🎮 🕹️ 🎲 🃏\A"
+        "🎮 🕹️ 🃏 🎲 🎮 🕹️ 🃏 🎲 🎮 🕹️ 🃏 🎲 🎮 🕹️\A"
+        "🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏 🎲 🕹️ 🎮 🃏 🎲\A"
+        "🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏\A"
+        "🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲\A"
+        "🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮 🃏 🕹️ 🎲 🎮";
+      opacity: .16;
+    }
+
+    /* Anniversary */
+    body[data-theme="anniversary"] {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(244, 63, 94, .14), transparent 25%),
+        radial-gradient(circle at 85% 75%, rgba(200, 162, 74, .14), transparent 25%),
+        #fff9fb;
+    }
+
+    body[data-theme="anniversary"]::before {
+      content:
+        "❤️ 🎉 💕 ✨ ❤️ 🥂 💕 ❤️ 🎉 ✨ 💕 ❤️ 🥂 🎉\A"
+        "✨ ❤️ 💕 🎉 ❤️ ✨ 💕 🥂 ❤️ 🎉 💕 ✨ ❤️ 🥂\A"
+        "💕 ❤️ 🎉 ✨ 🥂 💕 ❤️ 🎉 ✨ ❤️ 💕 🥂 🎉\A"
+        "🎉 💕 ❤️ 🥂 ✨ 🎉 💕 ❤️ 🥂 ✨ 🎉 💕 ❤️ 🥂\A"
+        "❤️ ✨ 💕 🎉 🥂 ❤️ ✨ 💕 🎉 🥂 ❤️ ✨ 💕 🎉\A"
+        "🥂 ❤️ 🎉 💕 ✨ 🥂 ❤️ 🎉 💕 ✨ 🥂 ❤️ 🎉 💕\A"
+        "💕 🎉 ❤️ ✨ 🥂 💕 🎉 ❤️ ✨ 🥂 💕 🎉 ❤️ ✨\A"
+        "❤️ 💕 🥂 🎉 ✨ ❤️ 💕 🥂 🎉 ✨ ❤️ 💕 🥂 🎉\A"
+        "✨ 🎉 💕 ❤️ 🥂 ✨ 🎉 💕 ❤️ 🥂 ✨ 🎉 💕 ❤️\A"
+        "💕 🥂 ❤️ 🎉 ✨ 💕 🥂 ❤️ 🎉 ✨ 💕 🥂 ❤️ 🎉\A"
+        "🎉 ❤️ ✨ 💕 🥂 🎉 ❤️ ✨ 💕 🥂 🎉 ❤️ ✨ 💕\A"
+        "❤️ 🥂 💕 🎉 ✨ ❤️ 🥂 💕 🎉 ✨ ❤️ 🥂 💕 🎉\A"
+        "💕 ✨ ❤️ 🥂 🎉 💕 ✨ ❤️ 🥂 🎉 💕 ✨ ❤️ 🥂\A"
+        "🥂 🎉 💕 ❤️ ✨ 🥂 🎉 💕 ❤️ ✨ 🥂 🎉 💕 ❤️\A"
+        "❤️ 💕 🎉 ✨ 🥂 ❤️ 💕 🎉 ✨ 🥂 ❤️ 💕 🎉 ✨\A"
+        "✨ ❤️ 🥂 💕 🎉 ✨ ❤️ 🥂 💕 🎉 ✨ ❤️ 🥂 💕\A"
+        "🎉 💕 ✨ ❤️ 🥂 🎉 💕 ✨ ❤️ 🥂 🎉 💕 ✨ ❤️\A"
+        "💕 ❤️ 🎉 🥂 ✨ 💕 ❤️ 🎉 🥂 ✨ 💕 ❤️ 🎉 🥂";
+      opacity: .16;
+    }
+
+    /* Retirement */
+    body[data-theme="retirement"] {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(34, 197, 94, .12), transparent 25%),
+        radial-gradient(circle at 85% 75%, rgba(200, 162, 74, .14), transparent 25%),
+        #f8fff9;
+    }
+
+    body[data-theme="retirement"]::before {
+      content:
+        "🎈 🎉 🥂 🌴 🎊 🎈 🎉 🥂 🌴 🎊 🎈 🎉 🥂 🌴 🎊\A"
+        "🎊 🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂\A"
+        "🥂 🎉 🎈 🎊 🌴 🥂 🎉 🎈 🎊 🌴 🥂 🎉 🎈 🎊 🌴\A"
+        "🌴 🎊 🥂 🎈 🎉 🌴 🎊 🥂 🎈 🎉 🌴 🎊 🥂 🎈 🎉\A"
+        "🎉 🥂 🎊 🌴 🎈 🎉 🥂 🎊 🌴 🎈 🎉 🥂 🎊 🌴 🎈\A"
+        "🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂 🎊\A"
+        "🎊 🎈 🥂 🎉 🌴 🎊 🎈 🥂 🎉 🌴 🎊 🎈 🥂 🎉 🌴\A"
+        "🥂 🎉 🌴 🎊 🎈 🥂 🎉 🌴 🎊 🎈 🥂 🎉 🌴 🎊 🎈\A"
+        "🌴 🎈 🎊 🥂 🎉 🌴 🎈 🎊 🥂 🎉 🌴 🎈 🎊 🥂 🎉\A"
+        "🎉 🎊 🎈 🌴 🥂 🎉 🎊 🎈 🌴 🥂 🎉 🎊 🎈 🌴 🥂\A"
+        "🎈 🥂 🌴 🎉 🎊 🎈 🥂 🌴 🎉 🎊 🎈 🥂 🌴 🎉 🎊\A"
+        "🎊 🌴 🎉 🎈 🥂 🎊 🌴 🎉 🎈 🥂 🎊 🌴 🎉 🎈 🥂\A"
+        "🥂 🎈 🎊 🌴 🎉 🥂 🎈 🎊 🌴 🎉 🥂 🎈 🎊 🌴 🎉\A"
+        "🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂 🎊 🎈 🌴 🎉 🥂 🎊 🎈\A"
+        "🎉 🎈 🌴 🥂 🎊 🎉 🎈 🌴 🥂 🎊 🎉 🎈 🌴 🥂 🎊\A"
+        "🎊 🥂 🎉 🌴 🎈 🎊 🥂 🎉 🌴 🎈 🎊 🥂 🎉 🌴 🎈\A"
+        "🎈 🎉 🎊 🥂 🌴 🎈 🎉 🎊 🥂 🌴 🎈 🎉 🎊 🥂 🌴\A"
+        "🥂 🌴 🎈 🎊 🎉 🥂 🌴 🎈 🎊 🎉 🥂 🌴 🎈 🎊 🎉";
+      opacity: .16;
+    }
+
+    /* Other / General Celebration */
+    body[data-theme="other"],
+    body[data-theme="general-celebration"] {
+      background:
+        radial-gradient(circle at 10% 20%, rgba(37, 99, 235, .12), transparent 25%),
+        radial-gradient(circle at 90% 20%, rgba(244, 63, 94, .10), transparent 25%),
+        radial-gradient(circle at 50% 90%, rgba(200, 162, 74, .12), transparent 25%),
+        #fbfcff;
+    }
+
+    body[data-theme="other"]::before,
+    body[data-theme="general-celebration"]::before {
+      content:
+        "✨ 🎉 🎈 🎊 ⭐ ✨ 🎁 🎉 ⭐ 🎈 🎊 ✨ 🎉 🎁 ⭐\A"
+        "🎊 ⭐ 🎉 ✨ 🎈 🎁 ⭐ 🎊 🎉 ✨ 🎈 ⭐ 🎁 🎉 🎊\A"
+        "🎈 ✨ 🎊 ⭐ 🎉 🎁 🎈 ✨ ⭐ 🎊 🎉 🎁 🎈 ⭐ 🎉\A"
+        "🎉 🎁 ⭐ 🎈 ✨ 🎊 🎉 ⭐ 🎈 🎁 ✨ 🎊 ⭐ 🎉 🎈\A"
+        "⭐ 🎊 🎈 🎉 🎁 ✨ ⭐ 🎊 🎈 🎉 🎁 ✨ ⭐ 🎊 🎈\A"
+        "🎁 🎉 ✨ ⭐ 🎊 🎈 🎁 🎉 ⭐ ✨ 🎊 🎈 🎁 ⭐ 🎉\A"
+        "✨ ⭐ 🎈 🎊 🎉 🎁 ✨ ⭐ 🎈 🎊 🎉 🎁 ✨ ⭐ 🎈\A"
+        "🎊 🎉 🎁 ⭐ ✨ 🎈 🎊 🎉 ⭐ 🎁 ✨ 🎈 🎊 🎉 ⭐\A"
+        "🎈 🎁 ✨ 🎉 ⭐ 🎊 🎈 🎁 ✨ 🎉 ⭐ 🎊 🎈 🎁 ✨\A"
+        "🎉 ⭐ 🎊 🎈 🎁 ✨ 🎉 ⭐ 🎊 🎈 🎁 ✨ 🎉 ⭐ 🎊\A"
+        "⭐ ✨ 🎁 🎉 🎈 🎊 ⭐ ✨ 🎁 🎉 🎈 🎊 ⭐ ✨ 🎁\A"
+        "🎊 🎈 ⭐ 🎉 ✨ 🎁 🎊 🎈 ⭐ 🎉 ✨ 🎁 🎊 🎈 ⭐\A"
+        "🎁 ✨ 🎉 ⭐ 🎊 🎈 🎁 ✨ 🎉 ⭐ 🎊 🎈 🎁 ✨ 🎉\A"
+        "🎈 🎊 🎉 🎁 ⭐ ✨ 🎈 🎊 🎉 🎁 ⭐ ✨ 🎈 🎊 🎉\A"
+        "🎉 ⭐ 🎈 ✨ 🎊 🎁 🎉 ⭐ 🎈 ✨ 🎊 🎁 🎉 ⭐ 🎈\A"
+        "✨ 🎁 🎊 🎉 ⭐ 🎈 ✨ 🎁 🎊 🎉 ⭐ 🎈 ✨ 🎁 🎊\A"
+        "⭐ 🎉 🎈 🎊 ✨ 🎁 ⭐ 🎉 🎈 🎊 ✨ 🎁 ⭐ 🎉 🎈\A"
+        "🎊 ✨ 🎁 ⭐ 🎉 🎈 🎊 ✨ 🎁 ⭐ 🎉 🎈 🎊 ✨ 🎁";
+      opacity: .15;
+    }
+
+    /* Keep page content above the decorative pattern */
+
+    .top-bar,
+    nav,
+    main {
+      position: relative;
+      z-index: 2;
     }
 
     .top-bar {
@@ -238,6 +562,17 @@
 
     @media (max-width: 600px) {
 
+      body::before {
+        font-size: 28px;
+        line-height: 2.5;
+        padding: 15px 5px;
+        letter-spacing: 0;
+        top: -15px;
+        left: -20px;
+        width: calc(100% + 40px);
+        height: calc(100% + 30px);
+      }
+
       .hero h1 {
         font-size: 32px;
       }
@@ -395,9 +730,19 @@
           );
 
           document.documentElement.style.setProperty(
+            "--secondary-color",
+            event.secondary_color || "#fffdf8"
+          );
+
+          document.documentElement.style.setProperty(
             "--accent-color",
             event.accent_color || "#c8a24a"
           );
+
+          if (event.theme) {
+            document.body.dataset.theme =
+              event.theme;
+          }
 
         }
 
