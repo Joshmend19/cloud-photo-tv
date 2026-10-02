@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -10,6 +11,7 @@
   <title>Create Your Event | Captured Moments</title>
 
   <style>
+
     :root {
       --blue: #2563eb;
       --purple: #7c3aed;
@@ -24,12 +26,15 @@
       --gold: #c8a24a;
     }
 
+
     * {
       box-sizing: border-box;
     }
 
+
     body {
       margin: 0;
+
       font-family:
         Inter,
         system-ui,
@@ -37,42 +42,67 @@
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
+
       background: var(--warm);
+
       color: var(--navy);
     }
+
 
     a {
       color: inherit;
       text-decoration: none;
     }
 
+
     .navbar {
       height: 76px;
+
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
+
       padding: 0 6%;
+
       background: white;
-      border-bottom: 1px solid #eef2f7;
+
+      border-bottom:
+        1px solid
+        #eef2f7;
     }
+
 
     .logo {
       display: flex;
+
       align-items: center;
+
       gap: 10px;
+
       font-size: 1.2rem;
+
       font-weight: 800;
     }
+
 
     .logo-mark {
       width: 38px;
       height: 38px;
+
       border-radius: 11px;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       color: white;
+
       font-size: 1.2rem;
+
       background:
         linear-gradient(
           135deg,
@@ -81,42 +111,64 @@
         );
     }
 
+
     .logo span {
       color: var(--blue);
     }
 
+
     .back-link {
       color: var(--muted);
+
       font-weight: 600;
+
       font-size: 0.95rem;
     }
+
 
     .back-link:hover {
       color: var(--blue);
     }
 
+
     .page {
       max-width: 1200px;
+
       margin: 0 auto;
+
       padding: 55px 20px 80px;
     }
 
+
     .page-header {
       text-align: center;
+
       margin-bottom: 38px;
     }
 
+
     .page-header h1 {
       margin: 0 0 12px;
-      font-size: clamp(2rem, 5vw, 3.2rem);
+
+      font-size:
+        clamp(
+          2rem,
+          5vw,
+          3.2rem
+        );
+
       line-height: 1.05;
     }
 
+
     .page-header p {
       margin: 0;
+
       color: var(--muted);
+
       font-size: 1.05rem;
     }
+
 
     /* PACKAGE SELECTION */
 
@@ -124,170 +176,276 @@
       margin-bottom: 40px;
     }
 
+
     .section-title {
       text-align: center;
+
       margin-bottom: 22px;
     }
 
+
     .section-title h2 {
       margin: 0 0 7px;
+
       font-size: 1.6rem;
     }
 
+
     .section-title p {
       margin: 0;
+
       color: var(--muted);
     }
+
 
     .package-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 18px;
     }
 
+
     .package-card {
       position: relative;
+
       padding: 28px;
-      border: 2px solid var(--border);
+
+      border:
+        2px solid
+        var(--border);
+
       border-radius: 22px;
+
       background: white;
+
       transition: 0.2s ease;
     }
 
+
     .package-card:hover {
       border-color: #cbd5e1;
-      transform: translateY(-2px);
+
+      transform:
+        translateY(-2px);
     }
+
 
     .package-card.plus {
       border-color: var(--purple);
+
       box-shadow:
-        0 15px 40px rgba(124, 58, 237, 0.12);
+        0 15px 40px
+        rgba(
+          124,
+          58,
+          237,
+          0.12
+        );
     }
+
 
     .package-card.business {
       border-color: var(--gold);
+
       box-shadow:
-        0 15px 40px rgba(200, 162, 74, 0.14);
+        0 15px 40px
+        rgba(
+          200,
+          162,
+          74,
+          0.14
+        );
     }
+
 
     .popular {
       position: absolute;
+
       top: -13px;
       right: 20px;
+
       padding: 6px 12px;
+
       border-radius: 999px;
+
       background: var(--purple);
+
       color: white;
+
       font-size: 0.75rem;
+
       font-weight: 800;
     }
+
 
     .business-badge {
       position: absolute;
+
       top: -13px;
       right: 20px;
+
       padding: 6px 12px;
+
       border-radius: 999px;
+
       background: var(--gold);
+
       color: white;
+
       font-size: 0.75rem;
+
       font-weight: 800;
     }
+
 
     .package-card h3 {
       margin: 0 0 8px;
+
       font-size: 1.35rem;
     }
 
+
     .price {
       margin-bottom: 20px;
+
       font-size: 2rem;
+
       font-weight: 800;
     }
+
 
     .price span {
       color: var(--muted);
+
       font-size: 0.9rem;
+
       font-weight: 600;
     }
 
+
     .package-card ul {
       margin: 0 0 22px;
+
       padding: 0;
+
       list-style: none;
     }
 
+
     .package-card li {
       margin: 10px 0;
+
       color: #475569;
+
       font-size: 0.9rem;
     }
 
+
     .package-card li::before {
       content: "✓";
+
       margin-right: 8px;
+
       color: var(--green);
+
       font-weight: 800;
     }
 
+
     .package-button {
       width: 100%;
+
       border: 0;
+
       border-radius: 12px;
+
       padding: 13px 18px;
+
       font-size: 1rem;
+
       font-weight: 800;
+
       cursor: pointer;
+
       background: var(--blue);
+
       color: white;
     }
+
 
     .package-card.plus .package-button {
       background: var(--purple);
     }
 
+
     .package-card.business .package-button {
       background: var(--gold);
     }
+
 
     /* SELECTED PACKAGE */
 
     .selected-package {
       display: none;
+
       align-items: center;
+
       justify-content: space-between;
+
       gap: 15px;
+
       margin-bottom: 30px;
+
       padding: 18px 20px;
+
       border-radius: 16px;
+
       background: #eef4ff;
-      border: 1px solid #dbe7ff;
+
+      border:
+        1px solid
+        #dbe7ff;
     }
+
 
     .selected-package.visible {
       display: flex;
     }
 
+
     .selected-package strong {
       display: block;
+
       margin-bottom: 3px;
     }
+
 
     .selected-package small {
       color: var(--muted);
     }
 
+
     .change-package {
       border: 0;
+
       background: white;
+
       color: var(--blue);
+
       font-weight: 700;
+
       padding: 9px 13px;
+
       border-radius: 9px;
+
       cursor: pointer;
+
       white-space: nowrap;
     }
+
 
     /* FORM */
 
@@ -295,218 +453,369 @@
       display: none;
     }
 
+
     .setup-section.visible {
       display: block;
     }
 
+
     .form-card {
       background: white;
-      border: 1px solid var(--border);
+
+      border:
+        1px solid
+        var(--border);
+
       border-radius: 24px;
+
       padding: 32px;
+
       box-shadow:
-        0 15px 45px rgba(15, 23, 42, 0.05);
+        0 15px 45px
+        rgba(
+          15,
+          23,
+          42,
+          0.05
+        );
+
       margin-bottom: 25px;
     }
+
 
     .form-section {
       margin-bottom: 34px;
     }
 
+
     .form-section:last-child {
       margin-bottom: 0;
     }
 
+
     .form-section h2 {
       margin: 0 0 7px;
+
       font-size: 1.35rem;
     }
 
+
     .section-description {
       margin: 0 0 20px;
+
       color: var(--muted);
+
       font-size: 0.95rem;
     }
 
+
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
       gap: 18px;
     }
 
+
     .form-group {
       display: flex;
+
       flex-direction: column;
+
       gap: 7px;
     }
+
 
     .form-group.full {
       grid-column: 1 / -1;
     }
 
+
     label {
       font-weight: 700;
+
       font-size: 0.9rem;
     }
+
 
     input[type="text"],
     input[type="date"],
     input[type="time"],
     input[type="file"] {
       width: 100%;
-      border: 1px solid #dbe2ea;
+
+      border:
+        1px solid
+        #dbe2ea;
+
       border-radius: 11px;
+
       padding: 12px 13px;
+
       font: inherit;
+
       background: white;
+
       color: var(--navy);
     }
 
+
     select {
       width: 100%;
-      border: 1px solid #dbe2ea;
+
+      border:
+        1px solid
+        #dbe2ea;
+
       border-radius: 11px;
+
       padding: 12px 13px;
+
       font: inherit;
+
       background: white;
+
       color: var(--navy);
     }
+
 
     input:focus,
     select:focus {
       outline: none;
+
       border-color: var(--blue);
+
       box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.1);
+        0 0 0 3px
+        rgba(
+          37,
+          99,
+          235,
+          0.1
+        );
     }
+
 
     /* TV OPTIONS */
 
     .tv-options {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
       gap: 18px;
     }
+
 
     .tv-option {
       position: relative;
     }
 
+
     .tv-option input {
       position: absolute;
+
       opacity: 0;
+
       pointer-events: none;
     }
 
+
     .tv-option label {
       display: flex;
+
       align-items: flex-start;
+
       gap: 18px;
+
       min-height: 150px;
+
       padding: 22px;
-      border: 2px solid var(--border);
+
+      border:
+        2px solid
+        var(--border);
+
       border-radius: 18px;
+
       background: white;
+
       cursor: pointer;
+
       transition: 0.2s ease;
     }
 
+
     .tv-option label:hover {
       border-color: #cbd5e1;
-      transform: translateY(-2px);
+
+      transform:
+        translateY(-2px);
+
       box-shadow:
-        0 8px 20px rgba(15, 23, 42, 0.06);
+        0 8px 20px
+        rgba(
+          15,
+          23,
+          42,
+          0.06
+        );
     }
+
 
     .tv-option input:checked + label {
       border-color: var(--blue);
+
       background: #f4f7ff;
+
       box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.08),
-        0 10px 25px rgba(37, 99, 235, 0.08);
+        0 0 0 3px
+        rgba(
+          37,
+          99,
+          235,
+          0.08
+        ),
+        0 10px 25px
+        rgba(
+          37,
+          99,
+          235,
+          0.08
+        );
     }
+
 
     .tv-icon {
       width: 58px;
       height: 58px;
+
       min-width: 58px;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       border-radius: 15px;
+
       background: #eef4ff;
+
       font-size: 1.9rem;
     }
 
+
     .tv-content {
       display: flex;
+
       flex-direction: column;
+
       gap: 7px;
     }
 
+
     .tv-option strong {
       display: block;
+
       font-size: 1.05rem;
     }
 
+
     .tv-option span {
       display: block;
+
       color: var(--muted);
+
       font-size: 0.9rem;
+
       line-height: 1.5;
+
       font-weight: 500;
     }
 
+
     .tv-option small {
       display: block;
+
       margin-top: 3px;
+
       color: var(--blue);
+
       font-size: 0.82rem;
+
       font-weight: 800;
     }
+
 
     /* THEME OPTIONS */
 
     .option-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
       gap: 12px;
     }
+
 
     .option-card {
       position: relative;
     }
 
+
     .option-card input {
       position: absolute;
+
       opacity: 0;
+
       pointer-events: none;
     }
 
+
     .option-card label {
       display: block;
+
       padding: 15px;
-      border: 2px solid var(--border);
+
+      border:
+        2px solid
+        var(--border);
+
       border-radius: 13px;
+
       cursor: pointer;
+
       text-align: center;
+
       transition: 0.2s ease;
     }
+
 
     .option-card label:hover {
       border-color: #cbd5e1;
     }
 
+
     .option-card input:checked + label {
       border-color: var(--blue);
+
       background: #f4f7ff;
     }
 
+
     .theme-preview {
       height: 55px;
+
       border-radius: 9px;
+
       margin-bottom: 9px;
     }
+
 
     .classic {
       background:
@@ -517,6 +826,7 @@
         );
     }
 
+
     .elegant {
       background:
         linear-gradient(
@@ -525,6 +835,7 @@
           #c8a24a
         );
     }
+
 
     .celebration {
       background:
@@ -535,6 +846,7 @@
         );
     }
 
+
     .modern {
       background:
         linear-gradient(
@@ -544,71 +856,109 @@
         );
     }
 
+
     /* COLORS */
 
     .color-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 18px;
     }
 
+
     .color-input {
       display: flex;
+
       align-items: center;
+
       gap: 10px;
     }
+
 
     .color-input input[type="color"] {
       width: 55px;
       height: 45px;
+
       padding: 3px;
-      border: 1px solid #dbe2ea;
+
+      border:
+        1px solid
+        #dbe2ea;
+
       border-radius: 10px;
+
       background: white;
+
       cursor: pointer;
     }
+
 
     /* BACKGROUNDS */
 
     .background-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
       gap: 12px;
     }
+
 
     .background-option {
       position: relative;
     }
 
+
     .background-option input {
       position: absolute;
+
       opacity: 0;
+
       pointer-events: none;
     }
 
+
     .background-option label {
       display: block;
-      border: 2px solid var(--border);
+
+      border:
+        2px solid
+        var(--border);
+
       border-radius: 13px;
+
       padding: 9px;
+
       cursor: pointer;
+
       transition: 0.2s ease;
     }
 
+
     .background-option input:checked + label {
       border-color: var(--blue);
+
       background: #f4f7ff;
     }
 
+
     .background-preview {
       height: 75px;
+
       border-radius: 8px;
+
       margin-bottom: 8px;
     }
+
 
     .background-classic {
       background: #fffaf8;
     }
+
 
     .background-soft {
       background:
@@ -618,6 +968,7 @@
           #f8f2ff
         );
     }
+
 
     .background-celebration {
       background:
@@ -634,104 +985,154 @@
         #fff7ed;
     }
 
+
     .background-minimal {
       background: #ffffff;
-      border: 1px solid #e2e8f0;
+
+      border:
+        1px solid
+        #e2e8f0;
     }
+
 
     /* GUESTBOOK + RSVP */
 
     .guestbook-option,
     .rsvp-option {
       display: flex;
+
       align-items: flex-start;
+
       gap: 15px;
+
       padding: 20px;
-      border: 2px solid var(--border);
+
+      border:
+        2px solid
+        var(--border);
+
       border-radius: 16px;
+
       background: white;
+
       transition: 0.2s ease;
     }
+
 
     .guestbook-option:hover,
     .rsvp-option:hover {
       border-color: #cbd5e1;
     }
 
+
     .guestbook-option input,
     .rsvp-option input {
       width: 20px;
       height: 20px;
+
       margin-top: 3px;
+
       cursor: pointer;
+
       flex-shrink: 0;
     }
+
 
     .guestbook-option input {
       accent-color: var(--purple);
     }
 
+
     .rsvp-option input {
       accent-color: var(--gold);
     }
 
+
     .guestbook-option label,
     .rsvp-option label {
       cursor: pointer;
+
       display: block;
+
       flex: 1;
     }
+
 
     .guestbook-icon,
     .rsvp-icon {
       font-size: 1.7rem;
+
       margin-bottom: 7px;
     }
+
 
     .guestbook-option strong,
     .rsvp-option strong {
       display: block;
+
       margin-bottom: 5px;
+
       font-size: 1rem;
     }
+
 
     .guestbook-option span,
     .rsvp-option span {
       display: block;
+
       color: var(--muted);
+
       font-size: 0.88rem;
+
       line-height: 1.5;
+
       font-weight: 500;
     }
 
+
     .rsvp-included {
       display: inline-block;
+
       margin-top: 8px;
+
       color: var(--gold) !important;
+
       font-size: 0.8rem !important;
+
       font-weight: 800 !important;
     }
+
 
     /* LOCKED */
 
     .locked-section {
       position: relative;
+
       opacity: 0.62;
     }
 
+
     .locked-section::after {
-      content: "Available with Captured Moments Plus";
+      content:
+        "Available with Captured Moments Plus";
+
       display: block;
+
       margin-top: 12px;
+
       color: var(--purple);
+
       font-size: 0.85rem;
+
       font-weight: 800;
     }
+
 
     .locked-section input,
     .locked-section label {
       cursor: not-allowed;
     }
+
 
     /* RSVP LOCKED */
 
@@ -739,24 +1140,34 @@
       opacity: 0.62;
     }
 
+
     .rsvp-locked input,
     .rsvp-locked label {
       cursor: not-allowed;
     }
 
+
     .rsvp-locked::after {
-      content: "Available with Captured Moments Business";
+      content:
+        "Available with Captured Moments Business";
+
       display: block;
+
       margin-top: 12px;
+
       color: var(--gold);
+
       font-size: 0.85rem;
+
       font-weight: 800;
     }
+
 
     /* BUSINESS INCLUDED */
 
     .business-included {
       border-color: var(--gold);
+
       background:
         linear-gradient(
           135deg,
@@ -765,60 +1176,179 @@
         );
     }
 
+
     .business-included input {
       accent-color: var(--gold);
     }
+
 
     /* BUTTON */
 
     .create-area {
       text-align: center;
+
       padding-top: 5px;
     }
 
+
     #createBtn {
       width: 100%;
+
       border: 0;
+
       border-radius: 14px;
+
       padding: 16px 22px;
+
       font-size: 1.05rem;
+
       font-weight: 800;
+
       color: white;
+
       background:
         linear-gradient(
           135deg,
           var(--blue),
           var(--purple)
         );
+
       cursor: pointer;
+
       box-shadow:
-        0 12px 25px rgba(37, 99, 235, 0.2);
+        0 12px 25px
+        rgba(
+          37,
+          99,
+          235,
+          0.2
+        );
+
       transition: 0.2s ease;
     }
 
+
     #createBtn:hover:not(:disabled) {
-      transform: translateY(-1px);
+      transform:
+        translateY(-1px);
+
       box-shadow:
-        0 15px 30px rgba(37, 99, 235, 0.25);
+        0 15px 30px
+        rgba(
+          37,
+          99,
+          235,
+          0.25
+        );
     }
+
 
     #createBtn:disabled {
       opacity: 0.6;
+
       cursor: not-allowed;
     }
 
+
     #status {
       margin-top: 13px;
+
       color: #dc2626;
+
       font-weight: 600;
+
       min-height: 20px;
     }
 
+
     .secure-note {
       margin-top: 15px;
+
       color: var(--muted);
+
       font-size: 0.85rem;
     }
+
+
+    /* ---------------------------------
+       BALLOONS & CONFETTI THEME
+    --------------------------------- */
+
+    body[data-theme="balloons-confetti"] {
+      position: relative;
+
+      background:
+        radial-gradient(
+          circle at center,
+          #ffffff 0%,
+          #fff8fc 45%,
+          #ffeef7 100%
+        );
+    }
+
+
+    body[data-theme="balloons-confetti"]::before {
+      content:
+        "🎈   🎉   🎈   🎊   🎈   🎉   🎈   🎊   🎈   🎉   🎈   🎊";
+
+      position: fixed;
+
+      inset: 0;
+
+      padding: 25px;
+
+      font-size: 42px;
+
+      line-height: 2.5;
+
+      letter-spacing: 12px;
+
+      word-spacing: 25px;
+
+      opacity: 0.8;
+
+      pointer-events: none;
+
+      z-index: 0;
+
+      overflow: hidden;
+    }
+
+
+    body[data-theme="balloons-confetti"]::after {
+      content:
+        "🎊  ✨  🎈  ✨  🎉  🎈  🎊  ✨  🎈  🎉  ✨  🎈  🎊  🎈  ✨";
+
+      position: fixed;
+
+      inset: 0;
+
+      padding: 80px 20px 20px;
+
+      font-size: 28px;
+
+      line-height: 3;
+
+      letter-spacing: 18px;
+
+      word-spacing: 30px;
+
+      opacity: 0.65;
+
+      pointer-events: none;
+
+      z-index: 0;
+
+      overflow: hidden;
+    }
+
+
+    body[data-theme="balloons-confetti"] > * {
+      position: relative;
+
+      z-index: 1;
+    }
+
 
     @media (max-width: 1000px) {
 
@@ -826,13 +1356,17 @@
         grid-template-columns: 1fr;
       }
 
+
       .package-card {
         max-width: 650px;
+
         width: 100%;
+
         margin: 0 auto;
       }
 
     }
+
 
     @media (max-width: 800px) {
 
@@ -840,10 +1374,13 @@
         grid-template-columns: 1fr;
       }
 
+
       .option-grid,
       .background-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+          repeat(2, 1fr);
       }
+
 
       .color-grid {
         grid-template-columns: 1fr;
@@ -851,69 +1388,96 @@
 
     }
 
+
     @media (max-width: 600px) {
 
       .navbar {
         padding: 0 20px;
       }
 
+
       .page {
-        padding: 38px 15px 60px;
+        padding:
+          38px 15px 60px;
       }
+
 
       .form-card {
         padding: 22px;
+
         border-radius: 18px;
       }
+
 
       .form-grid {
         grid-template-columns: 1fr;
       }
 
+
       .form-group.full {
         grid-column: auto;
       }
 
+
       .selected-package {
         align-items: flex-start;
+
         flex-direction: column;
       }
 
+
       .tv-option label {
         min-height: auto;
+
         padding: 18px;
       }
+
 
       .tv-icon {
         width: 52px;
         height: 52px;
+
         min-width: 52px;
       }
 
+
       .option-grid,
       .background-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+          1fr 1fr;
       }
 
     }
+
   </style>
+
 </head>
+
 
 <body>
 
+
   <nav class="navbar">
 
-    <a href="index.html" class="logo">
+    <a
+      href="index.html"
+      class="logo"
+    >
 
       <div class="logo-mark">
         ✦
       </div>
 
-      Captured <span>Moments</span>
+      Captured
+      <span>Moments</span>
 
     </a>
 
-    <a href="index.html" class="back-link">
+
+    <a
+      href="index.html"
+      class="back-link"
+    >
       ← Back to Home
     </a>
 
@@ -921,6 +1485,7 @@
 
 
   <main class="page">
+
 
     <div class="page-header">
 
@@ -944,7 +1509,9 @@
 
       <div class="section-title">
 
-        <h2>Choose Your Package</h2>
+        <h2>
+          Choose Your Package
+        </h2>
 
         <p>
           Pick the option that works best for your event.
@@ -955,11 +1522,14 @@
 
       <div class="package-grid">
 
+
         <!-- CAPTURED MOMENTS -->
 
         <div class="package-card">
 
-          <h3>Captured Moments</h3>
+          <h3>
+            Captured Moments
+          </h3>
 
           <div class="price">
             $19
@@ -968,18 +1538,48 @@
 
           <ul>
 
-            <li>Event-specific QR code</li>
-            <li>Guest photo uploads</li>
-            <li>Live TV slideshow</li>
-            <li>Event photo gallery</li>
-            <li>Photo downloads</li>
-            <li>Automatic gallery emails</li>
-            <li>Standard Captured Moments themes</li>
-            <li>Preset colors and backgrounds</li>
-            <li>Up to 500 photos</li>
-            <li>Gallery available for 30 days</li>
+            <li>
+              Event-specific QR code
+            </li>
+
+            <li>
+              Guest photo uploads
+            </li>
+
+            <li>
+              Live TV slideshow
+            </li>
+
+            <li>
+              Event photo gallery
+            </li>
+
+            <li>
+              Photo downloads
+            </li>
+
+            <li>
+              Automatic gallery emails
+            </li>
+
+            <li>
+              Standard Captured Moments themes
+            </li>
+
+            <li>
+              Preset colors and backgrounds
+            </li>
+
+            <li>
+              Up to 500 photos
+            </li>
+
+            <li>
+              Gallery available for 30 days
+            </li>
 
           </ul>
+
 
           <button
             class="package-button"
@@ -999,7 +1599,9 @@
             MOST POPULAR
           </div>
 
-          <h3>Captured Moments Plus</h3>
+          <h3>
+            Captured Moments Plus
+          </h3>
 
           <div class="price">
             $39
@@ -1008,17 +1610,44 @@
 
           <ul>
 
-            <li>Everything in Captured Moments</li>
-            <li>Higher photo capacity</li>
-            <li>Custom colors</li>
-            <li>Custom background</li>
-            <li>Custom logo or photo</li>
-            <li>Premium themes</li>
-            <li>Custom event branding</li>
-            <li>Larger photo file limits</li>
-            <li>Gallery available for 1 year</li>
+            <li>
+              Everything in Captured Moments
+            </li>
+
+            <li>
+              Higher photo capacity
+            </li>
+
+            <li>
+              Custom colors
+            </li>
+
+            <li>
+              Custom background
+            </li>
+
+            <li>
+              Custom logo or photo
+            </li>
+
+            <li>
+              Premium themes
+            </li>
+
+            <li>
+              Custom event branding
+            </li>
+
+            <li>
+              Larger photo file limits
+            </li>
+
+            <li>
+              Gallery available for 1 year
+            </li>
 
           </ul>
+
 
           <button
             class="package-button"
@@ -1038,7 +1667,9 @@
             EVERYTHING INCLUDED
           </div>
 
-          <h3>Captured Moments Business</h3>
+          <h3>
+            Captured Moments Business
+          </h3>
 
           <div class="price">
             $59
@@ -1047,17 +1678,44 @@
 
           <ul>
 
-            <li>Everything in Captured Moments Plus</li>
-            <li>Digital Guestbook</li>
-            <li>RSVP Service</li>
-            <li>Unlimited photos</li>
-            <li>Full event customization</li>
-            <li>Premium themes</li>
-            <li>Custom event branding</li>
-            <li>1-year gallery</li>
-            <li>All available features included</li>
+            <li>
+              Everything in Captured Moments Plus
+            </li>
+
+            <li>
+              Digital Guestbook
+            </li>
+
+            <li>
+              RSVP Service
+            </li>
+
+            <li>
+              Unlimited photos
+            </li>
+
+            <li>
+              Full event customization
+            </li>
+
+            <li>
+              Premium themes
+            </li>
+
+            <li>
+              Custom event branding
+            </li>
+
+            <li>
+              1-year gallery
+            </li>
+
+            <li>
+              All available features included
+            </li>
 
           </ul>
+
 
           <button
             class="package-button"
@@ -1092,6 +1750,7 @@
 
       </div>
 
+
       <button
         class="change-package"
         onclick="changePackage()"
@@ -1116,7 +1775,9 @@
 
         <div class="form-section">
 
-          <h2>Event Information</h2>
+          <h2>
+            Event Information
+          </h2>
 
           <p class="section-description">
             Tell us about your event.
@@ -1124,6 +1785,7 @@
 
 
           <div class="form-grid">
+
 
             <div class="form-group">
 
@@ -1173,16 +1835,16 @@
                 </option>
 
                 <option value="Sports Event">
-  Sports Event
-</option>
+                  Sports Event
+                </option>
 
-<option value="Game Night">
-  Game Night
-</option>
+                <option value="Game Night">
+                  Game Night
+                </option>
 
-<option value="Other">
-  Other
-</option>
+                <option value="Other">
+                  Other
+                </option>
 
               </select>
 
@@ -1239,7 +1901,9 @@
 
         <div class="form-section">
 
-          <h2>TV Display</h2>
+          <h2>
+            TV Display
+          </h2>
 
           <p class="section-description">
             Choose whether you want to display guest photos live during your event.
@@ -1247,6 +1911,7 @@
 
 
           <div class="tv-options">
+
 
             <div class="tv-option">
 
@@ -1327,92 +1992,23 @@
 
         <!-- THEME -->
 
-      <!-- THEME -->
+        <div class="form-section">
 
-<div class="form-section">
+          <h2>
+            Choose Your Theme
+          </h2>
 
-  <h2>Choose Your Theme</h2>
-
-  <p class="section-description">
-    Pick a theme that fits your event.
-  </p>
-
-  <div
-    id="themeOptions"
-    class="option-grid"
-  >
-
-    <!-- Themes are filled automatically based on event type -->
-
-  </div>
-
-</div>
-
-                Classic
-
-              </label>
-
-            </div>
+          <p class="section-description">
+            Pick a theme that fits your event.
+          </p>
 
 
-            <div class="option-card">
+          <div
+            id="themeOptions"
+            class="option-grid"
+          >
 
-              <input
-                type="radio"
-                id="themeElegant"
-                name="theme"
-                value="elegant"
-              >
-
-              <label for="themeElegant">
-
-                <div class="theme-preview elegant"></div>
-
-                Elegant
-
-              </label>
-
-            </div>
-
-
-            <div class="option-card">
-
-              <input
-                type="radio"
-                id="themeCelebration"
-                name="theme"
-                value="celebration"
-              >
-
-              <label for="themeCelebration">
-
-                <div class="theme-preview celebration"></div>
-
-                Celebration
-
-              </label>
-
-            </div>
-
-
-            <div class="option-card">
-
-              <input
-                type="radio"
-                id="themeModern"
-                name="theme"
-                value="modern"
-              >
-
-              <label for="themeModern">
-
-                <div class="theme-preview modern"></div>
-
-                Modern
-
-              </label>
-
-            </div>
+            <!-- Themes are filled automatically based on event type -->
 
           </div>
 
@@ -1426,7 +2022,9 @@
           class="form-section"
         >
 
-          <h2>Choose Your Colors</h2>
+          <h2>
+            Choose Your Colors
+          </h2>
 
           <p class="section-description">
             Customize the colors used throughout your event.
@@ -1434,6 +2032,7 @@
 
 
           <div class="color-grid">
+
 
             <div class="form-group">
 
@@ -1515,7 +2114,9 @@
           class="form-section"
         >
 
-          <h2>Choose Your Background</h2>
+          <h2>
+            Choose Your Background
+          </h2>
 
           <p class="section-description">
             Choose the background style for your event.
@@ -1523,6 +2124,7 @@
 
 
           <div class="background-grid">
+
 
             <div class="background-option">
 
@@ -1616,11 +2218,14 @@
           class="form-section"
         >
 
-          <h2>Add Your Logo or Photo</h2>
+          <h2>
+            Add Your Logo or Photo
+          </h2>
 
           <p class="section-description">
             Add a logo or photo to personalize your event.
           </p>
+
 
           <div class="form-group">
 
@@ -1646,11 +2251,14 @@
           class="form-section"
         >
 
-          <h2>Digital Guestbook</h2>
+          <h2>
+            Digital Guestbook
+          </h2>
 
           <p class="section-description">
             Give your guests a place to leave a special message for your event.
           </p>
+
 
           <div class="guestbook-option">
 
@@ -1687,11 +2295,14 @@
           class="form-section"
         >
 
-          <h2>RSVP Service</h2>
+          <h2>
+            RSVP Service
+          </h2>
 
           <p class="section-description">
             Let your guests RSVP to your event and tell you who is attending.
           </p>
+
 
           <div
             id="rsvpOption"
@@ -1744,13 +2355,16 @@
             Continue to Checkout
           </button>
 
+
           <div id="status"></div>
+
 
           <div class="secure-note">
             🔒 Your event information is securely saved.
           </div>
 
         </div>
+
 
       </div>
 
@@ -1770,60 +2384,72 @@
         "packageSection"
       );
 
+
     const setupSection =
       document.getElementById(
         "setupSection"
       );
+
 
     const selectedPackageBox =
       document.getElementById(
         "selectedPackage"
       );
 
+
     const selectedPackageName =
       document.getElementById(
         "selectedPackageName"
       );
+
 
     const selectedPackageDescription =
       document.getElementById(
         "selectedPackageDescription"
       );
 
+
     const colorsSection =
       document.getElementById(
         "colorsSection"
       );
+
 
     const backgroundSection =
       document.getElementById(
         "backgroundSection"
       );
 
+
     const logoSection =
       document.getElementById(
         "logoSection"
       );
+
 
     const rsvpEnabled =
       document.getElementById(
         "rsvpEnabled"
       );
 
+
     const rsvpOption =
       document.getElementById(
         "rsvpOption"
       );
+
 
     const rsvpIncluded =
       document.getElementById(
         "rsvpIncluded"
       );
 
+
     const pageTitle =
       document.getElementById(
         "pageTitle"
       );
+
 
     const pageSubtitle =
       document.getElementById(
@@ -1840,8 +2466,10 @@
         window.location.search
       );
 
+
     const packageFromUrl =
       urlParams.get("package");
+
 
     const editCode =
       urlParams.get("edit");
@@ -1856,21 +2484,25 @@
       window.selectedCapturedPackage =
         packageName;
 
+
       const url =
         new URL(
           window.location.href
         );
+
 
       url.searchParams.set(
         "package",
         packageName
       );
 
+
       window.history.replaceState(
         {},
         "",
         url
       );
+
 
       showPackage(
         packageName
@@ -1884,14 +2516,17 @@
       window.selectedCapturedPackage =
         null;
 
+
       const url =
         new URL(
           window.location.href
         );
 
+
       url.searchParams.delete(
         "package"
       );
+
 
       window.history.replaceState(
         {},
@@ -1899,26 +2534,33 @@
         url
       );
 
+
       packageSection.style.display =
         "block";
+
 
       setupSection.classList.remove(
         "visible"
       );
 
+
       selectedPackageBox.classList.remove(
         "visible"
       );
 
+
       rsvpEnabled.checked =
         false;
+
 
       rsvpIncluded.style.display =
         "none";
 
+
       rsvpOption.classList.remove(
         "business-included"
       );
+
 
       rsvpOption.classList.remove(
         "rsvp-locked"
@@ -1932,9 +2574,11 @@
       packageSection.style.display =
         "none";
 
+
       setupSection.classList.add(
         "visible"
       );
+
 
       selectedPackageBox.classList.add(
         "visible"
@@ -1950,20 +2594,25 @@
         selectedPackageName.textContent =
           "Captured Moments Business";
 
+
         selectedPackageDescription.textContent =
           "$59 per event • Everything included";
+
 
         colorsSection.classList.remove(
           "locked-section"
         );
 
+
         backgroundSection.classList.remove(
           "locked-section"
         );
 
+
         logoSection.classList.remove(
           "locked-section"
         );
+
 
         enableCustomization();
 
@@ -1973,17 +2622,19 @@
         rsvpEnabled.checked =
           true;
 
+
         rsvpIncluded.style.display =
           "block";
+
 
         rsvpOption.classList.add(
           "business-included"
         );
 
+
         rsvpOption.classList.remove(
           "rsvp-locked"
         );
-
 
       }
 
@@ -1997,20 +2648,25 @@
         selectedPackageName.textContent =
           "Captured Moments Plus";
 
+
         selectedPackageDescription.textContent =
           "$39 per event • Full customization";
+
 
         colorsSection.classList.remove(
           "locked-section"
         );
 
+
         backgroundSection.classList.remove(
           "locked-section"
         );
 
+
         logoSection.classList.remove(
           "locked-section"
         );
+
 
         enableCustomization();
 
@@ -2018,17 +2674,19 @@
         rsvpEnabled.checked =
           false;
 
+
         rsvpIncluded.style.display =
           "none";
+
 
         rsvpOption.classList.remove(
           "business-included"
         );
 
+
         rsvpOption.classList.add(
           "rsvp-locked"
         );
-
 
       }
 
@@ -2042,20 +2700,25 @@
         selectedPackageName.textContent =
           "Captured Moments";
 
+
         selectedPackageDescription.textContent =
           "$19 per event • Standard event setup";
+
 
         colorsSection.classList.add(
           "locked-section"
         );
 
+
         backgroundSection.classList.add(
           "locked-section"
         );
 
+
         logoSection.classList.add(
           "locked-section"
         );
+
 
         disableCustomization();
 
@@ -2063,12 +2726,15 @@
         rsvpEnabled.checked =
           false;
 
+
         rsvpIncluded.style.display =
           "none";
+
 
         rsvpOption.classList.remove(
           "business-included"
         );
+
 
         rsvpOption.classList.add(
           "rsvp-locked"
@@ -2087,7 +2753,10 @@
         )
         .forEach(
           input => {
-            input.disabled = true;
+
+            input.disabled =
+              true;
+
           }
         );
 
@@ -2102,7 +2771,10 @@
         )
         .forEach(
           input => {
-            input.disabled = false;
+
+            input.disabled =
+              false;
+
           }
         );
 
@@ -2118,16 +2790,20 @@
       packageSection.style.display =
         "none";
 
+
       selectedPackageBox.classList.remove(
         "visible"
       );
+
 
       setupSection.classList.add(
         "visible"
       );
 
+
       pageTitle.textContent =
         "Edit Your Event";
+
 
       pageSubtitle.textContent =
         "Update your event details and save your changes.";
@@ -2148,6 +2824,7 @@
       window.selectedCapturedPackage =
         packageFromUrl;
 
+
       showPackage(
         packageFromUrl
       );
@@ -2161,6 +2838,7 @@
     type="module"
     src="create-event.js"
   ></script>
+
 
 </body>
 </html>
