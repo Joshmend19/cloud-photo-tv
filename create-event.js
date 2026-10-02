@@ -1,4 +1,3 @@
-```javascript
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 import {
@@ -14,6 +13,10 @@ const supabase =
   );
 
 
+/* ---------------------------------
+   Event Type
+--------------------------------- */
+
 const eventType =
   document.getElementById(
     "eventType"
@@ -23,22 +26,6 @@ const eventType =
 /* ---------------------------------
    Event-specific themes
 --------------------------------- */
-
-const themeSection =
-  Array.from(
-    document.querySelectorAll(".form-section")
-  ).find(
-    section =>
-      section.querySelector("h2")?.textContent.trim() ===
-      "Choose Your Theme"
-  );
-
-
-const themeContainer =
-  themeSection
-    ? themeSection.querySelector(".option-grid")
-    : null;
-
 
 const eventThemes = {
 
@@ -135,10 +122,68 @@ const eventThemes = {
 };
 
 
+/* ---------------------------------
+   Find theme container
+--------------------------------- */
+
+function getThemeContainer() {
+
+  const themeHeading =
+    Array.from(
+      document.querySelectorAll("h2")
+    ).find(
+      heading =>
+        heading.textContent
+          .trim()
+          .toLowerCase()
+          .includes("choose your theme")
+    );
+
+
+  if (!themeHeading) {
+    return null;
+  }
+
+
+  const themeSection =
+    themeHeading.closest(
+      ".form-section"
+    );
+
+
+  if (!themeSection) {
+    return null;
+  }
+
+
+  return themeSection.querySelector(
+    ".option-grid"
+  );
+
+}
+
+
+/* ---------------------------------
+   Update event themes
+--------------------------------- */
+
 function updateEventThemes() {
 
-  if (!eventType || !themeContainer) {
+  const themeContainer =
+    getThemeContainer();
+
+
+  if (
+    !eventType ||
+    !themeContainer
+  ) {
+
+    console.log(
+      "Theme container not found."
+    );
+
     return;
+
   }
 
 
@@ -151,7 +196,14 @@ function updateEventThemes() {
 
 
   if (!themes) {
+
+    console.log(
+      "No themes found for:",
+      selectedEvent
+    );
+
     return;
+
   }
 
 
@@ -196,8 +248,19 @@ function updateEventThemes() {
     }
   );
 
+
+  console.log(
+    "THEMES UPDATED:",
+    selectedEvent,
+    themes
+  );
+
 }
 
+
+/* ---------------------------------
+   Event type change
+--------------------------------- */
 
 if (eventType) {
 
@@ -959,5 +1022,283 @@ createBtn.addEventListener(
               editCode
             )
             .select()
-            .si
-```
+            .single();
+
+
+        if (updateError) {
+
+          throw updateError;
+
+        }
+
+
+        console.log(
+          "EVENT UPDATED:",
+          updatedEvent
+        );
+
+
+        sessionStorage.setItem(
+          "cptv_event_code",
+          editCode
+        );
+
+
+        location.href =
+          `event-created.html?code=${editCode}`;
+
+
+        return;
+
+      }
+
+
+      /* ---------------------------------
+         CREATE UNIQUE EVENT CODE
+      --------------------------------- */
+
+      let code = null;
+
+      let attempts = 0;
+
+
+      while (
+        !code &&
+        attempts < 10
+      ) {
+
+        const possibleCode =
+          createEventCode();
+
+
+        const {
+          data: existing,
+          error: checkError
+        } =
+          await supabase
+            .from("events")
+            .select("id")
+            .eq(
+              "code",
+              possibleCode
+            )
+            .maybeSingle();
+
+
+        if (checkError) {
+
+          throw checkError;
+
+        }
+
+
+        if (!existing) {
+
+          code =
+            possibleCode;
+
+        }
+
+
+        attempts++;
+
+      }
+
+
+      if (!code) {
+
+        throw new Error(
+          "Could not create a unique event code."
+        );
+
+      }
+
+
+      /* ---------------------------------
+         CREATE EVENT
+      --------------------------------- */
+
+      const {
+        data: event,
+        error: eventError
+      } =
+        await supabase
+          .from("events")
+          .insert({
+
+            code,
+
+            owner_id:
+              ownerId,
+
+            event_type:
+              eventType.value,
+
+            event_name:
+              name,
+
+            event_date:
+              eventDate.value,
+
+            start_time:
+              startTime.value,
+
+            end_time:
+              endTime.value,
+
+            theme:
+              selectedTheme,
+
+            primary_color:
+              finalPrimaryColor,
+
+            secondary_color:
+              finalSecondaryColor,
+
+            accent_color:
+              finalAccentColor,
+
+            background:
+              finalBackground,
+
+            package:
+              currentPackage,
+
+            has_tv:
+              hasTV,
+
+            guestbook_enabled:
+              isGuestbookEnabled,
+
+            rsvp_enabled:
+              isRSVPEnabled
+
+          })
+          .select()
+          .single();
+
+
+      if (eventError) {
+
+        throw eventError;
+
+      }
+
+
+      /* ---------------------------------
+         CREATE SESSION
+      --------------------------------- */
+
+      const eventEndDateTime =
+        `${eventDate.value}T${endTime.value}:00`;
+
+      const {
+        error: sessionError
+      } =
+        await supabase
+          .from("sessions")
+          .insert({
+
+            code,
+
+            event_id:
+              event.id,
+
+            active:
+              true,
+
+            event_end_time:
+              eventEndDateTime
+
+          });
+
+
+      if (sessionError) {
+
+        await supabase
+          .from("events")
+          .delete()
+          .eq(
+            "id",
+            event.id
+          );
+
+
+        throw sessionError;
+
+      }
+
+
+      /* ---------------------------------
+         SAVE EVENT CODE
+      --------------------------------- */
+
+      sessionStorage.setItem(
+        "cptv_event_code",
+        code
+      );
+
+
+      console.log(
+        "EVENT CREATED:",
+        event
+      );
+
+
+      console.log(
+        "TV ACCESS:",
+        hasTV
+      );
+
+
+      console.log(
+        "PACKAGE:",
+        currentPackage
+      );
+
+
+      console.log(
+        "GUESTBOOK:",
+        isGuestbookEnabled
+      );
+
+
+      console.log(
+        "RSVP:",
+        isRSVPEnabled
+      );
+
+
+      /* ---------------------------------
+         CONTINUE
+      --------------------------------- */
+
+      location.href =
+        `event-created.html?code=${code}`;
+
+
+    } catch (error) {
+
+      console.error(
+        "EVENT SAVE ERROR:",
+        error
+      );
+
+
+      status.textContent =
+        "Could not save the event. Please try again.";
+
+
+      createBtn.disabled =
+        false;
+
+
+      createBtn.textContent =
+        isEditMode
+          ? "Save Event Changes"
+          : "Continue to Checkout";
+
+    }
+
+  }
+);
