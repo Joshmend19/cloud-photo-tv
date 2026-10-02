@@ -160,7 +160,7 @@
 
     /* ---------------------------------
        FULL SCREEN BALLOON & CONFETTI
-       REPEATING PATTERN
+       PATTERN
     --------------------------------- */
 
     body[data-theme="balloons-confetti"] #tvView::before {
@@ -173,7 +173,13 @@
         "🎉       🎈       🎊       🎈       •       🎉       🎈       🎊       🎈\A"
         "   ✨       🎉       🎈       ✦       🎊       ✨       🎉       🎈       ✦\A"
         "🎈       🎊       •       🎈       🎉       🎈       🎊       •       🎈\A"
-        "   🎈       ✨       🎉       🎈       ✦       🎈       ✨       🎉       🎈";
+        "   🎈       ✨       🎉       🎈       ✦       🎈       ✨       🎉       🎈\A"
+        "🎊       🎈       🎉       •       🎈       🎊       🎈       🎉       •\A"
+        "   ✨       🎈       🎊       🎈       🎉       •       🎈       ✨       🎊\A"
+        "🎉       🎊       🎈       ✨       🎈       🎉       🎊       🎈       ✦\A"
+        "   🎈       •       🎉       🎈       ✨       🎊       🎈       •       🎉\A"
+        "🎊       🎈       ✨       🎉       🎈       ✦       🎊       🎈       🎉\A"
+        "   🎉       🎈       •       🎊       ✨       🎈       🎉       ✦       🎈";
 
       position: absolute;
 
@@ -194,50 +200,6 @@
       white-space: pre;
 
       opacity: 0.38;
-
-      pointer-events: none;
-
-      z-index: 1;
-
-      overflow: hidden;
-
-      background-image:
-        repeating-linear-gradient(
-          transparent 0,
-          transparent 0
-        );
-    }
-
-
-    /* Extra repeating decoration layer */
-
-    body[data-theme="balloons-confetti"] #tvView::after {
-
-      content:
-        "🎊       ✨       🎈       •       🎉       🎈       ✦       🎊       🎈\A"
-        "   🎈       🎉       ✨       🎈       🎊       •       🎈       ✨       🎉\A"
-        "🎉       •       🎈       ✦       🎊       🎈       🎉       •       🎈";
-
-      position: absolute;
-
-      top: 330px;
-      left: -50px;
-
-      width: calc(100% + 100px);
-
-      height: calc(100% + 100px);
-
-      padding: 20px;
-
-      font-size: 42px;
-
-      line-height: 2.15;
-
-      letter-spacing: 3px;
-
-      white-space: pre;
-
-      opacity: 0.28;
 
       pointer-events: none;
 
@@ -840,22 +802,6 @@
         width: calc(100% + 40px);
 
         height: calc(100% + 30px);
-      }
-
-
-      body[data-theme="balloons-confetti"] #tvView::after {
-
-        font-size: 28px;
-
-        line-height: 2.5;
-
-        letter-spacing: 0;
-
-        top: 250px;
-
-        left: -20px;
-
-        width: calc(100% + 40px);
       }
 
     }
