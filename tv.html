@@ -156,109 +156,78 @@
         #fff8fc;
 
       color: #222;
-
-      overflow: hidden;
     }
 
 
     /* ---------------------------------
        BALLOONS
-       OFFSET VERTICAL ROWS
     --------------------------------- */
 
     body[data-theme="balloons-confetti"] #tvView::before {
 
       content:
-        "🎈          🎈          🎈          🎈          🎈
-           🎈          🎈          🎈          🎈          🎈
-        🎈          🎈          🎈          🎈          🎈
-           🎈          🎈          🎈          🎈          🎈
-        🎈          🎈          🎈          🎈          🎈
-           🎈          🎈          🎈          🎈          🎈
-        🎈          🎈          🎈          🎈          🎈
-           🎈          🎈          🎈          🎈          🎈";
+        "🎈       🎈          🎈       🎈          🎈       🎈          🎈";
 
       position: absolute;
 
-      top: -25px;
+      top: -15px;
+      left: -20px;
 
-      left: -35px;
-
-      width: 115%;
+      width: 110%;
 
       height: 115%;
 
-      padding-top: 10px;
+      padding-top: 15px;
 
-      white-space: pre;
+      font-size: 75px;
 
-      font-size: 65px;
-
-      line-height: 2.35;
+      line-height: 2.7;
 
       letter-spacing: 25px;
 
-      word-spacing: 15px;
+      word-spacing: 20px;
 
       opacity: 0.55;
 
       pointer-events: none;
-
-      user-select: none;
 
       z-index: 1;
 
       overflow: hidden;
 
-      transform: rotate(-1deg);
+      transform: rotate(-2deg);
     }
 
 
     /* ---------------------------------
        CONFETTI
-       OFFSET VERTICAL ROWS
     --------------------------------- */
 
     body[data-theme="balloons-confetti"] #tvView::after {
 
       content:
-        "🎉       ✨       🎊       •       ✦
-           ✨       🎉       •       🎊       ✨
-        🎊       •       ✦       🎉       🎈
-           🎉       ✨       🎊       •       ✦
-        ✦       🎊       •       🎉       ✨
-           •       🎈       🎉       ✦       🎊
-        🎉       ✨       •       🎊       🎈
-           🎊       ✦       🎉       •       ✨
-        ✨       🎊       •       🎉       ✦";
+        "🎉   ✨   🎊   •   ✦   🎉   •   🎈   ✨   🎊   •   🎉   ✦   •   🎊   🎈   ✨   🎉   •   🎊";
 
       position: absolute;
 
-      top: 0;
-
-      left: 0;
+      inset: 0;
 
       width: 100%;
-
       height: 100%;
 
-      padding: 15px;
+      padding: 25px;
 
-      white-space: pre;
+      font-size: 30px;
 
-      font-size: 28px;
+      line-height: 3.4;
 
-      line-height: 3.1;
+      letter-spacing: 18px;
 
-      letter-spacing: 12px;
-
-      word-spacing: 12px;
+      word-spacing: 25px;
 
       opacity: 0.55;
 
       pointer-events: none;
-
-      user-select: none;
 
       z-index: 2;
 
@@ -487,7 +456,7 @@
           circle at 90% 90%,
           color-mix(
             in srgb,
-            var(--primary-color) 45%,
+            var(---primary-color) 45%,
             transparent
           ),
           transparent 25%
