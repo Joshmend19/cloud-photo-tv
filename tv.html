@@ -245,6 +245,92 @@
     }
 
 
+    body[data-theme="colorful-party"] #tvView {
+      background:
+        radial-gradient(
+          circle at 10% 20%,
+          color-mix(
+            in srgb,
+            var(--primary-color) 45%,
+            transparent
+          ),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 90% 20%,
+          color-mix(
+            in srgb,
+            var(--accent-color) 45%,
+            transparent
+          ),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 50% 100%,
+          color-mix(
+            in srgb,
+            var(--primary-color) 30%,
+            transparent
+          ),
+          transparent 35%
+        ),
+        var(--secondary-color);
+    }
+
+
+    body[data-theme="colorful-party"] .tv-header {
+      background:
+        linear-gradient(
+          90deg,
+          color-mix(
+            in srgb,
+            var(--primary-color) 20%,
+            transparent
+          ),
+          transparent,
+          color-mix(
+            in srgb,
+            var(--accent-color) 20%,
+            transparent
+          )
+        );
+    }
+
+
+    body[data-theme="colorful-party"] .scan-title {
+      font-size: 36px;
+
+      text-shadow:
+        0 0 12px
+        color-mix(
+          in srgb,
+          var(--primary-color) 65%,
+          transparent
+        ),
+        0 0 25px
+        color-mix(
+          in srgb,
+          var(--accent-color) 45%,
+          transparent
+        );
+    }
+
+
+    body[data-theme="colorful-party"] #currentPhoto {
+      border-radius: 24px;
+
+      box-shadow:
+        0 0 0 4px
+        color-mix(
+          in srgb,
+          var(--accent-color) 45%,
+          transparent
+        ),
+        0 20px 70px
+        rgba(0, 0, 0, 0.5);
+    }
+
+
     .tv-header {
       position: absolute;
 
