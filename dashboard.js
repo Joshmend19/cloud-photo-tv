@@ -105,6 +105,61 @@ logoutButton.addEventListener(
   }
 );
 
+async function deleteEvent(
+  eventCode,
+  eventName,
+  userId
+) {
+
+  const confirmed =
+    window.confirm(
+      `Are you sure you want to delete "${eventName}"?\n\nThis cannot be undone.`
+    );
+
+  if (!confirmed) {
+    return;
+  }
+
+  status.textContent =
+    "Deleting event...";
+
+  status.className =
+    "status";
+
+  const {
+    error
+  } =
+    await supabase
+      .from("events")
+      .delete()
+      .eq(
+        "code",
+        eventCode
+      )
+      .eq(
+        "owner_id",
+        userId
+      );
+
+  if (error) {
+
+    console.error(
+      "Delete event error:",
+      error
+    );
+
+    status.textContent =
+      `Couldn't delete the event: ${error.message}`;
+
+    status.className =
+      "status error";
+
+    return;
+  }
+
+  await loadDashboard();
+}
+
 async function loadDashboard() {
 
   const {
@@ -275,6 +330,20 @@ async function loadDashboard() {
                   Gallery
                 </a>
 
+                <button
+                  type="button"
+                  class="delete-event-button"
+                  data-code="${escapeHtml(
+                    event.code
+                  )}"
+                  data-name="${escapeHtml(
+                    event.event_name ||
+                    "Untitled Event"
+                  )}"
+                >
+                  Delete Event
+                </button>
+
               </div>
 
             </div>
@@ -282,6 +351,29 @@ async function loadDashboard() {
         }
       )
       .join("");
+
+  document
+    .querySelectorAll(
+      ".delete-event-button"
+    )
+    .forEach(
+      (button) => {
+
+        button.addEventListener(
+          "click",
+          async () => {
+
+            await deleteEvent(
+              button.dataset.code,
+              button.dataset.name,
+              user.id
+            );
+
+          }
+        );
+
+      }
+    );
 }
 
 loadDashboard();
