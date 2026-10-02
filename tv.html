@@ -494,7 +494,7 @@
         .toUpperCase();
 
 
-    async function loadEventColors() {
+    async function loadEventDesign() {
 
       if (!code) {
         return;
@@ -551,6 +551,20 @@
         );
 
 
+        if (event.theme) {
+
+          document.body.dataset.theme =
+            event.theme;
+
+        }
+
+
+        console.log(
+          "TV design loaded:",
+          event.theme
+        );
+
+
         console.log(
           "TV colors loaded:",
           event.primary_color,
@@ -562,7 +576,7 @@
       } catch (error) {
 
         console.error(
-          "Could not load event colors:",
+          "Could not load event design:",
           error
         );
 
@@ -571,7 +585,7 @@
     }
 
 
-    loadEventColors();
+    loadEventDesign();
 
   </script>
 
