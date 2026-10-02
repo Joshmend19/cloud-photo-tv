@@ -101,6 +101,99 @@
           transparent 35%
         ),
         var(--secondary-color);
+
+      overflow: hidden;
+    }
+
+
+    #tvView::before,
+    #tvView::after {
+      content: "";
+
+      position: absolute;
+
+      width: 180px;
+      height: 180px;
+
+      border-radius: 50%;
+
+      background:
+        color-mix(
+          in srgb,
+          var(--primary-color) 75%,
+          white
+        );
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      z-index: 1;
+    }
+
+
+    #tvView::before {
+      top: 80px;
+      left: 50px;
+
+      box-shadow:
+        80px 150px 0
+        color-mix(
+          in srgb,
+          var(--accent-color) 75%,
+          white
+        ),
+        170px 40px 0
+        color-mix(
+          in srgb,
+          var(--primary-color) 55%,
+          white
+        ),
+        260px 190px 0
+        color-mix(
+          in srgb,
+          var(--accent-color) 55%,
+          white
+        );
+    }
+
+
+    #tvView::after {
+      bottom: 50px;
+      right: 60px;
+
+      box-shadow:
+        -90px -130px 0
+        color-mix(
+          in srgb,
+          var(--accent-color) 75%,
+          white
+        ),
+        -190px -20px 0
+        color-mix(
+          in srgb,
+          var(--primary-color) 55%,
+          white
+        ),
+        -280px -170px 0
+        color-mix(
+          in srgb,
+          var(--accent-color) 55%,
+          white
+        );
+    }
+
+
+    body[data-theme="balloons-confetti"] #tvView::before,
+    body[data-theme="balloons-confetti"] #tvView::after {
+      opacity: 0.25;
+    }
+
+
+    body[data-theme="balloons-confetti"] .photo-area {
+      position: relative;
+
+      z-index: 2;
     }
 
 
