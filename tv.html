@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
   <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Captured Moments TV</title>
 
@@ -162,33 +160,30 @@ content="width=device-width, initial-scale=1.0"
 
     /* ---------------------------------
        FULL SCREEN BALLOON & CONFETTI
-       PATTERN
+       REPEATING PATTERN
     --------------------------------- */
 
     body[data-theme="balloons-confetti"] #tvView::before {
 
       content:
-        "🎈       🎉       🎈       🎊       🎈       🎉       🎈       🎊       🎈       🎉\A"
-        "   ✨       🎈       •       🎉       ✨       🎈       •       🎉       ✨       🎈\A"
-        "🎊       🎈       ✦       🎈       🎉       🎊       🎈       ✦       🎈       🎉\A"
-        "   🎈       •       🎊       ✨       🎈       •       🎉       ✨       🎈       •\A"
-        "🎉       🎈       🎊       🎈       •       🎉       🎈       🎊       🎈       •\A"
-        "   ✨       🎉       🎈       ✦       🎊       ✨       🎉       🎈       ✦       🎊\A"
-        "🎈       🎊       •       🎈       🎉       🎈       🎊       •       🎈       🎉\A"
-        "   🎈       ✨       🎉       🎈       ✦       🎈       ✨       🎉       🎈       ✦\A"
-        "🎊       🎈       🎉       •       🎈       🎊       🎈       🎉       •       🎈\A"
-        "   🎉       🎈       ✨       🎊       🎈       •       🎉       🎈       ✨       🎊\A"
-        "🎈       ✦       🎊       🎈       🎉       ✨       🎈       🎊       🎈       ✦";
+        "🎈       🎉       🎈       🎊       🎈       🎉       🎈       🎊       🎈\A"
+        "   ✨       🎈       •       🎉       ✨       🎈       •       🎉       ✨\A"
+        "🎊       🎈       ✦       🎈       🎉       🎊       🎈       ✦       🎈\A"
+        "   🎈       •       🎊       ✨       🎈       •       🎉       ✨       🎈\A"
+        "🎉       🎈       🎊       🎈       •       🎉       🎈       🎊       🎈\A"
+        "   ✨       🎉       🎈       ✦       🎊       ✨       🎉       🎈       ✦\A"
+        "🎈       🎊       •       🎈       🎉       🎈       🎊       •       🎈\A"
+        "   🎈       ✨       🎉       🎈       ✦       🎈       ✨       🎉       🎈";
 
       position: absolute;
 
-      top: -5px;
-      left: -15px;
+      top: -50px;
+      left: -50px;
 
-      width: calc(100% + 30px);
-      height: calc(100% + 10px);
+      width: calc(100% + 100px);
+      height: calc(100% + 100px);
 
-      padding: 20px 10px;
+      padding: 20px;
 
       font-size: 42px;
 
@@ -199,6 +194,50 @@ content="width=device-width, initial-scale=1.0"
       white-space: pre;
 
       opacity: 0.38;
+
+      pointer-events: none;
+
+      z-index: 1;
+
+      overflow: hidden;
+
+      background-image:
+        repeating-linear-gradient(
+          transparent 0,
+          transparent 0
+        );
+    }
+
+
+    /* Extra repeating decoration layer */
+
+    body[data-theme="balloons-confetti"] #tvView::after {
+
+      content:
+        "🎊       ✨       🎈       •       🎉       🎈       ✦       🎊       🎈\A"
+        "   🎈       🎉       ✨       🎈       🎊       •       🎈       ✨       🎉\A"
+        "🎉       •       🎈       ✦       🎊       🎈       🎉       •       🎈";
+
+      position: absolute;
+
+      top: 330px;
+      left: -50px;
+
+      width: calc(100% + 100px);
+
+      height: calc(100% + 100px);
+
+      padding: 20px;
+
+      font-size: 42px;
+
+      line-height: 2.15;
+
+      letter-spacing: 3px;
+
+      white-space: pre;
+
+      opacity: 0.28;
 
       pointer-events: none;
 
@@ -803,122 +842,142 @@ content="width=device-width, initial-scale=1.0"
         height: calc(100% + 30px);
       }
 
+
+      body[data-theme="balloons-confetti"] #tvView::after {
+
+        font-size: 28px;
+
+        line-height: 2.5;
+
+        letter-spacing: 0;
+
+        top: 250px;
+
+        left: -20px;
+
+        width: calc(100% + 40px);
+      }
+
     }
 
   </style>
 
 </head>
 
+
 <body>
+
 
   <section id="loading">
 
-```
-<div>
+    <div>
 
-  <h2>
-    Loading Captured Moments…
-  </h2>
+      <h2>
+        Loading Captured Moments…
+      </h2>
 
-  <p>
-    Please wait.
-  </p>
+      <p>
+        Please wait.
+      </p>
 
-</div>
-```
+    </div>
 
   </section>
+
 
   <section id="tvView">
 
-```
-<header class="tv-header">
+
+    <header class="tv-header">
 
 
-  <div class="brand">
+      <div class="brand">
 
-    Captured
-    <span>Moments</span>
+        Captured
+        <span>Moments</span>
 
-  </div>
-
-
-  <div class="event-code">
-
-    EVENT
-    <span id="tvCode">
-      ------
-    </span>
-
-  </div>
+      </div>
 
 
-</header>
+      <div class="event-code">
+
+        EVENT
+        <span id="tvCode">
+          ------
+        </span>
+
+      </div>
 
 
-<main class="photo-area">
+    </header>
 
 
-  <div id="emptyTv">
+    <main class="photo-area">
 
 
-    <div class="qr-box">
+      <div id="emptyTv">
 
-      <div id="tvQr"></div>
+
+        <div class="qr-box">
+
+          <div id="tvQr"></div>
+
+        </div>
+
+
+        <div class="scan-title">
+
+          Share Your Photos
+
+        </div>
+
+
+        <div class="scan-text">
+
+          Scan the QR code with your phone
+          to send photos directly to this screen.
+
+        </div>
+
+
+      </div>
+
+
+      <img
+        id="currentPhoto"
+        class="hidden"
+        src=""
+        alt="Event photo"
+      >
+
+
+    </main>
+
+
+    <div
+      id="tvStatus"
+      class="tv-status"
+    >
+
+      Ready for photos
 
     </div>
 
-
-    <div class="scan-title">
-
-      Share Your Photos
-
-    </div>
-
-
-    <div class="scan-text">
-
-      Scan the QR code with your phone
-      to send photos directly to this screen.
-
-    </div>
-
-
-  </div>
-
-
-  <img
-    id="currentPhoto"
-    class="hidden"
-    src=""
-    alt="Event photo"
-  >
-
-
-</main>
-
-
-<div
-  id="tvStatus"
-  class="tv-status"
->
-
-  Ready for photos
-
-</div>
-```
 
   </section>
+
 
   <section
     id="uploadView"
     class="hidden"
   ></section>
 
+
   <script
     type="module"
     src="./app.js"
   ></script>
+
 
   <script type="module">
 
@@ -1046,6 +1105,7 @@ content="width=device-width, initial-scale=1.0"
     loadEventDesign();
 
   </script>
+
 
 </body>
 
