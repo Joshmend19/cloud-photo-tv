@@ -293,6 +293,37 @@
       text-align: center;
     }
 
+    .upload-instructions {
+      margin: 20px 0;
+      padding: 18px;
+      background: #f8fbff;
+      border: 1px solid #dbeafe;
+      border-radius: 16px;
+      color: #475569;
+      text-align: left;
+      line-height: 1.5;
+    }
+
+    .upload-instructions > strong {
+      display: block;
+      text-align: center;
+      color: var(--navy);
+      font-size: 17px;
+      margin-bottom: 14px;
+    }
+
+    .instruction-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .instruction-step:first-of-type {
+      margin-top: 0;
+    }
+
     .gallery-note {
       margin-top: 22px;
       padding-top: 20px;
@@ -516,8 +547,28 @@
           <h2>Upload Photos</h2>
 
           <p>
-            Share a photo from the event.
+            Share your memories with everyone! 📸
           </p>
+
+          <div class="upload-instructions">
+            <strong>📸 Share the Memories!</strong>
+
+            <div class="instruction-step">
+              📱 <span>Choose a photo from your phone.</span>
+            </div>
+
+            <div class="instruction-step">
+              🖼️ <span>Tap <strong>“Choose a photo”</strong> and select your favorite photo.</span>
+            </div>
+
+            <div class="instruction-step">
+              ⬆️ <span>Enter your email and tap <strong>“Send Photo to TV.”</strong></span>
+            </div>
+
+            <div class="instruction-step">
+              🎉 <span>Your photo will appear on the event display!</span>
+            </div>
+          </div>
 
         </div>
 
