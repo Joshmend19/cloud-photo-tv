@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>Guestbook | Captured Moments</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -66,23 +73,23 @@
     body[data-theme="balloons-confetti"]::before {
       content:
         "🎈 🎉 🎂 🎊 🎈 🎁 🎈 🎉 🎂 🎊 🎈 🎁 🎈 🎉 🎂 🎊 🎈 🎉 🎂 🎊 🎈 🎁 🎈 🎉 🎂 🎊 🎈 🎁 🎈 🎉 🎂 🎊 🎈 🎉 🎂 🎊 🎈 🎁 🎈 🎉 🎂 🎊\A"
-        "🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎊 🎈 🎁 🎉 🎈 🎂 🎊\A"
-        "🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉\A"
-        "🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊 🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊\A"
-        "🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁\A"
-        "🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎂 🎈 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎂 🎈 🎊 🎁 🎈 🎉 🎂 🎊 🎈 🎁 🎉 🎂 🎊\A"
-        "🎊 🎈 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎂\A"
-        "🎈 🎁 🎂 🎉 🎊 🎈 🎁 🎂 🎉 🎈 🎊 🎁 🎂 🎉 🎈 🎊 🎈 🎁 🎂 🎉 🎊 🎈 🎁 🎂 🎉 🎈 🎊 🎁 🎂 🎉 🎈 🎊 🎈 🎁 🎂 🎉 🎊\A"
-        "🎉 🎈 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎈 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁\A"
-        "🎂 🎁 🎈 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎈 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊\A"
-        "🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂\A"
-        "🎁 🎈 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉\A"
-        "🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂\A"
-        "🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊\A"
-        "🎉 🎊 🎈 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁\A"
-        "🎁 🎂 🎈 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉\A"
-        "🎊 🎈 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂\A"
-        "🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁";
+        "🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎊 🎈 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎈 🎂 🎊\A"
+        "🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎈 🎂 🎊 🎈 🎉\A"
+        "🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊 🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊 🎂 🎈 🎉 🎁 🎈 🎊\A"
+        "🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎉\A"
+        "🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎂 🎈 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎉 🎈 🎂 🎊 🎈 🎁 🎉 🎂 🎈 🎊 🎁 🎈 🎉 🎂 🎊 🎈 🎁 🎉 🎂 🎊 🎈 🎁 🎉 🎂 🎊 🎈 🎁 🎉 🎂 🎊\A"
+        "🎊 🎈 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁 🎈 🎂 🎊 🎈 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎈 🎂 🎊 🎉 🎁 🎈 🎂\A"
+        "🎈 🎁 🎂 🎉 🎊 🎈 🎁 🎂 🎉 🎈 🎊 🎁 🎂 🎉 🎈 🎊 🎈 🎁 🎂 🎉 🎊 🎈 🎁 🎂 🎉 🎈 🎊 🎁 🎂 🎉 🎈 🎊 🎈 🎁 🎂 🎉 🎊 🎈 🎁 🎂 🎉 🎈 🎊 🎁 🎂 🎉 🎈 🎊 🎈 🎁 🎂 🎉 🎊\A"
+        "🎉 🎈 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎈 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁\A"
+        "🎂 🎁 🎈 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎈 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊\A"
+        "🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂 🎁 🎈 🎊 🎉 🎂\A"
+        "🎁 🎈 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉\A"
+        "🎊 🎉 🎈 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂 🎈 🎊 🎉 🎁 🎂\A"
+        "🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊 🎈 🎂 🎁 🎉 🎊\A"
+        "🎉 🎊 🎈 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁 🎈 🎉 🎊 🎂 🎁\A"
+        "🎁 🎂 🎈 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉 🎈 🎁 🎂 🎊 🎉\A"
+        "🎊 🎈 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂 🎈 🎊 🎁 🎉 🎂\A"
+        "🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁 🎈 🎉 🎂 🎊 🎁";
       opacity: .20;
     }
 
@@ -447,7 +454,9 @@
         font-size: 26px;
       }
     }
+
   </style>
+
 </head>
 
 <body>
@@ -455,10 +464,15 @@
   <div class="top-bar"></div>
 
   <header>
-    <div class="brand">Captured Moments</div>
+
+    <div class="brand">
+      Captured Moments
+    </div>
+
     <div class="subtitle">
       Your moments, captured and shared.
     </div>
+
   </header>
 
   <main class="container">
@@ -467,7 +481,9 @@
 
       <div id="guestbookFormSection">
 
-        <h1 id="eventName">Guestbook</h1>
+        <h1 id="eventName">
+          Guestbook
+        </h1>
 
         <div
           class="event-date"
@@ -477,7 +493,22 @@
         </div>
 
         <p class="intro">
-          Leave a message for the host and help make this event even more memorable.
+          <strong>
+            Leave a message for the birthday stars! 💌
+          </strong>
+          <br><br>
+
+          ✍️ Enter your name.<br>
+
+          💕 Write a special message for the birthday stars.<br>
+
+          🎉 Tap
+          <strong>
+            “Sign the Guestbook”
+          </strong>
+          to save your message.<br>
+
+          ✅ Your message will be added to the guestbook!
         </p>
 
         <form id="guestbookForm">
@@ -500,7 +531,7 @@
 
           <textarea
             id="guestMessage"
-            placeholder="Write a message for the host..."
+            placeholder="Write a message for the birthday stars..."
             maxlength="1000"
             required
           ></textarea>
@@ -640,4 +671,5 @@
   </script>
 
 </body>
+
 </html>
