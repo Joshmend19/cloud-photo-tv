@@ -122,6 +122,11 @@ let eventEndTime = null;
 let guestbookEnabled = false;
 let rsvpEnabled = false;
 
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
 function showHub() {
   hubSection.style.display =
     "block";
@@ -132,6 +137,7 @@ function showHub() {
   galleryRequestSection.style.display =
     "none";
 }
+
 
 function showUpload() {
   hubSection.style.display =
@@ -144,6 +150,7 @@ function showUpload() {
     "none";
 }
 
+
 function showGalleryRequest() {
   hubSection.style.display =
     "none";
@@ -154,6 +161,11 @@ function showGalleryRequest() {
   galleryRequestSection.style.display =
     "block";
 }
+
+
+/* =========================================================
+   EVENT TIME
+========================================================= */
 
 function eventHasEnded() {
   if (
@@ -178,6 +190,7 @@ function eventHasEnded() {
 
   return new Date() >= endDateTime;
 }
+
 
 function closeUploadsIfNeeded() {
   if (!eventHasEnded()) {
@@ -204,6 +217,89 @@ function closeUploadsIfNeeded() {
 
   return true;
 }
+
+
+/* =========================================================
+   SAVE GUEST EMAIL
+========================================================= */
+
+async function saveGuestEmail(email) {
+  if (!eventId) {
+    throw new Error(
+      "Event information is not available."
+    );
+  }
+
+  const cleanEmail =
+    String(email || "")
+      .trim()
+      .toLowerCase();
+
+  if (!cleanEmail) {
+    throw new Error(
+      "Email address is required."
+    );
+  }
+
+  const emailData = {
+    session_code: code,
+    email: cleanEmail,
+    event_id: eventId
+  };
+
+  console.log(
+    "SAVING GUEST EMAIL:",
+    JSON.stringify(
+      emailData,
+      null,
+      2
+    )
+  );
+
+  const {
+    data,
+    error
+  } =
+    await supabase
+      .from("emails")
+      .upsert(
+        emailData,
+        {
+          onConflict:
+            "session_code,email"
+        }
+      )
+      .select();
+
+  if (error) {
+    console.error(
+      "EMAIL SAVE ERROR:",
+      JSON.stringify(
+        error,
+        null,
+        2
+      )
+    );
+
+    throw error;
+  }
+
+  console.log(
+    "GUEST EMAIL SAVED SUCCESSFULLY:",
+    JSON.stringify(
+      data,
+      null,
+      2
+    )
+  );
+
+  return data;
+}
+
+
+/* =========================================================
+   LOAD EVENT
+========================================================= */
 
 async function loadEvent() {
   if (!code) {
@@ -277,8 +373,21 @@ async function loadEvent() {
     "EVENT SETTINGS:",
     JSON.stringify(
       {
+        event_id:
+          event.id,
+
+        event_code:
+          code,
+
+        event_date:
+          event.event_date,
+
+        end_time:
+          event.end_time,
+
         guestbook_enabled:
           event.guestbook_enabled,
+
         rsvp_enabled:
           event.rsvp_enabled
       },
@@ -310,6 +419,11 @@ async function loadEvent() {
   closeUploadsIfNeeded();
 }
 
+
+/* =========================================================
+   NAVIGATION BUTTONS
+========================================================= */
+
 uploadPhotosButton?.addEventListener(
   "click",
   () => {
@@ -323,6 +437,7 @@ uploadPhotosButton?.addEventListener(
   }
 );
 
+
 guestbookButton?.addEventListener(
   "click",
   () => {
@@ -332,6 +447,7 @@ guestbookButton?.addEventListener(
       )}`;
   }
 );
+
 
 rsvpButton?.addEventListener(
   "click",
@@ -343,6 +459,7 @@ rsvpButton?.addEventListener(
   }
 );
 
+
 galleryButton?.addEventListener(
   "click",
   () => {
@@ -353,12 +470,14 @@ galleryButton?.addEventListener(
   }
 );
 
+
 galleryRequestButton?.addEventListener(
   "click",
   () => {
     showGalleryRequest();
   }
 );
+
 
 backFromUploadButton?.addEventListener(
   "click",
@@ -367,12 +486,18 @@ backFromUploadButton?.addEventListener(
   }
 );
 
+
 backFromGalleryRequestButton?.addEventListener(
   "click",
   () => {
     showHub();
   }
 );
+
+
+/* =========================================================
+   PHOTO FILE DISPLAY
+========================================================= */
 
 photoInput?.addEventListener(
   "change",
@@ -391,9 +516,15 @@ photoInput?.addEventListener(
   }
 );
 
+
+/* =========================================================
+   PHOTO UPLOAD
+========================================================= */
+
 uploadBtn?.addEventListener(
   "click",
   async () => {
+
     if (
       eventHasEnded()
     ) {
@@ -445,12 +576,18 @@ uploadBtn?.addEventListener(
       "Uploading photo...";
 
     try {
+
       if (
         eventHasEnded()
       ) {
         closeUploadsIfNeeded();
         return;
       }
+
+
+      /* -----------------------------------------
+         FILE NAME
+      ----------------------------------------- */
 
       const fileExtension =
         file.name
@@ -464,6 +601,11 @@ uploadBtn?.addEventListener(
       const filePath =
         `${code}/${fileName}`;
 
+
+      /* -----------------------------------------
+         STORAGE UPLOAD
+      ----------------------------------------- */
+
       const {
         error: storageError
       } =
@@ -475,7 +617,9 @@ uploadBtn?.addEventListener(
             {
               contentType:
                 file.type,
-              upsert: false
+
+              upsert:
+                false
             }
           );
 
@@ -483,12 +627,22 @@ uploadBtn?.addEventListener(
         throw storageError;
       }
 
+
+      /* -----------------------------------------
+         CHECK EVENT AGAIN
+      ----------------------------------------- */
+
       if (
         eventHasEnded()
       ) {
         closeUploadsIfNeeded();
         return;
       }
+
+
+      /* -----------------------------------------
+         PUBLIC PHOTO URL
+      ----------------------------------------- */
 
       const {
         data: publicUrlData
@@ -502,12 +656,26 @@ uploadBtn?.addEventListener(
       const url =
         publicUrlData.publicUrl;
 
+
+      /* -----------------------------------------
+         SAVE PHOTO
+      ----------------------------------------- */
+
       const photoData = {
-        session_code: code,
-        url: url,
-        path: filePath,
-        email: email,
-        event_id: eventId
+        session_code:
+          code,
+
+        url:
+          url,
+
+        path:
+          filePath,
+
+        email:
+          email,
+
+        event_id:
+          eventId
       };
 
       console.log(
@@ -532,33 +700,19 @@ uploadBtn?.addEventListener(
         throw photoError;
       }
 
-      const {
-        error: emailError
-      } =
-        await supabase
-          .from("emails")
-          .upsert(
-            {
-              session_code: code,
-              email: email,
-              event_id: eventId
-            },
-            {
-              onConflict:
-                "session_code,email"
-            }
-          );
 
-      if (emailError) {
-        console.warn(
-          "Email save warning:",
-          JSON.stringify(
-            emailError,
-            null,
-            2
-          )
-        );
-      }
+      /* -----------------------------------------
+         SAVE EMAIL WITH EVENT ID
+      ----------------------------------------- */
+
+      await saveGuestEmail(
+        email
+      );
+
+
+      /* -----------------------------------------
+         SUCCESS
+      ----------------------------------------- */
 
       status.textContent =
         "Photo uploaded successfully!";
@@ -572,6 +726,7 @@ uploadBtn?.addEventListener(
       }
 
     } catch (error) {
+
       console.error(
         "UPLOAD ERROR:",
         JSON.stringify(
@@ -604,9 +759,15 @@ uploadBtn?.addEventListener(
   }
 );
 
+
+/* =========================================================
+   GALLERY REQUEST
+========================================================= */
+
 galleryRequestSubmit?.addEventListener(
   "click",
   async () => {
+
     const email =
       galleryEmailInput.value.trim();
 
@@ -631,26 +792,10 @@ galleryRequestSubmit?.addEventListener(
       "Saving your request...";
 
     try {
-      const {
-        error
-      } =
-        await supabase
-          .from("emails")
-          .upsert(
-            {
-              session_code: code,
-              email: email,
-              event_id: eventId
-            },
-            {
-              onConflict:
-                "session_code,email"
-            }
-          );
 
-      if (error) {
-        throw error;
-      }
+      await saveGuestEmail(
+        email
+      );
 
       galleryRequestStatus.textContent =
         "You're all set! You'll receive the gallery link when the event ends.";
@@ -659,6 +804,7 @@ galleryRequestSubmit?.addEventListener(
         "";
 
     } catch (error) {
+
       console.error(
         "GALLERY REQUEST ERROR:",
         JSON.stringify(
@@ -679,5 +825,10 @@ galleryRequestSubmit?.addEventListener(
       false;
   }
 );
+
+
+/* =========================================================
+   START
+========================================================= */
 
 loadEvent();
